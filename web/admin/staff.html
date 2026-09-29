@@ -1,0 +1,4005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff | CYF Registration System</title>
+
+<style>
+:root{
+  --red:#9d2b20;
+  --red-dark:#741d16;
+  --gold:#f4c400;
+  --white:#fff;
+  --cream:#fffaf0;
+  --text:#242424;
+  --muted:#6b7280;
+  --line:#eadfd6;
+  --shadow:0 12px 35px rgba(76,35,20,.10)
+}
+
+*{
+  box-sizing:border-box
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family: var(--font-body);
+  color:var(--text);
+  background:#faf8f5
+}
+
+body{
+  overflow-x:hidden
+}
+
+a{
+  text-decoration:none;
+  color:inherit
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+  display:flex;
+  min-height:100vh
+}
+
+.sidebar{
+  width:270px;
+  flex:0 0 270px;
+  background:linear-gradient(180deg,var(--red-dark),var(--red));
+  color:#fff;
+  position:fixed;
+  inset:0 auto 0 0;
+  z-index:20;
+  box-shadow:8px 0 30px rgba(0,0,0,.1);
+  overflow-y:auto
+}
+
+.brand{
+  height:76px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 20px;
+  border-bottom:1px solid rgba(255,255,255,.15)
+}
+
+.logo{
+  width:45px;
+  height:34px;
+  border-radius:17px;
+  background:var(--gold);
+  color:#161616;
+  display:grid;
+  place-items:center;
+  font-weight:900
+}
+
+.brand-title{
+  font-weight:800;
+  font-size:18px
+}
+
+.profile{
+  padding:20px;
+  border-bottom:1px solid rgba(255,255,255,.13);
+  display:flex;
+  align-items:center;
+  gap:13px
+}
+
+.avatar{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:#fff;
+  color:var(--red);
+  display:grid;
+  place-items:center;
+  font-size:20px;
+  font-weight:900
+}
+
+.profile strong{
+  display:block;
+  font-size:15px
+}
+
+.profile small{
+  display:block;
+  color:#ffdcae;
+  margin-top:4px
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav{
+  padding:18px 12px
+}
+
+.nav-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  color:#f4c7a5;
+  padding:0 12px 10px;
+  font-weight:800
+}
+
+.nav a,
+.nav-parent{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:11px 12px;
+  margin:3px 0;
+  border-radius:9px;
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  text-align:left
+}
+
+.nav a:hover,
+.nav a.active,
+.nav-parent:hover,
+.nav-group.open>.nav-parent{
+  background:rgba(255,255,255,.10);
+  color:var(--gold)
+}
+
+.nav-icon{
+  width:22px;
+  text-align:center;
+  font-size:16px
+}
+
+.nav-parent .nav-chevron{
+  margin-left:auto;
+  font-size:11px;
+  transition:.2s
+}
+
+.nav-group.open .nav-chevron{
+  transform:rotate(180deg)
+}
+
+.subnav{
+  display:none;
+  padding:2px 0 6px 35px
+}
+
+.nav-group.open .subnav{
+  display:block
+}
+
+.subnav a{
+  font-size:13px;
+  color:#f7ded0;
+  padding:9px 12px
+}
+
+.subnav a:hover,
+.subnav a.active{
+  background:rgba(255,255,255,.10);
+  color:var(--gold)
+}
+
+.sidebar-footer{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:16px 20px;
+  color:#ffdcae;
+  font-size:12px;
+  border-top:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(
+    180deg,
+    rgba(116,29,22,0),
+    rgba(116,29,22,.98)
+  )
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:270px;
+  min-width:0;
+  flex:1
+}
+
+.topbar{
+  height:76px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 34px;
+  position:sticky;
+  top:0;
+  z-index:10
+}
+
+.menu-toggle{
+  display:none;
+  border:0;
+  background:none;
+  font-size:25px;
+  cursor:pointer
+}
+
+.search{
+  width:min(350px,42vw);
+  height:40px;
+  border:1px solid #d8cec5;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 15px;
+  background:#faf9f7;
+  color:#777
+}
+
+.search input{
+  border:0;
+  outline:0;
+  background:transparent;
+  width:100%;
+  font-size:14px
+}
+
+.content{
+  padding:32px 34px 20px;
+  max-width:1500px;
+  margin:auto
+}
+
+.heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px
+}
+
+.heading h1{
+  margin:0;
+  font-size:30px
+}
+
+.heading p{
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:14px
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
+  margin-top:25px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px
+}
+
+.field label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  color:var(--muted);
+  font-weight:800
+}
+
+.field input,
+.field select,
+.form-control{
+  height:42px;
+  border:1px solid #d8cec5;
+  border-radius:9px;
+  padding:0 12px;
+  outline:none;
+  background:#fff;
+  font-size:14px
+}
+
+.field input:focus,
+.field select:focus,
+.form-control:focus{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(157,43,32,.08)
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:11px 15px;
+  font-weight:800;
+  cursor:pointer;
+  font-size:13px
+}
+
+.btn-primary{
+  background:var(--red);
+  color:#fff
+}
+
+.btn-primary:hover{
+  background:var(--red-dark)
+}
+
+.btn-gold{
+  background:var(--gold);
+  color:#222
+}
+
+.btn-light{
+  background:#f6f1ed;
+  color:#5d5149;
+  border:1px solid var(--line)
+}
+
+.btn-danger{
+  background:#b42318;
+  color:#fff
+}
+
+.btn-success{
+  background:#287d3c;
+  color:#fff
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:20px
+}
+
+.stat{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:var(--shadow)
+}
+
+.stat small{
+  color:var(--muted);
+  font-weight:700
+}
+
+.stat strong{
+  display:block;
+  font-size:27px;
+  margin-top:7px;
+  color:var(--red)
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+  margin-top:20px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden
+}
+
+.card-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px
+}
+
+.card-head h2{
+  font-size:18px;
+  margin:0
+}
+
+.table-wrap{
+  overflow:auto
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:980px
+}
+
+th,
+td{
+  padding:13px 14px;
+  border-bottom:1px solid #f0e8e1;
+  text-align:left;
+  font-size:13px;
+  white-space:nowrap
+}
+
+th{
+  background:#fcf8f4;
+  color:#6c5c53;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.7px
+}
+
+tr:hover td{
+  background:#fffaf6
+}
+
+.name{
+  font-weight:800
+}
+
+.muted{
+  color:var(--muted)
+}
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  border-radius:20px;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:800
+}
+
+.badge-red{
+  background:#fde8e5;
+  color:var(--crimson)
+}
+
+.badge-green{
+  background:#e8f5ea;
+  color:#287d3c
+}
+
+.badge-gold{
+  background:#fff3c2;
+  color:#765900
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions{
+  display:flex;
+  gap:6px
+}
+
+.action{
+  border:0;
+  background:#f5efea;
+  border-radius:7px;
+  padding:7px 9px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:12px
+}
+
+.action:hover{
+  background:#eadfd6
+}
+
+.action.archive{
+  color:#a1261c
+}
+
+/* =========================
+   STATES
+========================= */
+
+.empty{
+  text-align:center;
+  padding:55px;
+  color:var(--muted)
+}
+
+.loading{
+  text-align:center;
+  padding:35px;
+  color:var(--muted)
+}
+
+/* =========================
+   TABS
+========================= */
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin-top:22px
+}
+
+.tab{
+  border:1px solid var(--line);
+  background:#fff;
+  color:#66574e;
+  border-radius:9px;
+  padding:10px 15px;
+  font-weight:800;
+  cursor:pointer
+}
+
+.tab.active{
+  background:var(--red);
+  color:#fff;
+  border-color:var(--red)
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(30,20,15,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100
+}
+
+.modal.show{
+  display:flex
+}
+
+.modal-box{
+  background:#fff;
+  width:min(760px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:20px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25)
+}
+
+.modal-head{
+  padding:20px 24px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
+.modal-head h2{
+  margin:0;
+  font-size:20px
+}
+
+.close{
+  border:0;
+  background:#f5efea;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  font-size:20px;
+  cursor:pointer
+}
+
+.modal-body{
+  padding:24px
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px
+}
+
+.detail{
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fcfaf8
+}
+
+.detail small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  font-weight:800;
+  margin-bottom:5px
+}
+
+.detail strong{
+  font-size:14px
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px
+}
+
+.form-group.full{
+  grid-column:1/-1
+}
+
+.form-group label{
+  font-size:12px;
+  font-weight:800;
+  color:#5f534c
+}
+
+.modal-foot{
+  padding:18px 24px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:flex-end;
+  gap:9px
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  background:#242424;
+  color:#fff;
+  padding:13px 17px;
+  border-radius:10px;
+  box-shadow:var(--shadow);
+  display:none;
+  z-index:200;
+  font-size:13px;
+  max-width:420px;
+  white-space:pre-line
+}
+
+.toast.show{
+  display:block
+}
+
+.toast.error{
+  background:var(--crimson)
+}
+
+.footer{
+  padding:22px 34px;
+  color:#8b8179;
+  font-size:12px
+}
+
+.readonly{
+  background:#f6f2ee!important;
+  color:#6b625b!important
+}
+
+.hint{
+  font-size:12px;
+  color:#8b8179;
+  margin-top:5px
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+  .sidebar{
+    width:235px;
+    flex-basis:235px
+  }
+
+  .main{
+    margin-left:235px
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr)
+  }
+}
+
+@media(max-width:760px){
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+    width:270px
+  }
+
+  .sidebar.open{
+    transform:translateX(0)
+  }
+
+  .main{
+    margin-left:0
+  }
+
+  .menu-toggle{
+    display:block
+  }
+
+  .topbar{
+    padding:0 18px
+  }
+
+  .content{
+    padding:22px 18px
+  }
+
+  .heading{
+    align-items:flex-start;
+    flex-direction:column
+  }
+
+  .search{
+    width:230px
+  }
+
+  .stats{
+    grid-template-columns:1fr
+  }
+
+  .toolbar{
+    align-items:stretch
+  }
+
+  .field{
+    width:100%
+  }
+
+  .field input,
+  .field select{
+    width:100%
+  }
+
+  .detail-grid,
+  .form-grid{
+    grid-template-columns:1fr
+  }
+
+  .sidebar-footer{
+    position:static
+  }
+}
+</style>
+<!-- CYF:ADMIN-HEAD -->
+<link rel="icon" type="image/png" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" href="/favicon.png?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/admin-theme.css?v=20260926">
+<script src="/assets/admin-shell.js?v=20260926" defer></script>
+<!-- /CYF:ADMIN-HEAD -->
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar cyf-sidebar" id="sidebar">
+    <!-- CYF:SIDEBAR -->
+    <a class="cyf-brand" href="admin_dashboard.html">
+      <span class="cyf-brand-logo"><img src="/assets/cyf-logo.png" alt="CYF logo" width="38" height="38"></span>
+      <span class="cyf-brand-text">
+        <strong>CYF Registration System</strong>
+        <small>Transform &middot; Equip &middot; Engage</small>
+      </span>
+    </a>
+
+    <nav class="cyf-nav" aria-label="Admin menu">
+      <div class="cyf-nav-label">Main Menu</div>
+
+      <a href="admin_dashboard.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Dashboard</span></a>
+
+      <div class="nav-group" id="eventManagementGroup">
+        <button type="button" class="nav-parent" onclick="toggleEventMenu()">
+          <svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg><span>Event Management</span><svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="subnav">
+          <a href="event_event.html">Event</a>
+          <a href="team_event.html">Team</a>
+          <a href="activity_event.html">Activity</a>
+          <a href="program_event.html">Program</a>
+          <a href="finances_event.html">Finances</a>
+          <a href="report_event.html">Report</a>
+        </div>
+      </div>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="participants.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Participants</span></a>
+      <a href="staff.html" class="active" aria-current="page"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg><span>Staff</span></a>
+      <a href="chaperone.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Chaperone</span></a>
+      <a href="store_items.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg><span>Store</span></a>
+      <a href="sponsor_management.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.4-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.7-7.5 10.1-7.5 10.1z"/></svg><span>Sponsor</span></a>
+      <a href="payment_management.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span>Payment</span></a>
+      <a href="report.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Reports</span></a>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="admin_dashboard.html#account" data-cyf-settings><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Settings</span></a>
+      <a href="home.html" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Logout</span></a>
+    </nav>
+    <!-- /CYF:SIDEBAR -->
+  </aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+<header class="topbar">
+
+  <button
+    class="menu-toggle"
+    onclick="toggleSidebar()"
+  >
+    ☰
+  </button>
+
+  <div></div>
+
+  <div class="search">
+    <span>⌕</span>
+    <input
+      id="globalSearch"
+      placeholder="Search staff..."
+      oninput="renderStaff()"
+    >
+  </div>
+
+  <div class="cyf-user" data-cyf-user>
+    <button type="button" class="cyf-user-btn" aria-haspopup="menu" aria-expanded="false">
+      <span class="cyf-avatar" data-cyf-initials>&middot;</span>
+      <span class="cyf-user-text"><strong data-cyf-name>Signed in</strong><small data-cyf-role></small></span>
+      <svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="cyf-user-menu" role="menu" hidden>
+      <a href="admin_dashboard.html#account" role="menuitem" data-cyf-settings><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Account settings</a>
+      <a href="home.html" role="menuitem" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Log out</a>
+    </div>
+  </div>
+</header>
+
+
+<section class="content">
+
+  <div class="heading">
+
+    <div>
+      <h1>Staff Management</h1>
+
+      <p>
+        Manage staff assigned to the active event and Registration Team accounts.
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOOLBAR
+  ====================================================== -->
+
+  <div class="toolbar">
+
+    <div
+      class="field"
+      style="min-width:320px"
+    >
+
+      <label>Active Event</label>
+
+      <select
+        id="eventId"
+        disabled
+      >
+        <option value="">
+          Loading active event...
+        </option>
+      </select>
+
+    </div>
+
+    <button
+      class="btn btn-primary"
+      id="loadStaffBtn"
+      onclick="loadStaff()"
+      disabled
+    >
+      Load Staff
+    </button>
+
+    <button
+      class="btn btn-gold"
+      onclick="openCreateStaff()"
+    >
+      + Create Staff
+    </button>
+
+    <button
+      class="btn btn-light"
+      onclick="loadArchived()"
+    >
+      Archived Staff
+    </button>
+
+    <button
+      class="btn btn-gold"
+      onclick="openCreateAccount()"
+    >
+      + Registration Team Account
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       TABS
+  ====================================================== -->
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      id="staffTab"
+      onclick="switchTab('staff')"
+    >
+      Event Staff
+    </button>
+
+    <button
+      class="tab"
+      id="accountsTab"
+      onclick="switchTab('accounts')"
+    >
+      Registration Team Accounts
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       STAFF SECTION
+  ====================================================== -->
+
+  <div id="staffSection">
+
+    <div class="stats">
+
+      <div class="stat">
+        <small>Total Staff</small>
+        <strong id="totalStaff">0</strong>
+      </div>
+
+      <div class="stat">
+        <small>Male</small>
+        <strong id="maleStaff">0</strong>
+      </div>
+
+      <div class="stat">
+        <small>Female</small>
+        <strong id="femaleStaff">0</strong>
+      </div>
+
+      <div class="stat">
+        <small>Archived</small>
+        <strong id="archivedStaff">—</strong>
+      </div>
+
+    </div>
+
+
+    <!-- STAFF TABLE -->
+
+    <div class="card">
+
+      <div class="card-head">
+
+        <h2>Event Staff</h2>
+
+        <span
+          class="muted"
+          id="eventLabel"
+        >
+          No event selected
+        </span>
+
+      </div>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Sex</th>
+              <th>Birthday</th>
+              <th>Contact</th>
+              <th>Local Church</th>
+              <th>Sector</th>
+              <th>Actions</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="staffBody">
+
+            <tr>
+              <td
+                colspan="8"
+                class="empty"
+              >
+                Staff records for the active event will appear here.
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       REGISTRATION TEAM ACCOUNT SECTION
+  ====================================================== -->
+
+  <div
+    id="accountsSection"
+    style="display:none"
+  >
+
+    <div class="card">
+
+      <div class="card-head">
+
+        <h2>Registration Team Accounts</h2>
+
+        <button
+          class="btn btn-gold"
+          onclick="openCreateAccount()"
+        >
+          + Create Account
+        </button>
+
+      </div>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Sector</th>
+              <th>Local Church</th>
+              <th>Contact</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="accountsBody">
+
+            <tr>
+              <td
+                colspan="6"
+                class="empty"
+              >
+                Loading accounts...
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer class="footer">
+  © CYF Registration System — Administrator Panel
+</footer>
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     STAFF DETAILS MODAL
+========================================================= -->
+
+<div
+  class="modal"
+  id="detailsModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Staff Details</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('detailsModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      class="modal-body"
+      id="detailsBody"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     CREATE STAFF MODAL
+========================================================= -->
+
+<div
+  class="modal"
+  id="createStaffModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Create Staff Record</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('createStaffModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form onsubmit="createStaff(event)">
+
+      <div class="modal-body">
+
+        <p
+          class="muted"
+          style="margin-top:0"
+        >
+          Create the staff roster record first.
+          First name and last name are required.
+          Middle name is optional.
+          Other information can be completed later.
+        </p>
+
+
+        <div class="form-grid">
+
+
+          <!-- FIRST NAME -->
+
+          <div class="form-group">
+
+            <label>
+              First Name
+              <span style="color:#9d2b20">*</span>
+            </label>
+
+            <input
+              class="form-control"
+              id="createFname"
+              placeholder="First Name"
+              required
+            >
+
+          </div>
+
+
+          <!-- MIDDLE NAME -->
+
+          <div class="form-group">
+
+            <label>
+              Middle Name
+              <span
+                class="muted"
+                style="font-weight:normal"
+              >
+                (Optional)
+              </span>
+            </label>
+
+            <input
+              class="form-control"
+              id="createMname"
+              placeholder="Middle Name (Optional)"
+            >
+
+          </div>
+
+
+          <!-- LAST NAME -->
+
+          <div class="form-group">
+
+            <label>
+              Last Name
+              <span style="color:#9d2b20">*</span>
+            </label>
+
+            <input
+              class="form-control"
+              id="createLname"
+              placeholder="Last Name"
+              required
+            >
+
+          </div>
+
+
+          <!-- POSITION -->
+
+          <div class="form-group">
+
+            <label>
+              Position
+              <span style="color:#9d2b20">*</span>
+            </label>
+
+            <select
+              class="form-control"
+              id="createPosition"
+              required
+              onchange="updateCreateSector()"
+            >
+
+              <option value="">
+                Select Position
+              </option>
+
+
+              <optgroup label="CYF Officer">
+
+                <option>
+                  Youth Director (CYF Officer)
+                </option>
+
+                <option>
+                  President (CYF Officer)
+                </option>
+
+                <option>
+                  Vice-President (CYF Officer)
+                </option>
+
+                <option>
+                  Secretary (CYF Officer)
+                </option>
+
+                <option>
+                  Treasurer (CYF Officer)
+                </option>
+
+                <option>
+                  Auditor (CYF Officer)
+                </option>
+
+                <option>
+                  PIO (CYF Officer)
+                </option>
+
+              </optgroup>
+
+
+              <optgroup label="Sector 1">
+
+                <option>
+                  Adviser (sector 1)
+                </option>
+
+                <option>
+                  President (sector 1)
+                </option>
+
+                <option>
+                  Vice-President (sector 1)
+                </option>
+
+                <option>
+                  Secretary (sector 1)
+                </option>
+
+                <option>
+                  Treasurer (sector 1)
+                </option>
+
+                <option>
+                  Auditor (sector 1)
+                </option>
+
+                <option>
+                  PIO (sector 1)
+                </option>
+
+              </optgroup>
+
+
+              <optgroup label="Sector 2">
+
+                <option>
+                  Adviser (sector 2)
+                </option>
+
+                <option>
+                  President (sector 2)
+                </option>
+
+                <option>
+                  Vice-President (sector 2)
+                </option>
+
+                <option>
+                  Secretary (sector 2)
+                </option>
+
+                <option>
+                  Treasurer (sector 2)
+                </option>
+
+                <option>
+                  Auditor (sector 2)
+                </option>
+
+                <option>
+                  PIO (sector 2)
+                </option>
+
+              </optgroup>
+
+
+              <optgroup label="Sector 3">
+
+                <option>
+                  Adviser (sector 3)
+                </option>
+
+                <option>
+                  President (sector 3)
+                </option>
+
+                <option>
+                  Vice-President (sector 3)
+                </option>
+
+                <option>
+                  Secretary (sector 3)
+                </option>
+
+                <option>
+                  Treasurer (sector 3)
+                </option>
+
+                <option>
+                  Auditor (sector 3)
+                </option>
+
+                <option>
+                  PIO (sector 3)
+                </option>
+
+              </optgroup>
+
+            </select>
+
+          </div>
+
+
+          <!-- LOCAL CHURCH -->
+
+          <div class="form-group">
+
+            <label>
+              Local Church
+              <span style="color:#9d2b20">*</span>
+            </label>
+
+            <select
+              class="form-control"
+              id="createChurch"
+              required
+              onchange="updateCreateSectorFromChurch()"
+            >
+
+              <option value="">
+                Select Local Church
+              </option>
+
+
+              <optgroup label="SECTOR 1 CHURCHES">
+
+                <option data-sector="sector 1">
+                  Butuan Lighthouse Baptist Church
+                </option>
+
+                <option data-sector="sector 1">
+                  Butuan Lighthouse Baptist Mission, Amparo
+                </option>
+
+                <option data-sector="sector 1">
+                  Ampayon Fudamental Baptist Church
+                </option>
+
+                <option data-sector="sector 1">
+                  Grace Fundamental Baptist Church, CBR
+                </option>
+
+                <option data-sector="sector 1">
+                  Binuangan Fundamental Baptist Mission
+                </option>
+
+                <option data-sector="sector 1">
+                  Santiago Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 1">
+                  Grace Fundamental Baptist Church, Magdagooc
+                </option>
+
+                <option data-sector="sector 1">
+                  Suruigao Fundamental Baptist Church
+                </option>
+
+              </optgroup>
+
+
+              <optgroup label="SECTOR 2 CHURCHES">
+
+                <option data-sector="sector 2">
+                  Bayugan Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Calaitan Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Remedios Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Sibagat Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Afga Fundamental Baptist Mission
+                </option>
+
+                <option data-sector="sector 2">
+                  Taguyango Fundamental Baptist Mission
+                </option>
+
+                <option data-sector="sector 2">
+                  Villangit Fundamental Baptist Mission
+                </option>
+
+              </optgroup>
+
+
+              <optgroup label="SECTOR 3 CHURCHES">
+
+                <option data-sector="sector 3">
+                  Butuan Grace Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Blessed Hope Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Jesus Saves Mission
+                </option>
+
+                <option data-sector="sector 3">
+                  Grace Fundamental Baptist Mission, Magallanes
+                </option>
+
+                <option data-sector="sector 3">
+                  Grace Fundamental Baptist Mission, San Vicente
+                </option>
+
+                <option data-sector="sector 3">
+                  Manapa Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Grace Fundamental Baptist Church, Buenavista
+                </option>
+
+                <option data-sector="sector 3">
+                  Nasipit Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Carmen Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Cabantian Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Tibon-Tibon Fundamental Baptist Mission
+                </option>
+
+              </optgroup>
+
+            </select>
+
+          </div>
+
+
+          <!-- SECTOR -->
+
+          <div class="form-group">
+
+            <label>Sector</label>
+
+            <input
+              class="form-control readonly"
+              id="createSector"
+              readonly
+              placeholder="Automatically determined"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="hint">
+
+          Active event:
+          <b id="createEventLabel">
+            Loading...
+          </b>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-foot">
+
+        <button
+          type="button"
+          class="btn btn-light"
+          onclick="closeModal('createStaffModal')"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          Create Staff
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     EDIT STAFF MODAL
+========================================================= -->
+
+<div
+  class="modal"
+  id="editModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Edit Staff</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('editModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form onsubmit="saveStaff(event)">
+
+      <div class="modal-body">
+
+        <div class="form-grid">
+
+
+          <div class="form-group">
+
+            <label>First Name</label>
+
+            <input
+              class="form-control"
+              id="editFname"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Middle Name
+              <span class="muted">(Optional)</span>
+            </label>
+
+            <input
+              class="form-control"
+              id="editMname"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Last Name</label>
+
+            <input
+              class="form-control"
+              id="editLname"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Position</label>
+
+            <input
+              class="form-control readonly"
+              id="editPosition"
+              readonly
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Sex</label>
+
+            <select
+              class="form-control"
+              id="editSex"
+            >
+
+              <option value="">
+                Select
+              </option>
+
+              <option>
+                Male
+              </option>
+
+              <option>
+                Female
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Birthday</label>
+
+            <input
+              class="form-control"
+              id="editBirthday"
+              type="date"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Contact</label>
+
+            <input
+              class="form-control"
+              id="editContact"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Sector</label>
+
+            <input
+              class="form-control"
+              id="editSector"
+            >
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label>Local Church</label>
+
+            <input
+              class="form-control"
+              id="editChurch"
+            >
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-foot">
+
+        <button
+          type="button"
+          class="btn btn-light"
+          onclick="closeModal('editModal')"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          Save Changes
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     CREATE REGISTRATION TEAM ACCOUNT
+========================================================= -->
+
+<div
+  class="modal"
+  id="createAccountModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Create Registration Team Account</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('createAccountModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form onsubmit="createAccount(event)">
+
+      <div class="modal-body">
+
+        <p
+          class="muted"
+          style="margin-top:0"
+        >
+          This creates a <b>Registration Team</b> user account
+          through the administrator endpoint.
+        </p>
+
+
+        <div class="form-grid">
+
+
+          <!-- ADMIN USERNAME -->
+
+          <div class="form-group">
+
+            <label>Admin Username</label>
+
+            <input
+              class="form-control"
+              id="accAdmin"
+              required
+            >
+
+          </div>
+
+
+          <!-- USERNAME -->
+
+          <div class="form-group">
+
+            <label>Username</label>
+
+            <input
+              class="form-control"
+              id="accUsername"
+              minlength="5"
+              required
+            >
+
+          </div>
+
+
+          <!-- FIRST NAME -->
+
+          <div class="form-group">
+
+            <label>First Name</label>
+
+            <input
+              class="form-control"
+              id="accFname"
+              required
+            >
+
+          </div>
+
+
+          <!-- MIDDLE NAME -->
+
+          <div class="form-group">
+
+            <label>
+              Middle Name
+              <span class="muted">(Optional)</span>
+            </label>
+
+            <input
+              class="form-control"
+              id="accMname"
+              placeholder="Optional"
+            >
+
+          </div>
+
+
+          <!-- LAST NAME -->
+
+          <div class="form-group">
+
+            <label>Last Name</label>
+
+            <input
+              class="form-control"
+              id="accLname"
+              required
+            >
+
+          </div>
+
+
+          <!-- BIRTHDAY -->
+
+          <div class="form-group">
+
+            <label>Birthday</label>
+
+            <input
+              class="form-control"
+              id="accBirthday"
+              type="date"
+              required
+            >
+
+          </div>
+
+
+          <!-- SEX -->
+
+          <div class="form-group">
+
+            <label>Sex</label>
+
+            <select
+              class="form-control"
+              id="accSex"
+            >
+
+              <option value="">
+                Select
+              </option>
+
+              <option>
+                Male
+              </option>
+
+              <option>
+                Female
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- PASSWORD -->
+
+          <div class="form-group">
+
+            <label>Password</label>
+
+            <input
+              class="form-control"
+              id="accPassword"
+              type="password"
+              minlength="8"
+              required
+            >
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label>Email</label>
+
+            <input
+              class="form-control"
+              id="accEmail"
+              type="email"
+              required
+            >
+
+          </div>
+
+
+          <!-- CONTACT -->
+
+          <div class="form-group">
+
+            <label>Contact Number</label>
+
+            <input
+              class="form-control"
+              id="accContact"
+              required
+            >
+
+          </div>
+
+
+          <!-- SECTOR -->
+
+          <div class="form-group">
+
+            <label>Sector</label>
+
+            <input
+              class="form-control readonly"
+              id="accSector"
+              readonly
+              placeholder="Automatically determined"
+            >
+
+          </div>
+
+
+          <!-- LOCAL CHURCH -->
+
+          <div class="form-group">
+
+            <label>Local Church</label>
+
+            <select
+              class="form-control"
+              id="accChurch"
+              onchange="updateAccountSector()"
+            >
+
+              <option value="">
+                Select Local Church
+              </option>
+
+
+              <optgroup label="SECTOR 1 CHURCHES">
+
+                <option data-sector="sector 1">
+                  Butuan Lighthouse Baptist Church
+                </option>
+
+                <option data-sector="sector 1">
+                  Butuan Lighthouse Baptist Mission, Amparo
+                </option>
+
+                <option data-sector="sector 1">
+                  Ampayon Fudamental Baptist Church
+                </option>
+
+                <option data-sector="sector 1">
+                  Grace Fundamental Baptist Church, CBR
+                </option>
+
+                <option data-sector="sector 1">
+                  Binuangan Fundamental Baptist Mission
+                </option>
+
+                <option data-sector="sector 1">
+                  Santiago Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 1">
+                  Grace Fundamental Baptist Church, Magdagooc
+                </option>
+
+                <option data-sector="sector 1">
+                  Suruigao Fundamental Baptist Church
+                </option>
+
+              </optgroup>
+
+
+              <optgroup label="SECTOR 2 CHURCHES">
+
+                <option data-sector="sector 2">
+                  Bayugan Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Calaitan Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Remedios Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Sibagat Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 2">
+                  Afga Fundamental Baptist Mission
+                </option>
+
+                <option data-sector="sector 2">
+                  Taguyango Fundamental Baptist Mission
+                </option>
+
+                <option data-sector="sector 2">
+                  Villangit Fundamental Baptist Mission
+                </option>
+
+              </optgroup>
+
+
+              <optgroup label="SECTOR 3 CHURCHES">
+
+                <option data-sector="sector 3">
+                  Butuan Grace Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Blessed Hope Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Jesus Saves Mission
+                </option>
+
+                <option data-sector="sector 3">
+                  Grace Fundamental Baptist Mission, Magallanes
+                </option>
+
+                <option data-sector="sector 3">
+                  Grace Fundamental Baptist Mission, San Vicente
+                </option>
+
+                <option data-sector="sector 3">
+                  Manapa Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Grace Fundamental Baptist Church, Buenavista
+                </option>
+
+                <option data-sector="sector 3">
+                  Nasipit Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Carmen Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Cabantian Fundamental Baptist Church
+                </option>
+
+                <option data-sector="sector 3">
+                  Tibon-Tibon Fundamental Baptist Mission
+                </option>
+
+              </optgroup>
+
+            </select>
+
+          </div>
+
+
+          <!-- ADDRESS -->
+
+          <div class="form-group full">
+
+            <label>Address</label>
+
+            <input
+              class="form-control"
+              id="accAddress"
+            >
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-foot">
+
+        <button
+          type="button"
+          class="btn btn-light"
+          onclick="closeModal('createAccountModal')"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          Create Account
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     ARCHIVED STAFF MODAL
+========================================================= -->
+
+<div
+  class="modal"
+  id="archivedModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Archived Staff</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('archivedModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      class="modal-body"
+      id="archivedBody"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+const API_BASE =
+  window.API_BASE || '';
+
+let staffData = [];
+let archivedData = [];
+let currentStaffId = null;
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+  document
+    .getElementById('sidebar')
+    .classList
+    .toggle('open');
+
+}
+
+
+function toggleEventMenu(){
+
+  document
+    .querySelector('.nav-group')
+    .classList
+    .toggle('open');
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+function switchTab(tab){
+
+  document.getElementById('staffSection').style.display =
+    tab === 'staff' ? 'block' : 'none';
+
+  document.getElementById('accountsSection').style.display =
+    tab === 'accounts' ? 'block' : 'none';
+
+  document
+    .getElementById('staffTab')
+    .classList
+    .toggle('active', tab === 'staff');
+
+  document
+    .getElementById('accountsTab')
+    .classList
+    .toggle('active', tab === 'accounts');
+
+  if(tab === 'accounts'){
+    loadAccounts();
+  }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(msg,error=false){
+
+  const toast =
+    document.getElementById('toast');
+
+  toast.textContent = msg;
+
+  toast.className =
+    'toast show' +
+    (error ? ' error' : '');
+
+  setTimeout(() => {
+
+    toast.className = 'toast';
+
+  },4000);
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList
+    .remove('show');
+
+}
+
+
+function openModal(id){
+
+  document
+    .getElementById(id)
+    .classList
+    .add('show');
+
+}
+
+
+/* =========================================================
+   API
+========================================================= */
+
+async function api(url,options={}){
+
+  const response =
+    await fetch(
+      API_BASE + url,
+      {
+        headers:{
+          'Content-Type':'application/json',
+          ...(options.headers || {})
+        },
+        ...options
+      }
+    );
+
+  let data = null;
+
+  try{
+
+    data = await response.json();
+
+  }catch(e){
+
+    data = null;
+
+  }
+
+
+  if(!response.ok){
+
+    let message =
+      `Request failed (${response.status})`;
+
+
+    if(typeof data === 'string'){
+
+      message = data;
+
+    }
+
+    else if(data){
+
+      if(typeof data.detail === 'string'){
+
+        message = data.detail;
+
+      }
+
+      else if(Array.isArray(data.detail)){
+
+        message =
+          data.detail
+            .map(error => {
+
+              if(typeof error === 'string'){
+                return error;
+              }
+
+              const location =
+                Array.isArray(error.loc)
+                  ? error.loc.join(' → ')
+                  : 'field';
+
+              return `${location}: ${error.msg || JSON.stringify(error)}`;
+
+            })
+            .join('\n');
+
+      }
+
+      else if(data.message){
+
+        message = data.message;
+
+      }
+
+      else{
+
+        message = JSON.stringify(data);
+
+      }
+
+    }
+
+
+    throw new Error(message);
+
+  }
+
+
+  return data;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function esc(value){
+
+  return String(value ?? '')
+    .replace(
+      /[&<>"']/g,
+      character => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      }[character])
+    );
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function dateOnly(value){
+
+  if(!value){
+    return '—';
+  }
+
+  return String(value).slice(0,10);
+
+}
+
+
+/* =========================================================
+   FULL NAME
+========================================================= */
+
+function fullName(staff){
+
+  return [
+    staff.fname,
+    staff.mname,
+    staff.lname
+  ]
+  .filter(Boolean)
+  .join(' ') || 'Unnamed Staff';
+
+}
+
+
+/* =========================================================
+   ACTIVE EVENT
+========================================================= */
+
+async function loadActiveEvent(){
+
+  const select =
+    document.getElementById('eventId');
+
+  const button =
+    document.getElementById('loadStaffBtn');
+
+
+  select.disabled = true;
+  button.disabled = true;
+
+
+  select.innerHTML =
+    '<option value="">Loading active event...</option>';
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${API_BASE}/event_view_current_active_event`
+      );
+
+
+    let data = {};
+
+    try{
+
+      data = await response.json();
+
+    }catch(e){}
+
+
+    if(response.status === 404){
+
+      select.innerHTML =
+        '<option value="">No active event</option>';
+
+      document.getElementById('eventLabel')
+        .textContent =
+        'No active event';
+
+      document.getElementById('staffBody')
+        .innerHTML =
+        '<tr><td colspan="8" class="empty">There is currently no active event.</td></tr>';
+
+      return;
+
+    }
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.detail ||
+        data.message ||
+        `Unable to load active event (${response.status})`
+      );
+
+    }
+
+
+    const eventId =
+      data.event_id ?? data.id;
+
+    const eventName =
+      data.event_name ||
+      data.name ||
+      'Active Event';
+
+
+    if(!eventId){
+
+      throw new Error(
+        'The active event response does not contain an event ID.'
+      );
+
+    }
+
+
+    select.innerHTML =
+      `<option value="${esc(eventId)}">${esc(eventName)}</option>`;
+
+
+    select.disabled = false;
+    button.disabled = false;
+
+
+    document.getElementById('eventLabel')
+      .textContent =
+      `${eventName} • Event #${eventId}`;
+
+
+    await loadStaff();
+
+  }
+  catch(error){
+
+    select.innerHTML =
+      '<option value="">Unable to load active event</option>';
+
+    document.getElementById('eventLabel')
+      .textContent =
+      'Unable to load active event';
+
+    document.getElementById('staffBody')
+      .innerHTML =
+      `<tr><td colspan="8" class="empty">${esc(error.message)}</td></tr>`;
+
+    showToast(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD STAFF
+========================================================= */
+
+async function loadStaff(){
+
+  const eventId =
+    document.getElementById('eventId').value;
+
+
+  if(!eventId){
+
+    showToast(
+      'No active event is available.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  const body =
+    document.getElementById('staffBody');
+
+
+  body.innerHTML =
+    '<tr><td colspan="8" class="loading">Loading staff...</td></tr>';
+
+
+  try{
+
+    staffData =
+      await api(
+        `/register_view_all_staff?event_id=${encodeURIComponent(eventId)}`
+      );
+
+
+    if(!Array.isArray(staffData)){
+
+      staffData = [];
+
+    }
+
+
+    document.getElementById('eventLabel')
+      .textContent =
+      `${document.getElementById('eventId').selectedOptions[0]?.textContent || 'Active Event'} • Event #${eventId}`;
+
+
+    renderStaff();
+
+
+    document.getElementById('totalStaff')
+      .textContent =
+      staffData.length;
+
+
+    document.getElementById('maleStaff')
+      .textContent =
+      staffData.filter(
+        x =>
+          String(x.sex || '').toLowerCase() === 'male'
+      ).length;
+
+
+    document.getElementById('femaleStaff')
+      .textContent =
+      staffData.filter(
+        x =>
+          String(x.sex || '').toLowerCase() === 'female'
+      ).length;
+
+
+  }
+  catch(error){
+
+    body.innerHTML =
+      `<tr><td colspan="8" class="empty">${esc(error.message)}</td></tr>`;
+
+    showToast(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER STAFF
+========================================================= */
+
+function renderStaff(){
+
+  const query =
+    document
+      .getElementById('globalSearch')
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const rows =
+    staffData.filter(staff => {
+
+      return [
+        fullName(staff),
+        staff.position,
+        staff.sex,
+        staff.contact,
+        staff.contact_number,
+        staff.local_church,
+        staff.sector,
+        staff.event_name
+      ]
+      .join(' ')
+      .toLowerCase()
+      .includes(query);
+
+    });
+
+
+  const body =
+    document.getElementById('staffBody');
+
+
+  if(!rows.length){
+
+    body.innerHTML =
+      '<tr><td colspan="8" class="empty">No staff found.</td></tr>';
+
+    return;
+
+  }
+
+
+  body.innerHTML =
+    rows.map(staff => {
+
+      const sex =
+        String(staff.sex || '').toLowerCase();
+
+
+      return `
+        <tr>
+
+          <td>
+
+            <div class="name">
+              ${esc(fullName(staff))}
+            </div>
+
+            <span class="muted">
+              ${esc(staff.event_name || '')}
+            </span>
+
+          </td>
+
+          <td>
+            ${esc(staff.position || '—')}
+          </td>
+
+          <td>
+
+            <span class="badge ${
+              sex === 'male'
+                ? 'badge-red'
+                : 'badge-gold'
+            }">
+
+              ${esc(staff.sex || '—')}
+
+            </span>
+
+          </td>
+
+          <td>
+            ${esc(dateOnly(staff.birthday))}
+          </td>
+
+          <td>
+            ${esc(
+              staff.contact ||
+              staff.contact_number ||
+              '—'
+            )}
+          </td>
+
+          <td>
+            ${esc(staff.local_church || '—')}
+          </td>
+
+          <td>
+            ${esc(staff.sector || '—')}
+          </td>
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                class="action"
+                onclick="viewStaff(${staff.staff_id})"
+              >
+                View
+              </button>
+
+              <button
+                class="action"
+                onclick="editStaff(${staff.staff_id})"
+              >
+                Edit
+              </button>
+
+              <button
+                class="action archive"
+                onclick="archiveStaff(${staff.staff_id})"
+              >
+                Archive
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+      `;
+
+    })
+    .join('');
+
+}
+
+
+/* =========================================================
+   VIEW STAFF
+========================================================= */
+
+async function viewStaff(id){
+
+  try{
+
+    const staff =
+      await api(
+        `/register_view_staff/${id}`
+      );
+
+
+    document.getElementById('detailsBody')
+      .innerHTML = `
+
+        <div class="detail-grid">
+
+          ${detail(
+            'Name',
+            fullName(staff)
+          )}
+
+          ${detail(
+            'Position',
+            staff.position
+          )}
+
+          ${detail(
+            'Event',
+            staff.event_name
+          )}
+
+          ${detail(
+            'Sex',
+            staff.sex
+          )}
+
+          ${detail(
+            'Birthday',
+            dateOnly(staff.birthday)
+          )}
+
+          ${detail(
+            'Contact',
+            staff.contact ||
+            staff.contact_number
+          )}
+
+          ${detail(
+            'Local Church',
+            staff.local_church
+          )}
+
+          ${detail(
+            'Sector',
+            staff.sector
+          )}
+
+          ${detail(
+            'Staff ID',
+            staff.staff_id
+          )}
+
+        </div>
+      `;
+
+
+    openModal('detailsModal');
+
+  }
+  catch(error){
+
+    showToast(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DETAIL
+========================================================= */
+
+function detail(key,value){
+
+  return `
+
+    <div class="detail">
+
+      <small>
+        ${esc(key)}
+      </small>
+
+      <strong>
+        ${esc(value || '—')}
+      </strong>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   EDIT STAFF
+========================================================= */
+
+function editStaff(id){
+
+  const staff =
+    staffData.find(
+      x => x.staff_id === id
+    );
+
+
+  if(!staff){
+    return;
+  }
+
+
+  currentStaffId = id;
+
+
+  document.getElementById('editFname')
+    .value =
+    staff.fname || '';
+
+
+  document.getElementById('editMname')
+    .value =
+    staff.mname || '';
+
+
+  document.getElementById('editLname')
+    .value =
+    staff.lname || '';
+
+
+  document.getElementById('editPosition')
+    .value =
+    staff.position || '';
+
+
+  document.getElementById('editSex')
+    .value =
+    staff.sex || '';
+
+
+  document.getElementById('editBirthday')
+    .value =
+    dateOnly(staff.birthday) === '—'
+      ? ''
+      : dateOnly(staff.birthday);
+
+
+  document.getElementById('editContact')
+    .value =
+    staff.contact ||
+    staff.contact_number ||
+    '';
+
+
+  document.getElementById('editChurch')
+    .value =
+    staff.local_church || '';
+
+
+  document.getElementById('editSector')
+    .value =
+    staff.sector || '';
+
+
+  openModal('editModal');
+
+}
+
+
+/* =========================================================
+   SAVE STAFF
+========================================================= */
+
+async function saveStaff(e){
+
+  e.preventDefault();
+
+
+  const data = {
+
+    fname:
+      document.getElementById('editFname')
+        .value
+        .trim(),
+
+    mname:
+      document.getElementById('editMname')
+        .value
+        .trim() || null,
+
+    lname:
+      document.getElementById('editLname')
+        .value
+        .trim(),
+
+    position:
+      document.getElementById('editPosition')
+        .value,
+
+    sex:
+      document.getElementById('editSex')
+        .value || null,
+
+    birthday:
+      document.getElementById('editBirthday')
+        .value || null,
+
+    contact_number:
+      document.getElementById('editContact')
+        .value
+        .trim() || null,
+
+    local_church:
+      document.getElementById('editChurch')
+        .value
+        .trim() || null,
+
+    sector:
+      document.getElementById('editSector')
+        .value
+        .trim() || null
+
+  };
+
+
+  try{
+
+    const response =
+      await api(
+        `/register_update_staff/${currentStaffId}`,
+        {
+          method:'PUT',
+          body:JSON.stringify(data)
+        }
+      );
+
+
+    closeModal('editModal');
+
+
+    showToast(
+      response.message ||
+      'Staff updated successfully.'
+    );
+
+
+    await loadStaff();
+
+  }
+  catch(error){
+
+    showToast(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE STAFF MODAL
+========================================================= */
+
+function openCreateStaff(){
+
+  document.getElementById('createFname')
+    .value = '';
+
+  document.getElementById('createMname')
+    .value = '';
+
+  document.getElementById('createLname')
+    .value = '';
+
+  document.getElementById('createPosition')
+    .value = '';
+
+  document.getElementById('createChurch')
+    .value = '';
+
+  document.getElementById('createSector')
+    .value = '';
+
+
+  document.getElementById('createEventLabel')
+    .textContent =
+    document.getElementById('eventLabel')
+      .textContent ||
+    'Active Event';
+
+
+  openModal('createStaffModal');
+
+}
+
+
+/* =========================================================
+   CREATE STAFF POSITION → SECTOR
+========================================================= */
+
+function updateCreateSector(){
+
+  const position =
+    document.getElementById('createPosition')
+      .value;
+
+  const sectorField =
+    document.getElementById('createSector');
+
+
+  if(position.includes('sector 1')){
+
+    sectorField.value =
+      'sector 1';
+
+  }
+
+  else if(position.includes('sector 2')){
+
+    sectorField.value =
+      'sector 2';
+
+  }
+
+  else if(position.includes('sector 3')){
+
+    sectorField.value =
+      'sector 3';
+
+  }
+
+  else{
+
+    sectorField.value = '';
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE STAFF CHURCH → SECTOR
+========================================================= */
+
+function updateCreateSectorFromChurch(){
+
+  const church =
+    document.getElementById('createChurch');
+
+
+  const selected =
+    church.options[
+      church.selectedIndex
+    ];
+
+
+  const sector =
+    selected?.dataset?.sector || '';
+
+
+  document.getElementById('createSector')
+    .value = sector;
+
+}
+
+
+/* =========================================================
+   CREATE STAFF
+========================================================= */
+
+async function createStaff(e){
+
+  e.preventDefault();
+
+
+  const eventId =
+    document.getElementById('eventId')
+      .value;
+
+
+  if(!eventId){
+
+    showToast(
+      'No active event is available.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  const data = {
+
+    event_id:
+      Number(eventId),
+
+    fname:
+      document.getElementById('createFname')
+        .value
+        .trim(),
+
+    mname:
+      document.getElementById('createMname')
+        .value
+        .trim() || null,
+
+    lname:
+      document.getElementById('createLname')
+        .value
+        .trim(),
+
+    position:
+      document.getElementById('createPosition')
+        .value,
+
+    sex:
+      null,
+
+    birthday:
+      null,
+
+    contact_number:
+      null,
+
+    local_church:
+      document.getElementById('createChurch')
+        .value || null,
+
+    sector:
+      document.getElementById('createSector')
+        .value || null
+
+  };
+
+
+  console.log(
+    'REGISTER STAFF REQUEST:',
+    data
+  );
+
+
+  try{
+
+    const response =
+      await api(
+        '/register_staff',
+        {
+          method:'POST',
+          body:JSON.stringify(data)
+        }
+      );
+
+
+    closeModal('createStaffModal');
+
+
+    showToast(
+      response.message ||
+      'Staff record created successfully.'
+    );
+
+
+    await loadStaff();
+
+  }
+  catch(error){
+
+    console.error(
+      'Create staff error:',
+      error
+    );
+
+
+    showToast(
+      error.message ||
+      'Unable to create staff record.',
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ARCHIVE STAFF
+========================================================= */
+
+async function archiveStaff(id){
+
+  if(
+    !confirm(
+      'Archive this staff member?'
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const response =
+      await api(
+        `/register_archive_staff/${id}`,
+        {
+          method:'PUT'
+        }
+      );
+
+
+    showToast(
+      response.message ||
+      'Staff archived successfully.'
+    );
+
+
+    await loadStaff();
+
+  }
+  catch(error){
+
+    showToast(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD ARCHIVED
+========================================================= */
+
+async function loadArchived(){
+
+  const eventId =
+    document.getElementById('eventId')
+      .value;
+
+
+  if(!eventId){
+
+    showToast(
+      'No active event is available.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    archivedData =
+      await api(
+        `/register_view_archived_staff?event_id=${encodeURIComponent(eventId)}`
+      );
+
+
+    if(!Array.isArray(archivedData)){
+
+      archivedData = [];
+
+    }
+
+
+    const body =
+      document.getElementById('archivedBody');
+
+
+    if(!archivedData.length){
+
+      body.innerHTML =
+        '<div class="empty">No archived staff for this event.</div>';
+
+    }
+
+    else{
+
+      body.innerHTML = `
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>Name</th>
+                <th>Position</th>
+                <th>Sex</th>
+                <th>Birthday</th>
+                <th>Contact</th>
+                <th>Church</th>
+                <th>Sector</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${archivedData.map(staff => `
+
+                <tr>
+
+                  <td>
+                    ${esc(
+                      staff.name ||
+                      fullName(staff)
+                    )}
+                  </td>
+
+                  <td>
+                    ${esc(
+                      staff.position ||
+                      '—'
+                    )}
+                  </td>
+
+                  <td>
+                    ${esc(
+                      staff.sex ||
+                      '—'
+                    )}
+                  </td>
+
+                  <td>
+                    ${esc(
+                      dateOnly(
+                        staff.birthday
+                      )
+                    )}
+                  </td>
+
+                  <td>
+                    ${esc(
+                      staff.contact ||
+                      staff.contact_number ||
+                      '—'
+                    )}
+                  </td>
+
+                  <td>
+                    ${esc(
+                      staff.local_church ||
+                      '—'
+                    )}
+                  </td>
+
+                  <td>
+                    ${esc(
+                      staff.sector ||
+                      '—'
+                    )}
+                  </td>
+
+                </tr>
+
+              `).join('')}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      `;
+
+    }
+
+
+    document.getElementById('archivedStaff')
+      .textContent =
+      archivedData.length;
+
+
+    openModal('archivedModal');
+
+  }
+  catch(error){
+
+    showToast(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ACCOUNT CHURCH → SECTOR
+========================================================= */
+
+function updateAccountSector(){
+
+  const churchSelect =
+    document.getElementById('accChurch');
+
+  const sectorField =
+    document.getElementById('accSector');
+
+
+  const selected =
+    churchSelect.options[
+      churchSelect.selectedIndex
+    ];
+
+
+  const sector =
+    selected?.dataset?.sector || '';
+
+
+  sectorField.value =
+    sector;
+
+}
+
+
+/* =========================================================
+   LOAD REGISTRATION TEAM ACCOUNTS
+========================================================= */
+
+async function loadAccounts(){
+
+  const admin =
+    prompt(
+      'Enter the administrator username to verify access:'
+    );
+
+
+  if(!admin){
+    return;
+  }
+
+
+  document.getElementById('accountsBody')
+    .innerHTML =
+    '<tr><td colspan="6" class="loading">Loading accounts...</td></tr>';
+
+
+  try{
+
+    const users =
+      await api(
+        `/admin_view_registration_team_users?admin_username=${encodeURIComponent(admin)}`
+      );
+
+
+    const body =
+      document.getElementById('accountsBody');
+
+
+    if(!Array.isArray(users) || !users.length){
+
+      body.innerHTML =
+        '<tr><td colspan="6" class="empty">No Registration Team accounts found.</td></tr>';
+
+      return;
+
+    }
+
+
+    body.innerHTML =
+      users.map(user => `
+
+        <tr>
+
+          <td class="name">
+            ${esc(user.fullname)}
+          </td>
+
+          <td>
+            ${esc(user.username)}
+          </td>
+
+          <td>
+            ${esc(user.email)}
+          </td>
+
+          <td>
+            ${esc(user.sector || '—')}
+          </td>
+
+          <td>
+            ${esc(user.local_church || '—')}
+          </td>
+
+          <td>
+            ${esc(user.contact_number || '—')}
+          </td>
+
+        </tr>
+
+      `).join('');
+
+  }
+  catch(error){
+
+    document.getElementById('accountsBody')
+      .innerHTML =
+      `<tr><td colspan="6" class="empty">${esc(error.message)}</td></tr>`;
+
+    showToast(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT MODAL
+========================================================= */
+
+function openCreateAccount(){
+
+  document.getElementById('accAdmin')
+    .value = '';
+
+  document.getElementById('accUsername')
+    .value = '';
+
+  document.getElementById('accFname')
+    .value = '';
+
+  document.getElementById('accMname')
+    .value = '';
+
+  document.getElementById('accLname')
+    .value = '';
+
+  document.getElementById('accBirthday')
+    .value = '';
+
+  document.getElementById('accSex')
+    .value = '';
+
+  document.getElementById('accPassword')
+    .value = '';
+
+  document.getElementById('accEmail')
+    .value = '';
+
+  document.getElementById('accContact')
+    .value = '';
+
+  document.getElementById('accChurch')
+    .value = '';
+
+  document.getElementById('accSector')
+    .value = '';
+
+  document.getElementById('accAddress')
+    .value = '';
+
+
+  openModal('createAccountModal');
+
+}
+
+
+/* =========================================================
+   CREATE REGISTRATION TEAM ACCOUNT
+========================================================= */
+
+async function createAccount(e){
+
+  e.preventDefault();
+
+
+  const data = {
+
+    admin_username:
+      document.getElementById('accAdmin')
+        .value
+        .trim(),
+
+    username:
+      document.getElementById('accUsername')
+        .value
+        .trim(),
+
+    fname:
+      document.getElementById('accFname')
+        .value
+        .trim(),
+
+    mname:
+      document.getElementById('accMname')
+        .value
+        .trim(),
+
+    lname:
+      document.getElementById('accLname')
+        .value
+        .trim(),
+
+    birthday:
+      document.getElementById('accBirthday')
+        .value || null,
+
+    address:
+      document.getElementById('accAddress')
+        .value
+        .trim() || null,
+
+    email:
+      document.getElementById('accEmail')
+        .value
+        .trim(),
+
+    sex:
+      document.getElementById('accSex')
+        .value || null,
+
+    local_church:
+      document.getElementById('accChurch')
+        .value || null,
+
+    contact_number:
+      document.getElementById('accContact')
+        .value
+        .trim(),
+
+    sector:
+      document.getElementById('accSector')
+        .value || null,
+
+    password:
+      document.getElementById('accPassword')
+        .value
+
+  };
+
+
+  console.log(
+    'CREATE REGISTRATION TEAM REQUEST:',
+    data
+  );
+
+
+  try{
+
+    const response =
+      await api(
+        '/admin_create_registration_team_user',
+        {
+          method:'POST',
+          body:JSON.stringify(data)
+        }
+      );
+
+
+    closeModal(
+      'createAccountModal'
+    );
+
+
+    showToast(
+      response.message ||
+      'Registration Team account created.'
+    );
+
+
+    switchTab('accounts');
+
+  }
+  catch(error){
+
+    console.error(
+      'Create account error:',
+      error
+    );
+
+
+    showToast(
+      error.message ||
+      'Unable to create account.',
+      true
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CLOSE MODALS WHEN CLICKING BACKDROP
+========================================================= */
+
+document
+  .querySelectorAll('.modal')
+  .forEach(modal => {
+
+    modal.addEventListener(
+      'click',
+      event => {
+
+        if(event.target === modal){
+
+          modal.classList.remove(
+            'show'
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+  'DOMContentLoaded',
+  () => {
+
+    loadActiveEvent();
+
+  }
+);
+
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

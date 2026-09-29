@@ -1,0 +1,5374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+<!-- CYF:HEAD -->
+<link rel="icon" type="image/png" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" href="/favicon.png?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/assets/site.js" defer></script>
+<!-- /CYF:HEAD -->
+<title>CYF Store</title>
+
+    <style>
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #fff8f8 55%,
+                    #fff4df 100%
+                );
+
+            min-height: 100vh;
+            color: #241b1b;
+        }
+
+        body.cart-open {
+            overflow: hidden;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .page {
+            width:
+                min(
+                    1180px,
+                    calc(100% - 44px)
+                );
+
+            margin:
+                45px auto 80px;
+        }
+
+        .page-title {
+            font-size:
+                clamp(
+                    38px,
+                    5vw,
+                    58px
+                );
+
+            line-height: 1;
+
+            color: var(--crimson-dark);
+
+            margin-bottom: 15px;
+
+            letter-spacing: -2px;
+        }
+
+        .page-description {
+            max-width: 760px;
+
+            color: #6d6262;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            margin-bottom: 30px;
+        }
+
+        /* =========================================================
+           ALERT
+        ========================================================= */
+
+        .alert {
+            display: none;
+
+            padding: 14px 17px;
+
+            border-radius: 13px;
+
+            margin-bottom: 22px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert.success {
+            background: #eaf8ef;
+            border: 1px solid #b8e5c7;
+            color: #087a35;
+        }
+
+        .alert.error {
+            background: #fff0f0;
+            border: 1px solid #e0aaaa;
+            color: #a00000;
+        }
+
+        .alert.warning {
+            background: #fff8df;
+            border: 1px solid #f0d77b;
+            color: #805d00;
+        }
+
+        /* =========================================================
+           LOADING
+        ========================================================= */
+
+        .loading {
+            text-align: center;
+
+            padding: 70px 20px;
+
+            background: white;
+
+            border:
+                1px solid
+                #eadede;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(75, 20, 20, .05);
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+
+            border:
+                4px solid
+                #eee;
+
+            border-top:
+                4px solid
+                var(--crimson);
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
+
+            margin:
+                0 auto 18px;
+        }
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+        /* =========================================================
+           STORE GRID
+        ========================================================= */
+
+        .store-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+
+            gap: 22px;
+        }
+
+        /* =========================================================
+           STORE CARD
+        ========================================================= */
+
+        .store-card {
+            background: white;
+
+            border:
+                1px solid
+                #eadede;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 12px 32px
+                rgba(75, 20, 20, .08);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .store-card:hover {
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 18px 42px
+                rgba(75, 20, 20, .13);
+        }
+
+        /* =========================================================
+           IMAGE
+        ========================================================= */
+
+        .store-image-wrap {
+            position: relative;
+
+            width: 100%;
+
+            height: 270px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4eeee,
+                    #fafafa
+                );
+
+            overflow: hidden;
+        }
+
+        .store-image {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform .3s ease;
+        }
+
+        .store-card:hover
+        .store-image {
+            transform: scale(1.035);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-direction: column;
+
+            color: #8d7d7d;
+
+            font-size: 14px;
+
+            gap: 8px;
+        }
+
+        .image-placeholder-icon {
+            font-size: 40px;
+        }
+
+        /* =========================================================
+           CATEGORY BADGE
+        ========================================================= */
+
+        .category-badge {
+            position: absolute;
+
+            top: 15px;
+            left: 15px;
+
+            padding:
+                7px 12px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255,255,255,.94);
+
+            color:
+                #8f1111;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .7px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0,0,0,.10);
+        }
+
+        /* =========================================================
+           CARD BODY
+        ========================================================= */
+
+        .store-card-body {
+            padding: 22px;
+        }
+
+        .store-item-name {
+            color: var(--crimson-dark);
+
+            font-size: 21px;
+
+            font-weight: 850;
+
+            margin-bottom: 8px;
+        }
+
+        .store-item-description {
+            color: #6d6262;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            min-height: 65px;
+
+            margin-bottom: 17px;
+        }
+
+        .store-item-price {
+            color: var(--crimson);
+
+            font-size: 28px;
+
+            font-weight: 950;
+
+            margin-bottom: 7px;
+        }
+
+        .store-item-stock {
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+        .stock-good {
+            color: #087a35;
+            font-weight: 750;
+        }
+
+        .stock-low {
+            color: #a00000;
+            font-weight: 750;
+        }
+
+        .out-of-stock {
+            color: #a00000;
+            font-weight: 750;
+        }
+
+        /* =========================================================
+           SIZES AVAILABLE
+        ========================================================= */
+
+        .available-sizes {
+            margin-bottom: 17px;
+
+            padding:
+                10px 12px;
+
+            background:
+                #fff7e1;
+
+            border:
+                1px solid
+                #f0d77b;
+
+            border-radius: 10px;
+
+            color: #6c5100;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+        .available-sizes strong {
+            font-weight: 900;
+        }
+
+        /* =========================================================
+           QUANTITY
+        ========================================================= */
+
+        .quantity-row {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+        .quantity-label {
+            font-size: 13px;
+
+            font-weight: 800;
+
+            color: #4d4141;
+        }
+
+        .quantity-input {
+            width: 90px;
+
+            padding:
+                11px 12px;
+
+            border:
+                1px solid
+                #d7d0d0;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        .quantity-input:focus {
+            border-color:
+                var(--crimson);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(168,23,23,.08);
+        }
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .btn {
+            border: 0;
+
+            border-radius: 12px;
+
+            min-height: 46px;
+
+            padding:
+                12px 18px;
+
+            font-size: 14px;
+
+            font-weight: 850;
+
+            transition: .2s ease;
+        }
+
+        .btn:hover {
+            transform:
+                translateY(-1px);
+        }
+
+        .btn-primary {
+            width: 100%;
+
+            background:
+                var(--crimson);
+
+            color: white;
+
+            box-shadow:
+                0 8px 18px
+                rgba(168,23,23,.15);
+        }
+
+        .btn-primary:hover {
+            background:
+                var(--crimson-dark);
+        }
+
+        .btn-primary:disabled {
+            background:
+                #bdb7b7;
+
+            cursor:
+                not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background:
+                #eeeeee;
+
+            color:
+                #333;
+        }
+
+        .btn-secondary:hover {
+            background:
+                #dddddd;
+        }
+
+        .btn-cart {
+            width: 100%;
+
+            background:
+                var(--crimson-dark);
+
+            color: white;
+        }
+
+        .btn-cart:hover {
+            background:
+                var(--crimson);
+        }
+
+        /* =========================================================
+           EMPTY
+        ========================================================= */
+
+        .empty-store {
+            background: white;
+
+            border:
+                1px dashed
+                #d9cccc;
+
+            border-radius: 18px;
+
+            padding:
+                60px 25px;
+
+            text-align: center;
+
+            color: #6d6262;
+        }
+
+        .empty-store h2 {
+            color: var(--crimson-dark);
+            margin-bottom: 8px;
+        }
+
+        /* =========================================================
+           CART BACKDROP
+        ========================================================= */
+
+        .cart-backdrop {
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,.55);
+
+            z-index: 500;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition:
+                opacity .2s ease,
+                visibility .2s ease;
+        }
+
+        .cart-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =========================================================
+           CART DRAWER
+        ========================================================= */
+
+        .cart-drawer {
+            position: fixed;
+
+            top: 0;
+            right: 0;
+
+            width:
+                min(
+                    470px,
+                    100%
+                );
+
+            height: 100vh;
+
+            background: white;
+
+            z-index: 501;
+
+            display: flex;
+
+            flex-direction: column;
+
+            box-shadow:
+                -15px 0 45px
+                rgba(0,0,0,.20);
+
+            transform:
+                translateX(100%);
+
+            transition:
+                transform .25s ease;
+        }
+
+        .cart-drawer.show {
+            transform:
+                translateX(0);
+        }
+
+        .cart-header {
+            min-height: 70px;
+
+            background:
+                var(--crimson);
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                15px 20px;
+        }
+
+        .cart-title {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .cart-close {
+            border: 0;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 30px;
+
+            line-height: 1;
+        }
+
+        .cart-body {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding: 18px;
+        }
+
+        .cart-empty {
+            text-align: center;
+
+            padding:
+                70px 20px;
+
+            color: #6d6262;
+        }
+
+        .cart-empty-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .cart-empty h3 {
+            color: var(--crimson-dark);
+            margin-bottom: 8px;
+        }
+
+        /* =========================================================
+           CART ITEM
+        ========================================================= */
+
+        .cart-item {
+            display: grid;
+
+            grid-template-columns:
+                78px
+                minmax(0, 1fr);
+
+            gap: 13px;
+
+            padding:
+                15px 0;
+
+            border-bottom:
+                1px solid
+                #eee4e4;
+        }
+
+        .cart-item-image {
+            width: 78px;
+            height: 78px;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            background:
+                #f5eeee;
+
+            display: grid;
+            place-items: center;
+
+            color: #8d7d7d;
+
+            font-size: 26px;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .cart-item-name {
+            color: var(--crimson-dark);
+
+            font-size: 15px;
+
+            font-weight: 850;
+
+            margin-bottom: 5px;
+        }
+
+        .cart-item-meta {
+            color: #777;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            margin-bottom: 8px;
+        }
+
+        .cart-item-bottom {
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 10px;
+        }
+
+        .cart-item-price {
+            color: var(--crimson);
+
+            font-size: 15px;
+
+            font-weight: 900;
+        }
+
+        .cart-quantity-controls {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .cart-qty-button {
+            width: 29px;
+            height: 29px;
+
+            border:
+                1px solid
+                #d9cccc;
+
+            background: white;
+
+            border-radius: 8px;
+
+            color: var(--crimson-dark);
+
+            font-weight: 900;
+        }
+
+        .cart-qty-button:hover {
+            background: #fff4f4;
+        }
+
+        .cart-qty-value {
+            min-width: 25px;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            font-weight: 850;
+        }
+
+        .cart-remove {
+            border: 0;
+
+            background: transparent;
+
+            color: #a00000;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            margin-top: 7px;
+
+            text-decoration: underline;
+        }
+
+        /* =========================================================
+           CART FOOTER
+        ========================================================= */
+
+        .cart-footer {
+            padding:
+                18px;
+
+            border-top:
+                1px solid
+                #eadede;
+
+            background:
+                #fffafa;
+        }
+
+        .cart-total-row {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+        }
+
+        .cart-total-label {
+            font-size: 14px;
+
+            color: #4d4141;
+
+            font-weight: 800;
+        }
+
+        .cart-total-value {
+            color: var(--crimson);
+
+            font-size: 24px;
+
+            font-weight: 950;
+        }
+
+        .cart-checkout-button {
+            width: 100%;
+        }
+
+        .cart-clear-button {
+            width: 100%;
+
+            margin-top: 9px;
+        }
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+
+        .modal-backdrop {
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,.58);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 9999;
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+
+            max-width: 560px;
+
+            max-height:
+                calc(100vh - 40px);
+
+            overflow-y: auto;
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,.28);
+
+            animation:
+                modalIn .2s ease;
+        }
+
+        @keyframes modalIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(15px)
+                    scale(.98);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+        .modal-header {
+            background:
+                var(--crimson);
+
+            color: white;
+
+            padding:
+                19px 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 2;
+        }
+
+        .modal-title {
+            font-size: 20px;
+
+            font-weight: 900;
+        }
+
+        .modal-close {
+            border: 0;
+
+            background:
+                transparent;
+
+            color: white;
+
+            font-size: 28px;
+
+            line-height: 1;
+
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding:
+                0 24px 24px;
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .modal-footer .btn {
+            flex: 1;
+        }
+
+        /* =========================================================
+           CHECKOUT CART SUMMARY
+        ========================================================= */
+
+        .checkout-summary {
+            background:
+                #f7f8fa;
+
+            border-radius: 13px;
+
+            padding: 15px;
+
+            margin-bottom: 22px;
+        }
+
+        .checkout-summary-title {
+            color: var(--crimson-dark);
+
+            font-size: 15px;
+
+            font-weight: 900;
+
+            margin-bottom: 10px;
+        }
+
+        .checkout-summary-item {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            gap: 15px;
+
+            padding:
+                8px 0;
+
+            border-bottom:
+                1px solid
+                #e4e4e4;
+
+            font-size: 13px;
+        }
+
+        .checkout-summary-item:last-child {
+            border-bottom: 0;
+        }
+
+        .checkout-summary-name {
+            color: #4d4141;
+        }
+
+        .checkout-summary-price {
+            color: var(--crimson-dark);
+
+            font-weight: 850;
+
+            white-space: nowrap;
+        }
+
+        .summary-total-row {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            padding-top: 13px;
+
+            margin-top: 7px;
+
+            border-top:
+                1px solid
+                #ddd;
+
+            font-size: 17px;
+
+            font-weight: 900;
+        }
+
+        .summary-total {
+            color:
+                var(--crimson);
+        }
+
+        /* =========================================================
+           SIZE FIELD
+        ========================================================= */
+
+        .size-field {
+            display: none;
+
+            margin-bottom: 18px;
+        }
+
+        .size-field.show {
+            display: block;
+        }
+
+        .cart-size-group {
+            margin-top: 8px;
+        }
+
+        .cart-size-label {
+            display: block;
+
+            color: #6d6262;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            margin-bottom: 4px;
+        }
+
+        .cart-size-select {
+            width: 100%;
+
+            padding:
+                7px 8px;
+
+            border:
+                1px solid
+                #d7d0d0;
+
+            border-radius: 8px;
+
+            background: white;
+
+            font-size: 12px;
+
+            outline: none;
+        }
+
+        .cart-size-select:focus {
+            border-color:
+                var(--crimson);
+        }
+
+        .form-label {
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 850;
+
+            margin-bottom: 7px;
+
+            color: #4d4141;
+        }
+
+        .required {
+            color:
+                var(--crimson);
+        }
+
+        .size-select,
+        .form-input {
+            width: 100%;
+
+            padding:
+                13px 14px;
+
+            border:
+                1px solid
+                #d7d0d0;
+
+            border-radius: 11px;
+
+            background: white;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        .size-select:focus,
+        .form-input:focus {
+            border-color:
+                var(--crimson);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(168,23,23,.08);
+        }
+
+        .size-help {
+            color:
+                #777;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           FORM
+        ========================================================= */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-help {
+            color:
+                #777;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           WAITING
+        ========================================================= */
+
+        .waiting-content {
+            text-align: center;
+
+            padding:
+                18px 5px;
+        }
+
+        .waiting-spinner {
+            width: 58px;
+            height: 58px;
+
+            border:
+                5px solid
+                #eee;
+
+            border-top:
+                5px solid
+                var(--crimson);
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
+
+            margin:
+                0 auto 22px;
+        }
+
+        .waiting-content h3 {
+            color:
+                var(--crimson-dark);
+
+            font-size: 22px;
+
+            margin-bottom: 10px;
+        }
+
+        .waiting-content p {
+            color:
+                #6d6262;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+        /* =========================================================
+           SUCCESS
+        ========================================================= */
+
+        .success-content {
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 76px;
+            height: 76px;
+
+            margin:
+                5px auto 20px;
+
+            border-radius: 50%;
+
+            background:
+                #d9f5e1;
+
+            color:
+                #087a35;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 42px;
+
+            font-weight: 900;
+        }
+
+        .success-content h3 {
+            color:
+                #087a35;
+
+            font-size: 24px;
+
+            margin-bottom: 10px;
+        }
+
+        .success-content p {
+            color:
+                #6d6262;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+        .success-reference {
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            background:
+                #f5f5f5;
+
+            font-size: 13px;
+
+            color: #555;
+        }
+
+        /* =========================================================
+           ERROR
+        ========================================================= */
+
+        .error-icon {
+            width: 65px;
+            height: 65px;
+
+            margin:
+                5px auto 20px;
+
+            border-radius: 50%;
+
+            background:
+                #fff0f0;
+
+            color:
+                #a00000;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 34px;
+
+            font-weight: 900;
+        }
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media(max-width: 900px) {
+
+            .store-grid {
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0, 1fr)
+                    );
+            }
+
+        }
+
+        @media(max-width: 680px) {
+
+            .page {
+                width:
+                    calc(100% - 30px);
+
+                margin:
+                    30px auto 60px;
+            }
+
+            .page-title {
+                font-size: 38px;
+            }
+
+            .store-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .store-image-wrap {
+                height: 250px;
+            }
+
+            .modal-footer {
+                flex-direction:
+                    column-reverse;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="home.html" aria-label="Caraga Youth Fellowship home">
+      <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
+      <span class="brand-copy">
+        <span class="brand-text">Caraga Youth Fellowship</span>
+        <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="home.html">Home</a>
+      <a href="home.html#about">About</a>
+      <a href="home.html#contact">Contact</a>
+      <a href="store.html" class="active" aria-current="page">Store</a>
+      <a href="sponsor.html">Sponsor</a>
+      <a href="register.html">Register</a>
+    </nav>
+    <button class="nav-cart" type="button" onclick="openCart()" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+  </div>
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="page">
+
+    <h1 class="page-title">
+        CYF Store
+    </h1>
+
+    <p class="page-description">
+
+        Purchase available CYF merchandise
+        and event items. Add multiple items
+        to your cart, adjust quantities and
+        clothing sizes, then checkout securely
+        through PayMongo.
+
+    </p>
+
+
+    <div
+        id="pageAlert"
+        class="alert"
+    ></div>
+
+
+    <!-- LOADING -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+
+        <div class="spinner"></div>
+
+        <p>
+            Loading store items...
+        </p>
+
+    </div>
+
+
+    <!-- STORE -->
+
+    <div
+        id="storeGrid"
+        class="store-grid"
+        style="display:none;"
+    ></div>
+
+
+    <!-- EMPTY -->
+
+    <div
+        id="emptyStore"
+        class="empty-store"
+        style="display:none;"
+    >
+
+        <h2>
+            Store is currently empty
+        </h2>
+
+        <p>
+            There are no available items
+            at the moment.
+        </p>
+
+    </div>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
+        <div>
+          <strong>Caraga Youth Fellowship</strong>
+          <span>Transform &middot; Equip &middot; Engage</span>
+        </div>
+      </div>
+      <p>Discipling the young people of Caraga through fellowship, Bible conferences, youth camps and ministry across every province.</p>
+    </div>
+    <div>
+      <h3>Get Involved</h3>
+      <p>
+        <a href="register.html">Register</a><br>
+        <a href="sponsor.html">Become a Sponsor</a><br>
+        <a href="store.html">CYF Store</a>
+      </p>
+    </div>
+    <div>
+      <h3>Fellowship</h3>
+      <p>
+        <a href="home.html#about">About CYF</a><br>
+        <a href="home.html#contact">Contact Us</a><br>
+        <a href="login.html">Staff Login</a>
+      </p>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <p>
+        <a href="/privacy">Privacy Policy</a><br>
+        <a href="/terms">Terms of Use</a>
+      </p>
+    </div>
+  </div>
+  <div class="container copyright">&copy; 2026 Caraga Youth Fellowship. All rights reserved.</div>
+</footer>
+
+
+<!-- =========================================================
+     CART BACKDROP
+========================================================= -->
+
+<div
+    id="cartBackdrop"
+    class="cart-backdrop"
+    onclick="closeCart()"
+></div>
+
+
+<!-- =========================================================
+     CART DRAWER
+========================================================= -->
+
+<aside
+    id="cartDrawer"
+    class="cart-drawer"
+    aria-label="Shopping cart"
+>
+
+    <div class="cart-header">
+
+        <div class="cart-title">
+            Your Cart
+        </div>
+
+        <button
+            type="button"
+            class="cart-close"
+            onclick="closeCart()"
+            aria-label="Close cart"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div
+        id="cartBody"
+        class="cart-body"
+    ></div>
+
+
+    <div
+        id="cartFooter"
+        class="cart-footer"
+    ></div>
+
+</aside>
+
+
+<!-- =========================================================
+     CUSTOMER MODAL
+========================================================= -->
+
+<div
+    id="customerModal"
+    class="modal-backdrop"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Customer Information
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                onclick="closeCustomerModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <!-- CHECKOUT SUMMARY -->
+
+            <div
+                id="checkoutSummary"
+                class="checkout-summary"
+            ></div>
+
+
+            <!-- CUSTOMER NAME -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="customerName"
+                >
+
+                    Customer Name
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <input
+                    id="customerName"
+                    class="form-input"
+                    type="text"
+                    maxlength="255"
+                    placeholder="Enter customer name"
+                    autocomplete="name"
+                >
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="customerContact"
+                >
+
+                    Contact Number
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <input
+                    id="customerContact"
+                    class="form-input"
+                    type="tel"
+                    maxlength="50"
+                    placeholder="Enter contact number"
+                    autocomplete="tel"
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="customerEmail"
+                >
+
+                    Email
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <input
+                    id="customerEmail"
+                    class="form-input"
+                    type="email"
+                    maxlength="255"
+                    placeholder="Enter email address"
+                    autocomplete="email"
+                >
+
+                <div class="form-help">
+
+                    Your email may be used for
+                    payment confirmation and
+                    purchase information.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeCustomerModal()"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                id="customerPayButton"
+                type="button"
+                class="btn btn-primary"
+                onclick="submitCustomerInformation()"
+            >
+                Proceed to Payment
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     WAITING MODAL
+========================================================= -->
+
+<div
+    id="waitingModal"
+    class="modal-backdrop"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Payment Processing
+            </div>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="waiting-content">
+
+                <div class="waiting-spinner"></div>
+
+                <h3>
+                    Waiting for Payment
+                </h3>
+
+                <p>
+
+                    PayMongo has opened in
+                    a new tab.
+
+                    <br><br>
+
+                    Complete your payment there.
+
+                    <br><br>
+
+                    This page will automatically
+                    update after the payment has
+                    been confirmed.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SUCCESS MODAL
+========================================================= -->
+
+<div
+    id="successModal"
+    class="modal-backdrop"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Payment Complete
+            </div>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="success-content">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Payment Successful!
+                </h3>
+
+                <p>
+
+                    Your payment has been
+                    successfully confirmed.
+
+                    <br><br>
+
+                    Your store purchase has
+                    been recorded.
+
+                </p>
+
+
+                <div
+                    id="successReference"
+                    class="success-reference"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="closeSuccessAndRefresh()"
+            >
+                Continue Shopping
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ERROR MODAL
+========================================================= -->
+
+<div
+    id="errorModal"
+    class="modal-backdrop"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Payment Error
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                onclick="closeErrorModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="success-content">
+
+                <div class="error-icon">
+                    !
+                </div>
+
+                <h3
+                    style="
+                        color:#a00000;
+                        margin-bottom:10px;
+                    "
+                >
+                    Unable to Continue
+                </h3>
+
+                <p
+                    id="errorModalMessage"
+                >
+                    An error occurred.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="closeErrorModal()"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const API_BASE_URL = "";
+
+const STORE_ENDPOINT =
+    `${API_BASE_URL}/store`;
+
+const STORE_PURCHASE_ENDPOINT =
+    `${API_BASE_URL}/store/purchase`;
+
+const STORE_STATUS_ENDPOINT =
+    `${API_BASE_URL}/store/purchase/status`;
+
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+let storeItems = [];
+
+let cart = [];
+
+let paymentId = null;
+
+let paymentWindow = null;
+
+let pollingActive = false;
+
+
+/* =========================================================
+   DEFAULT CLOTHING SIZES
+========================================================= */
+
+const DEFAULT_CLOTHING_SIZES = [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "2XL"
+];
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadCart();
+
+        loadStore();
+
+    }
+);
+
+
+/* =========================================================
+   CART STORAGE
+========================================================= */
+
+function loadCart() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                "cyf_store_cart"
+            );
+
+        if (saved) {
+
+            const parsed =
+                JSON.parse(saved);
+
+            if (Array.isArray(parsed)) {
+
+                cart = parsed;
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Unable to load saved cart:",
+            error
+        );
+
+        cart = [];
+
+    }
+
+
+    updateCartUI();
+
+}
+
+
+function saveCart() {
+
+    try {
+
+        localStorage.setItem(
+            "cyf_store_cart",
+            JSON.stringify(cart)
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Unable to save cart:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD STORE
+========================================================= */
+
+async function loadStore() {
+
+    showLoading(true);
+
+    hideAlert();
+
+
+    try {
+
+        const response =
+            await fetch(
+                STORE_ENDPOINT,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    },
+
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        let data = null;
+
+
+        if (
+            responseText.trim()
+        ) {
+
+            try {
+
+                data =
+                    JSON.parse(
+                        responseText
+                    );
+
+            }
+            catch {
+
+                throw new Error(
+                    "The server returned invalid JSON."
+                );
+
+            }
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                getApiError(
+                    data,
+                    response.status
+                )
+            );
+
+        }
+
+
+        if (
+            data &&
+            Array.isArray(
+                data.items
+            )
+        ) {
+
+            storeItems =
+                data.items;
+
+        }
+        else if (
+            Array.isArray(data)
+        ) {
+
+            storeItems =
+                data;
+
+        }
+        else {
+
+            storeItems = [];
+
+        }
+
+
+        synchronizeCartWithStore();
+
+        renderStore();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Store loading error:",
+            error
+        );
+
+
+        showAlert(
+            error.message ||
+            "Unable to load store items.",
+            "error"
+        );
+
+    }
+    finally {
+
+        showLoading(false);
+
+    }
+
+}
+
+
+/* =========================================================
+   SYNCHRONIZE CART WITH CURRENT INVENTORY
+========================================================= */
+
+function synchronizeCartWithStore() {
+
+    cart =
+        cart
+            .map(
+                function (cartItem) {
+
+                    const item =
+                        storeItems.find(
+                            function (storeItem) {
+
+                                return Number(
+                                    storeItem.id
+                                ) === Number(
+                                    cartItem.store_item_id
+                                );
+
+                            }
+                        );
+
+
+                    if (!item) {
+
+                        return null;
+
+                    }
+
+
+                    const stock =
+                        Number(
+                            item.quantity || 0
+                        );
+
+
+                    if (
+                        stock <= 0 ||
+                        Boolean(
+                            item.is_archived
+                        )
+                    ) {
+
+                        return null;
+
+                    }
+
+
+                    const quantity =
+                        Math.min(
+                            Math.max(
+                                Number(
+                                    cartItem.quantity || 1
+                                ),
+                                1
+                            ),
+                            stock
+                        );
+
+
+                    let size =
+                        cartItem.size || null;
+
+
+                    if (
+                        String(
+                            item.category || ""
+                        )
+                            .trim()
+                            .toLowerCase() !==
+                            "clothes"
+                    ) {
+
+                        size = null;
+
+                    }
+
+
+                    return {
+                        store_item_id:
+                            Number(
+                                item.id
+                            ),
+
+                        quantity:
+                            quantity,
+
+                        size:
+                            size
+                    };
+
+                }
+            )
+            .filter(Boolean);
+
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   RENDER STORE
+========================================================= */
+
+function renderStore() {
+
+    const grid =
+        document.getElementById(
+            "storeGrid"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "emptyStore"
+        );
+
+
+    if (!grid) {
+        return;
+    }
+
+
+    grid.innerHTML = "";
+
+
+    if (!storeItems.length) {
+
+        grid.style.display =
+            "none";
+
+        empty.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+    grid.style.display =
+        "grid";
+
+
+    storeItems.forEach(
+        function (item) {
+
+            grid.appendChild(
+                createStoreCard(item)
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CREATE STORE CARD
+========================================================= */
+
+function createStoreCard(item) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "store-card";
+
+
+    const quantity =
+        Number(
+            item.quantity || 0
+        );
+
+
+    const price =
+        Number(
+            item.price || 0
+        );
+
+
+    const category =
+        String(
+            item.category ||
+            "others"
+        )
+            .trim()
+            .toLowerCase();
+
+
+    const available =
+        quantity > 0 &&
+        !Boolean(
+            item.is_archived
+        );
+
+
+    /* =====================================================
+       STOCK
+    ===================================================== */
+
+    let stockText = "";
+
+
+    if (!available) {
+
+        stockText =
+            `
+            <span class="out-of-stock">
+                Out of Stock
+            </span>
+            `;
+
+    }
+    else if (
+        quantity <= 5
+    ) {
+
+        stockText =
+            `
+            <span class="stock-low">
+                Only ${quantity} left
+            </span>
+            `;
+
+    }
+    else {
+
+        stockText =
+            `
+            <span class="stock-good">
+                ${quantity} pcs available
+            </span>
+            `;
+
+    }
+
+
+    /* =====================================================
+       IMAGE
+    ===================================================== */
+
+    const imageUrl =
+        buildImageUrl(
+            item.image_url
+        );
+
+
+    let imageHtml = "";
+
+
+    if (imageUrl) {
+
+        imageHtml = `
+            <img
+                class="store-image"
+                src="${escapeAttribute(imageUrl)}"
+                alt="${escapeAttribute(
+                    item.item_name ||
+                    "Store Item"
+                )}"
+                loading="lazy"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                "
+            >
+
+            <div
+                class="image-placeholder"
+                style="display:none;"
+            >
+                <div class="image-placeholder-icon">
+                    🛍️
+                </div>
+
+                <div>
+                    No Image Available
+                </div>
+            </div>
+        `;
+
+    }
+    else {
+
+        imageHtml = `
+            <div class="image-placeholder">
+                <div class="image-placeholder-icon">
+                    🛍️
+                </div>
+
+                <div>
+                    No Image Available
+                </div>
+            </div>
+        `;
+
+    }
+
+
+    /* =====================================================
+       SIZES
+    ===================================================== */
+
+    let sizesHtml = "";
+
+
+    if (
+        category === "clothes"
+    ) {
+
+        const sizes =
+            getItemSizes(item);
+
+
+        if (sizes.length) {
+
+            sizesHtml = `
+                <div class="available-sizes">
+
+                    <strong>
+                        Available sizes:
+                    </strong>
+
+                    ${sizes
+                        .map(
+                            size =>
+                                escapeHtml(size)
+                        )
+                        .join(", ")
+                    }
+
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CARD
+    ===================================================== */
+
+    card.innerHTML = `
+
+        <div class="store-image-wrap">
+
+            ${imageHtml}
+
+            <div class="category-badge">
+                ${escapeHtml(category)}
+            </div>
+
+        </div>
+
+
+        <div class="store-card-body">
+
+            <div class="store-item-name">
+
+                ${escapeHtml(
+                    item.item_name ||
+                    "Store Item"
+                )}
+
+            </div>
+
+
+            <div class="store-item-description">
+
+                ${escapeHtml(
+                    item.description ||
+                    "No description available."
+                )}
+
+            </div>
+
+
+            <div class="store-item-price">
+
+                ${formatPHP(price)}
+
+            </div>
+
+
+            <div class="store-item-stock">
+
+                ${stockText}
+
+            </div>
+
+
+            ${sizesHtml}
+
+
+            <div class="quantity-row">
+
+                <label
+                    class="quantity-label"
+                    for="quantity-${item.id}"
+                >
+                    Quantity
+                </label>
+
+
+                <input
+                    id="quantity-${item.id}"
+                    class="quantity-input"
+                    type="number"
+                    min="1"
+                    max="${Math.max(
+                        quantity,
+                        1
+                    )}"
+                    value="1"
+                    ${available
+                        ? ""
+                        : "disabled"
+                    }
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn btn-cart"
+                ${available
+                    ? ""
+                    : "disabled"
+                }
+                onclick="
+                    addToCart(
+                        ${Number(item.id)}
+                    )
+                "
+            >
+
+                ${
+                    available
+                        ? "🛒 Add to Cart"
+                        : "Out of Stock"
+                }
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   ADD TO CART
+========================================================= */
+
+function addToCart(
+    itemId
+) {
+
+    const item =
+        storeItems.find(
+            function (storeItem) {
+
+                return Number(
+                    storeItem.id
+                ) === Number(
+                    itemId
+                );
+
+            }
+        );
+
+
+    if (!item) {
+
+        showAlert(
+            "Store item could not be found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const available =
+        Number(
+            item.quantity || 0
+        );
+
+
+    if (
+        available <= 0 ||
+        Boolean(
+            item.is_archived
+        )
+    ) {
+
+        showAlert(
+            "This item is currently out of stock.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const quantityInput =
+        document.getElementById(
+            `quantity-${item.id}`
+        );
+
+
+    let quantity =
+        Number(
+            quantityInput
+                ? quantityInput.value
+                : 1
+        );
+
+
+    if (
+        !Number.isInteger(quantity) ||
+        quantity < 1
+    ) {
+
+        quantity = 1;
+
+    }
+
+
+    const existing =
+        cart.find(
+            function (cartItem) {
+
+                return Number(
+                    cartItem.store_item_id
+                ) === Number(
+                    item.id
+                );
+
+            }
+        );
+
+
+    const currentQuantity =
+        existing
+            ? Number(
+                existing.quantity || 0
+            )
+            : 0;
+
+
+    if (
+        currentQuantity +
+        quantity >
+        available
+    ) {
+
+        showAlert(
+            `Only ${available} item(s) are available for ${item.item_name}.`,
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (existing) {
+
+        existing.quantity =
+            currentQuantity +
+            quantity;
+
+    }
+    else {
+
+        cart.push({
+
+            store_item_id:
+                Number(
+                    item.id
+                ),
+
+            quantity:
+                quantity,
+
+            size:
+                null
+
+        });
+
+    }
+
+
+    saveCart();
+
+    updateCartUI();
+
+    showAlert(
+        `${item.item_name || "Item"} added to your cart.`,
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   REMOVE FROM CART
+========================================================= */
+
+function removeFromCart(
+    itemId
+) {
+
+    cart =
+        cart.filter(
+            function (cartItem) {
+
+                return Number(
+                    cartItem.store_item_id
+                ) !== Number(
+                    itemId
+                );
+
+            }
+        );
+
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   CHANGE CART QUANTITY
+========================================================= */
+
+function changeCartQuantity(
+    itemId,
+    amount
+) {
+
+    const cartItem =
+        cart.find(
+            function (item) {
+
+                return Number(
+                    item.store_item_id
+                ) === Number(
+                    itemId
+                );
+
+            }
+        );
+
+
+    if (!cartItem) {
+        return;
+    }
+
+
+    const storeItem =
+        storeItems.find(
+            function (item) {
+
+                return Number(
+                    item.id
+                ) === Number(
+                    itemId
+                );
+
+            }
+        );
+
+
+    if (!storeItem) {
+
+        removeFromCart(itemId);
+
+        return;
+
+    }
+
+
+    const stock =
+        Number(
+            storeItem.quantity || 0
+        );
+
+
+    const newQuantity =
+        Number(
+            cartItem.quantity
+        ) +
+        Number(amount);
+
+
+    if (
+        newQuantity < 1
+    ) {
+
+        removeFromCart(itemId);
+
+        return;
+
+    }
+
+
+    if (
+        newQuantity >
+        stock
+    ) {
+
+        showAlert(
+            `Only ${stock} item(s) are currently available.`,
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    cartItem.quantity =
+        newQuantity;
+
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   CHANGE CART SIZE
+========================================================= */
+
+function changeCartSize(
+    itemId,
+    size
+) {
+
+    const cartItem =
+        cart.find(
+            function (item) {
+
+                return Number(
+                    item.store_item_id
+                ) === Number(
+                    itemId
+                );
+
+            }
+        );
+
+
+    if (!cartItem) {
+        return;
+    }
+
+
+    cartItem.size =
+        size
+            ? String(size)
+                .trim()
+                .toUpperCase()
+            : null;
+
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   CART ITEM COUNT
+========================================================= */
+
+function getCartItemCount() {
+
+    return cart.reduce(
+        function (total, item) {
+
+            return total +
+                Number(
+                    item.quantity || 0
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   CART TOTAL
+========================================================= */
+
+function getCartTotal() {
+
+    return cart.reduce(
+        function (total, cartItem) {
+
+            const item =
+                storeItems.find(
+                    function (storeItem) {
+
+                        return Number(
+                            storeItem.id
+                        ) === Number(
+                            cartItem.store_item_id
+                        );
+
+                    }
+                );
+
+
+            if (!item) {
+                return total;
+            }
+
+
+            return total +
+                Number(
+                    item.price || 0
+                ) *
+                Number(
+                    cartItem.quantity || 0
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE CART UI
+========================================================= */
+
+function updateCartUI() {
+
+    const count =
+        document.getElementById(
+            "cartCount"
+        );
+
+
+    if (count) {
+
+        count.textContent =
+            getCartItemCount();
+
+    }
+
+
+    renderCart();
+
+}
+
+
+/* =========================================================
+   RENDER CART
+========================================================= */
+
+function renderCart() {
+
+    const body =
+        document.getElementById(
+            "cartBody"
+        );
+
+
+    const footer =
+        document.getElementById(
+            "cartFooter"
+        );
+
+
+    if (!body || !footer) {
+        return;
+    }
+
+
+    if (!cart.length) {
+
+        body.innerHTML = `
+
+            <div class="cart-empty">
+
+                <div class="cart-empty-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Your cart is empty
+                </h3>
+
+                <p>
+                    Add some CYF merchandise
+                    to get started.
+                </p>
+
+            </div>
+
+        `;
+
+
+        footer.innerHTML = "";
+
+        return;
+
+    }
+
+
+    body.innerHTML = "";
+
+
+    cart.forEach(
+        function (cartItem) {
+
+            const storeItem =
+                storeItems.find(
+                    function (item) {
+
+                        return Number(
+                            item.id
+                        ) === Number(
+                            cartItem.store_item_id
+                        );
+
+                    }
+                );
+
+
+            if (!storeItem) {
+                return;
+            }
+
+
+            body.appendChild(
+                createCartItem(
+                    storeItem,
+                    cartItem
+                )
+            );
+
+        }
+    );
+
+
+    const total =
+        getCartTotal();
+
+
+    footer.innerHTML = `
+
+        <div class="cart-total-row">
+
+            <span class="cart-total-label">
+                Cart Total
+            </span>
+
+            <span class="cart-total-value">
+                ${formatPHP(total)}
+            </span>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="btn btn-primary cart-checkout-button"
+            onclick="openCheckoutModal()"
+        >
+            Proceed to Checkout
+        </button>
+
+
+        <button
+            type="button"
+            class="btn btn-secondary cart-clear-button"
+            onclick="clearCart()"
+        >
+            Clear Cart
+        </button>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CREATE CART ITEM
+========================================================= */
+
+function createCartItem(
+    storeItem,
+    cartItem
+) {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "cart-item";
+
+
+    const imageUrl =
+        buildImageUrl(
+            storeItem.image_url
+        );
+
+
+    let imageHtml =
+        "🛍️";
+
+
+    if (imageUrl) {
+
+        imageHtml = `
+
+            <img
+                src="${escapeAttribute(imageUrl)}"
+                alt="${escapeAttribute(
+                    storeItem.item_name ||
+                    "Store Item"
+                )}"
+                onerror="
+                    this.style.display='none';
+                "
+            >
+
+        `;
+
+    }
+
+
+    const category =
+        String(
+            storeItem.category ||
+            "others"
+        )
+            .trim()
+            .toLowerCase();
+
+
+    const quantity =
+        Number(
+            cartItem.quantity || 1
+        );
+
+
+    const unitPrice =
+        Number(
+            storeItem.price || 0
+        );
+
+
+    const lineTotal =
+        quantity *
+        unitPrice;
+
+
+    let sizeHtml = "";
+
+
+    if (
+        category === "clothes"
+    ) {
+
+        const sizes =
+            getItemSizes(
+                storeItem
+            );
+
+
+        const options =
+            sizes.length
+                ? sizes
+                : DEFAULT_CLOTHING_SIZES;
+
+
+        sizeHtml = `
+
+            <div class="cart-size-group">
+
+                <label
+                    class="cart-size-label"
+                    for="cart-size-${storeItem.id}"
+                >
+                    Size
+                </label>
+
+                <select
+                    id="cart-size-${storeItem.id}"
+                    class="cart-size-select"
+                    onchange="
+                        changeCartSize(
+                            ${Number(storeItem.id)},
+                            this.value
+                        )
+                    "
+                >
+
+                    <option value="">
+                        Select Size
+                    </option>
+
+                    ${options
+                        .map(
+                            function (size) {
+
+                                const selected =
+                                    String(
+                                        cartItem.size ||
+                                        ""
+                                    )
+                                        .toUpperCase() ===
+                                    String(size)
+                                        .toUpperCase()
+                                        ? "selected"
+                                        : "";
+
+                                return `
+                                    <option
+                                        value="${escapeAttribute(size)}"
+                                        ${selected}
+                                    >
+                                        ${escapeHtml(size)}
+                                    </option>
+                                `;
+
+                            }
+                        )
+                        .join("")
+                    }
+
+                </select>
+
+            </div>
+
+        `;
+
+    }
+
+
+    wrapper.innerHTML = `
+
+        <div class="cart-item-image">
+            ${imageHtml}
+        </div>
+
+
+        <div>
+
+            <div class="cart-item-name">
+
+                ${escapeHtml(
+                    storeItem.item_name ||
+                    "Store Item"
+                )}
+
+            </div>
+
+
+            <div class="cart-item-meta">
+
+                ${formatPHP(unitPrice)}
+                each
+
+            </div>
+
+
+            ${sizeHtml}
+
+
+            <div class="cart-item-bottom">
+
+                <div class="cart-quantity-controls">
+
+                    <button
+                        type="button"
+                        class="cart-qty-button"
+                        onclick="
+                            changeCartQuantity(
+                                ${Number(storeItem.id)},
+                                -1
+                            )
+                        "
+                    >
+                        −
+                    </button>
+
+
+                    <span class="cart-qty-value">
+                        ${quantity}
+                    </span>
+
+
+                    <button
+                        type="button"
+                        class="cart-qty-button"
+                        onclick="
+                            changeCartQuantity(
+                                ${Number(storeItem.id)},
+                                1
+                            )
+                        "
+                    >
+                        +
+                    </button>
+
+                </div>
+
+
+                <div class="cart-item-price">
+                    ${formatPHP(lineTotal)}
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="cart-remove"
+                onclick="
+                    removeFromCart(
+                        ${Number(storeItem.id)}
+                    )
+                "
+            >
+                Remove
+            </button>
+
+        </div>
+
+    `;
+
+
+    return wrapper;
+
+}
+
+
+/* =========================================================
+   OPEN CART
+========================================================= */
+
+function openCart() {
+
+    renderCart();
+
+
+    document
+        .getElementById(
+            "cartDrawer"
+        )
+        .classList.add(
+            "show"
+        );
+
+
+    document
+        .getElementById(
+            "cartBackdrop"
+        )
+        .classList.add(
+            "show"
+        );
+
+
+    document.body.classList.add(
+        "cart-open"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE CART
+========================================================= */
+
+function closeCart() {
+
+    document
+        .getElementById(
+            "cartDrawer"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+    document
+        .getElementById(
+            "cartBackdrop"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+    document.body.classList.remove(
+        "cart-open"
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR CART
+========================================================= */
+
+function clearCart() {
+
+    if (!cart.length) {
+        return;
+    }
+
+
+    cart = [];
+
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   OPEN CHECKOUT MODAL
+========================================================= */
+
+function openCheckoutModal() {
+
+    if (!cart.length) {
+
+        showAlert(
+            "Your cart is empty.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if (!validateCartBeforeCheckout()) {
+        return;
+    }
+
+
+    renderCheckoutSummary();
+
+
+    closeCart();
+
+
+    document
+        .getElementById(
+            "customerModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+
+    setTimeout(
+        function () {
+
+            document
+                .getElementById(
+                    "customerName"
+                )
+                .focus();
+
+        },
+        100
+    );
+
+}
+
+
+/* =========================================================
+   VALIDATE CART
+========================================================= */
+
+function validateCartBeforeCheckout() {
+
+    for (
+        const cartItem of cart
+    ) {
+
+        const storeItem =
+            storeItems.find(
+                function (item) {
+
+                    return Number(
+                        item.id
+                    ) === Number(
+                        cartItem.store_item_id
+                    );
+
+                }
+            );
+
+
+        if (!storeItem) {
+
+            showErrorModal(
+                "One of the items in your cart is no longer available."
+            );
+
+            return false;
+
+        }
+
+
+        const stock =
+            Number(
+                storeItem.quantity || 0
+            );
+
+
+        if (
+            stock <= 0 ||
+            Boolean(
+                storeItem.is_archived
+            )
+        ) {
+
+            showErrorModal(
+                `${storeItem.item_name || "An item"} is no longer available.`
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            Number(
+                cartItem.quantity
+            ) >
+            stock
+        ) {
+
+            showErrorModal(
+                `Only ${stock} item(s) remain for ${storeItem.item_name || "this item"}.`
+            );
+
+            return false;
+
+        }
+
+
+        const category =
+            String(
+                storeItem.category ||
+                "others"
+            )
+                .trim()
+                .toLowerCase();
+
+
+        if (
+            category === "clothes"
+        ) {
+
+            if (
+                !cartItem.size
+            ) {
+
+                showErrorModal(
+                    `Please select a size for ${storeItem.item_name || "the clothing item"} in your cart.`
+                );
+
+                return false;
+
+            }
+
+
+            const sizes =
+                getItemSizes(
+                    storeItem
+                );
+
+
+            if (
+                sizes.length &&
+                !sizes.some(
+                    function (size) {
+
+                        return String(size)
+                            .toUpperCase() ===
+                            String(
+                                cartItem.size
+                            )
+                                .toUpperCase();
+
+                    }
+                )
+            ) {
+
+                showErrorModal(
+                    `The selected size for ${storeItem.item_name || "the clothing item"} is not available.`
+                );
+
+                return false;
+
+            }
+
+        }
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   CHECKOUT SUMMARY
+========================================================= */
+
+function renderCheckoutSummary() {
+
+    const container =
+        document.getElementById(
+            "checkoutSummary"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const rows =
+        cart.map(
+            function (cartItem) {
+
+                const item =
+                    storeItems.find(
+                        function (storeItem) {
+
+                            return Number(
+                                storeItem.id
+                            ) === Number(
+                                cartItem.store_item_id
+                            );
+
+                        }
+                    );
+
+
+                if (!item) {
+                    return "";
+                }
+
+
+                const quantity =
+                    Number(
+                        cartItem.quantity || 0
+                    );
+
+
+                const lineTotal =
+                    Number(
+                        item.price || 0
+                    ) *
+                    quantity;
+
+
+                const category =
+                    String(
+                        item.category ||
+                        "others"
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                const sizeText =
+                    category === "clothes"
+                        ? ` · Size: ${escapeHtml(
+                            cartItem.size ||
+                            "Not selected"
+                        )}`
+                        : "";
+
+
+                return `
+
+                    <div class="checkout-summary-item">
+
+                        <span class="checkout-summary-name">
+
+                            ${escapeHtml(
+                                item.item_name ||
+                                "Store Item"
+                            )}
+
+                            × ${quantity}
+
+                            ${sizeText}
+
+                        </span>
+
+
+                        <span class="checkout-summary-price">
+
+                            ${formatPHP(
+                                lineTotal
+                            )}
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    container.innerHTML = `
+
+        <div class="checkout-summary-title">
+            Order Summary
+        </div>
+
+        ${rows}
+
+        <div class="summary-total-row">
+
+            <span>
+                Total
+            </span>
+
+            <strong class="summary-total">
+                ${formatPHP(
+                    getCartTotal()
+                )}
+            </strong>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CLOSE CUSTOMER MODAL
+========================================================= */
+
+function closeCustomerModal() {
+
+    document
+        .getElementById(
+            "customerModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   SUBMIT CUSTOMER INFORMATION
+========================================================= */
+
+async function submitCustomerInformation() {
+
+    if (!cart.length) {
+
+        showErrorModal(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    if (!validateCartBeforeCheckout()) {
+        return;
+    }
+
+
+    const name =
+        document
+            .getElementById(
+                "customerName"
+            )
+            .value
+            .trim();
+
+
+    const contact =
+        document
+            .getElementById(
+                "customerContact"
+            )
+            .value
+            .trim();
+
+
+    const email =
+        document
+            .getElementById(
+                "customerEmail"
+            )
+            .value
+            .trim();
+
+
+    /* =====================================================
+       CUSTOMER VALIDATION
+    ===================================================== */
+
+    if (!name) {
+
+        showErrorModal(
+            "Please enter the customer name."
+        );
+
+        return;
+
+    }
+
+
+    if (!contact) {
+
+        showErrorModal(
+            "Please enter the customer contact number."
+        );
+
+        return;
+
+    }
+
+
+    if (!email) {
+
+        showErrorModal(
+            "Please enter the customer email address."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !isValidEmail(
+            email
+        )
+    ) {
+
+        showErrorModal(
+            "Please enter a valid email address."
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       OPEN PAYMONGO WINDOW FIRST
+    ===================================================== */
+
+    paymentWindow =
+        window.open(
+            "about:blank",
+            "_blank"
+        );
+
+
+    if (!paymentWindow) {
+
+        showErrorModal(
+            "Your browser blocked the PayMongo payment tab. Please allow pop-ups and try again."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        paymentWindow.document.write(`
+
+            <!DOCTYPE html>
+
+            <html>
+
+            <head>
+
+                <title>
+                    Creating Payment...
+                </title>
+
+                <style>
+
+                    body {
+
+                        font-family:
+                            Arial,
+                            sans-serif;
+
+                        display: flex;
+
+                        justify-content:
+                            center;
+
+                        align-items:
+                            center;
+
+                        min-height:
+                            100vh;
+
+                        margin: 0;
+
+                        background:
+                            #f7f7f7;
+
+                    }
+
+                    .box {
+
+                        background:
+                            white;
+
+                        padding:
+                            40px;
+
+                        border-radius:
+                            16px;
+
+                        text-align:
+                            center;
+
+                        box-shadow:
+                            0 10px 35px
+                            rgba(0,0,0,.12);
+
+                    }
+
+                    .loader {
+
+                        width: 42px;
+
+                        height: 42px;
+
+                        border:
+                            4px solid
+                            #ddd;
+
+                        border-top:
+                            4px solid
+                            #a81717;
+
+                        border-radius:
+                            50%;
+
+                        animation:
+                            spin .8s
+                            linear infinite;
+
+                        margin:
+                            0 auto 20px;
+
+                    }
+
+                    @keyframes spin {
+
+                        to {
+                            transform:
+                                rotate(360deg);
+                        }
+
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <div class="box">
+
+                    <div class="loader"></div>
+
+                    <h2>
+                        Creating Payment
+                    </h2>
+
+                    <p>
+                        Please wait while we
+                        connect to PayMongo...
+                    </p>
+
+                </div>
+
+            </body>
+
+            </html>
+
+        `);
+
+
+        paymentWindow.document.close();
+
+
+        const button =
+            document.getElementById(
+                "customerPayButton"
+            );
+
+
+        if (button) {
+
+            button.disabled =
+                true;
+
+            button.textContent =
+                "Creating Payment...";
+
+        }
+
+
+        /* =====================================================
+           BUILD ITEMS ARRAY
+        ===================================================== */
+
+        const items =
+            cart.map(
+                function (cartItem) {
+
+                    return {
+
+                        store_item_id:
+                            Number(
+                                cartItem.store_item_id
+                            ),
+
+                        quantity:
+                            Number(
+                                cartItem.quantity
+                            ),
+
+                        size:
+                            cartItem.size ||
+                            null
+
+                    };
+
+                }
+            );
+
+
+        /* =====================================================
+           NEW BACKEND PAYLOAD
+           
+           IMPORTANT:
+           The backend requires "items".
+        ===================================================== */
+
+        const payload = {
+
+            items:
+                items,
+
+            customer_name:
+                name,
+
+            customer_contact:
+                contact,
+
+            customer_email:
+                email
+
+        };
+
+
+        console.log(
+            "Store purchase payload:",
+            payload
+        );
+
+
+        /* =====================================================
+           CREATE PAYMENT
+        ===================================================== */
+
+        const response =
+            await fetch(
+                STORE_PURCHASE_ENDPOINT,
+                {
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Accept":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+
+                }
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        let result = null;
+
+
+        if (
+            responseText.trim()
+        ) {
+
+            try {
+
+                result =
+                    JSON.parse(
+                        responseText
+                    );
+
+            }
+            catch {
+
+                throw new Error(
+                    `Server returned invalid JSON (HTTP ${response.status}).`
+                );
+
+            }
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                getApiError(
+                    result,
+                    response.status
+                )
+            );
+
+        }
+
+
+        if (
+            !result ||
+            typeof result !==
+                "object"
+        ) {
+
+            throw new Error(
+                "The server returned an empty payment response."
+            );
+
+        }
+
+
+        const checkoutUrl =
+            result.checkout_url;
+
+
+        if (
+            !checkoutUrl ||
+            typeof checkoutUrl !==
+                "string"
+        ) {
+
+            throw new Error(
+                "PayMongo did not return a valid checkout URL."
+            );
+
+        }
+
+
+        paymentId =
+            result.payment_id;
+
+
+        if (!paymentId) {
+
+            throw new Error(
+                "The server did not return the store payment ID."
+            );
+
+        }
+
+
+        /* =====================================================
+           OPEN PAYMONGO
+        ===================================================== */
+
+        paymentWindow.location.href =
+            checkoutUrl;
+
+
+        closeCustomerModal();
+
+
+        showWaitingModal();
+
+
+        /*
+         * Opening PayMongo does NOT mean
+         * the payment succeeded.
+         */
+
+        startPaymentPolling(
+            paymentId
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Store payment error:",
+            error
+        );
+
+
+        if (
+            paymentWindow &&
+            !paymentWindow.closed
+        ) {
+
+            try {
+
+                paymentWindow.close();
+
+            }
+            catch {
+
+                // Ignore.
+
+            }
+
+        }
+
+
+        showErrorModal(
+            error.message ||
+            "Unable to create the payment."
+        );
+
+
+        const button =
+            document.getElementById(
+                "customerPayButton"
+            );
+
+
+        if (button) {
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Proceed to Payment";
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   WAITING MODAL
+========================================================= */
+
+function showWaitingModal() {
+
+    document
+        .getElementById(
+            "waitingModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   CLOSE WAITING MODAL
+========================================================= */
+
+function closeWaitingModal() {
+
+    document
+        .getElementById(
+            "waitingModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   PAYMENT STATUS POLLING
+========================================================= */
+
+function startPaymentPolling(
+    id
+) {
+
+    if (pollingActive) {
+        return;
+    }
+
+
+    pollingActive =
+        true;
+
+
+    let attempts = 0;
+
+
+    const maxAttempts =
+        150;
+
+
+    async function check() {
+
+        attempts++;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${STORE_STATUS_ENDPOINT}/${encodeURIComponent(id)}`,
+                    {
+                        method: "GET",
+
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        },
+
+                        cache:
+                            "no-store"
+                    }
+                );
+
+
+            if (response.ok) {
+
+                const status =
+                    await response.json();
+
+
+                console.log(
+                    "Store payment status:",
+                    status
+                );
+
+
+                const normalizedStatus =
+                    String(
+                        status.status ||
+                        status.payment_status ||
+                        ""
+                    )
+                        .toLowerCase();
+
+
+                /* =============================================
+                   SUCCESS
+                ============================================= */
+
+                if (
+
+                    normalizedStatus ===
+                        "paid" ||
+
+                    normalizedStatus ===
+                        "success" ||
+
+                    normalizedStatus ===
+                        "successful" ||
+
+                    normalizedStatus ===
+                        "completed"
+
+                ) {
+
+                    pollingActive =
+                        false;
+
+
+                    closeWaitingModal();
+
+
+                    showSuccessModal(
+                        status
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =============================================
+                   FAILED
+                ============================================= */
+
+                if (
+
+                    normalizedStatus ===
+                        "failed" ||
+
+                    normalizedStatus ===
+                        "cancelled" ||
+
+                    normalizedStatus ===
+                        "canceled"
+
+                ) {
+
+                    pollingActive =
+                        false;
+
+
+                    closeWaitingModal();
+
+
+                    showErrorModal(
+                        "The payment was not completed."
+                    );
+
+
+                    return;
+
+                }
+
+            }
+
+        }
+        catch (error) {
+
+            console.warn(
+                "Store payment status check failed:",
+                error
+            );
+
+        }
+
+
+        if (
+            attempts >=
+            maxAttempts
+        ) {
+
+            pollingActive =
+                false;
+
+
+            closeWaitingModal();
+
+
+            showAlert(
+                "Payment was sent to PayMongo, but confirmation is still pending. Please refresh the page later.",
+                "warning"
+            );
+
+
+            return;
+
+        }
+
+
+        setTimeout(
+            check,
+            2000
+        );
+
+    }
+
+
+    check();
+
+}
+
+
+/* =========================================================
+   SUCCESS MODAL
+========================================================= */
+
+function showSuccessModal(
+    status
+) {
+
+    const reference =
+        status.paymongo_reference ||
+        status.reference_number ||
+        status.payment_id ||
+        paymentId;
+
+
+    document
+        .getElementById(
+            "successReference"
+        )
+        .textContent =
+            reference
+                ? `Payment Reference: ${reference}`
+                : "";
+
+
+    document
+        .getElementById(
+            "successModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   CLOSE SUCCESS
+========================================================= */
+
+async function closeSuccessAndRefresh() {
+
+    document
+        .getElementById(
+            "successModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+    paymentId =
+        null;
+
+
+    cart = [];
+
+
+    saveCart();
+
+    updateCartUI();
+
+
+    clearCustomerForm();
+
+
+    await loadStore();
+
+}
+
+
+/* =========================================================
+   ERROR MODAL
+========================================================= */
+
+function showErrorModal(
+    message
+) {
+
+    document
+        .getElementById(
+            "errorModalMessage"
+        )
+        .textContent =
+            message;
+
+
+    document
+        .getElementById(
+            "errorModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   CLOSE ERROR
+========================================================= */
+
+function closeErrorModal() {
+
+    document
+        .getElementById(
+            "errorModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+
+function clearCustomerForm() {
+
+    document
+        .getElementById(
+            "customerName"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "customerContact"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "customerEmail"
+        )
+        .value = "";
+
+
+    const button =
+        document.getElementById(
+            "customerPayButton"
+        );
+
+
+    if (button) {
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "Proceed to Payment";
+
+    }
+
+
+    const summary =
+        document.getElementById(
+            "checkoutSummary"
+        );
+
+
+    if (summary) {
+
+        summary.innerHTML = "";
+
+    }
+
+}
+
+
+/* =========================================================
+   BUILD IMAGE URL
+========================================================= */
+
+function buildImageUrl(
+    imageUrl
+) {
+
+    if (!imageUrl) {
+        return "";
+    }
+
+
+    const value =
+        String(imageUrl)
+            .trim();
+
+
+    if (!value) {
+        return "";
+    }
+
+
+    if (
+        value.startsWith(
+            "http://"
+        ) ||
+        value.startsWith(
+            "https://"
+        )
+    ) {
+
+        return value;
+
+    }
+
+
+    if (
+        value.startsWith("/")
+    ) {
+
+        return (
+            API_BASE_URL +
+            value
+        );
+
+    }
+
+
+    return (
+        API_BASE_URL +
+        "/" +
+        value
+    );
+
+}
+
+
+/* =========================================================
+   GET ITEM SIZES
+========================================================= */
+
+function getItemSizes(item) {
+
+    if (
+        !item ||
+        String(
+            item.category ||
+            ""
+        )
+            .toLowerCase() !==
+            "clothes"
+    ) {
+
+        return [];
+
+    }
+
+
+    let sizes =
+        item.sizes;
+
+
+    if (
+        typeof sizes ===
+        "string"
+    ) {
+
+        const value =
+            sizes.trim();
+
+
+        if (!value) {
+            return [];
+        }
+
+
+        try {
+
+            const parsed =
+                JSON.parse(value);
+
+
+            if (
+                Array.isArray(
+                    parsed
+                )
+            ) {
+
+                sizes = parsed;
+
+            }
+            else {
+
+                sizes =
+                    value
+                        .split(",")
+                        .map(
+                            x =>
+                                x.trim()
+                        );
+
+            }
+
+        }
+        catch {
+
+            sizes =
+                value
+                    .split(",")
+                    .map(
+                        x =>
+                            x.trim()
+                    );
+
+        }
+
+    }
+
+
+    if (
+        !Array.isArray(
+            sizes
+        )
+    ) {
+
+        return [];
+
+    }
+
+
+    return sizes
+        .map(
+            size =>
+                String(size)
+                    .trim()
+                    .toUpperCase()
+        )
+        .filter(
+            Boolean
+        );
+
+}
+
+
+/* =========================================================
+   PAGE ALERT
+========================================================= */
+
+let alertTimer =
+    null;
+
+
+function showAlert(
+    message,
+    type = "success"
+) {
+
+    const alert =
+        document.getElementById(
+            "pageAlert"
+        );
+
+
+    if (!alert) {
+        return;
+    }
+
+
+    clearTimeout(
+        alertTimer
+    );
+
+
+    alert.textContent =
+        message;
+
+
+    alert.className =
+        `alert ${type} show`;
+
+
+    alertTimer =
+        setTimeout(
+            function () {
+
+                hideAlert();
+
+            },
+            6000
+        );
+
+}
+
+
+function hideAlert() {
+
+    const alert =
+        document.getElementById(
+            "pageAlert"
+        );
+
+
+    if (alert) {
+
+        alert.className =
+            "alert";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+function showLoading(
+    visible
+) {
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    if (loading) {
+
+        loading.style.display =
+            visible
+                ? "block"
+                : "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   PHP FORMAT
+========================================================= */
+
+function formatPHP(
+    amount
+) {
+
+    const number =
+        Number(
+            amount || 0
+        );
+
+
+    return number.toLocaleString(
+        "en-PH",
+        {
+            style:
+                "currency",
+
+            currency:
+                "PHP",
+
+            minimumFractionDigits:
+                2,
+
+            maximumFractionDigits:
+                2
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EMAIL VALIDATION
+========================================================= */
+
+function isValidEmail(
+    email
+) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+}
+
+
+/* =========================================================
+   API ERROR
+========================================================= */
+
+function getApiError(
+    data,
+    status
+) {
+
+    if (
+        data &&
+        typeof data.detail ===
+            "string"
+    ) {
+
+        return data.detail;
+
+    }
+
+
+    if (
+        data &&
+        data.detail
+    ) {
+
+        try {
+
+            return JSON.stringify(
+                data.detail
+            );
+
+        }
+        catch {
+
+            return String(
+                data.detail
+            );
+
+        }
+
+    }
+
+
+    if (
+        data &&
+        data.message
+    ) {
+
+        return data.message;
+
+    }
+
+
+    return (
+        `Server returned HTTP ${status}.`
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(
+    value
+) {
+
+    return escapeHtml(
+        value
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODALS WITH BACKDROP
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target.id ===
+            "customerModal"
+        ) {
+
+            closeCustomerModal();
+
+        }
+
+
+        if (
+            event.target.id ===
+            "errorModal"
+        ) {
+
+            closeErrorModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeCustomerModal();
+
+            closeErrorModal();
+
+            closeCart();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

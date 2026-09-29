@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program | CYF Registration System</title>
+<style>
+:root{--red:#9d2b20;--red-dark:#741d16;--gold:#f4c400;--white:#fff;--cream:#fffaf0;--text:#242424;--muted:#6b7280;--line:#eadfd6;--shadow:0 12px 35px rgba(76,35,20,.10)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family: var(--font-body);color:var(--text);background:#faf8f5}body{overflow-x:hidden}a{text-decoration:none;color:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:270px;flex:0 0 270px;background:linear-gradient(180deg,var(--red-dark),var(--red));color:#fff;position:fixed;inset:0 auto 0 0;z-index:20;box-shadow:8px 0 30px rgba(0,0,0,.1);overflow-y:auto}
+.brand{height:76px;display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.15)}
+.logo{width:45px;height:34px;border-radius:17px;background:var(--gold);color:#161616;display:grid;place-items:center;font-weight:900}.brand-title{font-weight:800;font-size:18px}
+.profile{padding:20px;border-bottom:1px solid rgba(255,255,255,.13);display:flex;align-items:center;gap:13px}.avatar{width:46px;height:46px;border-radius:50%;background:#fff;color:var(--red);display:grid;place-items:center;font-size:20px;font-weight:900}.profile strong{display:block;font-size:15px}.profile small{display:block;color:#ffdcae;margin-top:4px}
+.nav{padding:18px 12px}.nav-label{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:#f4c7a5;padding:0 12px 10px;font-weight:800}.nav a,.nav-parent{width:100%;display:flex;align-items:center;gap:11px;padding:11px 12px;margin:3px 0;border-radius:9px;color:#fff;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer;text-align:left}.nav a:hover,.nav a.active,.nav-parent:hover,.nav-group.open>.nav-parent{background:rgba(255,255,255,.10);color:var(--gold)}.nav-icon{width:22px;text-align:center;font-size:16px}.nav-parent .nav-chevron{margin-left:auto;font-size:11px;transition:.2s}.nav-group.open .nav-chevron{transform:rotate(180deg)}.subnav{display:none;padding:2px 0 6px 35px}.nav-group.open .subnav{display:block}.subnav a{font-size:13px;color:#f7ded0;padding:9px 12px}.subnav a:hover,.subnav a.active{background:rgba(255,255,255,.10);color:var(--gold)}
+.sidebar-footer{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;color:#ffdcae;font-size:12px;border-top:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(116,29,22,0),rgba(116,29,22,.98))}
+.main{margin-left:270px;min-width:0;flex:1}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:sticky;top:0;z-index:10}.menu-toggle{display:none;border:0;background:none;font-size:25px;cursor:pointer}.search{width:min(350px,42vw);height:40px;border:1px solid #d8cec5;border-radius:22px;display:flex;align-items:center;gap:8px;padding:0 15px;background:#faf9f7;color:#777}.search input{border:0;outline:0;background:transparent;width:100%;font-size:14px}
+.content{padding:32px 34px 20px;max-width:1500px;margin:auto}.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.heading h1{margin:0;font-size:30px}.heading p{margin:8px 0 0;color:var(--muted);font-size:14px}.notice-wrap{min-height:calc(100vh - 190px);display:grid;place-items:center}.notice-card{width:min(760px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:55px 35px;text-align:center;box-shadow:var(--shadow)}.notice-icon{width:68px;height:68px;margin:0 auto 20px;border-radius:50%;display:grid;place-items:center;background:#fff4c9;color:#8f5e00;font-size:30px;font-weight:900}.notice-card h2{margin:0 0 12px;font-size:25px}.notice-card p{margin:0;color:#6b7280;font-size:15px;line-height:1.6}.footer{padding:22px 34px;color:#8b8179;font-size:12px}
+@media(max-width:1100px){.sidebar{width:235px;flex-basis:235px}.main{margin-left:235px}}
+@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.25s;width:270px}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block}.topbar{padding:0 18px}.content{padding:22px 18px}.heading{align-items:flex-start;flex-direction:column}.search{width:230px}.notice-wrap{min-height:calc(100vh - 190px)}.sidebar-footer{position:static}}
+</style>
+<!-- CYF:ADMIN-HEAD -->
+<link rel="icon" type="image/png" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" href="/favicon.png?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/admin-theme.css?v=20260926">
+<script src="/assets/admin-shell.js?v=20260926" defer></script>
+<!-- /CYF:ADMIN-HEAD -->
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar cyf-sidebar" id="sidebar">
+    <!-- CYF:SIDEBAR -->
+    <a class="cyf-brand" href="admin_dashboard.html">
+      <span class="cyf-brand-logo"><img src="/assets/cyf-logo.png" alt="CYF logo" width="38" height="38"></span>
+      <span class="cyf-brand-text">
+        <strong>CYF Registration System</strong>
+        <small>Transform &middot; Equip &middot; Engage</small>
+      </span>
+    </a>
+
+    <nav class="cyf-nav" aria-label="Admin menu">
+      <div class="cyf-nav-label">Main Menu</div>
+
+      <a href="admin_dashboard.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Dashboard</span></a>
+
+      <div class="nav-group open" id="eventManagementGroup">
+        <button type="button" class="nav-parent" onclick="toggleEventMenu()">
+          <svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg><span>Event Management</span><svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="subnav">
+          <a href="event_event.html">Event</a>
+          <a href="team_event.html">Team</a>
+          <a href="activity_event.html">Activity</a>
+          <a href="program_event.html" class="active" aria-current="page">Program</a>
+          <a href="finances_event.html">Finances</a>
+          <a href="report_event.html">Report</a>
+        </div>
+      </div>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="participants.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Participants</span></a>
+      <a href="staff.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg><span>Staff</span></a>
+      <a href="chaperone.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Chaperone</span></a>
+      <a href="store_items.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg><span>Store</span></a>
+      <a href="sponsor_management.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.4-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.7-7.5 10.1-7.5 10.1z"/></svg><span>Sponsor</span></a>
+      <a href="payment_management.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span>Payment</span></a>
+      <a href="report.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Reports</span></a>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="admin_dashboard.html#account" data-cyf-settings><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Settings</span></a>
+      <a href="home.html" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Logout</span></a>
+    </nav>
+    <!-- /CYF:SIDEBAR -->
+  </aside>
+<main class="main">
+  <header class="topbar">
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+    <div></div>
+    <label class="search">⌕<input type="search" placeholder="Search"></label>
+    <div class="cyf-user" data-cyf-user>
+    <button type="button" class="cyf-user-btn" aria-haspopup="menu" aria-expanded="false">
+      <span class="cyf-avatar" data-cyf-initials>&middot;</span>
+      <span class="cyf-user-text"><strong data-cyf-name>Signed in</strong><small data-cyf-role></small></span>
+      <svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="cyf-user-menu" role="menu" hidden>
+      <a href="admin_dashboard.html#account" role="menuitem" data-cyf-settings><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Account settings</a>
+      <a href="home.html" role="menuitem" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Log out</a>
+    </div>
+  </div>
+</header>
+  <section class="content">
+    <div class="heading">
+      <div><h1>Program</h1><p>Event Management · Program</p></div>
+    </div>
+    <div class="notice-wrap">
+      <div class="notice-card">
+        <div class="notice-icon">◌</div>
+        <h2>Feature is coming soon on version 2</h2>
+        <p>This feature is currently unavailable. Please check back when version 2 is released.</p>
+      </div>
+    </div>
+  </section>
+  <div class="footer">© 2026 CYF Registration System · Program interface</div>
+</main>
+</div>
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+function toggleEventMenu(){document.querySelector('.nav-group').classList.toggle('open');}
+</script>
+</body>
+<script src="auth.js"></script>
+</html>

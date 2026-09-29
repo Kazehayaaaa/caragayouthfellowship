@@ -1,0 +1,4774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Payment Management</title>
+
+
+    <style>
+
+        /* =========================================================
+           SAME CSS STYLE AS PARTICIPANTS.HTML
+        ========================================================= */
+
+        :root {
+            --red: #9d2b20;
+            --red-dark: #741d16;
+            --gold: #f4c400;
+            --white: #fff;
+            --cream: #fffaf0;
+            --text: #242424;
+            --muted: #6b7280;
+            --line: #eadfd6;
+            --shadow:
+                0 12px 35px rgba(76, 35, 20, .10);
+
+            --green: #16803c;
+            --green-bg: #ecfdf3;
+
+            --orange: #a85b00;
+            --orange-bg: #fff7df;
+
+            --danger: #b42318;
+            --danger-bg: #fff1ef;
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+
+            margin: 0;
+
+            min-height: 100%;
+
+            font-family: var(--font-body);
+
+            color: var(--text);
+
+            background: #faf8f5;
+        }
+
+
+        body {
+            overflow-x: hidden;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+
+        /* =========================================================
+           LAYOUT
+        ========================================================= */
+
+        .layout {
+
+            display: flex;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+        .sidebar {
+
+            width: 270px;
+
+            flex: 0 0 270px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    var(--red-dark),
+                    var(--red)
+                );
+
+            color: #fff;
+
+            position: fixed;
+
+            inset: 0 auto 0 0;
+
+            z-index: 20;
+
+            box-shadow:
+                8px 0 30px rgba(0, 0, 0, .1);
+
+            overflow-y: auto;
+        }
+
+
+        .brand {
+
+            height: 76px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 0 20px;
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, .15);
+        }
+
+
+        .logo {
+
+            width: 45px;
+
+            height: 34px;
+
+            border-radius: 17px;
+
+            background: var(--gold);
+
+            color: #161616;
+
+            display: grid;
+
+            place-items: center;
+
+            font-weight: 900;
+        }
+
+
+        .brand-title {
+
+            font-weight: 800;
+
+            font-size: 18px;
+        }
+
+
+        .profile {
+
+            padding: 20px;
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, .13);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .avatar {
+
+            width: 46px;
+
+            height: 46px;
+
+            border-radius: 50%;
+
+            background: #fff;
+
+            color: var(--red);
+
+            display: grid;
+
+            place-items: center;
+
+            font-size: 20px;
+
+            font-weight: 900;
+        }
+
+
+        .profile strong {
+
+            display: block;
+
+            font-size: 15px;
+        }
+
+
+        .profile small {
+
+            display: block;
+
+            color: #ffdcae;
+
+            margin-top: 4px;
+        }
+
+
+        .nav {
+
+            padding: 18px 12px;
+        }
+
+
+        .nav-label {
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+
+            color: #f4c7a5;
+
+            padding: 0 12px 10px;
+
+            font-weight: 800;
+        }
+
+
+        .nav a,
+        .nav-parent {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 11px 12px;
+
+            margin: 3px 0;
+
+            border-radius: 9px;
+
+            color: #fff;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            border: 0;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            text-align: left;
+        }
+
+
+        .nav a:hover,
+        .nav a.active,
+        .nav-parent:hover,
+        .nav-group.open > .nav-parent {
+
+            background:
+                rgba(255, 255, 255, .10);
+
+            color: var(--gold);
+        }
+
+
+        .nav-icon {
+
+            width: 22px;
+
+            text-align: center;
+
+            font-size: 16px;
+        }
+
+
+        .nav-parent .nav-chevron {
+
+            margin-left: auto;
+
+            font-size: 11px;
+
+            transition: .2s;
+        }
+
+
+        .nav-group.open .nav-chevron {
+
+            transform: rotate(180deg);
+        }
+
+
+        .subnav {
+
+            display: none;
+
+            padding: 2px 0 6px 35px;
+        }
+
+
+        .nav-group.open .subnav {
+
+            display: block;
+        }
+
+
+        .subnav a {
+
+            font-size: 13px;
+
+            color: #f7ded0;
+
+            padding: 9px 12px;
+        }
+
+
+        .subnav a:hover,
+        .subnav a.active {
+
+            background:
+                rgba(255, 255, 255, .10);
+
+            color: var(--gold);
+        }
+
+
+        .sidebar-footer {
+
+            position: absolute;
+
+            bottom: 0;
+
+            left: 0;
+
+            right: 0;
+
+            padding: 16px 20px;
+
+            color: #ffdcae;
+
+            font-size: 12px;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, .12);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(116, 29, 22, 0),
+                    rgba(116, 29, 22, .98)
+                );
+        }
+
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .main {
+
+            margin-left: 270px;
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        /* =========================================================
+           TOPBAR
+        ========================================================= */
+
+        .topbar {
+
+            height: 76px;
+
+            background: #fff;
+
+            border-bottom:
+                1px solid var(--line);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 34px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+        }
+
+
+        .menu-toggle {
+
+            display: none;
+
+            border: 0;
+
+            background: none;
+
+            font-size: 25px;
+
+            cursor: pointer;
+        }
+
+
+        .top-title {
+
+            font-weight: 800;
+
+            font-size: 17px;
+        }
+
+
+        .top-role {
+
+            font-size: 12px;
+
+            color: var(--muted);
+
+            margin-top: 3px;
+        }
+
+
+        /* =========================================================
+           CONTENT
+        ========================================================= */
+
+        .content {
+
+            padding: 30px 34px 20px;
+
+            max-width: 1600px;
+
+            margin: auto;
+        }
+
+
+        .heading {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .heading h1 {
+
+            margin: 0;
+
+            font-size: 30px;
+        }
+
+
+        .heading p {
+
+            margin: 8px 0 0;
+
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        .heading-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .btn {
+
+            border: 0;
+
+            border-radius: 9px;
+
+            padding: 10px 15px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .btn-red {
+
+            background: var(--red);
+
+            color: #fff;
+        }
+
+
+        .btn-red:hover {
+
+            background: var(--red-dark);
+        }
+
+
+        .btn-light {
+
+            background: #fff;
+
+            border: 1px solid var(--line);
+
+            color: #4b4039;
+        }
+
+
+        .btn-light:hover {
+
+            background: #faf5f0;
+        }
+
+
+        /* =========================================================
+           STATISTICS
+        ========================================================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .stat {
+
+            background: #fff;
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 16px;
+
+            padding: 18px;
+
+            box-shadow: var(--shadow);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .stat-label {
+
+            font-size: 12px;
+
+            color: var(--muted);
+
+            font-weight: 700;
+        }
+
+
+        .stat-value {
+
+            font-size: 27px;
+
+            font-weight: 900;
+
+            margin-top: 6px;
+        }
+
+
+        .stat-icon {
+
+            width: 43px;
+
+            height: 43px;
+
+            border-radius: 12px;
+
+            background: #fff4c9;
+
+            display: grid;
+
+            place-items: center;
+
+            font-size: 20px;
+        }
+
+
+        /* =========================================================
+           PAYMENT TYPE TABS
+        ========================================================= */
+
+        .payment-tabs {
+
+            background: #fff;
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 16px;
+
+            padding: 7px;
+
+            box-shadow: var(--shadow);
+
+            margin-bottom: 18px;
+
+            display: flex;
+
+            gap: 6px;
+
+            overflow-x: auto;
+        }
+
+
+        .payment-tab {
+
+            border: 0;
+
+            background: transparent;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            color: #6b625d;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: .2s;
+        }
+
+
+        .payment-tab:hover {
+
+            background: #faf5f0;
+        }
+
+
+        .payment-tab.active {
+
+            background: var(--red);
+
+            color: #fff;
+        }
+
+
+        /* =========================================================
+           TOOLBAR
+        ========================================================= */
+
+        .toolbar {
+
+            background: #fff;
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 16px;
+
+            padding: 15px;
+
+            box-shadow: var(--shadow);
+
+            margin-bottom: 18px;
+        }
+
+
+        .toolbar-row {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+
+        .search {
+
+            height: 42px;
+
+            min-width: 280px;
+
+            flex: 1;
+
+            border:
+                1px solid #d8cec5;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 0 13px;
+
+            background: #faf9f7;
+
+            color: #777;
+        }
+
+
+        .search input {
+
+            border: 0;
+
+            outline: 0;
+
+            background: transparent;
+
+            width: 100%;
+
+            font-size: 14px;
+        }
+
+
+        .filter {
+
+            height: 42px;
+
+            border:
+                1px solid #d8cec5;
+
+            border-radius: 10px;
+
+            background: #fff;
+
+            padding: 0 12px;
+
+            min-width: 165px;
+
+            color: #4b4039;
+
+            outline: none;
+        }
+
+
+        /* =========================================================
+           TABLE
+        ========================================================= */
+
+        .table-card {
+
+            background: #fff;
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 18px;
+
+            box-shadow: var(--shadow);
+
+            overflow: hidden;
+        }
+
+
+        .table-head {
+
+            padding: 17px 20px;
+
+            border-bottom:
+                1px solid var(--line);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .table-head strong {
+
+            font-size: 16px;
+        }
+
+
+        .table-head span {
+
+            font-size: 12px;
+
+            color: var(--muted);
+        }
+
+
+        .table-wrap {
+
+            overflow: auto;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1100px;
+        }
+
+
+        th,
+        td {
+
+            text-align: left;
+
+            padding: 13px 15px;
+
+            border-bottom:
+                1px solid #f0e8e2;
+
+            font-size: 13px;
+
+            vertical-align: middle;
+        }
+
+
+        th {
+
+            background: #fcfaf8;
+
+            color: #6d625b;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+            white-space: nowrap;
+        }
+
+
+        tbody tr:hover {
+
+            background: #fffaf5;
+        }
+
+
+        /* =========================================================
+           PERSON
+        ========================================================= */
+
+        .person {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .person-avatar {
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #fff0e7;
+
+            color: var(--red);
+
+            display: grid;
+
+            place-items: center;
+
+            font-weight: 900;
+
+            flex-shrink: 0;
+        }
+
+
+        .person-name {
+
+            font-weight: 800;
+        }
+
+
+        .person-id {
+
+            font-size: 11px;
+
+            color: var(--muted);
+
+            margin-top: 3px;
+        }
+
+
+        /* =========================================================
+           BADGES
+        ========================================================= */
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 5px 8px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        .paid {
+
+            background: var(--green-bg);
+
+            color: var(--green);
+        }
+
+
+        .partial {
+
+            background: var(--orange-bg);
+
+            color: var(--orange);
+        }
+
+
+        .unpaid {
+
+            background: var(--danger-bg);
+
+            color: var(--danger);
+        }
+
+
+        .status {
+
+            background: #f3f4f6;
+
+            color: #555;
+        }
+
+
+        .confirmed {
+
+            background: var(--green-bg);
+
+            color: var(--green);
+        }
+
+
+        .pending {
+
+            background: var(--orange-bg);
+
+            color: var(--orange);
+        }
+
+
+        /* =========================================================
+           ACTION
+        ========================================================= */
+
+        .action-btn {
+
+            border:
+                1px solid var(--line);
+
+            background: #fff;
+
+            border-radius: 8px;
+
+            padding: 7px 9px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            margin-right: 4px;
+        }
+
+
+        .action-btn:hover {
+
+            background: #fff7f0;
+        }
+
+
+        /* =========================================================
+           EMPTY
+        ========================================================= */
+
+        .empty {
+
+            padding: 55px 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+        }
+
+
+        .empty-icon {
+
+            font-size: 35px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================================================
+           PAGINATION
+        ========================================================= */
+
+        .pagination {
+
+            padding: 14px 18px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+
+        .modal-backdrop {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(34, 20, 15, .52);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 100;
+        }
+
+
+        .modal-backdrop.show {
+
+            display: flex;
+        }
+
+
+        .modal {
+
+            width:
+                min(900px, 100%);
+
+            max-height: 90vh;
+
+            overflow: auto;
+
+            background: #fff;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, .25);
+        }
+
+
+        .modal-header {
+
+            padding: 20px 24px;
+
+            border-bottom:
+                1px solid var(--line);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .modal-header h2 {
+
+            margin: 0;
+
+            font-size: 20px;
+        }
+
+
+        .close {
+
+            border: 0;
+
+            background: #f5f1ed;
+
+            border-radius: 50%;
+
+            width: 34px;
+
+            height: 34px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+        }
+
+
+        .modal-body {
+
+            padding: 22px 24px;
+        }
+
+
+        .detail-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+        }
+
+
+        .field {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+
+        .field label {
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+            color: #84766e;
+
+            font-weight: 800;
+        }
+
+
+        .detail-value {
+
+            border:
+                1px solid #eadfd6;
+
+            background: #faf8f5;
+
+            border-radius: 9px;
+
+            padding: 10px 11px;
+
+            font-size: 13px;
+
+            min-height: 40px;
+
+            word-break: break-word;
+        }
+
+
+        .section-title {
+
+            grid-column: 1 / -1;
+
+            font-weight: 900;
+
+            font-size: 13px;
+
+            color: var(--red);
+
+            border-bottom:
+                1px solid var(--line);
+
+            padding-bottom: 7px;
+
+            margin-top: 5px;
+        }
+
+
+        .modal-footer {
+
+            padding: 16px 24px;
+
+            border-top:
+                1px solid var(--line);
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+        }
+
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        .toast {
+
+            position: fixed;
+
+            right: 25px;
+
+            bottom: 25px;
+
+            background: #242424;
+
+            color: #fff;
+
+            padding: 13px 16px;
+
+            border-radius: 10px;
+
+            box-shadow: var(--shadow);
+
+            display: none;
+
+            z-index: 200;
+
+            font-size: 13px;
+        }
+
+
+        .toast.show {
+
+            display: block;
+        }
+
+
+        /* =========================================================
+           LOADING
+        ========================================================= */
+
+        .loading {
+
+            opacity: .6;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media(max-width:1100px) {
+
+            .sidebar {
+
+                width: 235px;
+
+                flex-basis: 235px;
+            }
+
+
+            .main {
+
+                margin-left: 235px;
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .detail-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media(max-width:760px) {
+
+            .sidebar {
+
+                transform:
+                    translateX(-100%);
+
+                transition: .25s;
+
+                width: 270px;
+            }
+
+
+            .sidebar.open {
+
+                transform:
+                    translateX(0);
+            }
+
+
+            .main {
+
+                margin-left: 0;
+            }
+
+
+            .menu-toggle {
+
+                display: block;
+            }
+
+
+            .topbar {
+
+                padding: 0 18px;
+            }
+
+
+            .content {
+
+                padding: 22px 18px;
+            }
+
+
+            .heading {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .stats {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .toolbar-row {
+
+                align-items: stretch;
+            }
+
+
+            .search {
+
+                min-width: 100%;
+            }
+
+
+            .filter {
+
+                flex: 1;
+
+                min-width: 140px;
+            }
+
+
+            .detail-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .sidebar-footer {
+
+                position: static;
+            }
+        }
+
+    </style>
+
+<!-- CYF:ADMIN-HEAD -->
+<link rel="icon" type="image/png" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" href="/favicon.png?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/admin-theme.css?v=20260926">
+<script src="/assets/admin-shell.js?v=20260926" defer></script>
+<!-- /CYF:ADMIN-HEAD -->
+</head>
+
+
+<body>
+
+
+<div class="layout">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar cyf-sidebar" id="sidebar">
+    <!-- CYF:SIDEBAR -->
+    <a class="cyf-brand" href="admin_dashboard.html">
+      <span class="cyf-brand-logo"><img src="/assets/cyf-logo.png" alt="CYF logo" width="38" height="38"></span>
+      <span class="cyf-brand-text">
+        <strong>CYF Registration System</strong>
+        <small>Transform &middot; Equip &middot; Engage</small>
+      </span>
+    </a>
+
+    <nav class="cyf-nav" aria-label="Admin menu">
+      <div class="cyf-nav-label">Main Menu</div>
+
+      <a href="admin_dashboard.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Dashboard</span></a>
+
+      <div class="nav-group" id="eventManagementGroup">
+        <button type="button" class="nav-parent" onclick="toggleEventMenu()">
+          <svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg><span>Event Management</span><svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="subnav">
+          <a href="event_event.html">Event</a>
+          <a href="team_event.html">Team</a>
+          <a href="activity_event.html">Activity</a>
+          <a href="program_event.html">Program</a>
+          <a href="finances_event.html">Finances</a>
+          <a href="report_event.html">Report</a>
+        </div>
+      </div>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="participants.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Participants</span></a>
+      <a href="staff.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg><span>Staff</span></a>
+      <a href="chaperone.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Chaperone</span></a>
+      <a href="store_items.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg><span>Store</span></a>
+      <a href="sponsor_management.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.4-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.7-7.5 10.1-7.5 10.1z"/></svg><span>Sponsor</span></a>
+      <a href="payment_management.html" class="active" aria-current="page"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span>Payment</span></a>
+      <a href="report.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Reports</span></a>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="admin_dashboard.html#account" data-cyf-settings><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Settings</span></a>
+      <a href="home.html" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Logout</span></a>
+    </nav>
+    <!-- /CYF:SIDEBAR -->
+  </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    gap:14px;
+                "
+            >
+
+                <button
+                    class="menu-toggle"
+                    onclick="toggleSidebar()"
+                >
+                    ☰
+                </button>
+
+
+                <div>
+
+                    <div class="top-title">
+                        Payment Management
+                    </div>
+
+                    <div class="top-role">
+                        Store, T-Shirt, and Lanyard payments
+                    </div>
+
+                </div>
+
+            </div>
+
+          <div class="cyf-user" data-cyf-user>
+    <button type="button" class="cyf-user-btn" aria-haspopup="menu" aria-expanded="false">
+      <span class="cyf-avatar" data-cyf-initials>&middot;</span>
+      <span class="cyf-user-text"><strong data-cyf-name>Signed in</strong><small data-cyf-role></small></span>
+      <svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="cyf-user-menu" role="menu" hidden>
+      <a href="admin_dashboard.html#account" role="menuitem" data-cyf-settings><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Account settings</a>
+      <a href="home.html" role="menuitem" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Log out</a>
+    </div>
+  </div>
+</header>
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+        <section class="content">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="heading">
+
+                <div>
+
+                    <h1>
+                        Payments
+                    </h1>
+
+                    <p>
+                        View, search, monitor, and review all payment records.
+                    </p>
+
+                </div>
+
+
+                <div class="heading-actions">
+
+                    <button
+                        class="btn btn-light"
+                        onclick="loadAllData()"
+                    >
+                        ↻ Refresh
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <div class="stats">
+
+
+                <!-- STORE -->
+
+                <div class="stat">
+
+                    <div>
+
+                        <div class="stat-label">
+                            STORE PAYMENTS
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="storeTotal"
+                        >
+                            ₱0.00
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        🛍
+                    </div>
+
+                </div>
+
+
+                <!-- TSHIRT -->
+
+                <div class="stat">
+
+                    <div>
+
+                        <div class="stat-label">
+                            T-SHIRT PAYMENTS
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="tshirtTotal"
+                        >
+                            ₱0.00
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        👕
+                    </div>
+
+                </div>
+
+
+                <!-- LANYARD -->
+
+                <div class="stat">
+
+                    <div>
+
+                        <div class="stat-label">
+                            LANYARD PAYMENTS
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="lanyardTotal"
+                        >
+                            ₱0.00
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        🪪
+                    </div>
+
+                </div>
+
+
+                <!-- GRAND TOTAL -->
+
+                <div class="stat">
+
+                    <div>
+
+                        <div class="stat-label">
+                            TOTAL PAYMENTS
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="grandTotal"
+                        >
+                            ₱0.00
+                        </div>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        ₱
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PAYMENT TABS
+            ================================================== -->
+
+            <div class="payment-tabs">
+
+                <button
+                    class="payment-tab active"
+                    data-type="store"
+                    onclick="switchPaymentType('store')"
+                >
+                    🛍 Store Payments
+                </button>
+
+
+                <button
+                    class="payment-tab"
+                    data-type="tshirt"
+                    onclick="switchPaymentType('tshirt')"
+                >
+                    👕 T-Shirt Payments
+                </button>
+
+
+                <button
+                    class="payment-tab"
+                    data-type="lanyard"
+                    onclick="switchPaymentType('lanyard')"
+                >
+                    🪪 Lanyard Payments
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 TOOLBAR
+            ================================================== -->
+
+            <div class="toolbar">
+
+                <div class="toolbar-row">
+
+
+                    <div class="search">
+
+                        ⌕
+
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Search payment..."
+                            oninput="renderCurrentTable()"
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="statusFilter"
+                        class="filter"
+                        onchange="renderCurrentTable()"
+                    >
+
+                        <option value="">
+                            All Payment Status
+                        </option>
+
+                        <option value="Paid">
+                            Paid
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Failed">
+                            Failed
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="btn btn-light"
+                        onclick="clearFilters()"
+                    >
+                        Clear
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
+            <div class="table-card">
+
+
+                <div class="table-head">
+
+                    <div>
+
+                        <strong id="tableTitle">
+                            Store Payments
+                        </strong>
+
+                        <span
+                            id="resultText"
+                            style="margin-left:8px"
+                        >
+                            Loading...
+                        </span>
+
+                    </div>
+
+
+                    <span>
+                        Payment records
+                    </span>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead id="tableHead">
+
+                        </thead>
+
+
+                        <tbody id="paymentBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="8"
+                                    class="empty"
+                                >
+
+                                    <div class="empty-icon">
+                                        ◷
+                                    </div>
+
+                                    Loading payments...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="pagination">
+
+                    <span id="pageText">
+                        0 payments
+                    </span>
+
+                    <span>
+                        API: Payment endpoints
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     PAYMENT DETAILS MODAL
+========================================================= -->
+
+<div
+    class="modal-backdrop"
+    id="detailModal"
+>
+
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Payment Details
+            </h2>
+
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="modal-body"
+            id="detailContent"
+        >
+
+            Loading...
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-light"
+                onclick="closeModal()"
+            >
+                Close
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+
+/* =========================================================
+   API CONFIGURATION
+========================================================= */
+
+/*
+    If HTML and FastAPI are served from the same server:
+
+        const API_BASE_URL = "";
+
+    If FastAPI runs separately:
+
+        const API_BASE_URL = "";
+*/
+
+const API_BASE_URL = "";
+
+
+const API = {
+
+    store:
+        `${API_BASE_URL}/payments/store`,
+
+    tshirt:
+        `${API_BASE_URL}/payments/tshirt`,
+
+    lanyard:
+        `${API_BASE_URL}/payments/lanyard`,
+
+    participants:
+        `${API_BASE_URL}/registration_view_all_participants`,
+
+    storeItems:
+        `${API_BASE_URL}/store`
+
+};
+
+
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
+
+let storePayments = [];
+
+let tshirtPayments = [];
+
+let lanyardPayments = [];
+
+let participants = [];
+
+let storeItems = [];
+
+let currentType = "store";
+
+
+/* =========================================================
+   DOM HELPER
+========================================================= */
+
+function $(id) {
+
+    return document.getElementById(id);
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+function formatCurrency(value) {
+
+    let amount = Number(value || 0);
+
+    // Remove the last two zeros
+    amount = amount / 100;
+
+    return "₱" + amount.toLocaleString(
+        "en-PH",
+        {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        }
+    );
+}
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
+function formatDateTime(value) {
+
+    if (!value) {
+
+        return "—";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
+    }
+
+
+    return date.toLocaleString(
+        "en-PH",
+        {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+function statusBadge(status) {
+
+    const safeStatus =
+        String(
+            status ||
+            "Unknown"
+        );
+
+
+    const normalized =
+        safeStatus
+            .toLowerCase()
+            .trim();
+
+
+    let className =
+        "status";
+
+
+    if (
+        normalized === "paid" ||
+        normalized === "confirmed" ||
+        normalized === "success" ||
+        normalized === "successful"
+    ) {
+
+        className = "paid";
+
+    }
+
+    else if (
+        normalized === "pending"
+    ) {
+
+        className = "pending";
+
+    }
+
+    else if (
+        normalized === "failed" ||
+        normalized === "cancelled" ||
+        normalized === "canceled"
+    ) {
+
+        className = "unpaid";
+
+    }
+
+
+    return `
+
+        <span class="badge ${className}">
+
+            ${escapeHtml(safeStatus)}
+
+        </span>
+
+    `;
+
+}
+
+
+/* =========================================================
+   API RESPONSE
+========================================================= */
+
+async function parseResponse(response) {
+
+    const text =
+        await response.text();
+
+
+    if (!text) {
+
+        return {};
+
+    }
+
+
+    try {
+
+        return JSON.parse(text);
+
+    }
+
+    catch {
+
+        return {
+            detail: text
+        };
+
+    }
+
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+function getErrorMessage(
+    data,
+    fallback
+) {
+
+    if (
+        data &&
+        data.detail
+    ) {
+
+        if (
+            typeof data.detail ===
+            "string"
+        ) {
+
+            return data.detail;
+
+        }
+
+        return JSON.stringify(
+            data.detail
+        );
+
+    }
+
+
+    return fallback;
+
+}
+
+
+/* =========================================================
+   LOAD ALL DATA
+========================================================= */
+
+async function loadAllData() {
+
+    try {
+
+        showLoading();
+
+
+        const results =
+            await Promise.all([
+
+                fetch(API.store),
+
+                fetch(API.tshirt),
+
+                fetch(API.lanyard),
+
+                fetch(API.participants),
+
+                fetch(API.storeItems)
+
+            ]);
+
+
+        const [
+
+            storeResponse,
+            tshirtResponse,
+            lanyardResponse,
+            participantResponse,
+            storeResponseItems
+
+        ] = results;
+
+
+        const [
+
+            storeData,
+            tshirtData,
+            lanyardData,
+            participantData,
+            storeItemData
+
+        ] = await Promise.all([
+
+            parseResponse(
+                storeResponse
+            ),
+
+            parseResponse(
+                tshirtResponse
+            ),
+
+            parseResponse(
+                lanyardResponse
+            ),
+
+            parseResponse(
+                participantResponse
+            ),
+
+            parseResponse(
+                storeResponseItems
+            )
+
+        ]);
+
+
+        if (
+            !storeResponse.ok
+        ) {
+
+            throw new Error(
+                getErrorMessage(
+                    storeData,
+                    "Unable to load store payments."
+                )
+            );
+
+        }
+
+
+        if (
+            !tshirtResponse.ok
+        ) {
+
+            throw new Error(
+                getErrorMessage(
+                    tshirtData,
+                    "Unable to load T-Shirt payments."
+                )
+            );
+
+        }
+
+
+        if (
+            !lanyardResponse.ok
+        ) {
+
+            throw new Error(
+                getErrorMessage(
+                    lanyardData,
+                    "Unable to load Lanyard payments."
+                )
+            );
+
+        }
+
+
+        storePayments =
+            Array.isArray(
+                storeData
+            )
+                ? storeData
+                : [];
+
+
+        tshirtPayments =
+            Array.isArray(
+                tshirtData
+            )
+                ? tshirtData
+                : [];
+
+
+        lanyardPayments =
+            Array.isArray(
+                lanyardData
+            )
+                ? lanyardData
+                : [];
+
+
+        participants =
+            Array.isArray(
+                participantData
+            )
+                ? participantData
+                : [];
+
+
+        /*
+            /store returns:
+
+            {
+                success: true,
+                items: [...]
+            }
+        */
+
+        storeItems =
+            Array.isArray(
+                storeItemData
+            )
+                ? storeItemData
+                : (
+                    Array.isArray(
+                        storeItemData.items
+                    )
+                        ? storeItemData.items
+                        : []
+                );
+
+
+        updateStatistics();
+
+        renderCurrentTable();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Payment loading error:",
+            error
+        );
+
+
+        showToast(
+            "Unable to load payments",
+            error.message ||
+            "Please check your API.",
+            "error"
+        );
+
+
+        $("paymentBody").innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty"
+                >
+
+                    <div class="empty-icon">
+                        !
+                    </div>
+
+                    <strong>
+                        Unable to load payments
+                    </strong>
+
+                    <div style="margin-top:8px;">
+                        ${escapeHtml(
+                            error.message ||
+                            "Please try again."
+                        )}
+                    </div>
+
+                    <div style="margin-top:15px;">
+
+                        <button
+                            class="btn btn-light"
+                            onclick="loadAllData()"
+                        >
+                            Try Again
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOADING STATE
+========================================================= */
+
+function showLoading() {
+
+    $("paymentBody").innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="8"
+                class="empty"
+            >
+
+                <div class="empty-icon">
+                    ◷
+                </div>
+
+                Loading payments...
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+function updateStatistics() {
+
+    const storeTotal =
+        calculateTotal(
+            storePayments
+        );
+
+
+    const tshirtTotal =
+        calculateTotal(
+            tshirtPayments
+        );
+
+
+    const lanyardTotal =
+        calculateTotal(
+            lanyardPayments
+        );
+
+
+    const grandTotal =
+        storeTotal +
+        tshirtTotal +
+        lanyardTotal;
+
+
+    $("storeTotal").textContent =
+        formatCurrency(
+            storeTotal
+        );
+
+
+    $("tshirtTotal").textContent =
+        formatCurrency(
+            tshirtTotal
+        );
+
+
+    $("lanyardTotal").textContent =
+        formatCurrency(
+            lanyardTotal
+        );
+
+
+    $("grandTotal").textContent =
+        formatCurrency(
+            grandTotal
+        );
+
+}
+
+
+/* =========================================================
+   CALCULATE TOTAL
+========================================================= */
+
+function calculateTotal(
+    payments
+) {
+
+    return payments.reduce(
+
+        (
+            total,
+            payment
+        ) => {
+
+            return total +
+                Number(
+                    payment.amount ||
+                    0
+                );
+
+        },
+
+        0
+
+    );
+
+}
+
+
+/* =========================================================
+   SWITCH PAYMENT TYPE
+========================================================= */
+
+function switchPaymentType(
+    type
+) {
+
+    currentType =
+        type;
+
+
+    document
+        .querySelectorAll(
+            ".payment-tab"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+
+                    "active",
+
+                    button.dataset.type ===
+                    type
+
+                );
+
+            }
+        );
+
+
+    const titles = {
+
+        store:
+            "Store Payments",
+
+        tshirt:
+            "T-Shirt Payments",
+
+        lanyard:
+            "Lanyard Payments"
+
+    };
+
+
+    $("tableTitle").textContent =
+        titles[type];
+
+
+    $("searchInput").value = "";
+
+    $("statusFilter").value = "";
+
+
+    renderCurrentTable();
+
+}
+
+
+/* =========================================================
+   GET CURRENT PAYMENTS
+========================================================= */
+
+function getCurrentPayments() {
+
+    if (
+        currentType ===
+        "store"
+    ) {
+
+        return storePayments;
+
+    }
+
+
+    if (
+        currentType ===
+        "tshirt"
+    ) {
+
+        return tshirtPayments;
+
+    }
+
+
+    return lanyardPayments;
+
+}
+
+
+/* =========================================================
+   FIND PARTICIPANT
+========================================================= */
+
+function getParticipant(
+    participantId
+) {
+
+    return participants.find(
+
+        participant =>
+            Number(
+                participant.id
+            ) ===
+            Number(
+                participantId
+            )
+
+    );
+
+}
+
+
+/* =========================================================
+   PARTICIPANT NAME
+========================================================= */
+
+function getParticipantName(
+    payment
+) {
+
+    const participant =
+        getParticipant(
+            payment.participant_id
+        );
+
+
+    if (!participant) {
+
+        /*
+            Fallback to customer_name
+            if available.
+        */
+
+        return (
+            payment.customer_name ||
+            "Unknown Participant"
+        );
+
+    }
+
+
+    const parts = [
+
+        participant.fname,
+
+        participant.mname,
+
+        participant.lname
+
+    ].filter(Boolean);
+
+
+    return (
+        parts.join(" ").trim() ||
+        payment.customer_name ||
+        "Unknown Participant"
+    );
+
+}
+
+
+/* =========================================================
+   PARTICIPANT REGISTRATION
+========================================================= */
+
+function getParticipantRegistration(
+    payment
+) {
+
+    const participant =
+        getParticipant(
+            payment.participant_id
+        );
+
+
+    if (!participant) {
+
+        return "—";
+
+    }
+
+
+    return (
+        participant.registration_number ||
+        "—"
+    );
+
+}
+
+
+/* =========================================================
+   GET STORE ITEM
+========================================================= */
+
+function getStoreItem(
+    itemId
+) {
+
+    return storeItems.find(
+
+        item =>
+            Number(
+                item.id
+            ) ===
+            Number(
+                itemId
+            )
+
+    );
+
+}
+
+
+/* =========================================================
+   STORE ITEM NAME
+========================================================= */
+
+function getStoreItemName(
+    payment
+) {
+
+    const item =
+        getStoreItem(
+            payment.store_item_id
+        );
+
+
+    if (item) {
+
+        return item.item_name;
+
+    }
+
+
+    /*
+        Fallback if the PaymentResponse
+        already contains store_item_name.
+    */
+
+    return (
+        payment.store_item_name ||
+        payment.item_name ||
+        "Unknown Store Item"
+    );
+
+}
+
+
+/* =========================================================
+   PAYMENT DESCRIPTION
+========================================================= */
+
+function getPaymentDescription(
+    payment
+) {
+
+    if (
+        payment.description
+    ) {
+
+        return payment.description;
+
+    }
+
+
+    if (
+        currentType ===
+        "store"
+    ) {
+
+        return getStoreItemName(
+            payment
+        );
+
+    }
+
+
+    if (
+        currentType ===
+        "tshirt"
+    ) {
+
+        return "T-Shirt";
+
+    }
+
+
+    if (
+        currentType ===
+        "lanyard"
+    ) {
+
+        return "Lanyard";
+
+    }
+
+
+    return "Payment";
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function getFilteredPayments() {
+
+    const payments =
+        getCurrentPayments();
+
+
+    const search =
+        (
+            $("searchInput").value ||
+            ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    const status =
+        (
+            $("statusFilter").value ||
+            ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    return payments.filter(
+
+        payment => {
+
+
+            /*
+                STATUS FILTER
+            */
+
+            if (
+                status &&
+                String(
+                    payment.status ||
+                    ""
+                )
+                .toLowerCase() !==
+                status
+            ) {
+
+                return false;
+
+            }
+
+
+            /*
+                SEARCH TEXT
+            */
+
+            if (!search) {
+
+                return true;
+
+            }
+
+
+            const participantName =
+                getParticipantName(
+                    payment
+                );
+
+
+            const registration =
+                getParticipantRegistration(
+                    payment
+                );
+
+
+            const storeItemName =
+                getStoreItemName(
+                    payment
+                );
+
+
+            const searchable = [
+
+                payment.id,
+
+                participantName,
+
+                registration,
+
+                storeItemName,
+
+                payment.customer_name,
+
+                payment.customer_email,
+
+                payment.customer_contact,
+
+                payment.status,
+
+                payment.description,
+
+                payment.paymongo_reference,
+
+                payment.paymongo_payment_id,
+
+                payment.paymongo_link_id,
+
+                payment.store_size,
+
+                payment.tshirt_size
+
+            ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+            return searchable.includes(
+                search
+            );
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   RENDER CURRENT TABLE
+========================================================= */
+
+function renderCurrentTable() {
+
+    const payments =
+        getFilteredPayments();
+
+
+    renderTableHeader();
+
+
+    renderRows(
+        payments
+    );
+
+
+    $("resultText").textContent =
+        `Showing ${payments.length} of ${getCurrentPayments().length}`;
+
+
+    $("pageText").textContent =
+        `${payments.length} payment${
+            payments.length === 1
+                ? ""
+                : "s"
+        }`;
+
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+function renderTableHeader() {
+
+    if (
+        currentType ===
+        "store"
+    ) {
+
+        $("tableHead").innerHTML = `
+
+            <tr>
+
+                <th>
+                    Customer
+                </th>
+
+                <th>
+                    Store Item
+                </th>
+
+                <th>
+                    Quantity
+                </th>
+
+                <th>
+                    Size
+                </th>
+
+                <th>
+                    Amount
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Payment Date
+                </th>
+
+                <th>
+                    Actions
+                </th>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    if (
+        currentType ===
+        "tshirt"
+    ) {
+
+        $("tableHead").innerHTML = `
+
+            <tr>
+
+                <th>
+                    Participant
+                </th>
+
+                <th>
+                    Registration No.
+                </th>
+
+                <th>
+                    T-Shirt
+                </th>
+
+                <th>
+                    Size
+                </th>
+
+                <th>
+                    Amount
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Payment Date
+                </th>
+
+                <th>
+                    Actions
+                </th>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    $("tableHead").innerHTML = `
+
+        <tr>
+
+            <th>
+                Participant
+            </th>
+
+            <th>
+                Registration No.
+            </th>
+
+            <th>
+                Lanyard
+            </th>
+
+            <th>
+                Quantity
+            </th>
+
+            <th>
+                Amount
+            </th>
+
+            <th>
+                Status
+            </th>
+
+            <th>
+                Payment Date
+            </th>
+
+            <th>
+                Actions
+            </th>
+
+        </tr>
+
+    `;
+
+}
+
+
+/* =========================================================
+   RENDER TABLE ROWS
+========================================================= */
+
+function renderRows(
+    payments
+) {
+
+    if (!payments.length) {
+
+        $("paymentBody").innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty"
+                >
+
+                    <div class="empty-icon">
+                        ₱
+                    </div>
+
+                    <strong>
+                        No payments found
+                    </strong>
+
+                    <div style="margin-top:6px;">
+                        Try changing your search or filter.
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    $("paymentBody").innerHTML =
+        payments.map(
+            payment =>
+                createPaymentRow(
+                    payment
+                )
+        ).join("");
+
+}
+
+
+/* =========================================================
+   CREATE STORE ROW
+========================================================= */
+
+function createPaymentRow(
+    payment
+) {
+
+    const amount =
+        formatCurrency(
+            payment.amount
+        );
+
+
+    const status =
+        statusBadge(
+            payment.status
+        );
+
+
+    const paymentDate =
+        formatDateTime(
+            payment.created_at ||
+            payment.paid_at
+        );
+
+
+    if (
+        currentType ===
+        "store"
+    ) {
+
+        const itemName =
+            getStoreItemName(
+                payment
+            );
+
+
+        const quantity =
+            Number(
+                payment.store_quantity ||
+                1
+            );
+
+
+        const size =
+            payment.store_size ||
+            "—";
+
+
+        const customer =
+            payment.customer_name ||
+            "Unknown Customer";
+
+
+        return `
+
+            <tr>
+
+                <td>
+
+                    <div class="person">
+
+                        <div class="person-avatar">
+                            🛍
+                        </div>
+
+                        <div>
+
+                            <div class="person-name">
+                                ${escapeHtml(
+                                    customer
+                                )}
+                            </div>
+
+                            <div class="person-id">
+                                ${escapeHtml(
+                                    payment.customer_email ||
+                                    payment.customer_contact ||
+                                    "Store Customer"
+                                )}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <strong>
+                        ${escapeHtml(
+                            itemName
+                        )}
+                    </strong>
+
+                </td>
+
+
+                <td>
+                    ${quantity}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        size
+                    )}
+                </td>
+
+
+                <td>
+
+                    <strong>
+                        ${amount}
+                    </strong>
+
+                </td>
+
+
+                <td>
+                    ${status}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        paymentDate
+                    )}
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="action-btn"
+                        onclick="viewPayment(
+                            ${Number(payment.id)}
+                        )"
+                    >
+                        View
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       T-SHIRT
+    ===================================================== */
+
+    if (
+        currentType ===
+        "tshirt"
+    ) {
+
+        const participantName =
+            getParticipantName(
+                payment
+            );
+
+
+        const registration =
+            getParticipantRegistration(
+                payment
+            );
+
+
+        const quantity =
+            Number(
+                payment.tshirt_selected ||
+                0
+            );
+
+
+        const size =
+            payment.tshirt_size ||
+            "—";
+
+
+        return `
+
+            <tr>
+
+                <td>
+
+                    <div class="person">
+
+                        <div class="person-avatar">
+                            👕
+                        </div>
+
+                        <div>
+
+                            <div class="person-name">
+
+                                ${escapeHtml(
+                                    participantName
+                                )}
+
+                            </div>
+
+                            <div class="person-id">
+
+                                Participant
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <strong>
+                        ${escapeHtml(
+                            registration
+                        )}
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    <span class="badge confirmed">
+                        T-Shirt × ${quantity}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        size
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    <strong>
+                        ${amount}
+                    </strong>
+
+                </td>
+
+
+                <td>
+                    ${status}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        paymentDate
+                    )}
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="action-btn"
+                        onclick="viewPayment(
+                            ${Number(payment.id)}
+                        )"
+                    >
+                        View
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       LANYARD
+    ===================================================== */
+
+    const participantName =
+        getParticipantName(
+            payment
+        );
+
+
+    const registration =
+        getParticipantRegistration(
+            payment
+        );
+
+
+    const quantity =
+        Number(
+            payment.lanyard_selected ||
+            0
+        );
+
+
+    return `
+
+        <tr>
+
+            <td>
+
+                <div class="person">
+
+                    <div class="person-avatar">
+                        🪪
+                    </div>
+
+                    <div>
+
+                        <div class="person-name">
+
+                            ${escapeHtml(
+                                participantName
+                            )}
+
+                        </div>
+
+                        <div class="person-id">
+
+                            Participant
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${escapeHtml(
+                        registration
+                    )}
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                <span class="badge confirmed">
+                    Lanyard
+                </span>
+
+            </td>
+
+
+            <td>
+
+                ${quantity}
+
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${amount}
+                </strong>
+
+            </td>
+
+
+            <td>
+                ${status}
+            </td>
+
+
+            <td>
+                ${escapeHtml(
+                    paymentDate
+                )}
+            </td>
+
+
+            <td>
+
+                <button
+                    class="action-btn"
+                    onclick="viewPayment(
+                        ${Number(payment.id)}
+                    )"
+                >
+                    View
+                </button>
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+/* =========================================================
+   VIEW SINGLE PAYMENT
+========================================================= */
+
+async function viewPayment(
+    paymentId
+) {
+
+    try {
+
+        let payment;
+
+
+        /*
+            Use the corresponding
+            single-payment endpoint.
+        */
+
+        let endpoint;
+
+
+        if (
+            currentType ===
+            "store"
+        ) {
+
+            endpoint =
+                `${API.store}/${paymentId}`;
+
+        }
+
+        else if (
+            currentType ===
+            "tshirt"
+        ) {
+
+            endpoint =
+                `${API.tshirt}/${paymentId}`;
+
+        }
+
+        else {
+
+            endpoint =
+                `${API.lanyard}/${paymentId}`;
+
+        }
+
+
+        const response =
+            await fetch(
+                endpoint
+            );
+
+
+        const data =
+            await parseResponse(
+                response
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                getErrorMessage(
+                    data,
+                    "Payment not found."
+                )
+            );
+
+        }
+
+
+        payment =
+            data;
+
+
+        renderPaymentDetails(
+            payment
+        );
+
+
+        $("detailModal")
+            .classList.add(
+                "show"
+            );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            "Unable to view payment",
+            error.message ||
+            "Payment could not be loaded.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER PAYMENT DETAILS
+========================================================= */
+
+function renderPaymentDetails(
+    payment
+) {
+
+    const participant =
+        getParticipant(
+            payment.participant_id
+        );
+
+
+    const participantName =
+        getParticipantName(
+            payment
+        );
+
+
+    const registration =
+        getParticipantRegistration(
+            payment
+        );
+
+
+    const storeItemName =
+        getStoreItemName(
+            payment
+        );
+
+
+    const amount =
+        formatCurrency(
+            payment.amount
+        );
+
+
+    let content = "";
+
+
+    if (
+        currentType ===
+        "store"
+    ) {
+
+        content = `
+
+            <div class="detail-grid">
+
+
+                <div class="section-title">
+                    Store Purchase
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Payment ID
+                    </label>
+
+                    <div class="detail-value">
+                        #${escapeHtml(
+                            payment.id
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Store Item
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            storeItemName
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${Number(
+                            payment.store_quantity ||
+                            1
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Size
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.store_size ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Amount
+                    </label>
+
+                    <div class="detail-value">
+
+                        <strong>
+                            ${amount}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${statusBadge(
+                            payment.status
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-title">
+                    Customer Information
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Customer Name
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.customer_name ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Contact
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.customer_contact ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.customer_email ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-title">
+                    PayMongo Information
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        PayMongo Link ID
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.paymongo_link_id ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Payment ID
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.paymongo_payment_id ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Reference
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.paymongo_reference ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Created At
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            formatDateTime(
+                                payment.created_at
+                            )
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Paid At
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            formatDateTime(
+                                payment.paid_at
+                            )
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.description ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+    else {
+
+        content = `
+
+            <div class="detail-grid">
+
+
+                <div class="section-title">
+
+                    Participant Information
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Participant Name
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            participantName
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Registration Number
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            registration
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Event
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            participant?.event_name ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-title">
+
+                    Merchandise Payment
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Payment ID
+                    </label>
+
+                    <div class="detail-value">
+
+                        #${escapeHtml(
+                            payment.id
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Item
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${
+                            currentType ===
+                            "tshirt"
+                                ? "T-Shirt"
+                                : "Lanyard"
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${
+                            currentType ===
+                            "tshirt"
+                                ? Number(
+                                    payment.tshirt_selected ||
+                                    0
+                                )
+                                : Number(
+                                    payment.lanyard_selected ||
+                                    0
+                                )
+                        }
+
+                    </div>
+
+                </div>
+
+
+                ${
+                    currentType ===
+                    "tshirt"
+                        ? `
+
+                            <div class="field">
+
+                                <label>
+                                    T-Shirt Size
+                                </label>
+
+                                <div class="detail-value">
+
+                                    ${escapeHtml(
+                                        payment.tshirt_size ||
+                                        "—"
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        `
+                        : ""
+                }
+
+
+                <div class="field">
+
+                    <label>
+                        Amount
+                    </label>
+
+                    <div class="detail-value">
+
+                        <strong>
+                            ${amount}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Currency
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.currency ||
+                            "PHP"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${statusBadge(
+                            payment.status
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-title">
+
+                    Customer Information
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Customer Name
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.customer_name ||
+                            participantName ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Contact
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.customer_contact ||
+                            participant?.contact_number ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.customer_email ||
+                            participant?.email ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-title">
+
+                    PayMongo Information
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        PayMongo Link ID
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.paymongo_link_id ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        PayMongo Payment ID
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.paymongo_payment_id ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Reference
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.paymongo_reference ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Created At
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            formatDateTime(
+                                payment.created_at
+                            )
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Paid At
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            formatDateTime(
+                                payment.paid_at
+                            )
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <div class="detail-value">
+
+                        ${escapeHtml(
+                            payment.description ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    $("detailContent").innerHTML =
+        content;
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    $("detailModal")
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
+
+function clearFilters() {
+
+    $("searchInput").value = "";
+
+    $("statusFilter").value = "";
+
+    renderCurrentTable();
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    title,
+    message,
+    type = "success"
+) {
+
+    const toast =
+        $("toast");
+
+
+    toast.innerHTML = `
+
+        <strong>
+            ${escapeHtml(
+                title
+            )}
+        </strong>
+
+        <div
+            style="
+                margin-top:4px;
+                opacity:.85;
+            "
+        >
+
+            ${escapeHtml(
+                message
+            )}
+
+        </div>
+
+    `;
+
+
+    toast.style.background =
+        type === "error"
+            ? "#b42318"
+            : "#242424";
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+
+        3500
+
+    );
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar() {
+
+    $("sidebar")
+        .classList.toggle(
+            "open"
+        );
+
+}
+
+
+/* =========================================================
+   EVENT MENU
+========================================================= */
+
+function toggleEventMenu() {
+
+    const group =
+        document.querySelector(
+            ".nav-group"
+        );
+
+
+    group.classList.toggle(
+        "open"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING BACKDROP
+========================================================= */
+
+$("detailModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadAllData();
+
+    }
+);
+
+</script>
+
+<script src="auth.js"></script>
+</body>
+
+</html>

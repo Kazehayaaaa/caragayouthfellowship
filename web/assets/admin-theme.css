@@ -1,0 +1,618 @@
+/* ======================================================
+   CYF ADMIN THEME
+   Loaded last in every admin / registration-team page so
+   it overrides each page's inline :root palette and fonts.
+   Layout and behaviour stay with the page itself.
+====================================================== */
+
+:root{
+  --crimson:#9b1b2a;
+  --crimson-dark:#7a1220;
+  --crimson-soft:#fbeef0;
+  --gold-soft:#fbf3e2;
+  --ink:#12141c;
+  --font-display:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  /* Sidebar */
+  --side-top:#6e1020;
+  --side-bottom:#3f0911;
+  --side-text:rgba(255,255,255,.86);
+  --side-muted:rgba(255,255,255,.55);
+  --side-hover:rgba(255,255,255,.08);
+  --side-active:#f2c14e;
+
+  /* Palette names the admin pages already use */
+  --red:#9b1b2a;
+  --red-dark:#7a1220;
+  --primary:#9b1b2a;
+  --primary-dark:#7a1220;
+  --gold:#d6a13c;
+  --cream:#fbf8f4;
+  --background:#fbf8f4;
+  --text:#12141c;
+  --dark:#12141c;
+  --muted:#4b5563;
+  --line:#ece6df;
+  --border:#ece6df;
+  --shadow:0 12px 32px rgba(18,20,28,.08);
+}
+
+body{
+  font-family:var(--font-body) !important;
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+
+button,input,select,textarea{font-family:inherit}
+
+h1,h2,
+.page-title,
+.topbar h1,
+.topbar h2,
+.brand-title,
+.brand-name{
+  font-family:var(--font-display);
+  font-weight:700;
+  letter-spacing:-.01em;
+}
+
+/* ======================================================
+   SIDEBAR
+====================================================== */
+
+.sidebar{
+  background:linear-gradient(180deg,var(--side-top) 0%,#5a0d19 45%,var(--side-bottom) 100%) !important;
+}
+
+.cyf-sidebar{
+  display:flex;
+  flex-direction:column;
+  padding:0 0 24px;
+  color:var(--side-text);
+  box-shadow:6px 0 28px rgba(40,6,12,.18);
+}
+
+.cyf-sidebar *{box-sizing:border-box}
+
+.cyf-brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:22px 8px 18px;
+  margin:0 12px 10px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  color:#fff;
+  text-decoration:none;
+}
+
+.cyf-brand-logo{
+  width:46px;
+  height:46px;
+  flex-shrink:0;
+  padding:4px;
+  border-radius:14px;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  box-shadow:0 8px 18px rgba(0,0,0,.2);
+}
+
+.cyf-brand-logo img{width:100%;height:100%;object-fit:contain;display:block}
+
+.cyf-brand-text strong{
+  display:block;
+  font-size:15.5px;
+  font-weight:700;
+  line-height:1.2;
+  color:#fff;
+}
+
+.cyf-brand-text small{
+  display:block;
+  margin-top:4px;
+  font-size:10.5px;
+  letter-spacing:.02em;
+  white-space:nowrap;
+  color:var(--side-active);
+}
+
+.cyf-nav{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:6px 12px;
+}
+
+.cyf-nav-label{
+  padding:12px 14px 8px;
+  font-size:12.5px;
+  font-weight:500;
+  color:var(--side-muted);
+}
+
+.cyf-nav-divider{
+  height:1px;
+  margin:12px 14px;
+  background:rgba(255,255,255,.1);
+}
+
+.cyf-sidebar .cyf-nav > a,
+.cyf-sidebar .nav-parent{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  width:100%;
+  min-height:44px;
+  padding:10px 14px;
+  border:0;
+  border-radius:12px;
+  background:transparent;
+  color:var(--side-text);
+  font:inherit;
+  font-size:15px;
+  font-weight:600;
+  text-align:left;
+  text-decoration:none;
+  cursor:pointer;
+  box-shadow:none;
+  transition:background .18s ease,color .18s ease;
+}
+
+.cyf-sidebar .cyf-nav > a:hover,
+.cyf-sidebar .nav-parent:hover{
+  background:var(--side-hover);
+  color:#fff;
+}
+
+.cyf-sidebar .cyf-nav > a.active{
+  background:var(--side-active);
+  color:#2a1606;
+  box-shadow:0 8px 20px rgba(242,193,78,.25);
+}
+
+.cyf-sidebar .cyf-icon{
+  width:20px;
+  height:20px;
+  flex-shrink:0;
+}
+
+.cyf-sidebar .nav-parent span{flex:1}
+
+.cyf-sidebar .cyf-chevron{
+  width:16px;
+  height:16px;
+  transition:transform .2s ease;
+}
+
+.cyf-sidebar .nav-group.open .cyf-chevron{transform:rotate(180deg)}
+
+.cyf-sidebar .nav-group .subnav{
+  display:none;
+  margin:4px 0 6px 18px;
+  padding:6px;
+  border-radius:12px;
+  background:rgba(0,0,0,.14);
+}
+
+.cyf-sidebar .nav-group.open .subnav{display:block}
+
+.cyf-sidebar .subnav a{
+  position:relative;
+  display:block;
+  padding:9px 12px 9px 30px;
+  border-radius:9px;
+  color:var(--side-text);
+  font-size:14px;
+  font-weight:500;
+  text-decoration:none;
+  background:transparent;
+  box-shadow:none;
+}
+
+.cyf-sidebar .subnav a::before{
+  content:"";
+  position:absolute;
+  left:13px;
+  top:50%;
+  width:6px;
+  height:6px;
+  margin-top:-3px;
+  border-radius:50%;
+  background:var(--side-muted);
+  opacity:.5;
+}
+
+.cyf-sidebar .subnav a:hover{background:var(--side-hover);color:#fff}
+
+.cyf-sidebar .subnav a.active{color:#fff;font-weight:600;background:transparent;box-shadow:none}
+.cyf-sidebar .subnav a.active::before{background:var(--side-active);opacity:1}
+
+/* ======================================================
+   TOP BAR PROFILE CHIP
+====================================================== */
+
+.topbar{
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.cyf-user{position:relative;flex-shrink:0;margin-left:12px}
+
+.cyf-user-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 12px 6px 6px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  color:var(--ink);
+  cursor:pointer;
+  font:inherit;
+  box-shadow:0 4px 14px rgba(18,20,28,.05);
+}
+
+.cyf-user-btn:hover{border-color:#dccfc4}
+
+.cyf-avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  background:linear-gradient(150deg,var(--crimson),var(--crimson-dark));
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+}
+
+.cyf-user-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;text-align:left}
+.cyf-user-text strong{font-size:14.5px;font-weight:700;white-space:nowrap}
+.cyf-user-text small{font-size:12.5px;color:var(--muted)}
+
+.cyf-user .cyf-icon{width:18px;height:18px;color:var(--muted)}
+
+.cyf-user-menu{
+  position:absolute;
+  right:0;
+  top:calc(100% + 8px);
+  z-index:60;
+  min-width:210px;
+  padding:6px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 18px 40px rgba(18,20,28,.14);
+}
+
+.cyf-user-menu[hidden]{display:none}
+
+.cyf-user-menu a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:10px;
+  color:var(--ink);
+  font-size:14px;
+  font-weight:500;
+  text-decoration:none;
+}
+
+.cyf-user-menu a:hover{background:var(--cream)}
+
+@media (max-width:760px){
+  .cyf-user-text,
+  .cyf-user-btn > .cyf-chevron{display:none}
+  .cyf-user-btn{padding:4px;border-radius:50%}
+}
+
+/* ======================================================
+   SURFACES
+====================================================== */
+
+.card,
+.stat-card,
+.table-card,
+.panel{
+  border-radius:16px;
+}
+
+/* ======================================================
+   PAGE COMPONENTS
+   Brings every admin / team page in line with the
+   dashboard: same surfaces, type, buttons, tables, forms.
+   Visual only; each page keeps its own layout rules.
+   `body .main` raises specificity above the pages' inline CSS.
+====================================================== */
+
+body{background:#f6f4f1 !important}
+
+/* ---------- Top bar ---------- */
+
+body .topbar{
+  min-height:78px;
+  padding-left:28px;
+  padding-right:28px;
+  border-bottom:1px solid #eee8e2;
+  box-shadow:none;
+}
+
+body .topbar .top-title,
+body .topbar .page-heading{
+  font-size:18px;
+  font-weight:700;
+  color:var(--ink);
+}
+
+body .topbar .top-role,
+body .topbar .breadcrumb{
+  margin-top:3px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+body .topbar .menu-toggle,
+body .topbar .mobile-menu{
+  width:42px;
+  height:42px;
+  border:1px solid #eee8e2;
+  border-radius:12px;
+  background:#fff;
+  color:var(--ink);
+  font-size:20px;
+}
+
+body .topbar .search,
+body .topbar input[type="search"],
+body .topbar input[type="text"]{
+  border-radius:999px;
+  border-color:#eee8e2;
+  background:#faf9f7;
+}
+
+/* ---------- Page heading ---------- */
+
+body .main .heading h1,
+body .main .page-header h1,
+body .main .page-title{
+  margin:0;
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:-.01em;
+  color:var(--ink);
+}
+
+body .main .heading p,
+body .main .page-header p,
+body .main .page-description{
+  margin-top:6px;
+  font-size:15px;
+  color:var(--muted);
+}
+
+/* ---------- Stat cards ---------- */
+
+body .main .stat,
+body .main .stat-card{
+  border:1px solid #eee8e2;
+  border-radius:20px;
+  padding:20px;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(35,20,15,.06);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+
+body .main .stat:hover,
+body .main .stat-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 36px rgba(35,20,15,.1);
+}
+
+body .main .stat-label{
+  font-size:13.5px;
+  font-weight:600;
+  letter-spacing:0;
+  color:var(--muted);
+  text-transform:lowercase;
+}
+
+body .main .stat-label::first-letter{text-transform:uppercase}
+
+body .main .stat-value{
+  margin-top:6px;
+  font-size:30px;
+  font-weight:700;
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+
+body .main .stat-icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  font-size:22px;
+  background:#fdecee;
+  color:#b3172d;
+}
+
+/* Rotate the dashboard's four tones across each row of cards */
+body .main .stat:nth-child(4n+2) .stat-icon,
+body .main .stat-card:nth-child(4n+2) .stat-icon{background:#fff5e1;color:#c77700}
+body .main .stat:nth-child(4n+3) .stat-icon,
+body .main .stat-card:nth-child(4n+3) .stat-icon{background:#e6f8ee;color:#12874f}
+body .main .stat:nth-child(4n+4) .stat-icon,
+body .main .stat-card:nth-child(4n+4) .stat-icon{background:#e8f2fd;color:#1f6fd1}
+
+/* ---------- Cards, toolbars ---------- */
+
+body .main .table-card,
+body .main .toolbar,
+body .main .card,
+body .main .panel{
+  border:1px solid #eee8e2;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(35,20,15,.06);
+}
+
+body .main .table-head{
+  padding:18px 22px;
+  border-bottom:1px solid #eee8e2;
+}
+
+body .main .table-head strong,
+body .main .section-title{
+  font-size:17px;
+  font-weight:700;
+  color:var(--ink);
+}
+
+/* ---------- Form controls ---------- */
+
+body .main .search,
+body .main .filter,
+body .main .filter-select,
+body .main .form-control,
+body .main select,
+body .main input[type="text"],
+body .main input[type="search"],
+body .main input[type="email"],
+body .main input[type="number"],
+body .main input[type="date"],
+body .main input[type="tel"],
+body .main input[type="password"],
+body .main textarea{
+  border-color:#e5ddd5;
+  border-radius:12px;
+  color:var(--ink);
+}
+
+body .main .search input,
+body .main .search input:focus{
+  border:0;
+  box-shadow:none;
+  background:transparent;
+}
+
+body .main .search:focus-within,
+body .main .filter:focus,
+body .main .form-control:focus,
+body .main select:focus,
+body .main input:focus,
+body .main textarea:focus{
+  outline:none;
+  border-color:var(--crimson);
+  box-shadow:0 0 0 4px rgba(155,27,42,.08);
+}
+
+/* ---------- Buttons ---------- */
+
+body .main .btn,
+body .modal .btn,
+body .main .action-btn{
+  border-radius:12px;
+  font-weight:600;
+  letter-spacing:0;
+}
+
+body .main .btn-red,
+body .main .btn-primary,
+body .modal .btn-red,
+body .modal .btn-primary{
+  background:linear-gradient(160deg,var(--crimson),var(--crimson-dark));
+  color:#fff;
+  box-shadow:0 8px 18px rgba(155,27,42,.22);
+}
+
+body .main .btn-red:hover,
+body .main .btn-primary:hover{box-shadow:0 12px 24px rgba(155,27,42,.3)}
+
+body .main .btn-light,
+body .modal .btn-light{
+  background:#fff;
+  border:1px solid #e5ddd5;
+  color:var(--ink);
+}
+
+body .main .btn-light:hover{background:#faf8f6}
+
+/* ---------- Tables ---------- */
+
+body .main table th{
+  padding-top:13px;
+  padding-bottom:13px;
+  background:#faf8f6;
+  color:var(--ink);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0;
+  text-transform:none;
+  border-bottom:1px solid #eee8e2;
+}
+
+body .main table td{
+  border-color:#f1ece7;
+  color:var(--ink);
+}
+
+body .main table tbody tr:hover td{background:#fcfbfa}
+
+/* ---------- Badges & tabs ---------- */
+
+body .main .badge{
+  padding:5px 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+}
+
+body .main .tab{
+  border-radius:12px;
+  font-weight:600;
+}
+
+body .main .tab.active{
+  background:var(--crimson);
+  border-color:var(--crimson);
+  color:#fff;
+}
+
+/* ---------- Empty states ---------- */
+
+body .main .empty{color:var(--muted);font-size:14.5px}
+
+body .main .empty-icon{
+  width:52px;
+  height:52px;
+  margin:0 auto 12px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:#f6f1ec;
+  color:var(--muted);
+  font-size:22px;
+}
+
+/* ---------- Modals ---------- */
+
+body .modal{
+  border-radius:22px;
+  box-shadow:0 30px 80px rgba(20,10,12,.25);
+}
+
+body .modal .modal-header h2,
+body .modal .modal-title{
+  font-size:20px;
+  font-weight:700;
+}
+
+/* ---------- Footer ---------- */
+
+body .main .footer{
+  color:var(--muted);
+  font-size:13px;
+}

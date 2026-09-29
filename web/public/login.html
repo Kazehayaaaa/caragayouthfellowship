@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+<!-- CYF:HEAD -->
+<link rel="icon" type="image/png" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" href="/favicon.png?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<!-- /CYF:HEAD -->
+
+    <title>Staff Login | Caraga Youth Fellowship</title>
+
+    <meta
+        name="description"
+        content="CYF Registration System Staff Login"
+    >
+
+    <style>
+
+        body {
+            min-height: 100vh;
+            background: var(--cream);
+        }
+
+        .login-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+        }
+
+        /* ==================================================
+           STORY PANEL
+        ================================================== */
+
+        .login-story {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 44px 52px;
+            color: #fff;
+            background:
+                linear-gradient(180deg, rgba(26,16,19,.2) 0%, rgba(26,16,19,.15) 40%, rgba(122,18,32,.88) 100%),
+                url("/assets/hero-bg.jpg") 78% center / cover no-repeat;
+        }
+
+        .login-story .brand-text { color: #fff; }
+
+        .login-story blockquote {
+            margin: 0;
+            max-width: 460px;
+            font-family: var(--font-display);
+            font-size: clamp(30px, 3.2vw, 42px);
+            line-height: 1.15;
+            font-weight: 600;
+        }
+
+        .login-story blockquote em {
+            font-weight: 500;
+            color: #f3c77a;
+        }
+
+        .login-story small {
+            display: block;
+            margin-top: 16px;
+            font-size: 14px;
+            color: rgba(255,255,255,.8);
+        }
+
+        /* ==================================================
+           FORM PANEL
+        ================================================== */
+
+        .login-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 48px 24px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-card h1 {
+            margin: 10px 0 8px;
+            font-size: 40px;
+            line-height: 1.1;
+        }
+
+        .login-description {
+            color: var(--muted);
+            margin: 0 0 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 46px 14px 44px;
+            border: 1px solid #ddd5cc;
+            border-radius: 12px;
+            background: #fff;
+            color: var(--ink);
+            outline: none;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--crimson);
+            box-shadow: 0 0 0 4px rgba(155,27,42,.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--muted);
+        }
+
+        .login-button {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .message {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .message.error {
+            display: block;
+            background: var(--crimson-soft);
+            color: var(--crimson-dark);
+            border: 1px solid #efc6cc;
+        }
+
+        .message.success {
+            display: block;
+            background: #eefbf3;
+            color: #18794e;
+            border: 1px solid #b7e4c7;
+        }
+
+        .login-footer {
+            margin-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .login-footer a {
+            color: var(--crimson);
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .login-shell { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+            .login-story { min-height: 0; gap: 28px; padding: 22px 16px 26px; }
+            .login-story blockquote { font-size: 24px; }
+            .login-story small { margin-top: 8px; }
+            .login-panel { justify-content: flex-start; padding: 32px 16px 48px; }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-shell">
+
+
+    <!-- ==================================================
+         STORY PANEL
+    ================================================== -->
+
+    <aside class="login-story">
+
+        <a class="brand" href="home.html">
+            <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
+            <span class="brand-copy">
+                <span class="brand-text">Caraga Youth Fellowship</span>
+                <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
+            </span>
+        </a>
+
+        <div>
+            <blockquote>
+                Serving the fellowship that helps a generation
+                <em>rise like the sun.</em>
+            </blockquote>
+            <small>Staff and registration team portal</small>
+        </div>
+
+    </aside>
+
+
+    <!-- ==================================================
+         LOGIN CARD
+    ================================================== -->
+
+    <main class="login-panel">
+
+    <div class="login-card">
+
+        <span class="eyebrow">Staff Portal</span>
+
+        <h1>
+            Welcome back
+        </h1>
+
+        <p class="login-description">
+            Sign in to manage events, registrations and payments.
+        </p>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <!-- ==================================================
+             LOGIN FORM
+        ================================================== -->
+
+        <form id="loginForm">
+
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <div class="input-wrapper">
+
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-input"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="input-wrapper">
+
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-input"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="togglePassword"
+                        aria-label="Show password"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                class="btn btn-primary login-button"
+                id="loginButton"
+            >
+                Sign In
+            </button>
+
+
+        </form>
+
+
+        <div class="login-footer">
+
+            <a href="home.html">
+                &larr; Back to Home
+            </a>
+
+            <span>&copy; 2026 Caraga Youth Fellowship</span>
+
+        </div>
+
+    </div>
+
+    </main>
+
+
+</div>
+
+
+<script>
+
+/* ======================================================
+   FASTAPI SERVER
+====================================================== */
+
+const API_URL =
+    "";
+
+
+/* ======================================================
+   ELEMENTS
+====================================================== */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const usernameInput =
+    document.getElementById("username");
+
+const passwordInput =
+    document.getElementById("password");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const message =
+    document.getElementById("message");
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+
+/* ======================================================
+   SHOW MESSAGE
+====================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " + type;
+
+}
+
+
+/* ======================================================
+   PASSWORD SHOW / HIDE
+====================================================== */
+
+togglePassword.addEventListener(
+    "click",
+    function () {
+
+        if (
+            passwordInput.type ===
+            "password"
+        ) {
+
+            passwordInput.type =
+                "text";
+
+            togglePassword.textContent =
+                "🙈";
+
+        }
+
+        else {
+
+            passwordInput.type =
+                "password";
+
+            togglePassword.textContent =
+                "👁";
+
+        }
+
+    }
+);
+
+
+/* ======================================================
+   LOGIN
+====================================================== */
+
+loginForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        /* -----------------------------------------------
+           GET LOGIN VALUES
+        ----------------------------------------------- */
+
+        const username =
+            usernameInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        /* -----------------------------------------------
+           VALIDATE
+        ----------------------------------------------- */
+
+        if (
+            !username ||
+            !password
+        ) {
+
+            showMessage(
+                "Please enter your username and password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------------
+           LOADING STATE
+        ----------------------------------------------- */
+
+        loginButton.disabled =
+            true;
+
+        loginButton.textContent =
+            "Signing in...";
+
+        message.className =
+            "message";
+
+
+        try {
+
+
+            /* -------------------------------------------
+               SEND LOGIN REQUEST TO FASTAPI
+            ------------------------------------------- */
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "/auth_login_user",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "Accept":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                username:
+                                    username,
+
+                                password:
+                                    password
+
+                            })
+
+                    }
+                );
+
+
+            /* -------------------------------------------
+               READ SERVER RESPONSE
+            ------------------------------------------- */
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "FastAPI login response:",
+                data
+            );
+
+
+            /* -------------------------------------------
+               LOGIN FAILED
+            ------------------------------------------- */
+
+            if (
+                !response.ok
+            ) {
+
+                throw new Error(
+                    data.detail ||
+                    "Invalid username or password."
+                );
+
+            }
+
+
+            /* -------------------------------------------
+               LOGIN SUCCESS
+            ------------------------------------------- */
+
+            showMessage(
+                "Login successful. Redirecting...",
+                "success"
+            );
+
+
+            /* -------------------------------------------
+               RESET LOGOUT STATUS
+               
+               IMPORTANT:
+               If the user previously logged out,
+               auth.js may have set:
+
+                   loggedOut = true
+
+               Remove it here after successful login
+               so the user can access the dashboard
+               normally again.
+            ------------------------------------------- */
+
+            sessionStorage.removeItem(
+                "loggedOut"
+            );
+
+
+            /* -------------------------------------------
+               SAVE LOGIN INFORMATION
+            ------------------------------------------- */
+
+            localStorage.setItem(
+                "cyf_username",
+                data.username
+            );
+
+            localStorage.setItem(
+                "cyf_fullname",
+                data.fullname
+            );
+
+            localStorage.setItem(
+                "cyf_role",
+                data.role
+            );
+
+
+            /* -------------------------------------------
+               REDIRECT BASED ON ROLE
+            ------------------------------------------- */
+
+            setTimeout(
+                function () {
+
+
+                    /* -----------------------------------
+                       ADMIN
+                    ----------------------------------- */
+
+                    if (
+                        data.role ===
+                        "Admin"
+                    ) {
+
+                        window.location.replace(
+                            "admin_dashboard.html"
+                        );
+
+                    }
+
+
+                    /* -----------------------------------
+                       REGISTRATION TEAM
+                    ----------------------------------- */
+
+                    else if (
+                        data.role ===
+                        "Registration Team"
+                    ) {
+
+                        window.location.replace(
+                            "registration_dashboard.html"
+                        );
+
+                    }
+
+
+                    /* -----------------------------------
+                       UNKNOWN ROLE
+                    ----------------------------------- */
+
+                    else {
+
+                        showMessage(
+                            "Invalid account role.",
+                            "error"
+                        );
+
+                    }
+
+                },
+                700
+            );
+
+
+        }
+
+
+        /* ==================================================
+           LOGIN ERROR
+        ================================================== */
+
+        catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            /* -------------------------------------------
+               CONNECTION ERROR
+            ------------------------------------------- */
+
+            if (
+                error instanceof
+                TypeError
+            ) {
+
+                showMessage(
+                    "Could not connect to the registration server. Make sure FastAPI is running on .",
+                    "error"
+                );
+
+            }
+
+            else {
+
+                showMessage(
+                    error.message,
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* -----------------------------------------------
+           RESTORE BUTTON
+        ----------------------------------------------- */
+
+        loginButton.disabled =
+            false;
+
+        loginButton.textContent =
+            "Sign In";
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

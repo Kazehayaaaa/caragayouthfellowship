@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registration Team Dashboard | CYF Registration System</title>
+
+    
+
+    <!-- CYF:ADMIN-HEAD -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=4">
+    <link rel="apple-touch-icon" href="/favicon.png?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/assets/admin-theme.css?v=20260926">
+    <script src="/assets/admin-shell.js?v=20260926" defer></script>
+<link rel="stylesheet" href="/assets/dashboard.css?v=20260926">
+<script src="/assets/dashboard.js?v=20260926" defer></script>
+<!-- /CYF:ADMIN-HEAD -->
+    <style>
+        .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    </style>
+
+</head>
+
+
+<body class="dash-page" data-variant="team">
+
+<div class="layout">
+
+  <aside class="sidebar cyf-sidebar" id="sidebar">
+    <!-- CYF:SIDEBAR -->
+    <a class="cyf-brand" href="registration_dashboard.html">
+      <span class="cyf-brand-logo"><img src="/assets/cyf-logo.png" alt="CYF logo" width="38" height="38"></span>
+      <span class="cyf-brand-text">
+        <strong>CYF Registration System</strong>
+        <small>Transform &middot; Equip &middot; Engage</small>
+      </span>
+    </a>
+
+    <nav class="cyf-nav" aria-label="Registration team menu">
+      <div class="cyf-nav-label">Main Menu</div>
+
+      <a href="registration_dashboard.html" class="active" aria-current="page"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Dashboard</span></a>
+
+      <div class="nav-group open" id="eventManagementGroup">
+        <button type="button" class="nav-parent" onclick="toggleEventMenu()">
+          <svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg><span>Event Management</span><svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="subnav">
+          <a href="event_event_rt.html">Event</a>
+          <a href="team_event_rt.html">Team</a>
+          <a href="activity_event_rt.html">Activity</a>
+          <a href="program_event_rt.html">Program</a>
+          <a href="finances_event_rt.html">Finances</a>
+          <a href="report_event_rt.html">Report</a>
+        </div>
+      </div>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="participants_rt.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Participants</span></a>
+      <a href="chaperone_rt.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Chaperone</span></a>
+      <a href="store_items_rt.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg><span>Store</span></a>
+      <a href="sponsor_management_rt.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.4-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.7-7.5 10.1-7.5 10.1z"/></svg><span>Sponsor</span></a>
+      <a href="payment_management_rt.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span>Payment</span></a>
+      <a href="report_rt.html"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Reports</span></a>
+
+      <div class="cyf-nav-divider"></div>
+
+      <a href="home.html" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Logout</span></a>
+    </nav>
+    <!-- /CYF:SIDEBAR -->
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <main class="main">
+
+      <!-- TOP BAR -->
+      <header class="dash-topbar">
+        <button type="button" class="icon-btn" id="menuButton" aria-label="Toggle menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+
+        <div class="dash-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="dashSearch" type="search" autocomplete="off"
+                 placeholder="Search events, participants, or anything..."
+                 aria-label="Search events and participants">
+          <kbd>Ctrl + K</kbd>
+          <div class="cyf-popover search-results" id="searchResults" hidden></div>
+        </div>
+
+        <div class="dash-topbar-right">
+          <div class="notify-wrap">
+            <button type="button" class="icon-btn" id="notifyButton" aria-label="Notifications" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>
+              <span class="badge-dot" id="notifyBadge" hidden>0</span>
+            </button>
+            <div class="cyf-popover notify-panel" id="notifyPanel" hidden>
+              <div class="popover-title">Last 24 hours</div>
+              <ul class="activity-list" id="notifyList"></ul>
+            </div>
+          </div>
+          <div class="cyf-user" data-cyf-user>
+    <button type="button" class="cyf-user-btn" aria-haspopup="menu" aria-expanded="false">
+      <span class="cyf-avatar" data-cyf-initials>&middot;</span>
+      <span class="cyf-user-text"><strong data-cyf-name>Signed in</strong><small data-cyf-role></small></span>
+      <svg class="cyf-icon cyf-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="cyf-user-menu" role="menu" hidden>
+      <a href="home.html" role="menuitem" onclick="logout(event)"><svg class="cyf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Log out</a>
+    </div>
+  </div>
+        </div>
+      </header>
+
+      <div class="dash-content">
+
+        <div class="dash-alert" id="dashAlert" role="alert"></div>
+
+        <!-- WELCOME -->
+        <section class="welcome" aria-label="Welcome">
+          <div>
+            <div class="welcome-eyebrow">Welcome back,</div>
+            <h1><span id="welcomeName">Registration Team!</span> <span aria-hidden="true">&#128075;</span></h1>
+            <p>Here&rsquo;s your registration overview.</p>
+          </div>
+          <blockquote class="welcome-verse">
+            &ldquo;Let your light shine before others.&rdquo;
+            <strong>Matthew 5:16</strong>
+          </blockquote>
+          <button type="button" class="live-btn" id="liveButton" title="Refresh now (updates every minute)">
+            <span class="live-dot" aria-hidden="true"></span>
+            Live Dashboard
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </section>
+
+        <!-- STAT CARDS -->
+        <section class="stat-grid" style="--stat-cols:3" aria-label="Totals">
+        <a class="stat" data-card="participants" data-tone="rose" href="participants_rt.html">
+          <span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg></span>
+          <span class="stat-body">
+            <span class="stat-value">&mdash;</span>
+            <span class="stat-label">Participants</span>
+            <span class="stat-trend is-flat"><span>Loading&hellip;</span></span>
+          </span>
+          <span class="stat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="stat" data-card="chaperones" data-tone="green" href="chaperone_rt.html">
+          <span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="stat-body">
+            <span class="stat-value">&mdash;</span>
+            <span class="stat-label">Chaperones</span>
+            <span class="stat-trend is-flat"><span>Loading&hellip;</span></span>
+          </span>
+          <span class="stat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="stat" data-card="events" data-tone="blue" href="event_event_rt.html">
+          <span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8 14h2M14 14h2M8 17.5h2"/></svg></span>
+          <span class="stat-body">
+            <span class="stat-value">&mdash;</span>
+            <span class="stat-label">Events</span>
+            <span class="stat-trend is-flat"><span>Loading&hellip;</span></span>
+          </span>
+          <span class="stat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        </section>
+
+        <div class="dash-grid">
+
+          <div class="dash-col">
+
+            <!-- REGISTRATION OVERVIEW -->
+            <section class="dash-card overview-card">
+              <div class="card-head">
+                <h2 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M9 20V4M14 20v-7M19 20v-11"/><path d="M2 20h20"/></svg>Registration Overview</h2>
+                <label class="range-select">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8 14h2M14 14h2M8 17.5h2"/></svg>
+                  <select id="rangeSelect" aria-label="Chart range">
+                    <option value="6m">Last 6 Months</option>
+                    <option value="month">This Month</option>
+                    <option value="year">This Year</option>
+                  </select>
+                </label>
+              </div>
+              <div class="overview-body">
+                <div>
+                  <div class="chart-legend" id="chartLegend"></div>
+                  <div class="chart-wrap" id="chartWrap">
+                    <div class="panel-state"><span class="skeleton" style="width:60%;margin:0 auto 12px"></span><span class="skeleton" style="width:40%;margin:0 auto"></span></div>
+                  </div>
+                </div>
+                <aside class="totals" aria-label="Total registrations">
+                  <h3>Total Registrations</h3>
+                  <div class="totals-headline">
+                    <span class="totals-value" id="totalValue">&mdash;</span>
+                    <span class="totals-change" id="totalChange"></span>
+                  </div>
+                  <div id="totalRows"></div>
+                </aside>
+              </div>
+            </section>
+
+            <!-- RECENT REGISTRATIONS -->
+            <section class="dash-card">
+              <div class="card-head">
+                <h2 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Recent Registrations</h2>
+                <a class="link-more" href="participants_rt.html">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+              <div class="table-wrap">
+                <table class="reg-table">
+                  <thead>
+                    <tr><th>#</th><th>Event</th><th>Name</th><th>Category</th><th>Status</th><th>Registered At</th><th><span class="sr-only">Actions</span></th></tr>
+                  </thead>
+                  <tbody id="recentBody">
+                    <tr><td colspan="7"><div class="panel-state">Loading registrations&hellip;</div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+          </div>
+
+          <div class="dash-col">
+
+            <!-- QUICK ACTIONS -->
+            <section class="dash-card">
+              <div class="card-head">
+                <h2 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Quick Actions</h2>
+              </div>
+              <div class="actions-grid">
+          <a class="action" data-tone="rose" href="event_event_rt.html">
+            <span class="action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M8 14h2M14 14h2M8 17.5h2"/></svg></span>
+            <span><strong>Manage Events</strong><small>Create &amp; manage events</small></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+          <a class="action" data-tone="amber" href="participants_rt.html">
+            <span class="action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg></span>
+            <span><strong>View Participants</strong><small>Browse registered users</small></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+          <a class="action" data-tone="green" href="chaperone_rt.html">
+            <span class="action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <span><strong>Manage Chaperones</strong><small>Chaperone registrations</small></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+          <a class="action" data-tone="blue" href="report_rt.html">
+            <span class="action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+            <span><strong>View Reports</strong><small>Access analytics</small></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+              </div>
+            </section>
+
+            <!-- RECENT ACTIVITY -->
+            <section class="dash-card">
+              <div class="card-head">
+                <h2 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Recent Activity</h2>
+                <a class="link-more" href="report_rt.html">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+              <ul class="activity-list" id="activityList">
+                <li class="panel-state">Loading activity&hellip;</li>
+              </ul>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+</div>
+
+<script>
+
+/* ======================================================
+   API CONFIGURATION
+   Dashboard rendering lives in /assets/dashboard.js.
+====================================================== */
+
+const API_BASE_URL = "";
+
+/* ======================================================
+   SIDEBAR (kept for pages that call these by name)
+====================================================== */
+
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar) sidebar.classList.toggle("open");
+}
+
+function toggleEventMenu() {
+    const group = document.getElementById("eventManagementGroup");
+    if (group) group.classList.toggle("open");
+}
+
+</script>
+<script src="auth.js"></script>
+
+</body>
+</html>

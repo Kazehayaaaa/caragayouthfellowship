@@ -1,0 +1,3936 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+<!-- CYF:HEAD -->
+<link rel="icon" type="image/png" href="/favicon.png?v=4">
+<link rel="apple-touch-icon" href="/favicon.png?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/assets/site.js" defer></script>
+<!-- /CYF:HEAD -->
+<title>
+  Cash Sponsorship | CYF Registration System
+</title>
+
+<meta
+  name="description"
+  content="Cash Sponsorship Package - CYF Registration System"
+>
+
+<style>
+
+/* =========================================================
+   CASH SPONSORSHIP FORM
+   ========================================================= */
+
+.sponsor-form {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+
+  background: #ffffff;
+
+  border: 1px solid #e8dddd;
+  border-radius: 16px;
+
+  padding: 28px;
+
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+
+  box-sizing: border-box;
+}
+
+.form-card h2 {
+  margin: 0 0 8px;
+
+  font-size: 22px;
+  line-height: 1.3;
+
+  color: #111827;
+}
+
+.form-card > p {
+  margin: 0 0 24px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #111111;
+
+  font-size: 14px;
+  line-height: 1.35;
+
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  min-height: 44px;
+
+  padding: 11px 13px;
+
+  border: 1px solid #d8d8d8;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #222222;
+
+  font-family: var(--font-body);
+
+  font-size: 14px;
+
+  line-height: 1.35;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #8b929c;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+
+  border-color: #9aa3af;
+
+  box-shadow:
+    0 0 0 2px rgba(40, 85, 216, 0.08);
+}
+
+.form-group input[readonly] {
+  background: #ffffff;
+
+  color: #7b8490;
+}
+
+.required {
+  color: #d92727;
+}
+
+.optional {
+  color: #7b8490;
+
+  font-size: 12px;
+
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   CHURCH
+   ========================================================= */
+
+.church-preview {
+  margin-top: 10px;
+
+  padding: 12px 14px;
+
+  background: #f7f8fa;
+
+  border-left: 4px solid #2855d8;
+
+  border-radius: 7px;
+
+  display: none;
+
+  color: #333333;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.church-preview strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #111111;
+}
+
+.visiting-church-wrapper {
+  display: none;
+
+  margin-top: 10px;
+}
+
+.visiting-church-wrapper label {
+  margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   TIERS
+   ========================================================= */
+
+.tier-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-top: 10px;
+}
+
+.tier-card {
+  min-height: 103px;
+
+  border: 2px solid #dedede;
+
+  border-radius: 10px;
+
+  padding: 16px;
+
+  background: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+
+  box-sizing: border-box;
+}
+
+.tier-card:hover {
+  border-color: #b8b8b8;
+
+  background: #ffffff;
+}
+
+.tier-card.selected {
+  border-color: #2855d8;
+
+  background: #f5f8ff;
+
+  box-shadow:
+    0 0 0 1px rgba(40, 85, 216, 0.06);
+}
+
+.tier-card input {
+  display: none;
+}
+
+.tier-card h4 {
+  margin: 0 0 8px;
+
+  color: #111111;
+
+  font-size: 14px;
+
+  line-height: 1.35;
+
+  font-weight: 700;
+}
+
+.tier-card p {
+  margin: 0;
+
+  color: #5f6368;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   AMOUNT
+   ========================================================= */
+
+.amount-preview {
+  margin-top: 10px;
+
+  padding: 14px;
+
+  min-height: 48px;
+
+  display: flex;
+
+  align-items: center;
+
+  background: #f7f9fb;
+
+  border-radius: 7px;
+
+  color: #111111;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.error-message {
+  color: var(--crimson);
+
+  font-size: 12px;
+
+  line-height: 1.4;
+
+  margin-top: 6px;
+
+  display: none;
+}
+
+.success-message {
+  padding: 14px 15px;
+
+  margin-bottom: 20px;
+
+  border-radius: 8px;
+
+  background: #ecfdf3;
+
+  color: #166534;
+
+  border: 1px solid #c7ead3;
+
+  display: none;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SUBMIT
+   ========================================================= */
+
+.submit-btn {
+  width: 100%;
+
+  min-height: 46px;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 7px;
+
+  background: #2855d8;
+
+  color: #ffffff;
+
+  font-family: var(--font-body);
+
+  font-size: 14px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    transform 0.08s ease;
+}
+
+.submit-btn:hover {
+  background: #2148bc;
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+
+.submit-btn:disabled {
+  background: #9ca3af;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+.loading {
+  display: none;
+
+  text-align: center;
+
+  margin-top: 14px;
+
+  color: #666666;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   PAYMENT RESULT
+   ========================================================= */
+
+.payment-result {
+  display: none;
+
+  margin-top: 20px;
+
+  padding: 18px;
+
+  background: #f5f8ff;
+
+  border: 1px solid #dbe4ff;
+
+  border-radius: 10px;
+}
+
+.payment-result h3 {
+  margin: 0 0 8px;
+
+  color: #111827;
+
+  font-size: 18px;
+}
+
+.payment-result p {
+  margin: 0;
+
+  color: #555555;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.payment-result a {
+  display: inline-flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  min-height: 44px;
+
+  margin-top: 14px;
+
+  padding: 11px 18px;
+
+  background: #2855d8;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  transition: background 0.18s ease;
+}
+
+.payment-result a:hover {
+  background: #2148bc;
+}
+
+
+/* =========================================================
+   WAITING FOR PAYMENT
+   ========================================================= */
+
+.payment-waiting {
+  display: none;
+
+  margin-top: 20px;
+
+  padding: 24px;
+
+  text-align: center;
+
+  background: #fffaf0;
+
+  border: 1px solid #f3dfb0;
+
+  border-radius: 12px;
+}
+
+.payment-waiting .payment-icon {
+  width: 54px;
+
+  height: 54px;
+
+  margin: 0 auto 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff3cd;
+
+  color: #856404;
+
+  font-size: 25px;
+}
+
+.payment-waiting h3 {
+  margin: 0 0 8px;
+
+  color: #856404;
+
+  font-size: 19px;
+}
+
+.payment-waiting p {
+  margin: 0;
+
+  color: #665c45;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.payment-status-text {
+  margin-top: 12px;
+
+  font-size: 12px;
+
+  color: #8a7b5a;
+}
+
+
+/* =========================================================
+   PAYMENT SUCCESS
+   ========================================================= */
+
+.payment-success {
+  display: none;
+
+  margin-top: 20px;
+
+  padding: 26px;
+
+  text-align: center;
+
+  background: #ecfdf3;
+
+  border: 1px solid #b7e4c7;
+
+  border-radius: 12px;
+}
+
+.payment-success .success-icon {
+  width: 60px;
+
+  height: 60px;
+
+  margin: 0 auto 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  color: #ffffff;
+
+  font-size: 30px;
+
+  font-weight: bold;
+}
+
+.payment-success h3 {
+  margin: 0 0 8px;
+
+  color: #166534;
+
+  font-size: 20px;
+}
+
+.payment-success p {
+  margin: 0;
+
+  color: #3f654b;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.refresh-message {
+  margin-top: 14px;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   AUTOMATIC PROCESSING
+   ========================================================= */
+
+.processing-message {
+  display: none;
+
+  margin-top: 20px;
+
+  padding: 24px;
+
+  text-align: center;
+
+  background: #f5f8ff;
+
+  border: 1px solid #dbe4ff;
+
+  border-radius: 12px;
+}
+
+.processing-spinner {
+  width: 42px;
+
+  height: 42px;
+
+  margin: 0 auto 14px;
+
+  border: 4px solid #dbe4ff;
+
+  border-top-color: #2855d8;
+
+  border-radius: 50%;
+
+  animation: sponsorSpin 0.9s linear infinite;
+}
+
+.processing-message h3 {
+  margin: 0 0 8px;
+
+  color: #1e3a8a;
+
+  font-size: 19px;
+}
+
+.processing-message p {
+  margin: 0;
+
+  color: #4b5563;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.processing-status-text {
+  margin-top: 12px;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+@keyframes sponsorSpin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* =========================================================
+   PROCESS ERROR
+   ========================================================= */
+
+.process-error {
+  display: none;
+
+  margin-top: 20px;
+
+  padding: 18px;
+
+  background: #fff5f5;
+
+  border: 1px solid #f2c7c7;
+
+  border-radius: 10px;
+
+  color: var(--crimson);
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   QUEUE DISABLED
+   ========================================================= */
+
+.queue-disabled {
+  display: none;
+
+  margin-top: 20px;
+
+  padding: 20px;
+
+  background: #fffaf0;
+
+  border: 1px solid #f3dfb0;
+
+  border-radius: 10px;
+
+  color: #856404;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+.queue-disabled strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #7a5b00;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+body {
+  background: #ffffff;
+}
+
+.section {
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 820px) {
+
+  .sponsor-form,
+  .form-card {
+    max-width: 760px;
+  }
+
+  .form-card {
+    margin-left: 15px;
+
+    margin-right: 15px;
+
+    width: calc(100% - 30px);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .tier-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-card {
+    padding: 22px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .tier-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-card {
+    padding: 18px;
+
+    border-radius: 12px;
+  }
+
+  .tier-card {
+    min-height: auto;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+     ========================================================= -->
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="home.html" aria-label="Caraga Youth Fellowship home">
+      <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
+      <span class="brand-copy">
+        <span class="brand-text">Caraga Youth Fellowship</span>
+        <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="home.html">Home</a>
+      <a href="home.html#about">About</a>
+      <a href="home.html#contact">Contact</a>
+      <a href="store.html">Store</a>
+      <a href="sponsor.html" class="active" aria-current="page">Sponsor</a>
+      <a href="register.html">Register</a>
+    </nav>
+    <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg>
+    </a>
+    <button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+  </div>
+</header>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="page-hero">
+
+  <div class="container">
+
+    <h1>
+      Cash Sponsorship Package
+    </h1>
+
+    <p>
+      Support CYF ministry activities through a cash sponsorship package.
+      Your generosity helps provide resources and opportunities for young people.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     FORM
+     ========================================================= -->
+
+<section class="section">
+
+  <div class="container sponsor-form">
+
+    <div class="form-card">
+
+
+      <h2>
+        Sponsor Information
+      </h2>
+
+
+      <p>
+        Please provide your information and select your sponsorship package.
+      </p>
+
+
+      <!-- =====================================================
+           SUCCESS MESSAGE
+           ===================================================== -->
+
+      <div
+        id="successMessage"
+        class="success-message"
+      ></div>
+
+
+      <!-- =====================================================
+           SPONSOR NAME
+           ===================================================== -->
+
+      <div class="form-group">
+
+        <label for="sponsor_name">
+
+          Sponsor Name
+
+          <span class="required">
+            *
+          </span>
+
+        </label>
+
+
+        <input
+          type="text"
+          id="sponsor_name"
+          name="sponsor_name"
+          placeholder="Enter sponsor name"
+          required
+        >
+
+      </div>
+
+
+      <!-- =====================================================
+           LOCAL CHURCH
+           ===================================================== -->
+
+      <div class="form-group">
+
+        <label for="local_church">
+
+          Local Church
+
+          <span class="required">
+            *
+          </span>
+
+        </label>
+
+
+        <select
+          id="local_church"
+          name="local_church"
+          required
+        >
+
+          <option value="">
+            -- Select Local Church --
+          </option>
+
+
+          <optgroup label="Sector 1">
+
+            <option
+              value="Butuan Lighthouse Baptist Church"
+              data-sector="Sector 1"
+            >
+              Butuan Lighthouse Baptist Church
+            </option>
+
+            <option
+              value="Butuan Lighthouse Baptist Mission, Amparo"
+              data-sector="Sector 1"
+            >
+              Butuan Lighthouse Baptist Mission, Amparo
+            </option>
+
+            <option
+              value="Ampayon Fundamental Baptist Church"
+              data-sector="Sector 1"
+            >
+              Ampayon Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Grace Fundamental Baptist Church, CBR."
+              data-sector="Sector 1"
+            >
+              Grace Fundamental Baptist Church, CBR.
+            </option>
+
+            <option
+              value="Binuangan Fundamental Baptist Mission"
+              data-sector="Sector 1"
+            >
+              Binuangan Fundamental Baptist Mission
+            </option>
+
+            <option
+              value="Santiago Fundamental Baptist Church"
+              data-sector="Sector 1"
+            >
+              Santiago Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Grace Fundamental Baptist Church, Magdagooc"
+              data-sector="Sector 1"
+            >
+              Grace Fundamental Baptist Church, Magdagooc
+            </option>
+
+            <option
+              value="Surigao Fundamental Baptist Church"
+              data-sector="Sector 1"
+            >
+              Surigao Fundamental Baptist Church
+            </option>
+
+          </optgroup>
+
+
+          <optgroup label="Sector 2">
+
+            <option
+              value="Bayugan Fundamental Baptist Church"
+              data-sector="Sector 2"
+            >
+              Bayugan Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Calaitan Fundamental Baptist Church"
+              data-sector="Sector 2"
+            >
+              Calaitan Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Remedios Fundamental Baptist Church"
+              data-sector="Sector 2"
+            >
+              Remedios Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Sibagat Fundamental Baptist Church"
+              data-sector="Sector 2"
+            >
+              Sibagat Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Afga Fundamental Baptist Mission"
+              data-sector="Sector 2"
+            >
+              Afga Fundamental Baptist Mission
+            </option>
+
+            <option
+              value="Taguyango Fundamental Baptist Mission"
+              data-sector="Sector 2"
+            >
+              Taguyango Fundamental Baptist Mission
+            </option>
+
+            <option
+              value="Villangit Fundamental Baptist Mission"
+              data-sector="Sector 2"
+            >
+              Villangit Fundamental Baptist Mission
+            </option>
+
+          </optgroup>
+
+
+          <optgroup label="Sector 3">
+
+            <option
+              value="Butuan Grace Fundamental Baptist Church"
+              data-sector="Sector 3"
+            >
+              Butuan Grace Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Blessed Hope Baptist Church"
+              data-sector="Sector 3"
+            >
+              Blessed Hope Baptist Church
+            </option>
+
+            <option
+              value="Jesus Saves Mission"
+              data-sector="Sector 3"
+            >
+              Jesus Saves Mission
+            </option>
+
+            <option
+              value="Grace Fundamental Baptist Mission, Magallanes"
+              data-sector="Sector 3"
+            >
+              Grace Fundamental Baptist Mission, Magallanes
+            </option>
+
+            <option
+              value="Grace Fundamental Baptist Mission, San Vicente"
+              data-sector="Sector 3"
+            >
+              Grace Fundamental Baptist Mission, San Vicente
+            </option>
+
+            <option
+              value="Manapa Fundamental Baptist Church"
+              data-sector="Sector 3"
+            >
+              Manapa Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Grace Fundamental Baptist Church, Buenavista"
+              data-sector="Sector 3"
+            >
+              Grace Fundamental Baptist Church, Buenavista
+            </option>
+
+            <option
+              value="Nasipit Fundamental Baptist Church"
+              data-sector="Sector 3"
+            >
+              Nasipit Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Carmen Fundamental Baptist Church"
+              data-sector="Sector 3"
+            >
+              Carmen Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Cabantian Fundamental Baptist Church"
+              data-sector="Sector 3"
+            >
+              Cabantian Fundamental Baptist Church
+            </option>
+
+            <option
+              value="Tibon-Tibon Fundamental Baptist Mission"
+              data-sector="Sector 3"
+            >
+              Tibon-Tibon Fundamental Baptist Mission
+            </option>
+
+          </optgroup>
+
+
+          <optgroup label="Others">
+
+            <option
+              value="Visiting Church"
+              data-sector="N/A"
+            >
+              Visiting Church
+            </option>
+
+          </optgroup>
+
+        </select>
+
+
+        <!-- VISITING CHURCH -->
+
+        <div
+          id="visitingChurchWrapper"
+          class="visiting-church-wrapper"
+        >
+
+          <label for="visiting_church">
+
+            Church Name
+
+            <span class="required">
+              *
+            </span>
+
+          </label>
+
+
+          <input
+            type="text"
+            id="visiting_church"
+            name="visiting_church"
+            placeholder="Enter the name of your church"
+          >
+
+        </div>
+
+
+        <!-- CHURCH PREVIEW -->
+
+        <div
+          id="churchPreview"
+          class="church-preview"
+        >
+
+          <strong>
+            Church Information
+          </strong>
+
+          <span id="churchPreviewName"></span>
+
+          <br>
+
+          <strong>
+            Sector
+          </strong>
+
+          <span id="churchPreviewSector"></span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           SECTOR
+           ===================================================== -->
+
+      <div class="form-group">
+
+        <label for="sector">
+          Sector
+        </label>
+
+
+        <input
+          type="text"
+          id="sector"
+          name="sector"
+          value=""
+          readonly
+          placeholder="Automatically selected"
+        >
+
+      </div>
+
+
+      <!-- =====================================================
+           CONTACT
+           ===================================================== -->
+
+<div class="form-group">
+
+    <label for="contact">
+        Contact Number
+        <span class="required">*</span>
+    </label>
+
+    <input
+        type="tel"
+        id="contact"
+        name="contact"
+        placeholder="09XXXXXXXXX"
+        autocomplete="tel"
+        inputmode="numeric"
+        pattern="09[0-9]{9}"
+        maxlength="11"
+        minlength="11"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+        required
+    >
+
+</div>
+
+
+      <!-- =====================================================
+           EMAIL
+           ===================================================== -->
+
+      <div class="form-group">
+
+        <label for="email">
+
+          Email
+
+          <span class="required">
+            *
+          </span>
+
+        </label>
+
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter email address"
+        >
+
+
+        <div
+          id="emailError"
+          class="error-message"
+        >
+          Please enter a valid email address.
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           SPONSORSHIP TIER
+           ===================================================== -->
+
+      <div class="form-group">
+
+        <label>
+
+          Sponsorship Package
+
+          <span class="required">
+            *
+          </span>
+
+        </label>
+
+
+        <div class="tier-grid">
+
+
+          <label class="tier-card">
+
+            <input
+              type="radio"
+              name="selected_tier"
+              value="1st (Bronze) Tier"
+            >
+
+            <h4>
+              1st (Bronze) Tier
+            </h4>
+
+            <p>
+              Below ₱1,000
+            </p>
+
+          </label>
+
+
+          <label class="tier-card">
+
+            <input
+              type="radio"
+              name="selected_tier"
+              value="2nd (Silver) Tier"
+            >
+
+            <h4>
+              2nd (Silver) Tier
+            </h4>
+
+            <p>
+              ₱1,000 – below ₱2,000
+            </p>
+
+          </label>
+
+
+          <label class="tier-card">
+
+            <input
+              type="radio"
+              name="selected_tier"
+              value="3rd (Gold) Tier"
+            >
+
+            <h4>
+              3rd (Gold) Tier
+            </h4>
+
+            <p>
+              ₱2,000 – below ₱3,000
+            </p>
+
+          </label>
+
+
+          <label class="tier-card">
+
+            <input
+              type="radio"
+              name="selected_tier"
+              value="4th (Diamond) Tier"
+            >
+
+            <h4>
+              4th (Diamond) Tier
+            </h4>
+
+            <p>
+              ₱3,000 and above
+            </p>
+
+          </label>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           DONATION AMOUNT
+           ===================================================== -->
+
+      <div class="form-group">
+
+        <label for="donation_amount">
+
+          Donation Amount
+
+          <span class="required">
+            *
+          </span>
+
+        </label>
+
+
+        <input
+          type="number"
+          id="donation_amount"
+          name="donation_amount"
+          min="1"
+          step="0.01"
+          placeholder="Enter donation amount"
+          required
+        >
+
+
+        <div
+          id="amountError"
+          class="error-message"
+        ></div>
+
+
+        <div
+          id="amountPreview"
+          class="amount-preview"
+        >
+          Donation Amount: ₱0.00
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           SUBMIT
+           ===================================================== -->
+
+      <button
+        type="button"
+        id="submitBtn"
+        class="submit-btn"
+      >
+        Continue to Payment
+      </button>
+
+
+      <div
+        id="loading"
+        class="loading"
+      >
+        Creating your sponsorship payment link...
+      </div>
+
+
+      <!-- =====================================================
+           PAYMENT CREATED
+           ===================================================== -->
+
+      <div
+        id="paymentResult"
+        class="payment-result"
+      >
+
+        <h3>
+          Sponsorship Created Successfully!
+        </h3>
+
+
+        <p id="paymentMessage"></p>
+
+
+        <a
+          id="paymentLink"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Proceed to PayMongo Payment
+        </a>
+
+      </div>
+
+
+      <!-- =====================================================
+           WAITING FOR PAYMENT
+           ===================================================== -->
+
+      <div
+        id="paymentWaiting"
+        class="payment-waiting"
+      >
+
+        <div class="payment-icon">
+          ⏳
+        </div>
+
+
+        <h3>
+          Waiting for Payment
+        </h3>
+
+
+        <p>
+          Please complete your payment in the PayMongo payment page.
+          This page will automatically detect your payment.
+        </p>
+
+
+        <div
+          id="paymentStatusText"
+          class="payment-status-text"
+        >
+          Waiting for payment confirmation...
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           PAYMENT SUCCESS
+           ===================================================== -->
+
+      <div
+        id="paymentSuccess"
+        class="payment-success"
+      >
+
+        <div class="success-icon">
+          ✓
+        </div>
+
+
+        <h3>
+          Payment Successful!
+        </h3>
+
+
+        <p>
+          Thank you! Your sponsorship payment has been successfully received.
+        </p>
+
+
+        <div
+          id="refreshMessage"
+          class="refresh-message"
+        >
+          Payment confirmed. Processing sponsorship queue...
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           AUTOMATIC PROCESSING
+           
+           NO BUTTON IS PROVIDED.
+           
+           This section is displayed automatically after
+           successful payment confirmation.
+           ===================================================== -->
+
+      <div
+        id="processingMessage"
+        class="processing-message"
+      >
+
+        <div class="processing-spinner"></div>
+
+
+        <h3>
+          Processing Finding Sponsor Queue
+        </h3>
+
+
+        <p>
+          Your payment has been confirmed.
+          The sponsorship fund is now being applied
+          automatically to participants waiting for sponsorship.
+        </p>
+
+
+        <div
+          id="processingStatusText"
+          class="processing-status-text"
+        >
+          Processing sponsorship queue...
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           QUEUE DISABLED
+           
+           Payment remains successful.
+           This is shown when Admin has turned OFF
+           the Finding Sponsor queue.
+           ===================================================== -->
+
+      <div
+        id="queueDisabled"
+        class="queue-disabled"
+      >
+
+        <strong>
+          Finding Sponsor Queue Currently Disabled
+        </strong>
+
+        Your payment was successfully received.
+
+        <br><br>
+
+        The Finding Sponsor queue is currently turned off
+        by the administrator. Your sponsorship fund has been
+        recorded and will remain available for processing
+        when the Finding Sponsor function is turned on.
+
+      </div>
+
+
+      <!-- =====================================================
+           PROCESS ERROR
+           ===================================================== -->
+
+      <div
+        id="processError"
+        class="process-error"
+      >
+
+        <strong>
+          Payment Confirmed
+        </strong>
+
+        <br><br>
+
+        Your payment was successfully received, but the
+        Finding Sponsor queue could not be processed automatically.
+
+        <br><br>
+
+        Please contact the administrator.
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
+        <div>
+          <strong>Caraga Youth Fellowship</strong>
+          <span>Transform &middot; Equip &middot; Engage</span>
+        </div>
+      </div>
+      <p>Discipling the young people of Caraga through fellowship, Bible conferences, youth camps and ministry across every province.</p>
+    </div>
+    <div>
+      <h3>Get Involved</h3>
+      <p>
+        <a href="register.html">Register</a><br>
+        <a href="sponsor.html">Become a Sponsor</a><br>
+        <a href="store.html">CYF Store</a>
+      </p>
+    </div>
+    <div>
+      <h3>Fellowship</h3>
+      <p>
+        <a href="home.html#about">About CYF</a><br>
+        <a href="home.html#contact">Contact Us</a><br>
+        <a href="login.html">Staff Login</a>
+      </p>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <p>
+        <a href="/privacy">Privacy Policy</a><br>
+        <a href="/terms">Terms of Use</a>
+      </p>
+    </div>
+  </div>
+  <div class="container copyright">&copy; 2026 Caraga Youth Fellowship. All rights reserved.</div>
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     
+     NO app.js REQUIRED
+     ========================================================= -->
+
+<script>
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+
+    /* =======================================================
+       ELEMENTS
+       ======================================================= */
+
+    const churchSelect =
+      document.getElementById(
+        "local_church"
+      );
+
+
+    const sectorInput =
+      document.getElementById(
+        "sector"
+      );
+
+
+    const visitingWrapper =
+      document.getElementById(
+        "visitingChurchWrapper"
+      );
+
+
+    const visitingInput =
+      document.getElementById(
+        "visiting_church"
+      );
+
+
+    const churchPreview =
+      document.getElementById(
+        "churchPreview"
+      );
+
+
+    const churchPreviewName =
+      document.getElementById(
+        "churchPreviewName"
+      );
+
+
+    const churchPreviewSector =
+      document.getElementById(
+        "churchPreviewSector"
+      );
+
+
+    const amountInput =
+      document.getElementById(
+        "donation_amount"
+      );
+
+
+    const amountPreview =
+      document.getElementById(
+        "amountPreview"
+      );
+
+
+    const amountError =
+      document.getElementById(
+        "amountError"
+      );
+
+
+    const emailInput =
+      document.getElementById(
+        "email"
+      );
+
+
+    const emailError =
+      document.getElementById(
+        "emailError"
+      );
+
+
+    const submitBtn =
+      document.getElementById(
+        "submitBtn"
+      );
+
+
+    const loading =
+      document.getElementById(
+        "loading"
+      );
+
+
+    const successMessage =
+      document.getElementById(
+        "successMessage"
+      );
+
+
+    const paymentResult =
+      document.getElementById(
+        "paymentResult"
+      );
+
+
+    const paymentMessage =
+      document.getElementById(
+        "paymentMessage"
+      );
+
+
+    const paymentLink =
+      document.getElementById(
+        "paymentLink"
+      );
+
+
+    const paymentWaiting =
+      document.getElementById(
+        "paymentWaiting"
+      );
+
+
+    const paymentStatusText =
+      document.getElementById(
+        "paymentStatusText"
+      );
+
+
+    const paymentSuccess =
+      document.getElementById(
+        "paymentSuccess"
+      );
+
+
+    const refreshMessage =
+      document.getElementById(
+        "refreshMessage"
+      );
+
+
+    const processingMessage =
+      document.getElementById(
+        "processingMessage"
+      );
+
+
+    const processingStatusText =
+      document.getElementById(
+        "processingStatusText"
+      );
+
+
+    const processError =
+      document.getElementById(
+        "processError"
+      );
+
+
+    const queueDisabled =
+      document.getElementById(
+        "queueDisabled"
+      );
+
+
+    /* =======================================================
+       PAYMENT VARIABLES
+       ======================================================= */
+
+    let paymentLinkId = null;
+
+
+    let paymentPollingTimer = null;
+
+
+    let paymentPollingActive = false;
+
+
+    /*
+     * Prevent the automatic queue process from being
+     * called more than once during this page session.
+     */
+
+    let findingSponsorProcessingStarted = false;
+
+
+    /*
+     * Prevent duplicate page refresh timers.
+     */
+
+    let paymentRefreshTimer = null;
+
+
+    /* =======================================================
+       FASTAPI BASE URL
+       ======================================================= */
+
+    const API_BASE_URL = "";
+
+
+    /* =======================================================
+       CHURCH SELECTION
+       ======================================================= */
+
+    churchSelect.addEventListener(
+      "change",
+      function () {
+
+        const selectedOption =
+          this.options[
+            this.selectedIndex
+          ];
+
+
+        const selectedValue =
+          this.value;
+
+
+        if (!selectedValue) {
+
+          sectorInput.value =
+            "";
+
+
+          visitingWrapper.style.display =
+            "none";
+
+
+          visitingInput.value =
+            "";
+
+
+          visitingInput.required =
+            false;
+
+
+          churchPreview.style.display =
+            "none";
+
+
+          return;
+
+        }
+
+
+        /* ===================================================
+           VISITING CHURCH
+           =================================================== */
+
+        if (
+          selectedValue ===
+          "Visiting Church"
+        ) {
+
+          visitingWrapper.style.display =
+            "block";
+
+
+          visitingInput.required =
+            true;
+
+
+          sectorInput.value =
+            "N/A";
+
+
+          churchPreview.style.display =
+            "block";
+
+
+          churchPreviewName.textContent =
+            "Visiting Church";
+
+
+          churchPreviewSector.textContent =
+            "N/A";
+
+
+          return;
+
+        }
+
+
+        /* ===================================================
+           NORMAL CHURCH
+           =================================================== */
+
+        visitingWrapper.style.display =
+          "none";
+
+
+        visitingInput.required =
+          false;
+
+
+        visitingInput.value =
+          "";
+
+
+        const sector =
+          selectedOption.dataset.sector ||
+          "";
+
+
+        sectorInput.value =
+          sector;
+
+
+        churchPreview.style.display =
+          "block";
+
+
+        churchPreviewName.textContent =
+          selectedValue;
+
+
+        churchPreviewSector.textContent =
+          sector;
+
+      }
+    );
+
+
+    /* =======================================================
+       VISITING CHURCH INPUT
+       ======================================================= */
+
+    visitingInput.addEventListener(
+      "input",
+      function () {
+
+        if (
+          churchSelect.value ===
+          "Visiting Church"
+        ) {
+
+          sectorInput.value =
+            "N/A";
+
+
+          churchPreviewName.textContent =
+            this.value.trim()
+              ? this.value.trim()
+              : "Visiting Church";
+
+
+          churchPreviewSector.textContent =
+            "N/A";
+
+        }
+
+      }
+    );
+
+
+    /* =======================================================
+       TIER SELECTION
+       ======================================================= */
+
+    const tierCards =
+      document.querySelectorAll(
+        ".tier-card"
+      );
+
+
+    const tierInputs =
+      document.querySelectorAll(
+        'input[name="selected_tier"]'
+      );
+
+
+    tierInputs.forEach(
+      function (radio) {
+
+        radio.addEventListener(
+          "change",
+          function () {
+
+            tierCards.forEach(
+              function (card) {
+
+                card.classList.remove(
+                  "selected"
+                );
+
+              }
+            );
+
+
+            if (this.checked) {
+
+              this.closest(
+                ".tier-card"
+              ).classList.add(
+                "selected"
+              );
+
+            }
+
+
+            validateAmount();
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =======================================================
+       GET SELECTED TIER
+       ======================================================= */
+
+    function getSelectedTier() {
+
+      return document.querySelector(
+        'input[name="selected_tier"]:checked'
+      );
+
+    }
+
+
+    /* =======================================================
+       DETERMINE TIER
+       ======================================================= */
+
+    function determineTier(
+      amount
+    ) {
+
+      if (
+        amount < 1000
+      ) {
+
+        return "1st (Bronze) Tier";
+
+      }
+
+
+      if (
+        amount < 2000
+      ) {
+
+        return "2nd (Silver) Tier";
+
+      }
+
+
+      if (
+        amount < 3000
+      ) {
+
+        return "3rd (Gold) Tier";
+
+      }
+
+
+      return "4th (Diamond) Tier";
+
+    }
+
+
+    /* =======================================================
+       VALIDATE AMOUNT
+       ======================================================= */
+
+    function validateAmount() {
+
+      const amount =
+        parseFloat(
+          amountInput.value ||
+          0
+        );
+
+
+      amountPreview.textContent =
+        "Donation Amount: ₱" +
+        amount.toLocaleString(
+          "en-PH",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        );
+
+
+      if (
+        !amount ||
+        amount <= 0
+      ) {
+
+        amountError.style.display =
+          "none";
+
+
+        return false;
+
+      }
+
+
+      const selectedTier =
+        getSelectedTier();
+
+
+      if (!selectedTier) {
+
+        amountError.textContent =
+          "Please select a sponsorship package.";
+
+
+        amountError.style.display =
+          "block";
+
+
+        return false;
+
+      }
+
+
+      const correctTier =
+        determineTier(
+          amount
+        );
+
+
+      if (
+        selectedTier.value.toLowerCase() !==
+        correctTier.toLowerCase()
+      ) {
+
+        amountError.textContent =
+          "A donation of ₱" +
+          amount.toLocaleString(
+            "en-PH",
+            {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }
+          ) +
+          " belongs to the " +
+          correctTier +
+          ". Please select the correct package.";
+
+
+        amountError.style.display =
+          "block";
+
+
+        return false;
+
+      }
+
+
+      amountError.style.display =
+        "none";
+
+
+      return true;
+
+    }
+
+
+    amountInput.addEventListener(
+      "input",
+      validateAmount
+    );
+
+
+    /* =======================================================
+       EMAIL VALIDATION
+       ======================================================= */
+
+    function validateEmail() {
+
+      const email =
+        emailInput.value.trim();
+
+
+      if (!email) {
+
+        emailError.style.display =
+          "none";
+
+
+        return true;
+
+      }
+
+
+      const valid =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+          email
+        );
+
+
+      if (!valid) {
+
+        emailError.style.display =
+          "block";
+
+
+        return false;
+
+      }
+
+
+      emailError.style.display =
+        "none";
+
+
+      return true;
+
+    }
+
+
+    emailInput.addEventListener(
+      "input",
+      validateEmail
+    );
+
+
+    /* =======================================================
+       SCHEDULE PAYMENT SUCCESS REFRESH
+       
+       IMPORTANT:
+       
+       The 3-second countdown starts immediately when
+       PayMongo payment is confirmed.
+       
+       It does NOT wait for the Finding Sponsor queue
+       API to finish.
+       ======================================================= */
+
+    function schedulePaymentSuccessRefresh() {
+
+      /*
+       * Prevent duplicate refresh timers.
+       */
+
+      if (
+        paymentRefreshTimer
+      ) {
+
+        clearTimeout(
+          paymentRefreshTimer
+        );
+
+      }
+
+
+      refreshMessage.textContent =
+        "Payment confirmed. Refreshing the page in 3 seconds...";
+
+
+      paymentRefreshTimer =
+        setTimeout(
+          function () {
+
+            window.location.reload();
+
+          },
+          3000
+        );
+
+    }
+
+
+    /* =======================================================
+       SHOW WAITING FOR PAYMENT
+       ======================================================= */
+
+    function showWaitingForPayment() {
+
+      paymentResult.style.display =
+        "none";
+
+
+      paymentSuccess.style.display =
+        "none";
+
+
+      processingMessage.style.display =
+        "none";
+
+
+      processError.style.display =
+        "none";
+
+
+      queueDisabled.style.display =
+        "none";
+
+
+      paymentWaiting.style.display =
+        "block";
+
+
+      paymentStatusText.textContent =
+        "Waiting for payment confirmation...";
+
+
+      paymentWaiting.scrollIntoView(
+        {
+          behavior: "smooth",
+          block: "center"
+        }
+      );
+
+    }
+
+
+    /* =======================================================
+       PROCESS FINDING SPONSOR QUEUE
+       
+       THIS IS AUTOMATIC.
+       
+       NO BUTTON IS REQUIRED.
+       
+       IMPORTANT:
+       
+       This function does NOT control payment.
+       It only attempts to process the queue AFTER
+       payment has already been confirmed.
+       ======================================================= */
+
+    async function processFindingSponsorQueue() {
+
+      /*
+       * Prevent duplicate calls.
+       */
+
+      if (
+        findingSponsorProcessingStarted
+      ) {
+
+        console.log(
+          "Finding Sponsor queue processing already started."
+        );
+
+
+        return;
+
+      }
+
+
+      findingSponsorProcessingStarted =
+        true;
+
+
+      /*
+       * Show processing UI.
+       */
+
+      paymentWaiting.style.display =
+        "none";
+
+
+      paymentResult.style.display =
+        "none";
+
+
+      processError.style.display =
+        "none";
+
+
+      queueDisabled.style.display =
+        "none";
+
+
+      paymentSuccess.style.display =
+        "block";
+
+
+      processingMessage.style.display =
+        "block";
+
+
+      refreshMessage.textContent =
+        "Payment confirmed. Processing sponsorship queue...";
+
+
+      processingStatusText.textContent =
+        "Connecting to the Finding Sponsor queue...";
+
+
+      processingMessage.scrollIntoView(
+        {
+          behavior: "smooth",
+          block: "center"
+        }
+      );
+
+
+      console.log(
+        "================================================"
+      );
+
+
+      console.log(
+        "AUTOMATIC FINDING SPONSOR PROCESSING"
+      );
+
+
+      console.log(
+        "Payment has been confirmed."
+      );
+
+
+      console.log(
+        "Calling POST /process_finding_sponsor_queue"
+      );
+
+
+      console.log(
+        "Page refresh is already scheduled for 3 seconds after payment confirmation."
+      );
+
+
+      console.log(
+        "================================================"
+      );
+
+
+      try {
+
+        /* =================================================
+           CALL FASTAPI
+           ================================================= */
+
+        const response =
+          await fetch(
+            API_BASE_URL +
+            "/process_finding_sponsor_queue",
+            {
+
+              method: "POST",
+
+              headers: {
+
+                "Accept":
+                  "application/json"
+
+              },
+
+              cache:
+                "no-store"
+
+            }
+          );
+
+
+        /* =================================================
+           READ RESPONSE
+           ================================================= */
+
+        let result =
+          {};
+
+
+        try {
+
+          result =
+            await response.json();
+
+        } catch (
+          error
+        ) {
+
+          result =
+            {};
+
+        }
+
+
+        console.log(
+          "Finding Sponsor processing response:",
+          result
+        );
+
+
+
+        /* =================================================
+           FINDING SPONSOR QUEUE DISABLED
+           
+           HTTP 403 means the administrator has turned
+           the Finding Sponsor function OFF.
+           
+           IMPORTANT:
+           
+           The payment is already successful.
+           This is NOT a payment failure.
+           
+           The cash sponsorship remains recorded and
+           the payment remains valid.
+           ================================================= */
+
+        if (
+          response.status === 403
+        ) {
+
+          console.log(
+            "Finding Sponsor queue is currently OFF."
+          );
+
+
+          console.log(
+            "Payment remains confirmed."
+          );
+
+
+          console.log(
+            "Cash sponsorship remains recorded."
+          );
+
+
+          /*
+           * Hide automatic processing UI.
+           */
+
+          processingMessage.style.display =
+            "none";
+
+
+          processError.style.display =
+            "none";
+
+
+          /*
+           * Keep Payment Successful visible.
+           */
+
+          paymentSuccess.style.display =
+            "block";
+
+
+          /*
+           * Show the dedicated queue-disabled message.
+           */
+
+          queueDisabled.style.display =
+            "block";
+
+
+          refreshMessage.textContent =
+            "Payment confirmed. Finding Sponsor queue is currently turned off by the administrator. Refreshing the page...";
+
+
+          /*
+           * The payment was successful.
+           *
+           * The queue is OFF, so we do not process it.
+           *
+           * However, the page must still refresh
+           * 3 seconds after payment confirmation.
+           */
+
+          queueDisabled.scrollIntoView(
+            {
+              behavior: "smooth",
+              block: "center"
+            }
+          );
+
+
+          setTimeout(
+            function () {
+
+              window.location.reload();
+
+            },
+            3000
+          );
+
+
+          return;
+
+        }
+
+
+
+
+        /* =================================================
+           HTTP ERROR
+           ================================================= */
+
+        if (
+          !response.ok
+        ) {
+
+          let errorMessage =
+            "Finding Sponsor queue processing failed.";
+
+
+          if (
+            result.detail
+          ) {
+
+            if (
+              typeof result.detail ===
+              "string"
+            ) {
+
+              errorMessage =
+                result.detail;
+
+            } else {
+
+              errorMessage =
+                JSON.stringify(
+                  result.detail
+                );
+
+            }
+
+          }
+
+
+          throw new Error(
+            errorMessage
+          );
+
+        }
+
+
+        /* =================================================
+           PROCESSING SUCCESS
+           ================================================= */
+
+        console.log(
+          "Finding Sponsor queue processing completed."
+        );
+
+
+        console.log(
+          "Processing status:",
+          result.status
+        );
+
+
+        console.log(
+          "Initial queue:",
+          result.initial_queue_count
+        );
+
+
+        console.log(
+          "Sponsored:",
+          result.sponsored_count
+        );
+
+
+        console.log(
+          "Remaining queue:",
+          result.remaining_queue_count
+        );
+
+
+        console.log(
+          "Total sponsored:",
+          result.total_sponsored_amount_display
+        );
+
+
+        console.log(
+          "Remaining cash fund:",
+          result.cash_donation_total_display
+        );
+
+
+        /* =================================================
+           SUCCESS MESSAGE
+           ================================================= */
+
+        const sponsoredCount =
+          Number(
+            result.sponsored_count || 0
+          );
+
+
+        const remainingQueueCount =
+          Number(
+            result.remaining_queue_count || 0
+          );
+
+
+        if (
+          sponsoredCount > 0
+        ) {
+
+          refreshMessage.textContent =
+            sponsoredCount +
+            " participant(s) were sponsored successfully. " +
+            "Refreshing the page...";
+
+
+          processingStatusText.textContent =
+            "Sponsored " +
+            sponsoredCount +
+            " participant(s). " +
+            remainingQueueCount +
+            " participant(s) remain in the queue.";
+
+        } else {
+
+          refreshMessage.textContent =
+            "Payment confirmed. Refreshing the page...";
+
+
+          processingStatusText.textContent =
+            result.message ||
+            "No Finding Sponsor participants were available to process.";
+
+        }
+
+
+        /*
+         * IMPORTANT:
+         *
+         * DO NOT create another setTimeout here.
+         *
+         * The refresh timer was already started immediately
+         * when payment was confirmed.
+         */
+
+      } catch (
+        error
+      ) {
+
+        console.error(
+          "Automatic Finding Sponsor processing failed:",
+          error
+        );
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Payment is already confirmed.
+         *
+         * Therefore we DO NOT say that payment failed.
+         *
+         * The page refresh timer is already running.
+         */
+
+        paymentSuccess.style.display =
+          "block";
+
+
+        processingMessage.style.display =
+          "none";
+
+
+        queueDisabled.style.display =
+          "none";
+
+
+        processError.style.display =
+          "block";
+
+
+        refreshMessage.textContent =
+          "Payment confirmed. Refreshing the page...";
+
+
+        processError.innerHTML =
+          "<strong>Payment Confirmed</strong>" +
+          "<br><br>" +
+          "Your payment was successfully received, but the " +
+          "Finding Sponsor queue could not be processed automatically." +
+          "<br><br>" +
+          "Please contact the administrator if the sponsorship " +
+          "fund does not appear after the queue is enabled.";
+
+
+        console.error(
+          "Queue processing error:",
+          error.message
+        );
+
+
+        /*
+         * DO NOT reload here.
+         *
+         * The original payment-success refresh timer
+         * will handle the page refresh.
+         */
+
+      }
+
+    }
+
+
+    /* =======================================================
+       SHOW PAYMENT SUCCESS
+       
+       PAYMENT SUCCESS NOW TRIGGERS THE FINDING SPONSOR
+       PROCESS AUTOMATICALLY.
+       
+       THE PAGE REFRESH COUNTDOWN STARTS HERE.
+       ======================================================= */
+
+    async function showPaymentSuccess() {
+
+      /*
+       * Stop payment polling.
+       */
+
+      paymentPollingActive =
+        false;
+
+
+      if (
+        paymentPollingTimer
+      ) {
+
+        clearTimeout(
+          paymentPollingTimer
+        );
+
+
+        paymentPollingTimer =
+          null;
+
+      }
+
+
+      /*
+       * Hide payment waiting/result.
+       */
+
+      paymentWaiting.style.display =
+        "none";
+
+
+      paymentResult.style.display =
+        "none";
+
+
+      /*
+       * Hide previous queue messages.
+       */
+
+      processingMessage.style.display =
+        "none";
+
+
+      processError.style.display =
+        "none";
+
+
+      queueDisabled.style.display =
+        "none";
+
+
+      /*
+       * Show payment success.
+       */
+
+      paymentSuccess.style.display =
+        "block";
+
+
+      refreshMessage.textContent =
+        "Payment confirmed. Processing sponsorship queue...";
+
+
+      paymentSuccess.scrollIntoView(
+        {
+          behavior: "smooth",
+          block: "center"
+        }
+      );
+
+
+      /*
+       * IMPORTANT:
+       *
+       * Start the 3-second refresh timer NOW.
+       *
+       * This happens immediately after payment is confirmed.
+       *
+       * The queue processing happens separately and does
+       * not delay the refresh.
+       */
+
+      schedulePaymentSuccessRefresh();
+
+
+      /*
+       * Automatically process the Finding Sponsor queue.
+       *
+       * The page will refresh after 3 seconds regardless
+       * of whether the queue is ON, OFF, or encounters
+       * another processing error.
+       */
+
+      await processFindingSponsorQueue();
+
+    }
+
+
+    /* =======================================================
+       CHECK PAYMENT STATUS
+       ======================================================= */
+
+    async function checkPaymentStatus() {
+
+      /*
+       * Do nothing if there is no payment link.
+       */
+
+      if (
+        !paymentLinkId ||
+        !paymentPollingActive
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const url =
+          API_BASE_URL +
+          "/sponsorship/payment/status/" +
+          encodeURIComponent(
+            paymentLinkId
+          );
+
+
+        console.log(
+          "================================================"
+        );
+
+
+        console.log(
+          "CHECKING PAYMENT STATUS"
+        );
+
+
+        console.log(
+          "PayMongo Link ID:",
+          paymentLinkId
+        );
+
+
+        console.log(
+          "URL:",
+          url
+        );
+
+
+        const response =
+          await fetch(
+            url,
+            {
+
+              method:
+                "GET",
+
+              headers: {
+
+                "Accept":
+                  "application/json"
+
+              },
+
+              cache:
+                "no-store"
+
+            }
+          );
+
+
+        /* =================================================
+           HTTP ERROR
+           ================================================= */
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            "Payment status request failed: HTTP " +
+            response.status
+          );
+
+        }
+
+
+        /* =================================================
+           PARSE JSON
+           ================================================= */
+
+        const result =
+          await response.json();
+
+
+        console.log(
+          "Payment status response:",
+          result
+        );
+
+
+        /* =================================================
+           NORMALIZE STATUS
+           ================================================= */
+
+        const status =
+          String(
+            result.status ??
+            result.payment_status ??
+            result.paymentStatus ??
+            result.data?.status ??
+            ""
+          )
+          .trim()
+          .toLowerCase();
+
+
+        console.log(
+          "Normalized payment status:",
+          status
+        );
+
+
+        /* =================================================
+           ACTUAL PAID STATUSES
+           
+           DO NOT use:
+           
+             result.success === true
+           
+           because success:true may only mean that the
+           API request itself was successful.
+           ================================================= */
+
+        const isPaid =
+          result.paid === true ||
+          status === "paid" ||
+          status === "succeeded" ||
+          status === "successful" ||
+          status === "completed";
+
+
+        /* =================================================
+           FAILED STATUSES
+           ================================================= */
+
+        const isFailed =
+          status === "failed" ||
+          status === "cancelled" ||
+          status === "canceled" ||
+          status === "expired";
+
+
+        /* =================================================
+           ACTUAL PAYMENT SUCCESS
+           ================================================= */
+
+        if (
+          isPaid
+        ) {
+
+          console.log(
+            "================================================"
+          );
+
+
+          console.log(
+            "PAYMENT CONFIRMED AS PAID"
+          );
+
+
+          console.log(
+            "Starting automatic Finding Sponsor processing."
+          );
+
+
+          console.log(
+            "Page will refresh 3 seconds after this confirmation."
+          );
+
+
+          console.log(
+            "================================================"
+          );
+
+
+          /*
+           * Once PayMongo payment is confirmed,
+           * showPaymentSuccess() automatically:
+           *
+           * 1. Stops payment polling.
+           * 2. Shows payment success.
+           * 3. Starts the 3-second refresh timer.
+           * 4. Calls POST /process_finding_sponsor_queue.
+           */
+
+          await showPaymentSuccess();
+
+
+          return;
+
+        }
+
+
+        /* =================================================
+           PAYMENT FAILED
+           ================================================= */
+
+        if (
+          isFailed
+        ) {
+
+          paymentStatusText.textContent =
+            "Payment status: " +
+            status +
+            ". Please try again.";
+
+        }
+
+
+        /* =================================================
+           PAYMENT STILL WAITING
+           ================================================= */
+
+        else {
+
+          paymentStatusText.textContent =
+            "Payment status: " +
+            (
+              status ||
+              "pending"
+            ) +
+            " — waiting for payment...";
+
+        }
+
+
+      } catch (
+        error
+      ) {
+
+        console.error(
+          "Payment status error:",
+          error
+        );
+
+
+        paymentStatusText.textContent =
+          "Waiting for payment confirmation...";
+
+      }
+
+
+      /* =====================================================
+         CONTINUE POLLING
+         ===================================================== */
+
+      if (
+        paymentPollingActive
+      ) {
+
+        paymentPollingTimer =
+          setTimeout(
+            checkPaymentStatus,
+            3000
+          );
+
+      }
+
+    }
+
+
+    /* =======================================================
+       START PAYMENT POLLING
+       ======================================================= */
+
+    function startPaymentPolling(
+      linkId
+    ) {
+
+      /*
+       * Stop old polling.
+       */
+
+      if (
+        paymentPollingTimer
+      ) {
+
+        clearTimeout(
+          paymentPollingTimer
+        );
+
+
+        paymentPollingTimer =
+          null;
+
+      }
+
+
+      /*
+       * Store PayMongo Link ID.
+       */
+
+      paymentLinkId =
+        linkId;
+
+
+      /*
+       * Enable polling.
+       */
+
+      paymentPollingActive =
+        true;
+
+
+      /*
+       * Reset automatic processing flag.
+       */
+
+      findingSponsorProcessingStarted =
+        false;
+
+
+      /*
+       * Reset refresh timer.
+
+       * This is normally null because a payment has not
+       * yet been confirmed.
+       */
+
+      if (
+        paymentRefreshTimer
+      ) {
+
+        clearTimeout(
+          paymentRefreshTimer
+        );
+
+
+        paymentRefreshTimer =
+          null;
+
+      }
+
+
+      paymentStatusText.textContent =
+        "Checking payment status...";
+
+
+      console.log(
+        "Starting payment polling for:",
+        paymentLinkId
+      );
+
+
+      /*
+       * First check immediately.
+       */
+
+      checkPaymentStatus();
+
+    }
+
+
+    /* =======================================================
+       SUBMIT SPONSORSHIP
+       ======================================================= */
+
+    submitBtn.addEventListener(
+      "click",
+      async function () {
+
+
+        /* ===================================================
+           CLEAR OLD UI
+           =================================================== */
+
+        successMessage.style.display =
+          "none";
+
+
+        paymentResult.style.display =
+          "none";
+
+
+        paymentWaiting.style.display =
+          "none";
+
+
+        paymentSuccess.style.display =
+          "none";
+
+
+        processingMessage.style.display =
+          "none";
+
+
+        processError.style.display =
+          "none";
+
+
+        queueDisabled.style.display =
+          "none";
+
+
+        /* ===================================================
+           FORM VALUES
+           =================================================== */
+
+        const sponsorName =
+          document
+            .getElementById(
+              "sponsor_name"
+            )
+            .value
+            .trim();
+
+
+        const localChurch =
+          churchSelect.value;
+
+
+        const sector =
+          sectorInput.value;
+
+
+        const visitingChurch =
+          visitingInput.value.trim();
+
+
+        const contact =
+          document
+            .getElementById(
+              "contact"
+            )
+            .value
+            .trim();
+
+
+        const email =
+          emailInput.value.trim();
+
+
+        const amount =
+          parseFloat(
+            amountInput.value ||
+            0
+          );
+
+
+        const selectedTier =
+          getSelectedTier();
+
+
+        /* ===================================================
+           VALIDATION
+           =================================================== */
+
+        if (
+          !sponsorName
+        ) {
+
+          alert(
+            "Please enter the sponsor name."
+          );
+
+
+          return;
+
+        }
+
+
+        if (
+          !localChurch
+        ) {
+
+          alert(
+            "Please select your local church."
+          );
+
+
+          return;
+
+        }
+
+
+        if (
+          localChurch ===
+          "Visiting Church" &&
+          !visitingChurch
+        ) {
+
+          alert(
+            "Please enter the name of your visiting church."
+          );
+
+
+          visitingInput.focus();
+
+
+          return;
+
+        }
+
+
+        if (
+          !sector
+        ) {
+
+          alert(
+            "Please select your church first."
+          );
+
+
+          return;
+
+        }
+
+
+        if (
+          !selectedTier
+        ) {
+
+          alert(
+            "Please select a sponsorship package."
+          );
+
+
+          return;
+
+        }
+
+
+        if (
+          !validateAmount()
+        ) {
+
+          amountInput.focus();
+
+
+          return;
+
+        }
+
+
+        if (
+          !validateEmail()
+        ) {
+
+          emailInput.focus();
+
+
+          return;
+
+        }
+
+
+        /* ===================================================
+           DISABLE BUTTON
+           =================================================== */
+
+        submitBtn.disabled =
+          true;
+
+
+        loading.style.display =
+          "block";
+
+
+        try {
+
+
+          /* =================================================
+             CREATE CASH SPONSORSHIP
+             ================================================= */
+
+          const response =
+            await fetch(
+              API_BASE_URL +
+              "/sponsorship/create_cash",
+              {
+
+                method:
+                  "POST",
+
+                headers: {
+
+                  "Content-Type":
+                    "application/json",
+
+                  "Accept":
+                    "application/json"
+
+                },
+
+                body:
+                  JSON.stringify(
+                    {
+
+                      sponsor_name:
+                        sponsorName,
+
+                      local_church:
+                        localChurch ===
+                        "Visiting Church"
+                          ? visitingChurch
+                          : localChurch,
+
+                      contact:
+                        contact ||
+                        null,
+
+                      email:
+                        email ||
+                        null,
+
+                      sector:
+                        sector,
+
+                      selected_tier:
+                        selectedTier.value,
+
+                      donation_amount:
+                        amount
+
+                    }
+                  )
+
+              }
+            );
+
+
+          /* =================================================
+             READ RESPONSE
+             ================================================= */
+
+          let result =
+            {};
+
+
+          try {
+
+            result =
+              await response.json();
+
+          } catch (
+            error
+          ) {
+
+            result =
+              {};
+
+          }
+
+
+          console.log(
+            "Create sponsorship response:",
+            result
+          );
+
+
+          /* =================================================
+             FASTAPI ERROR
+             ================================================= */
+
+          if (
+            !response.ok
+          ) {
+
+            let message =
+              "Unable to create sponsorship.";
+
+
+            if (
+              result.detail
+            ) {
+
+              if (
+                typeof result.detail ===
+                "string"
+              ) {
+
+                message =
+                  result.detail;
+
+              } else {
+
+                message =
+                  JSON.stringify(
+                    result.detail
+                  );
+
+              }
+
+            }
+
+
+            throw new Error(
+              message
+            );
+
+          }
+
+
+          /* =================================================
+             GET PAYMONGO LINK ID
+             ================================================= */
+
+          paymentLinkId =
+            result.paymongo_link_id ||
+            result.payment_link_id ||
+            result.link_id;
+
+
+          /* =================================================
+             GET PAYMENT URL
+             ================================================= */
+
+          const paymentUrl =
+            result.payment_url ||
+            result.checkout_url;
+
+
+          /* =================================================
+             VALIDATE LINK ID
+             ================================================= */
+
+          if (
+            !paymentLinkId
+          ) {
+
+            console.error(
+              "FastAPI response did not contain paymongo_link_id:",
+              result
+            );
+
+
+            throw new Error(
+              "FastAPI did not return paymongo_link_id. " +
+              "The payment status cannot be checked."
+            );
+
+          }
+
+
+          /* =================================================
+             VALIDATE PAYMENT URL
+             ================================================= */
+
+          if (
+            !paymentUrl
+          ) {
+
+            console.error(
+              "FastAPI response did not contain payment_url:",
+              result
+            );
+
+
+            throw new Error(
+              "FastAPI did not return payment_url."
+            );
+
+          }
+
+
+          console.log(
+            "PayMongo Link ID:",
+            paymentLinkId
+          );
+
+
+          console.log(
+            "PayMongo Payment URL:",
+            paymentUrl
+          );
+
+
+          /* =================================================
+             SPONSORSHIP CREATED
+             ================================================= */
+
+          successMessage.textContent =
+            result.message ||
+            "Sponsorship created successfully.";
+
+
+          successMessage.style.display =
+            "block";
+
+
+          paymentMessage.textContent =
+            "Your " +
+            (
+              result.tier ||
+              selectedTier.value
+            ) +
+            " sponsorship has been recorded. " +
+            "Please complete your payment through PayMongo.";
+
+
+          paymentLink.href =
+            paymentUrl;
+
+
+          paymentLink.style.display =
+            "inline-flex";
+
+
+          paymentResult.style.display =
+            "block";
+
+
+          /* =================================================
+             OPEN PAYMONGO
+             ================================================= */
+
+          const paymentWindow =
+            window.open(
+              paymentUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+
+          /*
+           * If browser blocked popup,
+           * user can still click the payment link.
+           */
+
+          if (
+            !paymentWindow
+          ) {
+
+            console.warn(
+              "Browser blocked the PayMongo popup. " +
+              "User can click the payment button."
+            );
+
+          }
+
+
+          /* =================================================
+             SHOW WAITING
+             ================================================= */
+
+          showWaitingForPayment();
+
+
+          /* =================================================
+             START STATUS POLLING
+             ================================================= */
+
+          startPaymentPolling(
+            paymentLinkId
+          );
+
+
+        } catch (
+          error
+        ) {
+
+          console.error(
+            "Cash sponsorship error:",
+            error
+          );
+
+
+          alert(
+            error.message ||
+            "Cannot connect to FastAPI."
+          );
+
+
+        } finally {
+
+          submitBtn.disabled =
+            false;
+
+
+          loading.style.display =
+            "none";
+
+        }
+
+      }
+    );
+
+  }
+
+);
+
+</script>
+
+
+</body>
+
+</html>
+

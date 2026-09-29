@@ -1,0 +1,4858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CYF:HEAD -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=4">
+    <link rel="apple-touch-icon" href="/favicon.png?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/assets/site.js" defer></script>
+    <!-- /CYF:HEAD -->
+    <title>
+        Register | CYF Registration System
+    </title>
+
+    <style>
+        :root {
+
+            --green: #16803c;
+        }
+
+
+        /* ======================================================
+   RESET
+====================================================== */
+
+        * {
+
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+
+        }
+
+
+        body {
+
+            font-family: var(--font-body);
+
+            background:
+                linear-gradient(180deg,
+                    #ffffff,
+                    #fff8f8);
+
+            color: var(--text);
+
+            line-height: 1.6;
+
+        }
+
+
+        button,
+        input,
+        select {
+
+            font: inherit;
+
+        }
+
+
+        button {
+
+            cursor: pointer;
+
+        }
+
+
+        /* ======================================================
+   MAIN
+====================================================== */
+
+        .page {
+
+            width: min(1100px, 94%);
+
+            margin: 42px auto 70px;
+
+        }
+
+
+        /* ======================================================
+   HERO
+====================================================== */
+
+        .reg-hero {
+
+            position: relative;
+            overflow: hidden;
+            padding: 56px 48px;
+            margin-bottom: 32px;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            background:
+                linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, .94) 42%, rgba(255, 255, 255, .2) 100%),
+                url("/assets/hero-bg.jpg") right 35% / cover no-repeat;
+            box-shadow: var(--shadow-sm);
+
+        }
+
+
+        .reg-hero .eyebrow {
+
+            display: block;
+
+        }
+
+
+        .reg-hero h1 {
+
+            color: var(--ink);
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.08;
+            margin: 12px 0 10px;
+
+        }
+
+
+        .reg-hero p {
+
+            color: var(--muted);
+            max-width: 460px;
+            margin: 0;
+
+        }
+
+
+        /* ======================================================
+   REGISTRATION TYPES
+====================================================== */
+
+        .registration-types {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .type-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            padding: 23px;
+
+            text-align: center;
+
+            box-shadow:
+                0 8px 25px rgba(90, 0, 0, .05);
+
+            transition: .2s;
+
+        }
+
+
+        .type-card:hover {
+
+            transform: translateY(-3px);
+
+            border-color: var(--gold);
+
+        }
+
+
+        .type-card.active {
+
+            border: 2px solid var(--red);
+
+        }
+
+
+        .type-icon {
+
+            font-size: 34px;
+
+        }
+
+
+        .type-card h3 {
+
+            color: var(--red);
+
+            margin: 7px 0;
+
+        }
+
+
+        .type-card p {
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .type-button {
+
+            width: 100%;
+
+            border: 0;
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+            background: var(--red);
+
+            color: white;
+
+            font-weight: 800;
+
+        }
+
+
+        .type-card.active .type-button {
+
+            background: var(--gold);
+
+            color: #3d2b00;
+
+        }
+
+
+        /* ======================================================
+   PANEL
+====================================================== */
+
+        .registration-panel {
+
+            background: white;
+
+            border-radius: 21px;
+
+            box-shadow:
+                0 20px 55px rgba(88, 10, 10, .12);
+
+            overflow: hidden;
+
+        }
+
+
+        /* ======================================================
+   STEPPER
+====================================================== */
+
+        .stepper {
+
+            display: flex;
+
+            background: var(--red);
+
+            color: white;
+
+            padding: 22px;
+
+            gap: 8px;
+
+        }
+
+
+        .step {
+
+            flex: 1;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+        }
+
+
+        .step-number {
+
+            margin: auto;
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: grid;
+
+            place-items: center;
+
+            background:
+                rgba(255, 255, 255, .22);
+
+        }
+
+
+        .step.active .step-number,
+        .step.completed .step-number {
+
+            background: var(--gold);
+
+            color: var(--red);
+
+        }
+
+
+        .step-label {
+
+            margin-top: 5px;
+
+        }
+
+
+        /* ======================================================
+   ALERT
+====================================================== */
+
+        .alert {
+
+            display: none;
+
+            margin: 18px 30px 0;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            white-space: pre-line;
+
+        }
+
+
+        .alert.error {
+
+            display: block;
+
+            background: #fff0f0;
+
+            color: #a11d1d;
+
+            border: 1px solid #efb9b9;
+
+        }
+
+
+        .alert.success {
+
+            display: block;
+
+            background: #edf9f2;
+
+            color: var(--green);
+
+            border: 1px solid #b9dfc5;
+
+        }
+
+
+        /* ======================================================
+   FORM
+====================================================== */
+
+        .form-body {
+
+            padding: 32px;
+
+        }
+
+
+        .form-step {
+
+            display: none;
+
+        }
+
+
+        .form-step.active {
+
+            display: block;
+
+        }
+
+
+        .form-title {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .form-title h2 {
+
+            color: var(--red);
+
+            font-size: 27px;
+
+        }
+
+
+        .form-title p {
+
+            color: var(--muted);
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+        }
+
+
+        .full {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        label {
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .required {
+
+            color: var(--red);
+
+        }
+
+
+        input,
+        select {
+
+            padding: 12px;
+
+            border: 1px solid #ddcece;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            background: white;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: var(--red);
+
+            box-shadow:
+                0 0 0 3px rgba(157, 11, 11, .08);
+
+        }
+
+
+        /* ======================================================
+   CHOICES
+====================================================== */
+
+        .choice-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+        }
+
+
+        .choice {
+
+            border: 1px solid var(--border);
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+        }
+
+
+        .choice input {
+
+            width: auto;
+
+        }
+
+
+        /* ======================================================
+   QUESTION
+====================================================== */
+
+        .section-title {
+
+            color: var(--red);
+
+            border-bottom:
+                2px solid #f1e3e3;
+
+            padding-bottom: 7px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .question {
+
+            background: #fffdf8;
+
+            border: 1px solid #eee2bf;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            margin: 12px 0;
+
+        }
+
+
+        .question select {
+
+            width: 100%;
+
+            margin-top: 7px;
+
+        }
+
+
+        /* ======================================================
+   RULES
+====================================================== */
+
+        .rules-box {
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            max-height: 310px;
+
+            overflow-y: auto;
+
+        }
+
+
+        .rules-box h3 {
+
+            color: var(--red);
+
+        }
+
+
+        .rules-box p,
+        .rules-box li {
+
+            color: #554c4c;
+
+            font-size: 14px;
+
+        }
+
+
+        .rules-box ul {
+
+            padding-left: 22px;
+
+        }
+
+
+        /* ======================================================
+   AGREEMENTS
+====================================================== */
+
+        .agreement {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: flex-start;
+
+            background: var(--gold-light);
+
+            border: 1px solid #ecd27b;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+        }
+
+
+        .agreement input {
+
+            width: auto;
+
+            margin-top: 4px;
+
+        }
+
+
+        .agreement label {
+
+            margin: 0;
+
+        }
+
+
+        .confidentiality {
+
+            background: #fff4f4;
+
+            border-color: #e8b8b8;
+
+        }
+
+
+        /* ======================================================
+   SUMMARY
+====================================================== */
+
+        .summary-card {
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+        }
+
+
+        .summary-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 13px 15px;
+
+            border-bottom: 1px solid #f1e8e8;
+
+        }
+
+
+        .summary-row:last-child {
+
+            border-bottom: 0;
+
+        }
+
+
+        .summary-row span:first-child {
+
+            color: var(--muted);
+
+        }
+
+
+        .summary-row span:last-child {
+
+            font-weight: 800;
+
+            text-align: right;
+
+        }
+
+
+        /* ======================================================
+   BUTTONS
+====================================================== */
+
+        .form-actions {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-top: 28px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #eee;
+
+        }
+
+
+        .btn {
+
+            border: 0;
+
+            border-radius: 10px;
+
+            padding: 12px 20px;
+
+            font-weight: 850;
+
+            text-decoration: none;
+
+        }
+
+
+        .btn-red {
+
+            background: var(--red);
+
+            color: white;
+
+        }
+
+
+        .btn-gold {
+
+            background: var(--gold);
+
+            color: #3d2b00;
+
+        }
+
+
+        .btn-light {
+
+            background: #f2eeee;
+
+            color: #443a3a;
+
+        }
+
+
+        .btn:disabled {
+
+            opacity: .55;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* ======================================================
+   SUCCESS
+====================================================== */
+
+        .success-box {
+
+            text-align: center;
+
+            padding: 25px;
+
+        }
+
+
+        .success-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            margin: auto;
+
+            border-radius: 50%;
+
+            display: grid;
+
+            place-items: center;
+
+            background: #e8f8ee;
+
+            color: var(--green);
+
+            font-size: 35px;
+
+        }
+
+
+        .registration-number {
+
+            display: inline-block;
+
+            background: var(--red);
+
+            color: var(--gold);
+
+            padding: 9px 18px;
+
+            border-radius: 9px;
+
+            font-weight: 900;
+
+            margin: 14px;
+
+        }
+
+
+
+        /* ======================================================
+   STAFF SEARCH / COMPLETION
+====================================================== */
+        .staff-search-box {
+            background: #fffdf8;
+            border: 1px solid #eee2bf;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .staff-search-help {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .staff-results {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .staff-result-card {
+            width: 100%;
+            text-align: left;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            transition: .2s;
+        }
+
+        .staff-result-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-1px);
+        }
+
+        .staff-result-name {
+            color: var(--red);
+            font-weight: 900;
+        }
+
+        .staff-result-meta {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        .staff-profile-box {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            border: 1px solid #eadede;
+            border-radius: 14px;
+            background: #fff;
+        }
+
+        .staff-profile-box.active {
+            display: block;
+        }
+
+        .staff-selected-badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--gold-light);
+            color: var(--red);
+            border: 1px solid #ecd27b;
+            font-size: 12px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .staff-readonly {
+            background: #f7f3f3;
+        }
+
+        .staff-position {
+            font-weight: 800;
+            color: var(--red);
+        }
+
+        .staff-status-note {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #f7f7f7;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .success-box .redirect-message {
+            margin: 15px auto;
+            max-width: 650px;
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--gold-light);
+            border: 1px solid #ecd27b;
+            color: #4a3900;
+        }
+
+        .redirect-countdown {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--red);
+            margin-top: 8px;
+        }
+
+        /* ======================================================
+   MULTIPLE REGISTRATION QUEUE
+====================================================== */
+        .multiple-registration-panel {
+            margin-bottom: 22px;
+            border: 1px solid #ecd27b;
+            background: var(--gold-light);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .multiple-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .multiple-header strong {
+            display: block;
+            color: var(--red);
+            font-size: 16px;
+        }
+
+        .multiple-header span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .registration-queue {
+            display: grid;
+            gap: 8px;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .queue-item-main {
+            min-width: 0;
+        }
+
+        .queue-item-number {
+            color: var(--red);
+            font-weight: 900;
+            margin-right: 7px;
+        }
+
+        .queue-item-name {
+            font-weight: 800;
+        }
+
+        .queue-item-meta {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .queue-remove {
+            border: 0;
+            background: #fff0f0;
+            color: #a11d1d;
+            border-radius: 8px;
+            padding: 7px 10px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .queue-help {
+            color: #5c4d1b;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .registration-option-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin: 18px 0;
+        }
+
+        .registration-option-card {
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 14px;
+            padding: 22px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+
+        .registration-option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, .08);
+            border-color: var(--gold);
+        }
+
+        .registration-option-card strong {
+            color: var(--red);
+            font-size: 18px;
+        }
+
+        .registration-option-card span:last-child {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .registration-option-card.confirm {
+            background: var(--gold-light);
+            border-color: #ecd27b;
+        }
+
+        .registration-option-icon {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        @media(max-width:760px) {
+            .registration-option-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bulk-progress {
+            margin-top: 15px;
+            text-align: left;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .bulk-progress-bar {
+            height: 9px;
+            background: #eee;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .bulk-progress-bar>div {
+            height: 100%;
+            width: 0;
+            background: var(--gold);
+            transition: width .25s ease;
+        }
+
+        .bulk-result-list {
+            margin-top: 14px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .bulk-result-item {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            text-align: left;
+            background: #fff;
+        }
+
+        .bulk-result-item.success {
+            border-color: #b9dfc5;
+            background: #f5fbf7;
+        }
+
+        .bulk-result-item.failed {
+            border-color: #efb9b9;
+            background: #fff5f5;
+        }
+
+        /* ======================================================
+   RESPONSIVE
+====================================================== */
+
+        .reg-hero h1 {
+
+            font-size: 32px;
+
+        }
+
+        .form-actions {
+
+            flex-direction: column-reverse;
+
+        }
+
+        .form-actions .btn {
+
+            width: 100%;
+
+            text-align: center;
+
+        }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+    <header class="navbar">
+        <div class="nav-inner">
+            <a class="brand" href="home.html" aria-label="Caraga Youth Fellowship home">
+                <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
+                <span class="brand-copy">
+                    <span class="brand-text">Caraga Youth Fellowship</span>
+                    <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
+                </span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="home.html">Home</a>
+                <a href="home.html#about">About</a>
+                <a href="home.html#contact">Contact</a>
+                <a href="store.html">Store</a>
+                <a href="sponsor.html">Sponsor</a>
+                <a href="register.html" class="active" aria-current="page">Register</a>
+            </nav>
+            <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="9" cy="20" r="1.4" />
+                    <circle cx="18" cy="20" r="1.4" />
+                    <path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2" />
+                </svg>
+            </a>
+            <button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open menu"
+                aria-expanded="false">&#9776;</button>
+        </div>
+    </header>
+
+
+    <main class="page">
+
+
+        <!-- ======================================================
+     HERO
+====================================================== -->
+
+        <section class="reg-hero">
+
+            <span class="eyebrow">
+                CYF Event Registration
+            </span>
+
+            <h1>
+                Join the Event
+            </h1>
+
+            <p>
+                Complete all steps before submitting your registration.
+            </p>
+
+        </section>
+
+
+        <!-- ======================================================
+     REGISTRATION TYPES
+====================================================== -->
+
+        <div class="registration-types">
+
+
+            <div class="type-card active" id="participant-card">
+
+                <div class="type-icon">
+                    👤
+                </div>
+
+                <h3>
+                    Participant
+                </h3>
+
+                <p>
+                    Register to attend a CYF event.
+                </p>
+
+                <button class="type-button" onclick="selectRegistrationType('participant')">
+
+                    Register as Participant
+
+                </button>
+
+            </div>
+
+
+
+            <div class="type-card" id="multiple-card">
+                <div class="type-icon">👥</div>
+                <h3>Multiple Registration</h3>
+                <p>Register two or more participants and pay together.</p>
+                <button class="type-button" onclick="selectRegistrationType('multiple')">Register Multiple
+                    Participants</button>
+            </div>
+
+            <div class="type-card" id="staff-card">
+
+                <div class="type-icon">
+                    🧑‍💼
+                </div>
+
+                <h3>
+                    Staff
+                </h3>
+
+                <p>
+                    Register as event staff.
+                </p>
+
+                <button class="type-button" onclick="selectRegistrationType('staff')">
+
+                    Register as Staff
+
+                </button>
+
+            </div>
+
+
+
+            <div class="type-card" id="chaperone-card">
+
+                <div class="type-icon">
+                    🧑‍🤝‍🧑
+                </div>
+
+                <h3>
+                    Chaperone
+                </h3>
+
+                <p>
+                    Register as a participant chaperone.
+                </p>
+
+                <button class="type-button" onclick="selectRegistrationType('chaperone')">
+
+                    Register as Chaperone
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ======================================================
+     PANEL
+====================================================== -->
+
+        <div class="registration-panel">
+
+
+            <!-- STEPPER -->
+
+            <div class="stepper" id="participant-stepper">
+
+                <div class="step active">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <div class="step-label">
+                        Participant Info
+                    </div>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <div class="step-label">
+                        Questionnaire
+                    </div>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <div class="step-label">
+                        Agreements
+                    </div>
+
+                </div>
+
+
+                <div class="step" data-step="4">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <div class="step-label">
+                        Registration Options
+                    </div>
+
+                </div>
+
+
+                <div class="step" data-step="5">
+
+                    <div class="step-number">
+                        5
+                    </div>
+
+                    <div class="step-label">
+                        Review
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="alert" class="alert"></div>
+
+
+            <div class="form-body">
+
+
+                <!-- ======================================================
+     PARTICIPANT STEP 1
+====================================================== -->
+
+                <div id="multiple-registration-panel" class="multiple-registration-panel" style="display:none;">
+                    <div class="multiple-header">
+                        <div>
+                            <strong>Multiple Registration</strong>
+                            <span id="multiple-queue-count">0 participants queued</span>
+                        </div>
+                        <button type="button" class="btn btn-light btn-small" onclick="clearRegistrationQueue()">Clear
+                            Queue</button>
+                    </div>
+                    <div id="registration-queue" class="registration-queue"></div>
+                    <div class="queue-help">Complete each participant one at a time. Nothing is sent to the backend
+                        until you choose <strong>Confirm All Participants</strong> and submit the final registration.
+                    </div>
+                </div>
+
+                <div class="form-step active" id="participant-step-1">
+
+                    <div class="form-title">
+
+                        <h2>
+                            Participant Information
+                        </h2>
+
+                        <p>
+                            Required fields are marked with *.
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- EVENT -->
+                        <div class="form-group full">
+
+                            <label for="event_id">
+                                Event *
+                            </label>
+
+                            <select id="event_id" name="event_id" required>
+
+                                <option value="">
+                                    Loading active events...
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- PARTICIPANT TYPE -->
+                        <div class="form-group full">
+
+                            <label>
+                                Participant Type *
+                            </label>
+
+
+                            <div class="choice-grid">
+
+
+                                <label class="choice">
+
+                                    <input type="radio" name="participant_type" value="Regular Participants" checked>
+
+                                    Regular Participants
+
+                                </label>
+
+
+
+                                <label class="choice">
+
+                                    <input type="radio" name="participant_type" value="Finding Sponsor">
+
+                                    Finding Sponsor
+
+                                </label>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- FIRST NAME -->
+                        <div class="form-group">
+
+                            <label for="fname">
+                                First Name *
+                            </label>
+
+                            <input id="fname" name="fname" type="text" autocomplete="given-name" required>
+
+                        </div>
+
+
+
+                        <!-- MIDDLE NAME -->
+                        <div class="form-group">
+
+                            <label for="mname">
+                                Middle Name
+                            </label>
+
+                            <input id="mname" name="mname" type="text" autocomplete="additional-name">
+
+                        </div>
+
+
+
+                        <!-- LAST NAME -->
+                        <div class="form-group">
+
+                            <label for="lname">
+                                Last Name *
+                            </label>
+
+                            <input id="lname" name="lname" type="text" autocomplete="family-name" required>
+
+                        </div>
+
+
+
+                        <!-- SEX -->
+                        <div class="form-group">
+
+                            <label for="sex">
+                                Sex *
+                            </label>
+
+                            <select id="sex" name="sex" required>
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="Male">
+                                    Male
+                                </option>
+
+                                <option value="Female">
+                                    Female
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- BIRTHDATE -->
+                        <div class="form-group">
+
+                            <label for="birthdate">
+                                Birthdate *
+                            </label>
+
+                            <input id="birthdate" name="birthdate" type="date" required>
+
+                        </div>
+
+
+
+                        <!-- EMAIL -->
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email *
+                            </label>
+
+                            <input id="email" name="email" type="email" autocomplete="email" required>
+
+                        </div>
+
+
+
+                        <!-- ADDRESS -->
+                        <div class="form-group full">
+
+                            <label for="address">
+                                Address *
+                            </label>
+
+                            <input id="address" name="address" type="text" autocomplete="street-address" required>
+
+                        </div>
+
+
+
+                        <!-- CONTACT NUMBER -->
+                        <div class="form-group">
+
+                            <label for="contact_number">
+                                Contact Number *
+                            </label>
+
+                            <input id="contact_number" name="contact_number" type="tel" autocomplete="tel" required>
+
+                        </div>
+
+
+
+                        <!-- EMERGENCY CONTACT -->
+                        <div class="form-group">
+
+                            <label for="emergency_contact">
+                                Emergency Contact *
+                            </label>
+
+                            <input id="emergency_contact" name="emergency_contact" type="tel" required>
+
+                        </div>
+
+
+
+                        <!-- LOCAL CHURCH -->
+                        <div class="form-group">
+
+                            <label for="local_church">
+                                Local Church *
+                            </label>
+
+                            <select id="local_church" name="local_church" required>
+                                <option value="">Select local church</option>
+
+                                <optgroup label="Sector 1">
+                                    <option value="Church 1" data-sector="Sector 1">Butuan Lighthouse Baptist Church
+                                    </option>
+                                    <option value="Church 2" data-sector="Sector 1">Butuan Lighthouse Baptist Mission,
+                                        Amparo </option>
+                                    <option value="Church 3" data-sector="Sector 1">Ampayon Fudamental Baptist Church
+                                    </option>
+                                    <option value="Church 4" data-sector="Sector 1">Grace Fundamental Baptist Church,
+                                        CBR.</option>
+                                    <option value="Church 5" data-sector="Sector 1">Binuangan Fundamental Baptist
+                                        Mission</option>
+                                    <option value="Church 6" data-sector="Sector 1">Santiago Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 7" data-sector="Sector 1">Grace Fundamental Baptist Church,
+                                        Magdagooc</option>
+                                    <option value="Church 8" data-sector="Sector 1">Suruigao Fundamental Baptist Church
+                                    </option>
+                                </optgroup>
+
+                                <optgroup label="Sector 2">
+                                    <option value="Church 9" data-sector="Sector 2">Bayugan Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 10" data-sector="Sector 2">Calaitan Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 11" data-sector="Sector 2">Remedios Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 12" data-sector="Sector 2">Sibagat Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 13" data-sector="Sector 2">Afga Fundamental Baptist Mission
+                                    </option>
+                                    <option value="Church 14" data-sector="Sector 2">Taguyango Fundamental Baptist
+                                        Mission </option>
+                                    <option value="Church 15" data-sector="Sector 2">Villangit Fundamental Baptist
+                                        Mission </option>
+                                </optgroup>
+
+                                <optgroup label="Sector 3">
+                                    <option value="Church 16" data-sector="Sector 3">Butuan Grace Fundamental Baptist
+                                        Church </option>
+                                    <option value="Church 17" data-sector="Sector 3">Blessed Hope Baptist Church
+                                    </option>
+                                    <option value="Church 18" data-sector="Sector 3">Jesus Saves Mission </option>
+                                    <option value="Church 19" data-sector="Sector 3">Grace Fundamental Baptist Mission,
+                                        Magallanes.</option>
+                                    <option value="Church 20" data-sector="Sector 3">Grace Fundamental Baptist Mission,
+                                        San Vicente.</option>
+                                    <option value="Church 21" data-sector="Sector 3">Manapa Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 22" data-sector="Sector 3">Grace Fundamental Baptist Church,
+                                        Buenavista.</option>
+                                    <option value="Church 23" data-sector="Sector 3">Nasipit Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 24" data-sector="Sector 3">Carmen Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 25" data-sector="Sector 3">Cabantian Fundamental Baptist
+                                        Church </option>
+                                    <option value="Church 26" data-sector="Sector 3">Tibon-Tibon Fundamental Baptist
+                                        Mission </option>
+                                </optgroup>
+
+                                <optgroup label="Others">
+                                    <option value="__VISITING_CHURCH__" data-sector="N/A">Visiting Church</option>
+                                </optgroup>
+                            </select>
+
+                            <input id="local_church_other" name="local_church_other" type="text"
+                                placeholder="Enter the name of your church" style="display:none; margin-top:8px;"
+                                autocomplete="organization">
+
+                        </div>
+
+
+                        <!-- SECTOR -->
+                        <div class="form-group">
+
+                            <label for="sector">
+                                Sector *
+                            </label>
+
+                            <input id="sector" name="sector" type="text" readonly required>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <span></span>
+
+                        <button type="button" class="btn btn-red" onclick="nextParticipantStep()">
+
+                            Continue →
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ======================================================
+     PARTICIPANT STEP 2
+====================================================== -->
+
+                <div class="form-step" id="participant-step-2">
+
+                    <div class="form-title">
+
+                        <h2>
+                            Questionnaire: Participant Information
+                        </h2>
+
+                        <p>
+                            Please answer all questions.
+                        </p>
+
+                    </div>
+
+
+                    <h3 class="section-title">
+                        Section 1: Experience & Involvement
+                    </h3>
+
+
+                    <div class="question">
+
+                        <label>
+                            How many youth camps or conferences have you attended in the past, or are you a visitor
+                            invited by a church member? *
+                        </label>
+
+                        <select id="camp_attendance">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Visitor invited by a church member
+                            </option>
+
+                            <option>
+                                Non Visitor (This is my very first time!)
+                            </option>
+
+                            <option>
+                                1 to 2 camps
+                            </option>
+
+                            <option>
+                                3 or more camps
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            Are you currently holding a leadership position?
+                            (e.g., Youth President, SK Official, Campus Officer, Core Team Leader) *
+                        </label>
+
+                        <select id="leadership_position">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Yes, active leader
+                            </option>
+
+                            <option>
+                                No, but I help out often
+                            </option>
+
+                            <option>
+                                No, I am a regular attendee / participant
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            How would you describe your involvement in your local church or community? *
+                        </label>
+
+                        <select id="church_involvement">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Highly active (serving weekly in music, media, teaching, ushering, etc.)
+                            </option>
+
+                            <option>
+                                Fairly regular (attending weekly services/youth fellowships)
+                            </option>
+
+                            <option>
+                                Occasional / Seeker (just starting out, visiting, or trying it out)
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <h3 class="section-title">
+                        Section 2: Vibe & Skills Inventory
+                    </h3>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            If your team needs to win a camp challenge, what is your primary strength? *
+                        </label>
+
+                        <select id="primary_strength">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Leading the group, speaking, or organizing the strategy
+                            </option>
+
+                            <option>
+                                Playing instruments, singing, dancing, or drawing/designing
+                            </option>
+
+                            <option>
+                                Working behind the scenes, cheering loudly, or executing tasks
+                            </option>
+
+                            <option>
+                                Observing quietly and keeping things calm
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            Select your primary creative/ministry skill: *
+                        </label>
+
+                        <select id="ministry_skill">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Music / Singing
+                            </option>
+
+                            <option>
+                                Arts / Dance / Media Production
+                            </option>
+
+                            <option>
+                                Public Speaking / Spoken Word
+                            </option>
+
+                            <option>
+                                Technical / Logistics / Sports
+                            </option>
+
+                            <option>
+                                None / Still discovering my talents
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <h3 class="section-title">
+                        Section 3: Spiritual Barometer
+                    </h3>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            Have you had a personal, saving encounter with the Lord Jesus Christ?
+                            If yes, if you were to die today, are you 100% sure of going to heaven? *
+                        </label>
+
+                        <select id="salvation_assurance">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Yes, I have encountered Christ and I am 100% sure of heaven.
+                            </option>
+
+                            <option>
+                                I believe in Christ, but I am still not 100% sure about heaven.
+                            </option>
+
+                            <option>
+                                I am still seeking, exploring, or unsure about a personal relationship with Christ.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            Do you have a consistent daily personal devotion that includes Bible reading and prayer? *
+                        </label>
+
+                        <select id="daily_devotion">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Yes, almost every day.
+                            </option>
+
+                            <option>
+                                Occasionally (a few times a week or when I feel the need).
+                            </option>
+
+                            <option>
+                                Rarely or struggling to start a consistent routine.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            Are you currently actively involved in serving within any of your local church ministries? *
+                        </label>
+
+                        <select id="ministry_involvement">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Yes, I serve regularly on a team/ministry.
+                            </option>
+
+                            <option>
+                                No, but I am currently undergoing training or want to join soon.
+                            </option>
+
+                            <option>
+                                No, I am just a regular worshipper/attendee right now.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            Do you intentionally take notes during sermons, youth fellowships, and Sunday schools? *
+                        </label>
+
+                        <select id="sermon_notes">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Yes, always (notebook, phone, or journal).
+                            </option>
+
+                            <option>
+                                Sometimes, if the topic really catches my attention.
+                            </option>
+
+                            <option>
+                                No, I prefer to just listen.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            Outside of regular Sunday services, do you belong to a small group,
+                            d-group, or life group for intentional mentorship? *
+                        </label>
+
+                        <select id="small_group">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Yes, I attend a small group and have a mentor/leader.
+                            </option>
+
+                            <option>
+                                No, but our church has them and I want to join.
+                            </option>
+
+                            <option>
+                                No, we do not have this, or I am not part of one.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            How comfortable are you with sharing your personal testimony or the Gospel with a friend or
+                            classmate? *
+                        </label>
+
+                        <select id="gospel_sharing">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Very comfortable—I have done it before or feel ready to lead someone to Christ.
+                            </option>
+
+                            <option>
+                                Somewhat comfortable—I know what to say but feel nervous or hesitant.
+                            </option>
+
+                            <option>
+                                Not comfortable—I do not know how to share my faith yet.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <label>
+                            When you face an aggressive moral temptation, peer pressure,
+                            or an emotional crisis, what is your immediate response? *
+                        </label>
+
+                        <select id="temptation_response">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                I seek counsel from pastors/leaders and fight it through prayer and Scripture.
+                            </option>
+
+                            <option>
+                                I try to handle it on my own first, then ask for help if it gets too heavy.
+                            </option>
+
+                            <option>
+                                I easily get overwhelmed and often isolate myself from church community.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-actions">
+
+                        <button class="btn btn-light" onclick="showParticipantStep(1)">
+                            ← Back
+                        </button>
+
+
+                        <button class="btn btn-red" onclick="goToAgreements()">
+                            Continue →
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ======================================================
+     PARTICIPANT STEP 3
+====================================================== -->
+
+                <div class="form-step" id="participant-step-3">
+
+                    <div class="form-title">
+
+                        <h2>
+                            Rules & Data Confidentiality
+                        </h2>
+
+                        <p>
+                            Both agreements are required.
+                        </p>
+
+                    </div>
+
+
+                    <div class="rules-box">
+
+                        <h3>
+                            CYF Event Rules & Regulations
+                        </h3>
+
+                        <p>
+                            By participating in this event, you agree to follow
+                            the rules and guidelines established by the CYF organizers.
+                        </p>
+
+                        <ul>
+
+                            <li>
+                                Be Present and On Time: Attend all scheduled activities, sessions,
+                                and meals promptly to make the most of spiritual instruction and program content.
+                            </li>
+
+                            <li>
+                                Limit Distractions: Keep electronic gadget use to a minimum
+                                and maintain silence during spiritual sessions or quiet times.
+                            </li>
+
+                            <li>
+                                Respect Everyone: Treat all staff, leaders,
+                                and fellow participants with respect, sportsmanship, and kindness.
+                            </li>
+
+                            <li>
+                                Behavior and Accountability: Always maintain proper conduct;
+                                misbehavior will be dealt with firmly, and you carry personal
+                                responsibility for any damage caused to people, property, or the host venue.
+                            </li>
+
+                            <li>
+                                Respect Sleeping Areas: Stay out of quarters designated
+                                for the opposite gender to maintain proper boundaries.
+                            </li>
+
+                            <li>
+                                Wear Your ID: Always keep your event name tag
+                                or ID visible so staff and peers can identify you easily.
+                            </li>
+
+                            <li>
+                                Stay On-Site: Do not leave the event venue without express
+                                permission from staff.
+                            </li>
+
+                            <li>
+                                No Substances: Smoking, drinking alcohol, and taking illegal
+                                drugs are strictly forbidden.
+                            </li>
+
+                            <li>
+                                Dress Appropriately: Wear suitable clothing for each occasion;
+                                keep casual or athletic wear for sports and free time.
+                            </li>
+
+                            <li>
+                                Take Care of Belongings and Property: Keep your items safe,
+                                do not touch unauthorized equipment or musical instruments,
+                                keep the grounds clean, and follow all host venue and staff rules.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <div class="agreement">
+
+                        <input type="checkbox" id="rules_agreed">
+
+                        <label for="rules_agreed">
+
+                            I have read and understood the Event Rules &
+                            Regulations, and I agree to follow them during the event.
+
+                        </label>
+
+                    </div>
+
+
+
+                    <div class="agreement confidentiality">
+
+                        <input type="checkbox" id="confidentiality_agreed">
+
+                        <label for="confidentiality_agreed">
+
+                            <strong>
+                                Data Confidentiality:
+                            </strong>
+
+                            I understand that the information I provide will be collected
+                            and used for event registration, participant management,
+                            communication, payment processing, event administration,
+                            and related CYF purposes. I understand that access to my
+                            information should be limited to authorized personnel and
+                            service providers necessary to operate the registration system.
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button class="btn btn-light" onclick="showParticipantStep(2)">
+                            ← Back
+                        </button>
+
+
+                        <button class="btn btn-red" onclick="goToReview()">
+                            Continue →
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ======================================================
+     PARTICIPANT STEP 4 — REGISTRATION OPTIONS
+====================================================== -->
+
+                <div class="form-step" id="participant-step-4">
+
+                    <div class="form-title">
+                        <h2>What would you like to do?</h2>
+                        <p>Save this participant and either add another participant or confirm all participants for
+                            review.</p>
+                    </div>
+
+                    <div class="registration-option-grid">
+                        <button type="button" class="registration-option-card" onclick="chooseAddParticipant()">
+                            <span class="registration-option-icon">➕</span>
+                            <strong>Add Participant</strong>
+                            <span>Add this participant to the queue and enter another participant.</span>
+                        </button>
+
+                        <button type="button" class="registration-option-card confirm"
+                            onclick="chooseConfirmAllParticipants()">
+                            <span class="registration-option-icon">✓</span>
+                            <strong>Confirm All Participants</strong>
+                            <span>Save this participant, review everyone in the queue, then submit all
+                                registrations.</span>
+                        </button>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-light" onclick="showParticipantStep(3)">
+                            ← Back
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <!-- ======================================================
+     PARTICIPANT STEP 5 — REVIEW ALL
+====================================================== -->
+
+                <div class="form-step" id="participant-step-5">
+
+                    <div class="form-title">
+                        <h2>Review Registration</h2>
+                        <p>Review all participants before submitting the registrations.</p>
+                    </div>
+
+                    <div id="registration-summary" class="summary-card"></div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-light"
+                            onclick="registrationMode === 'multiple' ? showParticipantStep(4) : showParticipantStep(3)">
+                            ← Back
+                        </button>
+                        <button id="complete-button" type="button" class="btn btn-gold"
+                            onclick="completeRegistration()">
+                            Submit All Registrations
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <!-- ======================================================
+     STAFF
+====================================================== -->
+
+                <div class="form-step" id="staff-registration">
+
+                    <div class="form-title">
+                        <h2>Staff Registration</h2>
+                        <p>Search for your staff record first. Staff records must already exist in the event staff
+                            database.</p>
+                    </div>
+
+                    <div class="staff-search-box">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="staff_search_event_id">Event *</label>
+                                <select id="staff_search_event_id">
+                                    <option value="">Select event</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staff_search_name">Full Name *</label>
+                                <input id="staff_search_name" type="text" placeholder="Enter your full name"
+                                    autocomplete="name">
+                            </div>
+                        </div>
+
+                        <p class="staff-search-help">
+                            Enter the same full name used by the event organizer when your staff record was created.
+                        </p>
+
+                        <div class="form-actions">
+                            <span></span>
+                            <button type="button" class="btn btn-red" id="staff-search-button"
+                                onclick="searchStaffForRegistration()">
+                                Search Staff Record
+                            </button>
+                        </div>
+
+                        <div id="staff-results" class="staff-results"></div>
+                    </div>
+
+                    <div id="staff-profile-box" class="staff-profile-box">
+
+                        <span class="staff-selected-badge">Staff record selected</span>
+
+                        <div class="form-title">
+                            <h2>Complete Your Staff Profile</h2>
+                            <p>Confirm your existing information and provide the missing required details.</p>
+                        </div>
+
+                        <input type="hidden" id="selected_staff_id">
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input id="staff_fname" class="staff-readonly" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input id="staff_mname" class="staff-readonly" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input id="staff_lname" class="staff-readonly" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Position</label>
+                                <input id="staff_position" class="staff-readonly staff-position" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staff_sex">Sex *</label>
+                                <select id="staff_sex">
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staff_birthday">Birthday *</label>
+                                <input type="date" id="staff_birthday">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staff_contact">Contact *</label>
+                                <input id="staff_contact" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staff_church">Local Church *</label>
+                                <select id="staff_church">
+                                    <option value="">Select local church</option>
+                                    <optgroup label="Sector 1">
+                                        <option value="Church 1" data-sector="Sector 1">Butuan Lighthouse Baptist Church
+                                        </option>
+                                        <option value="Church 2" data-sector="Sector 1">Butuan Lighthouse Baptist
+                                            Mission, Amparo</option>
+                                        <option value="Church 3" data-sector="Sector 1">Ampayon Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 4" data-sector="Sector 1">Grace Fundamental Baptist
+                                            Church, CBR.</option>
+                                        <option value="Church 5" data-sector="Sector 1">Binuangan Fundamental Baptist
+                                            Mission</option>
+                                        <option value="Church 6" data-sector="Sector 1">Santiago Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 7" data-sector="Sector 1">Grace Fundamental Baptist
+                                            Church, Magdagooc</option>
+                                        <option value="Church 8" data-sector="Sector 1">Surigao Fundamental Baptist
+                                            Church</option>
+                                    </optgroup>
+                                    <optgroup label="Sector 2">
+                                        <option value="Church 9" data-sector="Sector 2">Bayugan Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 10" data-sector="Sector 2">Calaitan Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 11" data-sector="Sector 2">Remedios Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 12" data-sector="Sector 2">Sibagat Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 13" data-sector="Sector 2">Afga Fundamental Baptist
+                                            Mission</option>
+                                        <option value="Church 14" data-sector="Sector 2">Taguyango Fundamental Baptist
+                                            Mission</option>
+                                        <option value="Church 15" data-sector="Sector 2">Villangit Fundamental Baptist
+                                            Mission</option>
+                                    </optgroup>
+                                    <optgroup label="Sector 3">
+                                        <option value="Church 16" data-sector="Sector 3">Butuan Grace Fundamental
+                                            Baptist Church</option>
+                                        <option value="Church 17" data-sector="Sector 3">Blessed Hope Baptist Church
+                                        </option>
+                                        <option value="Church 18" data-sector="Sector 3">Jesus Saves Mission</option>
+                                        <option value="Church 19" data-sector="Sector 3">Grace Fundamental Baptist
+                                            Mission, Magallanes</option>
+                                        <option value="Church 20" data-sector="Sector 3">Grace Fundamental Baptist
+                                            Mission, San Vicente</option>
+                                        <option value="Church 21" data-sector="Sector 3">Manapa Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 22" data-sector="Sector 3">Grace Fundamental Baptist
+                                            Church, Buenavista</option>
+                                        <option value="Church 23" data-sector="Sector 3">Nasipit Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 24" data-sector="Sector 3">Carmen Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 25" data-sector="Sector 3">Cabantian Fundamental Baptist
+                                            Church</option>
+                                        <option value="Church 26" data-sector="Sector 3">Tibon-Tibon Fundamental Baptist
+                                            Mission</option>
+                                    </optgroup>
+                                    <optgroup label="Others">
+                                        <option value="__VISITING_CHURCH__" data-sector="N/A">Visiting Church</option>
+                                    </optgroup>
+                                </select>
+                                <input id="staff_church_other" type="text" placeholder="Enter the name of your church"
+                                    style="display:none; margin-top:8px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staff_sector">Sector *</label>
+                                <input id="staff_sector" readonly>
+                            </div>
+                        </div>
+
+                        <div class="staff-status-note">
+                            Your position comes from the existing staff record and cannot be changed during
+                            registration.
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-light" onclick="resetStaffSearch()">Search
+                                Again</button>
+                            <button type="button" class="btn btn-gold" id="staff-complete-button"
+                                onclick="completeStaffRegistration()">
+                                Complete Staff Registration
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ======================================================
+     CHAPERONE
+====================================================== -->
+
+                <div class="form-step" id="chaperone-registration">
+
+                    <div class="form-title">
+
+                        <h2>
+                            Chaperone Registration
+                        </h2>
+
+                        <p>
+                            Select an event and provide your information.
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group full">
+
+                            <label>
+                                Event *
+                            </label>
+
+                            <select id="chaperone_event_id">
+
+                                <option value="">
+                                    Select event
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                First Name *
+                            </label>
+
+                            <input id="chaperone_fname">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Middle Name
+                            </label>
+
+                            <input id="chaperone_mname">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Last Name *
+                            </label>
+
+                            <input id="chaperone_lname">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Sex *
+                            </label>
+
+                            <select id="chaperone_sex">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option>
+                                    Male
+                                </option>
+
+                                <option>
+                                    Female
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Birthday *
+                            </label>
+
+                            <input type="date" id="chaperone_birthday">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Contact *
+                            </label>
+
+                            <input id="chaperone_contact">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Local Church *
+                            </label>
+
+                            <select id="chaperone_church" required>
+                                <option value="">Select local church</option>
+                                <optgroup label="Sector 1">
+                                    <option value="Church 1" data-sector="Sector 1">Butuan Lighthouse Baptist Church
+                                    </option>
+                                    <option value="Church 2" data-sector="Sector 1">Butuan Lighthouse Baptist Mission,
+                                        Amparo</option>
+                                    <option value="Church 3" data-sector="Sector 1">Ampayon Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 4" data-sector="Sector 1">Grace Fundamental Baptist Church,
+                                        CBR.</option>
+                                    <option value="Church 5" data-sector="Sector 1">Binuangan Fundamental Baptist
+                                        Mission</option>
+                                    <option value="Church 6" data-sector="Sector 1">Santiago Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 7" data-sector="Sector 1">Grace Fundamental Baptist Church,
+                                        Magdagooc</option>
+                                    <option value="Church 8" data-sector="Sector 1">Surigao Fundamental Baptist Church
+                                    </option>
+                                </optgroup>
+                                <optgroup label="Sector 2">
+                                    <option value="Church 9" data-sector="Sector 2">Bayugan Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 10" data-sector="Sector 2">Calaitan Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 11" data-sector="Sector 2">Remedios Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 12" data-sector="Sector 2">Sibagat Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 13" data-sector="Sector 2">Afga Fundamental Baptist Mission
+                                    </option>
+                                    <option value="Church 14" data-sector="Sector 2">Taguyango Fundamental Baptist
+                                        Mission</option>
+                                    <option value="Church 15" data-sector="Sector 2">Villangit Fundamental Baptist
+                                        Mission</option>
+                                </optgroup>
+                                <optgroup label="Sector 3">
+                                    <option value="Church 16" data-sector="Sector 3">Butuan Grace Fundamental Baptist
+                                        Church</option>
+                                    <option value="Church 17" data-sector="Sector 3">Blessed Hope Baptist Church
+                                    </option>
+                                    <option value="Church 18" data-sector="Sector 3">Jesus Saves Mission</option>
+                                    <option value="Church 19" data-sector="Sector 3">Grace Fundamental Baptist Mission,
+                                        Magallanes</option>
+                                    <option value="Church 20" data-sector="Sector 3">Grace Fundamental Baptist Mission,
+                                        San Vicente</option>
+                                    <option value="Church 21" data-sector="Sector 3">Manapa Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 22" data-sector="Sector 3">Grace Fundamental Baptist Church,
+                                        Buenavista</option>
+                                    <option value="Church 23" data-sector="Sector 3">Nasipit Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 24" data-sector="Sector 3">Carmen Fundamental Baptist Church
+                                    </option>
+                                    <option value="Church 25" data-sector="Sector 3">Cabantian Fundamental Baptist
+                                        Church</option>
+                                    <option value="Church 26" data-sector="Sector 3">Tibon-Tibon Fundamental Baptist
+                                        Mission</option>
+                                </optgroup>
+                                <optgroup label="Others">
+                                    <option value="__VISITING_CHURCH__" data-sector="N/A">Visiting Church</option>
+                                </optgroup>
+                            </select>
+                            <input id="chaperone_church_other" type="text" placeholder="Enter the name of your church"
+                                style="display:none; margin-top:8px;">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Sector *
+                            </label>
+
+                            <input id="chaperone_sector" readonly required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <span></span>
+
+                        <button class="btn btn-gold" onclick="submitChaperone()">
+                            Register as Chaperone
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ======================================================
+     SUCCESS
+====================================================== -->
+
+                <div class="form-step" id="registration-success">
+
+                    <div class="success-box">
+
+                        <div class="success-icon">
+                            ✓
+                        </div>
+
+                        <h2>
+                            Registration Completed!
+                        </h2>
+
+                        <p>
+                            Your registration has been recorded.
+                        </p>
+
+                        <div id="success-registration-number" class="registration-number">
+                        </div>
+
+
+                        <div id="final-summary" class="summary-card">
+                        </div>
+
+                        <div id="bulk-progress" class="bulk-progress" style="display:none;">
+                            <strong id="bulk-progress-text">Preparing registrations...</strong>
+                            <div class="bulk-progress-bar">
+                                <div id="bulk-progress-fill"></div>
+                            </div>
+                            <div id="bulk-result-list" class="bulk-result-list"></div>
+                        </div>
+
+
+                        <div id="post-registration-action"></div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
+                    <div>
+                        <strong>Caraga Youth Fellowship</strong>
+                        <span>Transform &middot; Equip &middot; Engage</span>
+                    </div>
+                </div>
+                <p>Discipling the young people of Caraga through fellowship, Bible conferences, youth camps and ministry
+                    across every province.</p>
+            </div>
+            <div>
+                <h3>Get Involved</h3>
+                <p>
+                    <a href="register.html">Register</a><br>
+                    <a href="sponsor.html">Become a Sponsor</a><br>
+                    <a href="store.html">CYF Store</a>
+                </p>
+            </div>
+            <div>
+                <h3>Fellowship</h3>
+                <p>
+                    <a href="home.html#about">About CYF</a><br>
+                    <a href="home.html#contact">Contact Us</a><br>
+                    <a href="login.html">Staff Login</a>
+                </p>
+            </div>
+            <div>
+                <h3>Legal</h3>
+                <p>
+                    <a href="/privacy">Privacy Policy</a><br>
+                    <a href="/terms">Terms of Use</a>
+                </p>
+            </div>
+        </div>
+        <div class="container copyright">&copy; 2026 Caraga Youth Fellowship. All rights reserved.</div>
+    </footer>
+
+
+
+    <script>
+
+
+        /* ======================================================
+           FASTAPI
+        ====================================================== */
+
+        const API_BASE =
+            window.location.protocol === "file:"
+                ? ""
+                : "";
+
+
+        /* ======================================================
+           TEMPORARY BROWSER DATA
+        ====================================================== */
+
+        /*
+           IMPORTANT:
+        
+           Nothing is sent to FastAPI while the participant
+           moves between Step 1, Step 2, Step 3 and Step 4.
+        
+           Data stays inside these JavaScript variables.
+        
+        */
+
+        let participantDraft = {};
+
+        let questionnaireDraft = {};
+
+        /* Multiple-registration state. Nothing is sent to FastAPI until Confirm Completion. */
+        let registrationMode = "single";
+        let registrationQueue = [];
+        let registrationResults = [];
+        let bulkSubmitting = false;
+        let multipleCurrentAction = null;
+
+
+        /* ======================================================
+           QUESTIONNAIRE FIELD LIST
+        ====================================================== */
+
+        const questionnaireFields = [
+
+            "camp_attendance",
+
+            "leadership_position",
+
+            "church_involvement",
+
+            "primary_strength",
+
+            "ministry_skill",
+
+            "salvation_assurance",
+
+            "daily_devotion",
+
+            "ministry_involvement",
+
+            "sermon_notes",
+
+            "small_group",
+
+            "gospel_sharing",
+
+            "temptation_response"
+
+        ];
+
+
+        /* ======================================================
+           ALERT
+        ====================================================== */
+
+        function showAlert(
+            message,
+            type = "error"
+        ) {
+
+            const alert =
+                document.getElementById("alert");
+
+            alert.textContent =
+                String(message || "");
+
+            alert.className =
+                "alert " + type;
+
+        }
+
+
+        function clearAlert() {
+
+            const alert =
+                document.getElementById("alert");
+
+            alert.className =
+                "alert";
+
+            alert.textContent =
+                "";
+
+        }
+
+
+        /* ======================================================
+           ESCAPE HTML
+        ====================================================== */
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+
+                .replaceAll("&", "&amp;")
+
+                .replaceAll("<", "&lt;")
+
+                .replaceAll(">", "&gt;")
+
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
+
+        }
+
+
+        /* ======================================================
+           API REQUEST
+        ====================================================== */
+
+        async function apiRequest(
+            endpoint,
+            options = {}
+        ) {
+
+            let response;
+
+            try {
+
+                response =
+                    await fetch(
+                        API_BASE + endpoint,
+                        {
+
+                            ...options,
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json",
+
+                                ...(options.headers || {})
+
+                            }
+
+                        }
+                    );
+
+            }
+
+            catch (error) {
+
+                throw new Error(
+                    "Cannot connect to FastAPI. " +
+                    "Make sure uvicorn is running on " +
+                    "."
+                );
+
+            }
+
+
+            let data = {};
+
+            try {
+
+                data =
+                    await response.json();
+
+            }
+
+            catch {
+
+                data = {};
+
+            }
+
+
+            if (!response.ok) {
+
+                if (
+                    Array.isArray(
+                        data.detail
+                    )
+                ) {
+
+                    throw new Error(
+
+                        data.detail
+                            .map(
+                                error =>
+                                    `${(
+                                        error.loc || []
+                                    ).join(" → ")}: ${error.msg}`
+                            )
+                            .join("\n")
+
+                    );
+
+                }
+
+
+                throw new Error(
+
+                    data.detail ||
+                    data.message ||
+                    `Server returned HTTP ${response.status}.`
+
+                );
+
+            }
+
+
+            return data;
+
+        }
+
+
+        /* ======================================================
+           REGISTRATION TYPE
+        ====================================================== */
+
+        function selectRegistrationType(type) {
+            clearAlert();
+            document.querySelectorAll(".type-card").forEach(card => card.classList.remove("active"));
+            document.getElementById(type + "-card")?.classList.add("active");
+            document.querySelectorAll(".form-step").forEach(step => step.classList.remove("active"));
+            const stepper = document.getElementById("participant-stepper");
+            const multiplePanel = document.getElementById("multiple-registration-panel");
+
+            if (type === "participant" || type === "multiple") {
+                registrationMode = type === "multiple" ? "multiple" : "single";
+                stepper?.classList.remove("hidden");
+                if (multiplePanel) multiplePanel.style.display = registrationMode === "multiple" ? "block" : "none";
+                if (registrationMode === "single") {
+                    registrationQueue = [];
+                    registrationResults = [];
+                    multipleCurrentAction = null;
+                }
+                resetParticipantFormForNextEntry(false);
+                document.getElementById("participant-step-1")?.classList.add("active");
+                updateStepper(1);
+                updateParticipantContinueButton();
+                updateMultipleRegistrationUI();
+                return;
+            }
+
+            registrationMode = type;
+            if (multiplePanel) multiplePanel.style.display = "none";
+            if (type === "staff") { stepper?.classList.add("hidden"); document.getElementById("staff-registration")?.classList.add("active"); }
+            if (type === "chaperone") { stepper?.classList.add("hidden"); document.getElementById("chaperone-registration")?.classList.add("active"); }
+        }
+
+        /* ======================================================
+           LOAD EVENTS
+        ====================================================== */
+
+        async function loadEvents() {
+
+            const selects = [
+                document.getElementById("event_id"),
+                document.getElementById("staff_event_id"),
+                document.getElementById("staff_search_event_id"),
+                document.getElementById("chaperone_event_id")
+            ].filter(Boolean);
+
+            try {
+
+                let response;
+
+                try {
+                    /* Preferred endpoint: active events + participant counts. */
+                    response = await apiRequest(
+                        "/event_participant_count"
+                    );
+                } catch (primaryError) {
+                    /* Fallback for installations that use the event list endpoint. */
+                    response = await apiRequest(
+                        "/event_view_all_events"
+                    );
+                }
+
+                /*
+                 * Support both possible FastAPI responses:
+                 *
+                 * 1. [ { id: 1, event_name: "..." } ]
+                 * 2. { events: [ { event_id: 1, event_name: "..." } ] }
+                 */
+                const events = Array.isArray(response)
+                    ? response
+                    : Array.isArray(response?.events)
+                        ? response.events
+                        : [];
+
+                selects.forEach(select => {
+                    select.innerHTML =
+                        '<option value="">Select event</option>';
+                });
+
+                if (events.length === 0) {
+                    document.getElementById("event_id").innerHTML =
+                        '<option value="">No active events available</option>';
+                    return;
+                }
+
+                events.forEach(event => {
+
+                    /*
+                     * IMPORTANT:
+                     * FastAPI expects event_id to be an INTEGER.
+                     * Some endpoints return id, while others return event_id.
+                     */
+                    const rawEventId =
+                        event.id ?? event.event_id;
+
+                    const eventId = Number(rawEventId);
+
+                    if (!Number.isInteger(eventId) || eventId <= 0) {
+                        console.warn(
+                            "Skipping event with invalid ID:",
+                            event
+                        );
+                        return;
+                    }
+
+                    const eventName =
+                        event.event_name ??
+                        event.name ??
+                        `Event #${eventId}`;
+
+                    selects.forEach(select => {
+
+                        const option =
+                            document.createElement("option");
+
+                        /* NEVER use the event name as the value. */
+                        option.value = String(eventId);
+                        option.textContent = eventName;
+
+                        select.appendChild(option);
+                    });
+                });
+
+                /* ----------------------------------------------
+                   OPTIONAL EVENT ID FROM URL
+                ---------------------------------------------- */
+
+                const params =
+                    new URLSearchParams(
+                        window.location.search
+                    );
+
+                const requestedEventId =
+                    params.get("event_id");
+
+                if (requestedEventId !== null) {
+
+                    const numericEventId =
+                        Number(requestedEventId);
+
+                    const eventSelect =
+                        document.getElementById("event_id");
+
+                    if (
+                        Number.isInteger(numericEventId) &&
+                        numericEventId > 0
+                    ) {
+                        const matchingOption =
+                            Array.from(eventSelect.options)
+                                .find(
+                                    option =>
+                                        Number(option.value) ===
+                                        numericEventId
+                                );
+
+                        if (matchingOption) {
+                            eventSelect.value =
+                                String(numericEventId);
+                        }
+                    }
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to load active events:",
+                    error
+                );
+
+                const eventSelect =
+                    document.getElementById("event_id");
+
+                if (eventSelect) {
+                    eventSelect.innerHTML =
+                        '<option value="">Unable to load active events</option>';
+                }
+
+                showAlert(error.message);
+            }
+        }
+
+        /* ======================================================
+           SHOW PARTICIPANT STEP
+        ====================================================== */
+
+        function showParticipantStep(
+            stepNumber
+        ) {
+
+            clearAlert();
+
+
+            document
+                .querySelectorAll(
+                    "#participant-step-1, " +
+                    "#participant-step-2, " +
+                    "#participant-step-3, " +
+                    "#participant-step-4, " +
+                    "#participant-step-5"
+                )
+                .forEach(
+                    step =>
+                        step.classList.remove(
+                            "active"
+                        )
+                );
+
+
+            document
+                .getElementById(
+                    "participant-step-" +
+                    stepNumber
+                )
+                .classList.add(
+                    "active"
+                );
+
+
+            updateStepper(
+                stepNumber
+            );
+
+        }
+
+
+        /* ======================================================
+           STEPPER
+        ====================================================== */
+
+        function updateStepper(
+            currentStep
+        ) {
+
+            document
+                .querySelectorAll(
+                    "#participant-stepper .step"
+                )
+                .forEach(
+                    (
+                        step,
+                        index
+                    ) => {
+
+                        const number =
+                            index + 1;
+
+
+                        step.classList.remove(
+                            "active",
+                            "completed"
+                        );
+
+
+                        if (
+                            number <
+                            currentStep
+                        ) {
+
+                            step.classList.add(
+                                "completed"
+                            );
+
+                        }
+
+
+                        if (
+                            number ===
+                            currentStep
+                        ) {
+
+                            step.classList.add(
+                                "active"
+                            );
+
+                        }
+
+                    }
+                );
+
+        }
+
+
+        /* ======================================================
+           REQUIRED FIELD
+        ====================================================== */
+
+        function requiredField(
+            id
+        ) {
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+
+            if (
+                !element ||
+                !element.value.trim()
+            ) {
+
+                if (element) {
+
+                    element.focus();
+
+                }
+
+
+                showAlert(
+                    "Please complete all required fields."
+                );
+
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+
+
+        /* ======================================================
+           PARTICIPANT VALIDATION
+        ====================================================== */
+
+        function calculateAge(birthdateValue) {
+            if (!birthdateValue) return null;
+            const birthdate = new Date(birthdateValue + "T00:00:00");
+            const today = new Date();
+            if (Number.isNaN(birthdate.getTime())) return null;
+
+            let age = today.getFullYear() - birthdate.getFullYear();
+            const monthDifference = today.getMonth() - birthdate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        function validateParticipantAge(showMessage = true) {
+            const element = document.getElementById("birthdate");
+            if (!element || !element.value) return false;
+
+            const birthdate = new Date(element.value + "T00:00:00");
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (Number.isNaN(birthdate.getTime())) {
+                if (showMessage) showAlert("Please enter a valid birthdate.");
+                return false;
+            }
+
+            if (birthdate > today) {
+                if (showMessage) showAlert("Birthdate cannot be in the future.");
+                return false;
+            }
+
+            const age = calculateAge(element.value);
+            if (age < 11) {
+                if (showMessage) showAlert("Age limit: Participants below 11 years old cannot register.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateParticipantInfo(showMessage = true) {
+            const fields = [
+                "event_id", "fname", "lname", "sex", "birthdate", "email",
+                "address", "contact_number", "emergency_contact", "local_church", "sector"
+            ];
+
+            for (const id of fields) {
+                const element = document.getElementById(id);
+                if (!element || !String(element.value || "").trim()) {
+                    if (showMessage) {
+                        if (element) element.focus();
+                        showAlert("Please complete all required fields before continuing.");
+                    }
+                    return false;
+                }
+            }
+
+            const churchSelect = document.getElementById("local_church");
+            const churchOther = document.getElementById("local_church_other");
+            if (churchSelect?.value === "__VISITING_CHURCH__" && !String(churchOther?.value || "").trim()) {
+                if (showMessage) {
+                    churchOther?.focus();
+                    showAlert("Please enter the name of your visiting church.");
+                }
+                return false;
+            }
+
+            if (!validateParticipantAge(showMessage)) return false;
+
+            const email = document.getElementById("email").value.trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                if (showMessage) {
+                    document.getElementById("email").focus();
+                    showAlert("Please enter a valid email address.");
+                }
+                return false;
+            }
+
+            return true;
+        }
+
+
+        /* ======================================================
+           CHURCH → SECTOR / VISITING CHURCH
+        ====================================================== */
+        function getChurchValue(selectId, otherId) {
+            const select = document.getElementById(selectId);
+            const other = document.getElementById(otherId);
+
+            if (!select) return "";
+
+            if (select.value === "__VISITING_CHURCH__") {
+                return (other?.value || "").trim();
+            }
+
+            const option = select.options[select.selectedIndex];
+
+            return (option?.textContent || select.value || "").trim();
+        }
+
+        function updateChurchField(selectId, sectorId, otherId) {
+            const church = document.getElementById(selectId);
+            const sector = document.getElementById(sectorId);
+            const other = document.getElementById(otherId);
+            if (!church || !sector) return;
+
+            const option = church.options[church.selectedIndex];
+            const isVisiting = church.value === "__VISITING_CHURCH__";
+
+            sector.value = isVisiting ? "N/A" : (option?.dataset?.sector || "");
+
+            if (other) {
+                other.style.display = isVisiting ? "block" : "none";
+                other.required = isVisiting;
+                if (!isVisiting) other.value = "";
+            }
+
+            if (selectId === "local_church") {
+                updateParticipantContinueButton();
+            }
+        }
+
+        function initializeChurchSelectors() {
+            const configs = [
+                ["local_church", "sector", "local_church_other"],
+                ["staff_church", "staff_sector", "staff_church_other"],
+                ["chaperone_church", "chaperone_sector", "chaperone_church_other"]
+            ];
+
+            configs.forEach(([selectId, sectorId, otherId]) => {
+                const select = document.getElementById(selectId);
+                if (!select) return;
+
+                select.addEventListener("change", () => {
+                    updateChurchField(selectId, sectorId, otherId);
+                });
+
+                const other = document.getElementById(otherId);
+                if (other) {
+                    other.addEventListener("input", () => {
+                        if (selectId === "local_church") {
+                            updateParticipantContinueButton();
+                        }
+                    });
+                }
+
+                updateChurchField(selectId, sectorId, otherId);
+            });
+        }
+
+        /* ======================================================
+           CHURCH → SECTOR
+        ====================================================== */
+        function updateChurchSector() {
+            updateChurchField("local_church", "sector", "local_church_other");
+        }
+
+        /* ======================================================
+           PARTICIPANT CONTINUE BUTTON
+        ====================================================== */
+        function updateParticipantContinueButton() {
+            const button = document.querySelector('#participant-step-1 .btn-red');
+            if (!button) return;
+
+            const requiredIds = [
+                "event_id", "fname", "lname", "sex", "birthdate", "email",
+                "address", "contact_number", "emergency_contact", "local_church", "sector"
+            ];
+
+            const allFilled = requiredIds.every(id => {
+                const element = document.getElementById(id);
+                return element && String(element.value || "").trim() !== "";
+            });
+
+            const churchSelect = document.getElementById("local_church");
+            const churchOther = document.getElementById("local_church_other");
+            const visitingChurchValid =
+                churchSelect?.value !== "__VISITING_CHURCH__" ||
+                String(churchOther?.value || "").trim() !== "";
+
+            const email = document.getElementById("email");
+            const emailValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+            const ageValid = validateParticipantAge(false);
+
+            button.disabled = !(allFilled && visitingChurchValid && emailValid && ageValid);
+            button.setAttribute("aria-disabled", String(button.disabled));
+        }
+
+        function initializeParticipantValidation() {
+            const step = document.getElementById("participant-step-1");
+            const birthdate = document.getElementById("birthdate");
+            if (birthdate) {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, "0");
+                const dd = String(today.getDate()).padStart(2, "0");
+                birthdate.max = `${yyyy}-${mm}-${dd}`;
+            }
+            if (!step) return;
+
+            step.querySelectorAll("input, select").forEach(element => {
+                element.addEventListener("input", updateParticipantContinueButton);
+                element.addEventListener("change", () => {
+                    if (element.id === "local_church") updateChurchSector();
+                    if (element.id === "birthdate" && element.value) validateParticipantAge(true);
+                    updateParticipantContinueButton();
+                });
+            });
+
+            updateParticipantContinueButton();
+        }
+
+        /* ======================================================
+           COLLECT PARTICIPANT
+        ====================================================== */
+
+        function collectParticipantDraft() {
+
+            const eventSelect =
+                document.getElementById("event_id");
+
+            const participantType =
+                document.querySelector(
+                    'input[name="participant_type"]:checked'
+                );
+
+            if (!eventSelect || !participantType) {
+                throw new Error(
+                    "Please select an event and participant type."
+                );
+            }
+
+            /*
+             * IMPORTANT FIX FOR 422:
+             * Convert the select value to a real JavaScript number.
+             */
+            const eventId =
+                Number(eventSelect.value);
+
+            if (
+                !Number.isInteger(eventId) ||
+                eventId <= 0
+            ) {
+                throw new Error(
+                    "Please select a valid event. The event ID must be an integer."
+                );
+            }
+
+            participantDraft = {
+
+                event_id: eventId,
+
+                participant_type:
+                    participantType.value,
+
+                fname:
+                    document.getElementById("fname")
+                        .value.trim(),
+
+                mname:
+                    document.getElementById("mname")
+                        .value.trim(),
+
+                lname:
+                    document.getElementById("lname")
+                        .value.trim(),
+
+                sex:
+                    document.getElementById("sex")
+                        .value,
+
+                birthdate:
+                    document.getElementById("birthdate")
+                        .value,
+
+                address:
+                    document.getElementById("address")
+                        .value.trim(),
+
+                contact_number:
+                    document.getElementById("contact_number")
+                        .value.trim(),
+
+                emergency_contact:
+                    document.getElementById("emergency_contact")
+                        .value.trim(),
+
+                email:
+                    document.getElementById("email")
+                        .value.trim(),
+
+                local_church:
+                    getChurchValue("local_church", "local_church_other"),
+
+                sector:
+                    document.getElementById("sector")
+                        .value.trim()
+            };
+
+            console.log(
+                "Participant draft:",
+                participantDraft
+            );
+
+            console.log(
+                "event_id type:",
+                typeof participantDraft.event_id
+            );
+        }
+
+        /* ======================================================
+           STEP 1 → STEP 2
+        
+           NO FASTAPI REQUEST HERE
+        ====================================================== */
+
+        function nextParticipantStep() {
+
+            clearAlert();
+
+            if (!validateParticipantInfo(true)) {
+                updateParticipantContinueButton();
+                return;
+            }
+
+            try {
+                /*
+                 * NO POST REQUEST HERE.
+                 * The participant is created only after all steps
+                 * have been completed.
+                 */
+                collectParticipantDraft();
+
+                showParticipantStep(2);
+
+            } catch (error) {
+                console.error(error);
+                showAlert(error.message);
+            }
+        }
+
+        /* ======================================================
+           QUESTIONNAIRE
+        ====================================================== */
+
+        function validateQuestionnaire() {
+
+            for (
+                const id of questionnaireFields
+            ) {
+
+                if (
+                    !requiredField(id)
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            return true;
+
+        }
+
+
+        function collectQuestionnaire() {
+
+            questionnaireDraft = {
+
+                camp_attendance:
+                    document
+                        .getElementById(
+                            "camp_attendance"
+                        )
+                        .value,
+
+                leadership_position:
+                    document
+                        .getElementById(
+                            "leadership_position"
+                        )
+                        .value,
+
+                church_involvement:
+                    document
+                        .getElementById(
+                            "church_involvement"
+                        )
+                        .value,
+
+                primary_strength:
+                    document
+                        .getElementById(
+                            "primary_strength"
+                        )
+                        .value,
+
+                ministry_skill:
+                    document
+                        .getElementById(
+                            "ministry_skill"
+                        )
+                        .value,
+
+                salvation_assurance:
+                    document
+                        .getElementById(
+                            "salvation_assurance"
+                        )
+                        .value,
+
+                daily_devotion:
+                    document
+                        .getElementById(
+                            "daily_devotion"
+                        )
+                        .value,
+
+                ministry_involvement:
+                    document
+                        .getElementById(
+                            "ministry_involvement"
+                        )
+                        .value,
+
+                sermon_notes:
+                    document
+                        .getElementById(
+                            "sermon_notes"
+                        )
+                        .value,
+
+                small_group:
+                    document
+                        .getElementById(
+                            "small_group"
+                        )
+                        .value,
+
+                gospel_sharing:
+                    document
+                        .getElementById(
+                            "gospel_sharing"
+                        )
+                        .value,
+
+                temptation_response:
+                    document
+                        .getElementById(
+                            "temptation_response"
+                        )
+                        .value
+
+            };
+
+        }
+
+
+        /* ======================================================
+           STEP 2 → STEP 3
+        
+           NO FASTAPI REQUEST HERE
+        ====================================================== */
+
+        function goToAgreements() {
+
+            clearAlert();
+
+
+            if (
+                !validateQuestionnaire()
+            ) {
+
+                return;
+
+            }
+
+
+            collectQuestionnaire();
+
+
+            showParticipantStep(
+                3
+            );
+
+        }
+
+
+        /* ======================================================
+           STEP 3 → STEP 4
+        
+           BOTH CHECKBOXES REQUIRED
+        ====================================================== */
+
+        function goToReview() {
+            clearAlert();
+
+            const rules = document.getElementById("rules_agreed");
+            const confidentiality = document.getElementById("confidentiality_agreed");
+
+            if (!rules?.checked) {
+                showAlert("You must accept the Event Rules & Regulations.");
+                return;
+            }
+
+            if (!confidentiality?.checked) {
+                showAlert("You must accept the Data Confidentiality clause.");
+                return;
+            }
+
+            collectQuestionnaire();
+
+            if (registrationMode === "multiple") {
+                multipleCurrentAction = null;
+                showParticipantStep(4);
+                return;
+            }
+
+            buildRegistrationSummary();
+            showParticipantStep(5);
+        }
+
+        /* ======================================================
+           SUMMARY
+        ====================================================== */
+
+        function buildRegistrationSummary() {
+            const allParticipants = registrationMode === "multiple"
+                ? registrationQueue
+                : [getCurrentRegistrationPayload()];
+
+            if (!allParticipants.length) {
+                document.getElementById("registration-summary").innerHTML = `<div class="queue-item-meta">No participants have been added.</div>`;
+                return;
+            }
+
+            const eventSelect = document.getElementById("event_id");
+            const fallbackEventName = eventSelect?.options[eventSelect.selectedIndex]?.text || "";
+
+            document.getElementById("registration-summary").innerHTML = `
+        <div class="summary-row">
+            <span>Total Participants</span>
+            <span><strong>${allParticipants.length}</strong></span>
+        </div>
+        ${allParticipants.map((payload, index) => {
+                const p = payload.participant || {};
+                const fullname = [p.fname, p.mname, p.lname].filter(Boolean).join(" ");
+                return `
+                <div class="queue-item" style="margin-top:10px;">
+                    <div class="queue-item-main">
+                        <div>
+                            <span class="queue-item-number">#${index + 1}</span>
+                            <span class="queue-item-name">${escapeHTML(fullname || "Unnamed participant")}</span>
+                        </div>
+                        <div class="queue-item-meta">
+                            ${escapeHTML(p.email || "")} · ${escapeHTML(p.participant_type || "")}<br>
+                            ${escapeHTML(p.contact_number || "")} · ${escapeHTML(fallbackEventName)}
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join("")}
+    `;
+        }
+
+        function getCurrentRegistrationPayload() {
+            const rules = document.getElementById("rules_agreed");
+            const confidentiality = document.getElementById("confidentiality_agreed");
+            if (!participantDraft?.event_id) throw new Error("Participant information is incomplete.");
+            return {
+                participant: JSON.parse(JSON.stringify(participantDraft)),
+                questionnaire: JSON.parse(JSON.stringify(questionnaireDraft)),
+                rules_agreed: !!rules?.checked,
+                confidentiality_agreed: !!confidentiality?.checked
+            };
+        }
+
+        function participantDisplayName(payload) {
+            const p = payload?.participant || {};
+            return [p.fname, p.mname, p.lname].filter(Boolean).join(" ").replace(/\s+/g, " ").trim() || "Unnamed participant";
+        }
+
+        function updateMultipleRegistrationUI() {
+            const panel = document.getElementById("multiple-registration-panel");
+            const count = document.getElementById("multiple-queue-count");
+            const queueBox = document.getElementById("registration-queue");
+
+            if (registrationMode !== "multiple") {
+                if (panel) panel.style.display = "none";
+                return;
+            }
+
+            if (panel) panel.style.display = "block";
+            const n = registrationQueue.length;
+            if (count) count.textContent = `${n} participant${n === 1 ? "" : "s"} queued`;
+
+            if (queueBox) {
+                queueBox.innerHTML = n
+                    ? registrationQueue.map((item, index) => `
+                <div class="queue-item">
+                    <div class="queue-item-main">
+                        <div>
+                            <span class="queue-item-number">#${index + 1}</span>
+                            <span class="queue-item-name">${escapeHTML(participantDisplayName(item))}</span>
+                        </div>
+                        <div class="queue-item-meta">
+                            ${escapeHTML(item.participant?.email || "")} · ${escapeHTML(item.participant?.participant_type || "")}
+                        </div>
+                    </div>
+                    <button type="button" class="queue-remove" onclick="removeQueuedParticipant(${index})">Remove</button>
+                </div>
+            `).join("")
+                    : `<div class="queue-item-meta">No participants have been added yet.</div>`;
+            }
+        }
+
+        function removeQueuedParticipant(index) {
+            if (bulkSubmitting || index < 0 || index >= registrationQueue.length) return;
+            registrationQueue.splice(index, 1);
+            updateMultipleRegistrationUI();
+            showAlert("Participant removed from the queue.", "success");
+        }
+
+        function clearRegistrationQueue() {
+            if (bulkSubmitting || !registrationQueue.length) return;
+            if (!window.confirm("Clear all queued participants?")) return;
+            registrationQueue = [];
+            registrationResults = [];
+            multipleCurrentAction = null;
+            updateMultipleRegistrationUI();
+            showAlert("Registration queue cleared.", "success");
+        }
+
+        function resetParticipantFormForNextEntry(clearEvent = false) {
+            const existingEventId = document.getElementById("event_id")?.value || "";
+            ["fname", "mname", "lname", "sex", "birthdate", "email", "address", "contact_number", "emergency_contact", "local_church", "sector", "local_church_other"].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+
+            if (clearEvent) {
+                document.getElementById("event_id").value = "";
+            } else if (registrationQueue.length) {
+                document.getElementById("event_id").value = String(registrationQueue[0].participant.event_id);
+            } else if (existingEventId) {
+                document.getElementById("event_id").value = existingEventId;
+            }
+
+            const other = document.getElementById("local_church_other");
+            if (other) {
+                other.style.display = "none";
+                other.required = false;
+            }
+
+            document.querySelector('input[name="participant_type"][value="Regular Participants"]')?.click();
+            questionnaireFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+            document.getElementById("rules_agreed").checked = false;
+            document.getElementById("confidentiality_agreed").checked = false;
+            participantDraft = {};
+            questionnaireDraft = {};
+            multipleCurrentAction = null;
+            updateChurchSector();
+            updateParticipantContinueButton();
+        }
+
+        function saveCurrentParticipantToQueue() {
+            if (registrationMode !== "multiple") return null;
+
+            if (!participantDraft?.event_id) collectParticipantDraft();
+            if (!validateQuestionnaire()) return null;
+
+            const rules = document.getElementById("rules_agreed");
+            const confidentiality = document.getElementById("confidentiality_agreed");
+            if (!rules?.checked || !confidentiality?.checked) {
+                showAlert("Both agreements are required before saving this participant.");
+                return null;
+            }
+
+            collectQuestionnaire();
+            const payload = getCurrentRegistrationPayload();
+            registrationQueue.push(payload);
+            registrationResults = [];
+            updateMultipleRegistrationUI();
+            return payload;
+        }
+
+        function chooseAddParticipant() {
+            clearAlert();
+            if (registrationMode !== "multiple") return;
+
+            try {
+                const payload = saveCurrentParticipantToQueue();
+                if (!payload) return;
+
+                showAlert(`${participantDisplayName(payload)} was added. Enter the next participant.`, "success");
+                resetParticipantFormForNextEntry(false);
+                showParticipantStep(1);
+            } catch (error) {
+                console.error(error);
+                showAlert(error.message);
+            }
+        }
+
+        function chooseConfirmAllParticipants() {
+            clearAlert();
+            if (registrationMode !== "multiple") return;
+
+            try {
+                const payload = saveCurrentParticipantToQueue();
+                if (!payload) return;
+
+                if (registrationQueue.length < 2) {
+                    showAlert("Add at least one more participant, or use Single Registration for one participant.");
+                    return;
+                }
+
+                buildRegistrationSummary();
+                showParticipantStep(5);
+            } catch (error) {
+                console.error(error);
+                showAlert(error.message);
+            }
+        }
+
+        function buildBulkSuccessSummary(results) {
+            return `
+        <div class="summary-row">
+            <span>Registration Status</span>
+            <span>${results.length} Participants Registered ✓</span>
+        </div>
+        <div class="summary-row">
+            <span>Payment</span>
+            <span>Bulk payment available</span>
+        </div>
+        <div class="bulk-result-list">
+            ${results.map((entry, index) => `
+                <div class="bulk-result-item success">
+                    <strong>#${index + 1} ${escapeHTML(entry.fullname || "Participant")}</strong><br>
+                    <span>${escapeHTML(entry.registration_number || "Registration Complete")}</span>
+                </div>
+            `).join("")}
+        </div>
+    `;
+        }
+
+        async function submitRegistrationQueueSequentially() {
+            registrationResults = [];
+            const total = registrationQueue.length;
+            const progress = document.getElementById("bulk-progress");
+            const progressText = document.getElementById("bulk-progress-text");
+            const progressFill = document.getElementById("bulk-progress-fill");
+            const resultList = document.getElementById("bulk-result-list");
+
+            if (progress) progress.style.display = "block";
+            if (resultList) resultList.innerHTML = "";
+
+            for (let index = 0; index < total; index++) {
+                const payload = registrationQueue[index];
+                const name = participantDisplayName(payload);
+
+                if (progressText) progressText.textContent = `Registering participant ${index + 1} of ${total}: ${name}`;
+                if (progressFill) progressFill.style.width = `${Math.round((index / total) * 100)}%`;
+
+                try {
+                    const result = await apiRequest("/registration_submit_all", {
+                        method: "POST",
+                        body: JSON.stringify(payload)
+                    });
+
+                    const participant = result.participant || {};
+                    if (!participant.participant_id) {
+                        throw new Error("Registration succeeded but participant_id was not returned.");
+                    }
+
+                    registrationResults.push({
+                        participant_id: participant.participant_id,
+                        registration_number: participant.registration_number,
+                        fullname: participant.fullname || name,
+                        participant_type: participant.participant_type || payload.participant.participant_type,
+                        event_name: participant.event_name || ""
+                    });
+
+                    if (resultList) {
+                        resultList.insertAdjacentHTML("beforeend", `
+                    <div class="bulk-result-item success">
+                        <strong>✓ Participant ${index + 1} registered</strong><br>
+                        ${escapeHTML(participant.fullname || name)} · ${escapeHTML(participant.registration_number || "")}
+                    </div>
+                `);
+                    }
+                } catch (error) {
+                    if (progressText) progressText.textContent = `Registration stopped at participant ${index + 1} of ${total}.`;
+                    if (resultList) {
+                        resultList.insertAdjacentHTML("beforeend", `
+                    <div class="bulk-result-item failed">
+                        <strong>✕ Participant ${index + 1} was not registered</strong><br>
+                        ${escapeHTML(name)}<br>
+                        ${escapeHTML(error.message || "Registration failed.")}
+                    </div>
+                `);
+                    }
+                    throw new Error(`${registrationResults.length} of ${total} participants were registered. Registration stopped at participant ${index + 1} (${name}). ${error.message}`);
+                }
+
+                if (progressFill) progressFill.style.width = `${Math.round(((index + 1) / total) * 100)}%`;
+            }
+
+            if (progressText) progressText.textContent = `${total} of ${total} participants registered successfully.`;
+        }
+
+        async function completeRegistration() {
+            clearAlert();
+            if (bulkSubmitting) return;
+
+            const button = document.getElementById("complete-button");
+
+            if (registrationMode === "multiple") {
+                if (registrationQueue.length < 2) {
+                    showAlert("Please add at least 2 participants before submitting all registrations.");
+                    return;
+                }
+
+                bulkSubmitting = true;
+                if (button) {
+                    button.disabled = true;
+                    button.textContent = "Submitting All Registrations...";
+                }
+
+                try {
+                    await submitRegistrationQueueSequentially();
+
+                    const regularResults = registrationResults.filter(
+                        e => String(e.participant_type || "").toLowerCase() !== "finding sponsor"
+                    );
+                    const sponsorResults = registrationResults.filter(
+                        e => String(e.participant_type || "").toLowerCase() === "finding sponsor"
+                    );
+
+                    document.getElementById("success-registration-number").textContent = `${registrationResults.length} Participants Registered`;
+                    document.getElementById("final-summary").innerHTML = buildBulkSuccessSummary(registrationResults);
+
+                    const actionBox = document.getElementById("post-registration-action");
+
+                    if (regularResults.length) {
+                        const ids = regularResults.map(e => e.participant_id).join(",");
+                        const paymentUrl = `payment.html?bulk=true&participant_ids=${encodeURIComponent(ids)}`;
+                        const sponsorNote = sponsorResults.length
+                            ? `<div style="margin-top:8px;">${sponsorResults.length} Finding Sponsor participant${sponsorResults.length === 1 ? "" : "s"} do not require payment.</div>`
+                            : "";
+
+                        let seconds = 5;
+                        actionBox.innerHTML = `
+                    <div class="redirect-message">
+                        <strong>${registrationResults.length} participants registered successfully.</strong><br>
+                        ${regularResults.length} participant${regularResults.length === 1 ? " is" : "s are"} present for bulk payment.${sponsorNote}
+                        <div class="redirect-countdown">Redirecting to bulk payment in <span id="payment-countdown">5</span> seconds...</div>
+                        <div style="margin-top:10px;">
+                            <a id="payment-link" class="btn btn-gold" href="${paymentUrl}">Proceed to Bulk Payment →</a>
+                        </div>
+                    </div>
+                `;
+
+                        const countdownElement = document.getElementById("payment-countdown");
+                        const countdown = setInterval(() => {
+                            seconds--;
+                            if (countdownElement) countdownElement.textContent = String(seconds);
+                            if (seconds <= 0) {
+                                clearInterval(countdown);
+                                window.location.href = paymentUrl;
+                            }
+                        }, 1000);
+                    } else {
+                        actionBox.innerHTML = `
+                    <div class="redirect-message">
+                        <strong>${registrationResults.length} participants registered successfully.</strong><br>
+                        No payment is required because all registered participants are Finding Sponsor participants.
+                    </div>
+                `;
+                    }
+
+                    document.querySelectorAll(".form-step").forEach(step => step.classList.remove("active"));
+                    document.getElementById("registration-success").classList.add("active");
+                    document.getElementById("participant-stepper").classList.add("hidden");
+                    document.getElementById("multiple-registration-panel").style.display = "none";
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                } catch (error) {
+                    console.error(error);
+                    showAlert(error.message);
+                    if (button) {
+                        button.disabled = false;
+                        button.textContent = "Submit All Registrations";
+                    }
+                } finally {
+                    bulkSubmitting = false;
+                }
+                return;
+            }
+
+            if (button) {
+                button.disabled = true;
+                button.textContent = "Submitting...";
+            }
+
+            try {
+                const payload = getCurrentRegistrationPayload();
+                const result = await apiRequest("/registration_submit_all", {
+                    method: "POST",
+                    body: JSON.stringify(payload)
+                });
+
+                const participant = result.participant || {};
+                const participantType = participant.participant_type || participantDraft.participant_type;
+                const participantId = participant.participant_id;
+
+                document.getElementById("success-registration-number").textContent = participant.registration_number || "Registration Complete";
+                document.getElementById("final-summary").innerHTML = `
+            <div class="summary-row"><span>Event</span><span>${escapeHTML(participant.event_name || "")}</span></div>
+            <div class="summary-row"><span>Participant Type</span><span>${escapeHTML(participantType || "")}</span></div>
+            <div class="summary-row"><span>Name</span><span>${escapeHTML(participant.fullname || "")}</span></div>
+            <div class="summary-row"><span>Registration Status</span><span>${escapeHTML(participant.registration_status || "Pending")}</span></div>
+        `;
+
+                const actionBox = document.getElementById("post-registration-action");
+                if (String(participantType).toLowerCase() === "finding sponsor") {
+                    actionBox.innerHTML = `<div class="redirect-message"><strong>Your data has been collected successfully.</strong><br>Your sponsorship request is now on the queue. Our team will review and process your sponsorship request.<div style="margin-top:8px;">No payment is required at this stage.</div></div>`;
+                } else {
+                    if (!participantId) throw new Error("Registration succeeded but participant_id was not returned.");
+                    let seconds = 5;
+                    const paymentUrl = "payment.html?participant_id=" + encodeURIComponent(participantId);
+                    actionBox.innerHTML = `<div class="redirect-message"><strong>Registration completed successfully.</strong><br>You will be redirected to the payment page automatically.<div class="redirect-countdown">Redirecting in <span id="payment-countdown">5</span> seconds...</div><div style="margin-top:10px;"><a id="payment-link" class="btn btn-gold" href="${paymentUrl}">Proceed to Payment →</a></div></div>`;
+                    const countdownElement = document.getElementById("payment-countdown");
+                    const countdown = setInterval(() => {
+                        seconds--;
+                        if (countdownElement) countdownElement.textContent = String(seconds);
+                        if (seconds <= 0) {
+                            clearInterval(countdown);
+                            window.location.href = paymentUrl;
+                        }
+                    }, 1000);
+                }
+
+                document.querySelectorAll(".form-step").forEach(step => step.classList.remove("active"));
+                document.getElementById("registration-success").classList.add("active");
+                document.getElementById("participant-stepper").classList.add("hidden");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } catch (error) {
+                console.error(error);
+                showAlert(error.message);
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = "Complete Registration";
+                }
+            }
+        }
+
+        /* ======================================================
+           STAFF
+        ====================================================== */
+
+        function resetStaffSearch() {
+            document.getElementById("staff-profile-box")?.classList.remove("active");
+            document.getElementById("staff-results").innerHTML = "";
+            document.getElementById("selected_staff_id").value = "";
+            document.getElementById("staff_search_name").value = "";
+
+            [
+                "staff_fname",
+                "staff_mname",
+                "staff_lname",
+                "staff_position",
+                "staff_sex",
+                "staff_birthday",
+                "staff_contact",
+                "staff_church",
+                "staff_sector",
+                "staff_church_other"
+            ].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+
+            const other = document.getElementById("staff_church_other");
+            if (other) other.style.display = "none";
+
+            clearAlert();
+        }
+
+        async function searchStaffForRegistration() {
+            clearAlert();
+
+            const eventId = Number(document.getElementById("staff_search_event_id")?.value);
+            const name = document.getElementById("staff_search_name")?.value.trim();
+
+            if (!Number.isInteger(eventId) || eventId <= 0) {
+                showAlert("Please select an event.");
+                return;
+            }
+
+            if (!name) {
+                showAlert("Please enter your full name.");
+                return;
+            }
+
+            const button = document.getElementById("staff-search-button");
+            const resultsBox = document.getElementById("staff-results");
+
+            button.disabled = true;
+            button.textContent = "Searching...";
+            resultsBox.innerHTML = "";
+
+            try {
+                const result = await apiRequest(
+                    "/register_find_staff?event_id=" +
+                    encodeURIComponent(eventId) +
+                    "&name=" +
+                    encodeURIComponent(name)
+                );
+
+                const matches = Array.isArray(result) ? result : [];
+
+                if (!matches.length) {
+                    throw new Error("No staff record matches that full name.");
+                }
+
+                resultsBox.innerHTML = `
+            <div style="font-weight:800;color:var(--red);">Select your staff record:</div>
+            ${matches.map((staff, index) => `
+                <button
+                    type="button"
+                    class="staff-result-card"
+                    onclick="selectStaffRecord(${index})"
+                >
+                    <div class="staff-result-name">${escapeHTML(staff.fullname)}</div>
+                    <div class="staff-result-meta">
+                        Position: ${escapeHTML(staff.position || "Not specified")}
+                    </div>
+                </button>
+            `).join("")}
+        `;
+
+                window.staffSearchResults = matches;
+
+            } catch (error) {
+                resultsBox.innerHTML = "";
+                showAlert(error.message);
+            } finally {
+                button.disabled = false;
+                button.textContent = "Search Staff Record";
+            }
+        }
+
+        function selectStaffRecord(index) {
+            clearAlert();
+
+            const staff = window.staffSearchResults?.[index];
+            if (!staff) {
+                showAlert("The selected staff record is no longer available.");
+                return;
+            }
+
+            document.getElementById("selected_staff_id").value = staff.staff_id;
+            document.getElementById("staff_fname").value = staff.fname || "";
+            document.getElementById("staff_mname").value = staff.mname || "";
+            document.getElementById("staff_lname").value = staff.lname || "";
+            document.getElementById("staff_position").value = staff.position || "";
+            document.getElementById("staff_sex").value = staff.sex || "";
+            document.getElementById("staff_birthday").value = staff.birthday || "";
+            document.getElementById("staff_contact").value = staff.contact || "";
+
+            const churchSelect = document.getElementById("staff_church");
+            const churchOther = document.getElementById("staff_church_other");
+            const sector = document.getElementById("staff_sector");
+
+            const savedChurch = staff.local_church || "";
+            let matched = false;
+
+            Array.from(churchSelect.options).forEach(option => {
+                const text = option.textContent.trim();
+                if (text.toLowerCase() === savedChurch.toLowerCase()) {
+                    churchSelect.value = option.value;
+                    matched = true;
+                }
+            });
+
+            if (!matched && savedChurch) {
+                churchSelect.value = "__VISITING_CHURCH__";
+                churchOther.value = savedChurch;
+                churchOther.style.display = "block";
+                churchOther.required = true;
+            } else {
+                churchOther.value = "";
+                churchOther.style.display = "none";
+                churchOther.required = false;
+            }
+
+            sector.value = staff.sector || "";
+
+            document.getElementById("staff-profile-box").classList.add("active");
+            document.getElementById("staff-results").innerHTML =
+                `<div class="staff-status-note">Selected: <strong>${escapeHTML(staff.fullname)}</strong></div>`;
+
+            document.getElementById("staff-profile-box").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+
+        async function completeStaffRegistration() {
+            clearAlert();
+
+            const staffId = Number(document.getElementById("selected_staff_id")?.value);
+
+            if (!Number.isInteger(staffId) || staffId <= 0) {
+                showAlert("Please search and select your staff record first.");
+                return;
+            }
+
+            const required = [
+                "staff_sex",
+                "staff_birthday",
+                "staff_contact",
+                "staff_church",
+                "staff_sector"
+            ];
+
+            for (const id of required) {
+                if (!requiredField(id)) return;
+            }
+
+            const churchSelect = document.getElementById("staff_church");
+            const churchOther = document.getElementById("staff_church_other");
+
+            if (
+                churchSelect.value === "__VISITING_CHURCH__" &&
+                !churchOther.value.trim()
+            ) {
+                churchOther.focus();
+                showAlert("Please enter the name of your visiting church.");
+                return;
+            }
+
+            const button = document.getElementById("staff-complete-button");
+            button.disabled = true;
+            button.textContent = "Saving...";
+
+            try {
+                const payload = {
+                    fname: document.getElementById("staff_fname").value.trim(),
+                    mname: document.getElementById("staff_mname").value.trim(),
+                    lname: document.getElementById("staff_lname").value.trim(),
+                    position: document.getElementById("staff_position").value.trim(),
+                    sex: document.getElementById("staff_sex").value,
+                    birthday: document.getElementById("staff_birthday").value,
+                    contact_number: document.getElementById("staff_contact").value.trim(),
+                    local_church: getChurchValue("staff_church", "staff_church_other"),
+                    sector: document.getElementById("staff_sector").value.trim()
+                };
+
+                const result = await apiRequest(
+                    "/register_update_staff/" + encodeURIComponent(staffId),
+                    {
+                        method: "PUT",
+                        body: JSON.stringify(payload)
+                    }
+                );
+
+                document.querySelectorAll(".form-step").forEach(step => {
+                    step.classList.remove("active");
+                });
+
+                document.getElementById("registration-success").classList.add("active");
+                document.getElementById("participant-stepper").classList.add("hidden");
+                document.getElementById("success-registration-number").textContent =
+                    "Staff Registration Complete";
+
+                document.getElementById("final-summary").innerHTML = `
+            <div class="summary-row">
+                <span>Name</span>
+                <span>${escapeHTML(payload.fname + " " + payload.mname + " " + payload.lname).replace(/\s+/g, " ").trim()}</span>
+            </div>
+            <div class="summary-row">
+                <span>Event</span>
+                <span>${escapeHTML(result.event_name || "")}</span>
+            </div>
+            <div class="summary-row">
+                <span>Position</span>
+                <span>${escapeHTML(result.position || payload.position || "")}</span>
+            </div>
+            <div class="summary-row">
+                <span>Profile Status</span>
+                <span>${result.profile_completed ? "Completed ✓" : "Updated"}</span>
+            </div>
+        `;
+
+                document.getElementById("post-registration-action").innerHTML = `
+            <div class="redirect-message">
+                Your staff registration has been completed successfully. No payment is required for staff registration.
+            </div>
+        `;
+
+                window.scrollTo({ top: 0, behavior: "smooth" });
+
+            } catch (error) {
+                showAlert(error.message);
+                button.disabled = false;
+                button.textContent = "Complete Staff Registration";
+            }
+        }
+
+        /* ======================================================
+           CHAPERONE
+        ====================================================== */
+
+        async function submitChaperone() {
+
+            const fields = [
+
+                "chaperone_event_id",
+
+                "chaperone_fname",
+
+                "chaperone_lname",
+
+                "chaperone_sex",
+
+                "chaperone_birthday",
+
+                "chaperone_contact",
+
+                "chaperone_church",
+
+                "chaperone_sector"
+
+            ];
+
+
+            for (
+                const id of fields
+            ) {
+
+                if (
+                    !requiredField(id)
+                ) {
+
+                    return;
+
+                }
+
+            }
+
+
+            if (document.getElementById("chaperone_church")?.value === "__VISITING_CHURCH__" &&
+                !document.getElementById("chaperone_church_other")?.value.trim()) {
+                document.getElementById("chaperone_church_other")?.focus();
+                showAlert("Please enter the name of your visiting church.");
+                return;
+            }
+
+            try {
+
+                const payload = {
+
+                    event_id:
+                        Number(
+                            document
+                                .getElementById(
+                                    "chaperone_event_id"
+                                )
+                                .value
+                        ),
+
+                    fname:
+                        document
+                            .getElementById(
+                                "chaperone_fname"
+                            )
+                            .value
+                            .trim(),
+
+                    mname:
+                        document
+                            .getElementById(
+                                "chaperone_mname"
+                            )
+                            .value
+                            .trim(),
+
+                    lname:
+                        document
+                            .getElementById(
+                                "chaperone_lname"
+                            )
+                            .value
+                            .trim(),
+
+                    sex:
+                        document
+                            .getElementById(
+                                "chaperone_sex"
+                            )
+                            .value,
+
+                    birthday:
+                        document
+                            .getElementById(
+                                "chaperone_birthday"
+                            )
+                            .value,
+
+                    contact_number:
+                        document
+                            .getElementById(
+                                "chaperone_contact"
+                            )
+                            .value
+                            .trim(),
+
+                    local_church:
+                        getChurchValue("chaperone_church", "chaperone_church_other"),
+
+                    sector:
+                        document
+                            .getElementById(
+                                "chaperone_sector"
+                            )
+                            .value
+                            .trim()
+
+                };
+
+
+                const result =
+                    await apiRequest(
+                        "/register_chaperone",
+                        {
+
+                            method: "POST",
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+
+                        }
+                    );
+
+
+                showAlert(
+                    result.message ||
+                    "Chaperone registration successful.",
+                    "success"
+                );
+
+
+                /*
+                 * Refresh only after the registration was successfully
+                 * recorded by the API. The short delay keeps the success
+                 * alert visible before the page reloads.
+                 */
+                setTimeout(
+                    function () {
+                        window.location.reload();
+                    },
+                    1500
+                );
+
+            }
+
+            catch (error) {
+
+                showAlert(
+                    error.message
+                );
+
+            }
+
+        }
+
+
+        /* ======================================================
+           INITIALIZE
+        ====================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                loadEvents();
+                initializeParticipantValidation();
+                initializeChurchSelectors();
+                updateChurchSector();
+                updateParticipantContinueButton();
+                updateMultipleRegistrationUI();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

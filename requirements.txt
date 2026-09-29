@@ -49,3 +49,4 @@ watchfiles==1.2.0
 websockets==17.0
 qrcode[pil]==8.2
 tzdata==2026.4
+psycopg[binary]==3.3.6

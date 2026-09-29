@@ -118,3 +118,24 @@ if not SESSION_SECRET_KEY:
 SESSION_HTTPS_ONLY = (
     os.getenv("SESSION_HTTPS_ONLY", "false").lower() == "true"
 )
+
+# ======================================================
+# STORAGE
+# DATABASE_URL picks the database:
+#   - not set  → SQLite file in DATA_DIR (the original server setup)
+#   - set      → e.g. a Supabase Postgres connection string (Vercel)
+# DATA_DIR holds the SQLite file and local uploads (default /app/data).
+# BLOB_READ_WRITE_TOKEN, when set, stores uploaded images in Vercel Blob
+# instead of the local uploads folder.
+# ======================================================
+
+DATA_DIR = os.getenv("DATA_DIR", "/app/data")
+
+UPLOADS_DIR = os.path.join(DATA_DIR, "uploads")
+
+DATABASE_URL = (
+    os.getenv("DATABASE_URL")
+    or "sqlite:///" + os.path.join(DATA_DIR, "registration_system.db").replace("\\", "/")
+)
+
+BLOB_READ_WRITE_TOKEN = os.getenv("BLOB_READ_WRITE_TOKEN", "").strip()

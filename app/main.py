@@ -14,9 +14,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
-from app.config import SESSION_HTTPS_ONLY, SESSION_SECRET_KEY, WEB_DIR
+from app.config import SESSION_HTTPS_ONLY, SESSION_SECRET_KEY, UPLOADS_DIR, WEB_DIR
 from app.middleware import session_auth_middleware
 from app.migrations import (
+    create_missing_tables,
     ensure_manual_sponsor_tables,
     migrate_payment_receipt_sent,
     migrate_payment_store_order_id,
@@ -50,15 +51,18 @@ app = FastAPI()
 
 # ============================================================
 # UPLOADED FILES
+# Served from DATA_DIR/uploads when that folder exists (server setup).
+# On Vercel there is no local uploads folder; images live in Vercel Blob.
 # ============================================================
 
-app.mount(
-    "/uploads",
-    StaticFiles(
-        directory="/app/data/uploads"
-    ),
-    name="uploads"
-)
+if os.path.isdir(UPLOADS_DIR):
+    app.mount(
+        "/uploads",
+        StaticFiles(
+            directory=UPLOADS_DIR
+        ),
+        name="uploads"
+    )
 
 
 app.add_middleware(
@@ -71,9 +75,12 @@ app.add_middleware(
 
 
 # ======================================================
-# STARTUP MIGRATIONS
-# (existing databases only need these small column/table additions)
+# STARTUP SCHEMA SETUP
+# New databases get every table from the models; existing databases
+# only need these small column/table additions.
 # ======================================================
+
+create_missing_tables()
 
 migrate_payment_store_order_id()
 

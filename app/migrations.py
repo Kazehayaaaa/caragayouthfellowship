@@ -1,8 +1,11 @@
-"""Small schema migrations run at startup for existing databases."""
+"""Startup schema setup: create missing tables, then small migrations
+for existing databases. Works on SQLite and Postgres."""
 
-from sqlalchemy import text
+from sqlalchemy import inspect, text
 
 from app.database import (
+    Base,
+    IS_SQLITE,
     engine,
 )
 
@@ -948,18 +951,27 @@ from app.database import (
 # ADD STORE ORDER ID
 # ============================================================
 
+def create_missing_tables():
+    """Create any table defined in app.models that the database doesn't
+    have yet. A brand-new database (e.g. Supabase on Vercel) gets the full
+    schema; existing tables are never altered or dropped."""
+    import app.models  # noqa: F401  (registers every model on Base)
+
+    Base.metadata.create_all(bind=engine)
+
+
+def _column_names(connection, table):
+    return {
+        column["name"]
+        for column in inspect(connection).get_columns(table)
+    }
+
+
 def migrate_payment_store_order_id():
 
     with engine.connect() as connection:
 
-        result = connection.execute(
-            text("PRAGMA table_info(payments)")
-        )
-
-        columns = [
-            row[1]
-            for row in result
-        ]
+        columns = _column_names(connection, "payments")
 
         # ----------------------------------------------------
         # STORE ORDER ID
@@ -982,96 +994,43 @@ def migrate_payment_store_order_id():
         connection.commit()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ============================================================
-# MIGRATE PAYMENT TABLE
-# ADD RECEIPT_SENT
-# ============================================================
-
 def migrate_payment_receipt_sent():
     with engine.connect() as connection:
-        result = connection.execute(text("PRAGMA table_info(payments)"))
-        columns = [row[1] for row in result]
+        columns = _column_names(connection, "payments")
         if "receipt_sent" not in columns:
-            connection.execute(text("""
+            default = "0" if IS_SQLITE else "false"
+            connection.execute(text(f"""
                 ALTER TABLE payments
-                ADD COLUMN receipt_sent BOOLEAN NOT NULL DEFAULT 0
+                ADD COLUMN receipt_sent BOOLEAN NOT NULL DEFAULT {default}
             """))
         connection.commit()
 
 
-
-
-
-
-
-
-
-
-
-# ============================================================
-# MANUAL FINDING SPONSOR CONTROL / ALLOCATION TABLES
-# ============================================================
-# These tables are created with SQL so existing production
-# databases do not require Base.metadata.create_all().
-# ============================================================
-
 def ensure_manual_sponsor_tables():
+    # SQLite and Postgres spell a few column types differently.
+    timestamp = "DATETIME" if IS_SQLITE else "TIMESTAMP"
+    auto_id = "INTEGER PRIMARY KEY AUTOINCREMENT" if IS_SQLITE else "SERIAL PRIMARY KEY"
+
     with engine.begin() as connection:
-        connection.execute(text("""
+        connection.execute(text(f"""
             CREATE TABLE IF NOT EXISTS manual_sponsor_settings (
                 id INTEGER PRIMARY KEY,
                 enabled INTEGER NOT NULL DEFAULT 1,
-                updated_at DATETIME
+                updated_at {timestamp}
             )
         """))
 
         connection.execute(text("""
-            INSERT OR IGNORE INTO manual_sponsor_settings
+            INSERT INTO manual_sponsor_settings
                 (id, enabled, updated_at)
             VALUES
                 (1, 1, CURRENT_TIMESTAMP)
+            ON CONFLICT (id) DO NOTHING
         """))
 
-        connection.execute(text("""
+        connection.execute(text(f"""
             CREATE TABLE IF NOT EXISTS manual_sponsor_allocations (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id {auto_id},
                 participant_id INTEGER NOT NULL,
                 amount REAL NOT NULL,
                 tshirt_amount REAL NOT NULL DEFAULT 0,
@@ -1083,8 +1042,8 @@ def ensure_manual_sponsor_tables():
                 sponsor_review_field VARCHAR(50),
                 admin_username VARCHAR(100),
                 status VARCHAR(20) NOT NULL DEFAULT 'Active',
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                cancelled_at DATETIME,
+                created_at {timestamp} DEFAULT CURRENT_TIMESTAMP,
+                cancelled_at {timestamp},
                 FOREIGN KEY(participant_id) REFERENCES participants(id)
             )
         """))

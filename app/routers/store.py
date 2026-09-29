@@ -3,13 +3,11 @@
 from fastapi import Depends
 from fastapi import File
 from fastapi import HTTPException
-from pathlib import Path
 from sqlalchemy.orm import Session
 from fastapi import UploadFile
 import datetime
 import httpx
 import json
-import shutil
 import uuid
 from fastapi import APIRouter
 
@@ -23,6 +21,7 @@ from app.models import (
     Payment,
     StoreItem,
 )
+from app.services.storage import save_upload
 from app.schemas import (
     StoreItemCreateSchema,
     StoreItemUpdateSchema,
@@ -78,7 +77,7 @@ def view_store(
     items = (
         db.query(StoreItem)
         .filter(
-            StoreItem.is_archived == False
+            StoreItem.is_archived == 0
         )
         .order_by(
             StoreItem.created_at.desc()
@@ -248,7 +247,7 @@ def create_store_item(
 
         sizes=json.dumps(sizes),
 
-        is_archived=False,
+        is_archived=0,
 
         created_at=now,
 
@@ -283,7 +282,7 @@ def update_store_item(
         db.query(StoreItem)
         .filter(
             StoreItem.id == item_id,
-            StoreItem.is_archived == False
+            StoreItem.is_archived == 0
         )
         .first()
     )
@@ -421,7 +420,7 @@ def delete_store_item(
         db.query(StoreItem)
         .filter(
             StoreItem.id == item_id,
-            StoreItem.is_archived == False
+            StoreItem.is_archived == 0
         )
         .first()
     )
@@ -433,7 +432,7 @@ def delete_store_item(
             detail="Store item not found."
         )
 
-    item.is_archived = True
+    item.is_archived = 1
 
     item.updated_at = datetime.datetime.now()
 
@@ -602,7 +601,7 @@ def create_store_purchase(
             db.query(StoreItem)
             .filter(
                 StoreItem.id == cart_item.store_item_id,
-                StoreItem.is_archived == False
+                StoreItem.is_archived == 0
             )
             .first()
         )
@@ -1521,7 +1520,7 @@ def view_store_items(
     items = (
         db.query(StoreItem)
         .filter(
-            StoreItem.is_archived == False
+            StoreItem.is_archived == 0
         )
         .order_by(
             StoreItem.id.desc()
@@ -1562,16 +1561,6 @@ def view_store_items(
 # =========================================================
 # STORE IMAGE UPLOAD
 # =========================================================
-
-STORE_UPLOAD_DIR = Path(
-    "/app/data/uploads/store"
-)
-
-STORE_UPLOAD_DIR.mkdir(
-    parents=True,
-    exist_ok=True
-)
-
 
 ALLOWED_IMAGE_TYPES = {
     "image/jpeg": ".jpg",
@@ -1616,24 +1605,18 @@ async def upload_store_image(
     )
 
 
-    file_path = (
-        STORE_UPLOAD_DIR /
-        filename
-    )
-
-
     # -----------------------------------------------------
-    # Save file
+    # Save file (local uploads folder, or Vercel Blob on Vercel)
     # -----------------------------------------------------
 
     try:
 
-        with file_path.open("wb") as buffer:
-
-            shutil.copyfileobj(
-                file.file,
-                buffer
-            )
+        image_url = save_upload(
+            "store",
+            filename,
+            await file.read(),
+            file.content_type
+        )
 
     except Exception as e:
 
@@ -1652,11 +1635,6 @@ async def upload_store_image(
     # -----------------------------------------------------
     # Return URL/path
     # -----------------------------------------------------
-
-    image_url = (
-        f"/uploads/store/{filename}"
-    )
-
 
     return {
 

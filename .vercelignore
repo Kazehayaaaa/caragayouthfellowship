@@ -1,0 +1,15 @@
+# Keep the deployment small and free of local data and secrets.
+.env
+.env.*
+.venv/
+__pycache__/
+*.pyc
+
+# Local SQLite database and original uploads: the Vercel app uses
+# Supabase (DATABASE_URL) and Vercel Blob instead.
+*.db
+uploads/
+
+# One-time migration tools and docs are not needed at runtime.
+scripts/
+docs/

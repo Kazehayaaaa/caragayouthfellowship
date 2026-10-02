@@ -36,18 +36,17 @@
     about: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.1"/>',
     contact: '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3 6.5l9 6.5 9-6.5"/>',
     store: '<path d="M4 7.5h16l-1.2 11.6a1.5 1.5 0 0 1-1.5 1.4H6.7a1.5 1.5 0 0 1-1.5-1.4z"/><path d="M8.5 7.5V6a3.5 3.5 0 0 1 7 0v1.5"/>',
-    sponsor: '<path d="M12 20.5s-7.5-4.4-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.7-7.5 10.1-7.5 10.1z"/>',
     register: '<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>'
   };
 
-  // The desktop menu's items, with Register in the middle of the bar.
+  // Register sits in the middle. Sponsor is left out on small screens;
+  // the footer's "Become a Sponsor" link covers it.
   const TABS = [
     ["home", "home.html", "Home"],
     ["about", "home.html#about", "About"],
-    ["contact", "home.html#contact", "Contact"],
     ["register", "register.html", "Register"],
-    ["store", "store.html", "Store"],
-    ["sponsor", "sponsor.html", "Sponsor"]
+    ["contact", "home.html#contact", "Contact"],
+    ["store", "store.html", "Store"]
   ];
 
   function icon(name) {

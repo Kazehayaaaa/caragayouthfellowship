@@ -1,0 +1,207 @@
+/* ======================================================
+   CYF MOBILE & TABLET LAYER
+   Loaded after each public page's own <style>, so these
+   rules win on small screens. Desktop (> 1020px) is
+   untouched except for the shared touch polish below.
+   The tab bar is built by site.js.
+====================================================== */
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{-webkit-tap-highlight-color:transparent}
+section[id]{scroll-margin-top:84px}
+
+/* Touch screens: no hover lift, a press-down response instead */
+@media (hover:none){
+  .btn:hover,.info-card:hover,.type-card:hover,.nav-cart:hover{transform:none}
+  .btn:active,.nav-cart:active,.type-button:active,.search-button:active{transform:scale(.97)}
+  .info-card:active,.type-card:active{transform:scale(.985)}
+}
+
+/* Cash sponsorship submit button in the site's colors */
+.submit-btn{
+  background:linear-gradient(160deg,var(--crimson),var(--crimson-dark));
+  border-radius:999px;min-height:52px;font-size:15px;font-weight:600;
+  box-shadow:0 12px 26px rgba(155,27,42,.26);
+}
+.submit-btn:hover{background:linear-gradient(160deg,var(--crimson-dark),#5e0d18)}
+.submit-btn:disabled{background:#c9c2bb;box-shadow:none}
+
+/* Fade-up on scroll (class added by site.js only when motion is allowed) */
+.m-reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.m-reveal.m-in{opacity:1;transform:none}
+
+/* Tab bar is hidden on desktop */
+.m-tabbar{display:none}
+
+@media (max-width:1020px){
+
+  /* ---------- Header: compact, glassy, lifts on scroll ---------- */
+  .navbar{
+    background:rgba(255,255,255,.82);
+    backdrop-filter:saturate(180%) blur(18px);
+    -webkit-backdrop-filter:saturate(180%) blur(18px);
+    border-bottom-color:transparent;
+    transition:box-shadow .25s ease,border-color .25s ease;
+  }
+  .navbar.is-scrolled{border-bottom-color:var(--line);box-shadow:0 8px 24px rgba(18,20,28,.07)}
+  .nav-inner{padding:10px 20px;gap:12px}
+  .menu-toggle,.nav-links{display:none !important}
+  .nav-cart{margin-left:auto;width:44px;height:44px;border-radius:14px;box-shadow:0 8px 18px rgba(155,27,42,.25)}
+  .nav-cart svg{width:21px;height:21px}
+
+  /* ---------- Bottom tab bar: all six menu items ---------- */
+  .m-tabbar{
+    /* 3 tabs | Register | 2 wider tabs: both sides equal, so Register sits dead centre */
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 66px repeat(2,minmax(0,1.5fr));
+    position:fixed;z-index:400;
+    left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));
+    max-width:600px;margin:0 auto;height:64px;padding:0 4px;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border:1px solid rgba(236,230,223,.9);border-radius:22px;
+    box-shadow:0 18px 40px rgba(18,20,28,.16),0 2px 6px rgba(18,20,28,.06);
+    transition:transform .3s cubic-bezier(.2,.7,.2,1);
+  }
+  .m-tabbar.is-hidden{transform:translateY(calc(100% + 24px))}
+  .m-tab{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    min-width:0;color:#7b8190;font-size:10.5px;font-weight:600;letter-spacing:.01em;
+    white-space:nowrap;transition:color .2s ease;
+  }
+  .m-tab-icon{
+    width:46px;height:30px;border-radius:999px;display:grid;place-items:center;
+    transition:background .2s ease,transform .2s ease;
+  }
+  .m-tab svg{width:21px;height:21px}
+  .m-tab:active .m-tab-icon{transform:scale(.9)}
+  .m-tab.is-active{color:var(--crimson)}
+  .m-tab.is-active .m-tab-icon{background:var(--crimson-soft)}
+
+  /* Register: raised round button in the centre */
+  .m-tab-cta{color:var(--crimson);justify-content:flex-end;padding-bottom:9px;gap:4px}
+  .m-tab-cta .m-tab-icon{
+    width:56px;height:56px;border-radius:50%;margin-top:-30px;color:#fff;
+    background:linear-gradient(160deg,var(--crimson),var(--crimson-dark));
+    box-shadow:0 12px 24px rgba(155,27,42,.38),0 0 0 5px #fff;
+  }
+  .m-tab-cta svg{width:24px;height:24px}
+  .m-tab-cta:active .m-tab-icon{transform:scale(.92)}
+  .m-tab-cta.is-active .m-tab-icon{
+    background:linear-gradient(160deg,var(--crimson),var(--crimson-dark));
+    box-shadow:0 12px 24px rgba(155,27,42,.38),0 0 0 5px #fff,0 0 0 7px var(--gold);
+  }
+
+  /* Room for the floating bar under the last content */
+  body.has-tabbar .footer{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+  body.has-tabbar:not(:has(.footer)){padding-bottom:calc(94px + env(safe-area-inset-bottom))}
+
+  /* ---------- Hero ---------- */
+  .hero{min-height:0}
+  .hero-inner{gap:32px}
+  .countdown-card{
+    max-width:none;justify-self:stretch;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.7);border-radius:24px;
+  }
+
+  /* ---------- Sections & cards ---------- */
+  .section{padding:72px 0}
+  .info-card{border-radius:22px}
+
+  /* ---------- Forms: 16px text stops iOS zooming in ---------- */
+  .field input,.field textarea,.field select,
+  input[type=text],input[type=email],input[type=tel],input[type=number],
+  input[type=search],input[type=date],select,textarea{font-size:16px}
+  .field input,.field select{min-height:50px;border-radius:14px}
+  .field textarea{border-radius:14px}
+
+  /* ---------- Registration page ---------- */
+  .registration-types{grid-template-columns:repeat(2,1fr);gap:12px}
+  .stepper{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .stepper::-webkit-scrollbar{display:none}
+}
+
+/* ======================================================
+   PHONES
+====================================================== */
+@media (max-width:700px){
+  .nav-inner{padding:8px 16px}
+  .brand{gap:10px}
+  .brand-logo{width:40px;height:40px}
+  .brand-text{font-size:15px}
+  .brand-tag{font-size:9px;letter-spacing:.16em}
+
+  /* Hero */
+  .hero-inner{padding:32px 0 28px;gap:28px}
+  .eyebrow{font-size:11px;letter-spacing:.14em}
+  .hero h1{font-size:clamp(36px,10.5vw,44px);line-height:1.04;margin:14px 0 18px}
+  .hero p{font-size:16px;line-height:1.7}
+  .actions{gap:10px;margin-top:26px}
+  .hero .actions .btn{flex:1 1 100%;min-height:54px;font-size:16px}
+  .countdown-card{padding:20px 16px 18px}
+  .cd-title{font-size:11px;margin-bottom:14px}
+  .cd-num{font-size:34px}
+  .cd-label{font-size:10.5px;margin-top:8px}
+  .cd-meta{margin-top:16px;padding-top:14px;gap:10px}
+
+  /* Inner page heroes */
+  .page-hero{min-height:240px}
+  .page-hero .container{padding:40px 0 64px}
+  .page-hero h1{font-size:clamp(32px,9vw,40px)}
+  .page-hero p{font-size:15.5px;line-height:1.7}
+
+  /* Sections */
+  .section{padding:56px 0}
+  .section h2{font-size:clamp(27px,7.6vw,32px)}
+  .section-head{margin-bottom:26px}
+  .kicker{font-size:11px}
+
+  /* Home page info cards become a swipeable row with the next card peeking in */
+  .cards.cards-swipe{
+    display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:84%;
+    gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 -16px;padding:6px 16px 22px;scroll-padding:0 16px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .cards-swipe::-webkit-scrollbar{display:none}
+  .cards-swipe > *{scroll-snap-align:start}
+  .info-card{padding:24px}
+  .info-card h3{font-size:20px}
+
+  /* Buttons */
+  .btn{min-height:50px;padding:14px 22px}
+  .form-card{margin:-40px auto 64px;border-radius:22px}
+
+  /* Forms: one column, nothing wider than the screen */
+  .form-grid{grid-template-columns:minmax(0,1fr)}
+  .form-body{padding:24px 18px}
+  .form-title h2{font-size:25px;line-height:1.2;margin-bottom:6px}
+
+  /* Registration page */
+  .registration-types{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .type-card{display:flex;flex-direction:column;align-items:center;padding:16px 12px;border-radius:18px}
+  .type-card .type-button{margin-top:auto}
+  .type-card h3{font-size:16px;line-height:1.25}
+  .type-card p{font-size:12px;line-height:1.45;margin-bottom:12px}
+  .type-icon{font-size:28px}
+  .type-button{font-size:13px;padding:11px 8px;border-radius:12px}
+  .stepper{padding:16px 12px}
+  .step-label{font-size:10.5px;white-space:nowrap}
+
+  /* Footer: brand, then two link columns side by side */
+  .footer{padding-top:48px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px 18px}
+  .footer-grid > div:first-child{grid-column:1/-1}
+  .footer-grid > div:last-child{grid-column:1/-1}
+  .footer-grid > div:last-child p{display:flex;gap:18px}
+  .footer-grid > div:last-child br{display:none}
+  .footer p,.footer a{font-size:14.5px}
+  .copyright{margin-top:30px;font-size:12.5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .m-reveal{opacity:1;transform:none;transition:none}
+  .m-tabbar{transition:none}
+}

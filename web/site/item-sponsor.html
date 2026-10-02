@@ -1,3507 +1,2000 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-<!-- CYF:HEAD -->
-<link rel="icon" type="image/png" href="/favicon.png?v=4">
-<link rel="apple-touch-icon" href="/favicon.png?v=4">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/styles.css">
-<script src="/assets/site.js?v=5" defer></script>
-<!-- /CYF:HEAD -->
-<title>
-    Item Donation Sponsorship | CYF Registration System
-</title>
-
-<meta
-    name="description"
-    content="Donate physical items to support CYF events."
->
-
-<style>
-
-/* ======================================================
-   PAGE
-   ====================================================== */
-
-.sponsor-page {
-    padding: 45px 20px;
-}
-
-.sponsor-container {
-    max-width: 950px;
-    margin: auto;
-}
-
-
-/* ======================================================
-   CARD
-   ====================================================== */
-
-.sponsor-form-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 30px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-}
-
-
-/* ======================================================
-   FORM
-   ====================================================== */
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 7px;
-    font-weight: 600;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 14px;
-    border: 1px solid #d5d5d5;
-    border-radius: 8px;
-    font-size: 15px;
-    background: #fff;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: #555;
-}
-
-.optional {
-    font-size: 12px;
-    font-weight: 400;
-    opacity: 0.65;
-}
-
-.required {
-    color: #dc3545;
-}
-
-
-/* ======================================================
-   VISITING CHURCH
-   ====================================================== */
-
-.visiting-church-wrapper {
-    display: none;
-    margin-top: 12px;
-}
-
-.visiting-church-wrapper.show {
-    display: block;
-}
-
-
-/* ======================================================
-   ITEMS GRID
-   ====================================================== */
-
-.items-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 15px;
-}
-
-
-/* ======================================================
-   ITEM CARD
-   ====================================================== */
-
-.item-card {
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    padding: 18px;
-    cursor: pointer;
-    transition: 0.2s;
-    background: #fff;
-    position: relative;
-}
-
-.item-card:hover {
-    transform: translateY(-2px);
-    border-color: #777;
-}
-
-.item-card.selected {
-    border-color: #222;
-    background: #f7f7f7;
-}
-
-.item-card.disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    background: #eee;
-}
-
-.item-card.disabled:hover {
-    transform: none;
-}
-
-.item-name {
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 8px;
-    padding-right: 30px;
-}
-
-.item-description {
-    font-size: 14px;
-    opacity: 0.75;
-    margin-bottom: 8px;
-}
-
-.item-remaining {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-
-/* ======================================================
-   SELECT MARKER
-   ====================================================== */
-
-.item-marker {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-
-    width: 22px;
-    height: 22px;
-
-    border: 2px solid #aaa;
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    background: #fff;
-}
-
-.item-card.selected .item-marker {
-    background: #222;
-    border-color: #222;
-    color: #fff;
-}
-
-
-/* ======================================================
-   QUANTITY INSIDE ITEM CARD
-   ====================================================== */
-
-.item-quantity-wrapper {
-    margin-top: 15px;
-    padding-top: 14px;
-    border-top: 1px solid #ddd;
-    display: none;
-}
-
-.item-card.selected .item-quantity-wrapper {
-    display: block;
-}
-
-.item-quantity-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.item-quantity-input {
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 10px 12px;
-
-    border: 1px solid #ccc;
-    border-radius: 7px;
-
-    font-size: 15px;
-}
-
-.item-quantity-help {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
-    opacity: 0.7;
-}
-
-
-/* ======================================================
-   SUMMARY
-   ====================================================== */
-
-.summary-card {
-    margin-top: 25px;
-
-    padding: 20px;
-
-    border: 1px solid #ddd;
-    border-radius: 10px;
-
-    background: #fafafa;
-
-    display: none;
-}
-
-.summary-card.show {
-    display: block;
-}
-
-.summary-card h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-.summary-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.summary-list li {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-
-    padding: 10px 0;
-
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.summary-list li:last-child {
-    border-bottom: none;
-}
-
-.summary-item-name {
-    font-weight: 600;
-}
-
-.summary-item-quantity {
-    font-weight: 700;
-}
-
-
-/* ======================================================
-   SUBMIT
-   ====================================================== */
-
-.submit-button {
-    width: 100%;
-
-    margin-top: 25px;
-
-    padding: 14px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #222;
-    color: #fff;
-
-    font-size: 16px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition:
-        opacity 0.2s ease,
-        background 0.2s ease;
-}
-
-.submit-button:hover {
-    opacity: 0.9;
-}
-
-.submit-button:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-}
-
-
-/* ======================================================
-   LOADING
-   ====================================================== */
-
-.loading {
-    text-align: center;
-    padding: 25px;
-    opacity: 0.7;
-}
-
-
-/* ======================================================
-   EMPTY STATE
-   ====================================================== */
-
-.empty-state {
-    text-align: center;
-    padding: 30px;
-
-    border: 1px dashed #ccc;
-    border-radius: 10px;
-
-    opacity: 0.7;
-}
-
-
-/* ======================================================
-   CENTER POPUP OVERLAY
-   ====================================================== */
-
-.popup-overlay {
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0,0,0,0.55);
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    z-index: 999999;
-}
-
-.popup-overlay.show {
-    display: flex;
-}
-
-
-/* ======================================================
-   POPUP
-   ====================================================== */
-
-.popup-box {
-    width: 100%;
-    max-width: 520px;
-
-    background: #fff;
-
-    border-radius: 16px;
-
-    padding: 30px;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.25);
-
-    text-align: center;
-
-    animation: popupIn 0.2s ease-out;
-}
-
-@keyframes popupIn {
-
-    from {
-        opacity: 0;
-        transform: scale(0.94);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-}
-
-.popup-icon {
-    width: 60px;
-    height: 60px;
-
-    margin: 0 auto 15px;
-
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 28px;
-    font-weight: 700;
-}
-
-.popup-icon.confirm {
-    background: #f1f1f1;
-    color: #222;
-}
-
-.popup-icon.success {
-    background: #e7f7ed;
-    color: #198754;
-}
-
-.popup-icon.error {
-    background: #fdeaea;
-    color: #dc3545;
-}
-
-.popup-box h2 {
-    margin: 0 0 10px;
-}
-
-.popup-box p {
-    margin: 0 0 20px;
-    line-height: 1.6;
-    color: #555;
-}
-
-.popup-summary {
-    text-align: left;
-
-    background: #f7f7f7;
-
-    border-radius: 10px;
-
-    padding: 15px;
-
-    margin-bottom: 20px;
-
-    max-height: 230px;
-    overflow-y: auto;
-}
-
-.popup-summary-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-
-    padding: 8px 0;
-
-    border-bottom: 1px solid #ddd;
-
-    font-size: 14px;
-}
-
-.popup-summary-row:last-child {
-    border-bottom: none;
-}
-
-.popup-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-.popup-button {
-    min-width: 120px;
-
-    padding: 11px 18px;
-
-    border-radius: 8px;
-
-    font-size: 15px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    border: none;
-
-    transition:
-        opacity 0.2s ease,
-        background 0.2s ease;
-}
-
-.popup-button.cancel {
-    background: #e9ecef;
-    color: #222;
-}
-
-.popup-button.confirm {
-    background: #222;
-    color: #fff;
-}
-
-.popup-button.success-button {
-    background: #198754;
-    color: #fff;
-}
-
-.popup-button:hover {
-    opacity: 0.9;
-}
-
-.popup-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-
-/* ======================================================
-   CONFIRMATION LOADING STATE
-   ====================================================== */
-
-.confirm-loading {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.loading-spinner {
-    width: 18px;
-    height: 18px;
-
-    border: 3px solid rgba(255,255,255,0.35);
-    border-top-color: #fff;
-
-    border-radius: 50%;
-
-    animation: spin 0.75s linear infinite;
-
-    flex-shrink: 0;
-}
-
-@keyframes spin {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-/* ======================================================
-   POPUP WAITING MESSAGE
-   ====================================================== */
-
-.confirmation-waiting {
-    display: none;
-
-    margin-top: 15px;
-    margin-bottom: 0;
-
-    font-size: 13px;
-    color: #666;
-}
-
-.confirmation-waiting.show {
-    display: block;
-}
-
-
-/* ======================================================
-   MOBILE
-   ====================================================== */
-
-@media (max-width: 700px) {
-
-    .items-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .sponsor-form-card {
-        padding: 20px;
-    }
-
-    .popup-box {
-        padding: 22px;
-    }
-
-    .popup-buttons {
-        flex-direction: column;
-    }
-
-    .popup-button {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- CYF:HEAD -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=4" />
+    <link rel="apple-touch-icon" href="/favicon.png?v=4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/assets/site.js?v=6" defer></script>
+    <script src="/assets/cart-badge.js?v=1" defer></script>
+    <!-- /CYF:HEAD -->
+    <title>Item Donation Sponsorship | CYF Registration System</title>
+    <meta
+      name="description"
+      content="Donate physical items to support CYF events."
+    />
+    <style>
+      /* ==========================================================
+         CYF Sponsor pages – shared design (sponsor.html + item sponsor)
+         ========================================================== */
+      :root {
+        --sp-red: var(--crimson, var(--red, #b5121b));
+        --sp-red-dark: #6f0910;
+        --sp-gold: var(--gold, #d4a017);
+        --sp-green: #198754;
+        --sp-ink: #2a2020;
+        --sp-muted: #6f6363;
+        --sp-line: #eee2e2;
+        --sp-soft: #fff7f3;
+        --sp-radius: 16px;
+        --sp-shadow: 0 24px 60px rgba(88, 10, 10, 0.13);
+      }
+
+      /* ===== Hero ===== */
+      .sp-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 0 124px;
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 88% 12%,
+            rgba(212, 160, 23, 0.4),
+            transparent 42%
+          ),
+          radial-gradient(
+            circle at 5% 100%,
+            rgba(255, 255, 255, 0.1),
+            transparent 40%
+          ),
+          linear-gradient(
+            135deg,
+            var(--sp-red-dark) 0%,
+            var(--sp-red) 55%,
+            #d24a2a 100%
+          );
+      }
+      .sp-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.5;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.14) 1.4px,
+          transparent 1.6px
+        );
+        background-size: 26px 26px;
+        -webkit-mask-image: linear-gradient(115deg, transparent 35%, #000);
+        mask-image: linear-gradient(115deg, transparent 35%, #000);
+      }
+      .sp-hero::after {
+        content: "";
+        position: absolute;
+        right: -90px;
+        bottom: -140px;
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        border: 62px solid rgba(255, 255, 255, 0.07);
+      }
+      .sp-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+      .sp-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        padding: 7px 15px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        backdrop-filter: blur(4px);
+      }
+      .sp-eyebrow::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--sp-gold);
+      }
+      .sp-hero h1 {
+        margin: 0 0 14px;
+        color: #fff;
+        font-size: clamp(32px, 5.2vw, 56px);
+        line-height: 1.06;
+        letter-spacing: -0.01em;
+      }
+      .sp-hero p {
+        margin: 0;
+        max-width: 600px;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 17px;
+        line-height: 1.6;
+      }
+      .sp-points {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+        padding: 0;
+        list-style: none;
+      }
+      .sp-points li {
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.16);
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      /* ===== Card ===== */
+      .sp-wrap {
+        padding: 0 16px 90px;
+        background: var(--cream, #fffaf5);
+      }
+      .form-card,
+      .sp-card {
+        position: relative;
+        max-width: 880px;
+        margin: -70px auto 0;
+        padding: 40px 44px 44px;
+        box-sizing: border-box;
+        background: #fff;
+        border: 1px solid var(--sp-line);
+        border-radius: 26px;
+        box-shadow: var(--sp-shadow);
+      }
+      .form-card::before,
+      .sp-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 44px;
+        right: 44px;
+        height: 4px;
+        border-radius: 0 0 6px 6px;
+        background: linear-gradient(90deg, var(--sp-red), var(--sp-gold));
+      }
+      .form-card > h2,
+      .sp-card > h2 {
+        margin: 0 0 6px;
+        font-size: clamp(23px, 3vw, 30px);
+        color: var(--sp-ink);
+      }
+      .form-card > p,
+      .sp-card > p {
+        margin: 0 0 8px;
+        color: var(--sp-muted);
+        line-height: 1.55;
+      }
+
+      /* Section headings with step numbers */
+      .sp-sec {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 34px 0 18px;
+        font-family: inherit;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--sp-red);
+      }
+      .sp-sec .step {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: var(--sp-red);
+        color: #fff;
+        font-size: 13px;
+        letter-spacing: 0;
+      }
+      .sp-sec::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--sp-line);
+      }
+      .sp-sec.first {
+        margin-top: 26px;
+      }
+
+      /* ===== Form fields ===== */
+      .sp-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .full {
+        grid-column: 1 / -1;
+      }
+      .form-group {
+        margin: 0;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #3a3030;
+      }
+      .form-group input,
+      .form-group select {
         width: 100%;
-    }
+        box-sizing: border-box;
+        min-height: 50px;
+        padding: 12px 15px;
+        border: 1.5px solid #e4d7d7;
+        border-radius: 12px;
+        background: #fdfbfb;
+        font: inherit;
+        font-size: 15px;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+      .form-group input::placeholder {
+        color: #aa9d9d;
+      }
+      .form-group input:hover,
+      .form-group select:hover {
+        border-color: #d3bcbc;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        background: #fff;
+        border-color: var(--sp-red);
+        box-shadow: 0 0 0 4px rgba(181, 18, 27, 0.1);
+      }
+      .form-group input[readonly] {
+        background: #f6f1f1;
+        color: var(--sp-muted);
+        cursor: not-allowed;
+      }
+      .required {
+        color: #d92727;
+      }
+      .visiting-church-wrapper {
+        display: none;
+        margin-top: 12px;
+      }
+      .visiting-church-wrapper.show {
+        display: block;
+      }
+      .church-preview {
+        display: none;
+        margin-top: 12px;
+        padding: 13px 16px;
+        background: #fff9ec;
+        border-left: 4px solid var(--sp-gold);
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.7;
+        color: #4a4040;
+      }
+      .church-preview strong {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--sp-red);
+      }
+      .church-preview span {
+        display: inline-block;
+        margin-bottom: 4px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .error-message {
+        display: none;
+        margin-top: 8px;
+        font-size: 13px;
+        line-height: 1.45;
+        color: #c01c1c;
+      }
 
-}
+      /* ===== Cash: tiers ===== */
+      .tier-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .tier-card {
+        position: relative;
+        display: block;
+        box-sizing: border-box;
+        padding: 20px 16px 18px;
+        background: #fff;
+        border: 2px solid var(--sp-line);
+        border-radius: 18px;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          border-color 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+      .tier-card:hover {
+        transform: translateY(-3px);
+        border-color: #efd28a;
+        box-shadow: 0 12px 28px rgba(88, 10, 10, 0.1);
+      }
+      .tier-card:focus-within {
+        border-color: var(--sp-gold);
+      }
+      .tier-card.selected {
+        border-color: var(--sp-red);
+        background: #fff7f7;
+        box-shadow: 0 0 0 4px rgba(181, 18, 27, 0.09);
+      }
+      .tier-card.selected::after {
+        content: "✓";
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--sp-red);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .tier-card input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .tier-badge {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+        border-radius: 15px;
+        font-size: 24px;
+      }
+      .tier-card:nth-child(1) .tier-badge {
+        background: #f7e6d6;
+      }
+      .tier-card:nth-child(2) .tier-badge {
+        background: #eceff3;
+      }
+      .tier-card:nth-child(3) .tier-badge {
+        background: #fff1c2;
+      }
+      .tier-card:nth-child(4) .tier-badge {
+        background: #dff3fb;
+      }
+      .tier-card h4 {
+        margin: 0 0 6px;
+        font-size: 15px;
+        line-height: 1.3;
+        color: var(--sp-ink);
+      }
+      .tier-card p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--sp-muted);
+      }
 
-</style>
+      /* Quick amount chips */
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .chip {
+        padding: 8px 16px;
+        border: 1.5px solid #e4d7d7;
+        border-radius: 999px;
+        background: #fff;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        color: #4a3d3d;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+      .chip:hover {
+        border-color: var(--sp-red);
+        color: var(--sp-red);
+        background: #fff7f7;
+      }
+      .input-peso {
+        position: relative;
+      }
+      .input-peso > span {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 800;
+        color: var(--sp-red);
+        pointer-events: none;
+      }
+      .form-group .input-peso input {
+        padding-left: 38px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .amount-preview {
+        display: flex;
+        align-items: center;
+        min-height: 54px;
+        margin-top: 12px;
+        padding: 14px 18px;
+        box-sizing: border-box;
+        background: linear-gradient(135deg, #fff6f6, #fffaf0);
+        border: 1px solid #f0dcdc;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--sp-red);
+      }
 
-<link rel="stylesheet" href="/assets/mobile.css?v=7">
-</head>
+      /* ===== Submit ===== */
+      .success-message {
+        display: none;
+        margin: 18px 0;
+        padding: 14px 16px;
+        background: #ecfdf3;
+        border: 1px solid #c7ead3;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #166534;
+      }
+      .submit-btn,
+      .submit-button {
+        width: 100%;
+        min-height: 54px;
+        margin-top: 30px;
+        padding: 14px 20px;
+        border: 0;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--sp-red), var(--sp-red-dark));
+        color: #fff;
+        font: inherit;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        transition:
+          transform 0.15s,
+          box-shadow 0.2s,
+          opacity 0.2s;
+      }
+      .submit-btn:hover:not(:disabled),
+      .submit-button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 26px rgba(111, 9, 16, 0.3);
+      }
+      .submit-btn:active:not(:disabled),
+      .submit-button:active:not(:disabled) {
+        transform: translateY(0);
+      }
+      .submit-btn:disabled {
+        background: #b9aaaa;
+        cursor: not-allowed;
+      }
+      .submit-button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      .secure-note {
+        margin: 12px 0 0;
+        text-align: center;
+        font-size: 12.5px;
+        color: var(--sp-muted);
+      }
+      .loading {
+        display: none;
+        margin-top: 14px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--sp-muted);
+      }
 
+      /* ===== Cash: status panels ===== */
+      .payment-result,
+      .payment-waiting,
+      .payment-success,
+      .processing-message,
+      .queue-disabled,
+      .process-error {
+        display: none;
+        margin-top: 24px;
+        padding: 26px;
+        border-radius: 18px;
+        text-align: center;
+        line-height: 1.55;
+        font-size: 14px;
+      }
+      .payment-result {
+        text-align: left;
+        background: #fff6f6;
+        border: 1px solid #f0dcdc;
+      }
+      .payment-result h3 {
+        margin: 0 0 8px;
+        font-size: 19px;
+        color: var(--sp-red);
+      }
+      .payment-result p {
+        margin: 0;
+        color: #5a4d4d;
+      }
+      .payment-result a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        margin-top: 14px;
+        padding: 11px 22px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--sp-red), var(--sp-red-dark));
+        color: #fff;
+        font-weight: 800;
+        text-decoration: none;
+      }
+      .payment-waiting {
+        background: #fffaf0;
+        border: 1px solid #f3dfb0;
+      }
+      .payment-icon,
+      .success-icon {
+        display: grid;
+        place-items: center;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 14px;
+        border-radius: 50%;
+        font-size: 26px;
+      }
+      .payment-icon {
+        background: #fff3cd;
+        color: #856404;
+        animation: pulse 1.8s ease-in-out infinite;
+      }
+      .payment-waiting h3 {
+        margin: 0 0 8px;
+        font-size: 19px;
+        color: #856404;
+      }
+      .payment-waiting p {
+        margin: 0;
+        color: #665c45;
+      }
+      .payment-status-text {
+        margin-top: 12px;
+        font-size: 12px;
+        color: #8a7b5a;
+      }
+      .payment-success {
+        background: #ecfdf3;
+        border: 1px solid #b7e4c7;
+      }
+      .success-icon {
+        background: #22c55e;
+        color: #fff;
+        font-size: 30px;
+        font-weight: 800;
+        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.15);
+      }
+      .payment-success h3 {
+        margin: 0 0 8px;
+        font-size: 20px;
+        color: #166534;
+      }
+      .payment-success p {
+        margin: 0;
+        color: #3f654b;
+      }
+      .refresh-message {
+        margin-top: 14px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+      .processing-message {
+        background: #fff6f6;
+        border: 1px solid #f0dcdc;
+      }
+      .processing-spinner {
+        width: 42px;
+        height: 42px;
+        margin: 0 auto 14px;
+        border: 4px solid #f0dcdc;
+        border-top-color: var(--sp-red);
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+      }
+      .processing-message h3 {
+        margin: 0 0 8px;
+        font-size: 19px;
+        color: var(--sp-red);
+      }
+      .processing-message p {
+        margin: 0;
+        color: #5a4d4d;
+      }
+      .processing-status-text {
+        margin-top: 12px;
+        font-size: 12px;
+        color: #7b6f6f;
+      }
+      .queue-disabled {
+        background: #fffaf0;
+        border: 1px solid #f3dfb0;
+        color: #856404;
+      }
+      .queue-disabled strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 16px;
+        color: #7a5b00;
+      }
+      .process-error {
+        background: #fff5f5;
+        border: 1px solid #f2c7c7;
+        color: var(--sp-red);
+      }
 
-<body>
+      /* ===== Item page: items ===== */
+      .items-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .item-card {
+        position: relative;
+        padding: 22px;
+        background: #fff;
+        border: 2px solid var(--sp-line);
+        border-radius: 18px;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          border-color 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+      .item-card:hover {
+        transform: translateY(-3px);
+        border-color: #efd28a;
+        box-shadow: 0 12px 28px rgba(88, 10, 10, 0.1);
+      }
+      .item-card.selected {
+        border-color: var(--sp-red);
+        background: #fff7f7;
+        box-shadow: 0 0 0 4px rgba(181, 18, 27, 0.08);
+      }
+      .item-card.disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        background: #f4f0f0;
+        filter: grayscale(0.4);
+      }
+      .item-card.disabled:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: var(--sp-line);
+      }
+      .item-icon {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+        border-radius: 15px;
+        background: #fff4d6;
+        font-size: 23px;
+      }
+      .item-name {
+        margin-bottom: 6px;
+        padding-right: 34px;
+        font-size: 17px;
+        font-weight: 800;
+        line-height: 1.3;
+        color: var(--sp-ink);
+      }
+      .item-description {
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: var(--sp-muted);
+        line-height: 1.5;
+      }
+      .item-remaining {
+        display: inline-block;
+        padding: 4px 11px;
+        border-radius: 999px;
+        background: #f3ecec;
+        font-size: 12px;
+        font-weight: 700;
+        color: #5a4d4d;
+      }
+      .item-card.disabled .item-remaining {
+        background: #fde9e9;
+        color: var(--sp-red);
+      }
+      .item-marker {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border: 2px solid #d9cccc;
+        border-radius: 50%;
+        background: #fff;
+        font-size: 14px;
+        font-weight: 800;
+        transition: 0.2s;
+      }
+      .item-card.selected .item-marker {
+        background: var(--sp-red);
+        border-color: var(--sp-red);
+        color: #fff;
+      }
+      .item-quantity-wrapper {
+        display: none;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px dashed #e3caca;
+      }
+      .item-card.selected .item-quantity-wrapper {
+        display: block;
+      }
+      .item-quantity-label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .item-quantity-input {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 46px;
+        padding: 10px 12px;
+        border: 1.5px solid #e4d7d7;
+        border-radius: 10px;
+        font: inherit;
+        font-size: 15px;
+      }
+      .item-quantity-input:focus {
+        outline: none;
+        border-color: var(--sp-red);
+        box-shadow: 0 0 0 3px rgba(181, 18, 27, 0.1);
+      }
+      .item-quantity-help {
+        display: block;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #7b6f6f;
+      }
+      .loading-state,
+      .empty-state {
+        grid-column: 1 / -1;
+        padding: 30px;
+        text-align: center;
+        color: #7b6f6f;
+        border: 1px dashed #e3caca;
+        border-radius: 14px;
+        background: #fffdfb;
+      }
+      .items-grid > .loading {
+        display: block;
+        grid-column: 1 / -1;
+        margin: 0;
+        padding: 30px;
+        border: 1px dashed #e3caca;
+        border-radius: 14px;
+        background: #fffdfb;
+      }
 
+      /* Summary */
+      .summary-card {
+        display: none;
+        margin-top: 26px;
+        padding: 22px 24px;
+        background: linear-gradient(135deg, #fff6f6, #fffaf0);
+        border: 1px solid #f0dcdc;
+        border-radius: 16px;
+      }
+      .summary-card.show {
+        display: block;
+      }
+      .summary-card h3 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        color: var(--sp-red);
+      }
+      .summary-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .summary-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 10px 0;
+        border-bottom: 1px solid #efdede;
+      }
+      .summary-list li:last-child {
+        border-bottom: 0;
+      }
+      .summary-item-name {
+        font-weight: 600;
+      }
+      .summary-item-quantity {
+        font-weight: 800;
+        color: var(--sp-red);
+      }
 
-<!-- ======================================================
-     NAVBAR
-     ====================================================== -->
+      /* ===== Popups ===== */
+      .popup-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(30, 10, 10, 0.58);
+        backdrop-filter: blur(4px);
+      }
+      .popup-overlay.show {
+        display: flex;
+      }
+      .popup-box {
+        width: 100%;
+        max-width: 520px;
+        max-height: 92vh;
+        overflow-y: auto;
+        padding: 32px;
+        text-align: center;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.32);
+        animation: popupIn 0.22s ease-out;
+      }
+      .popup-icon {
+        display: grid;
+        place-items: center;
+        width: 66px;
+        height: 66px;
+        margin: 0 auto 14px;
+        border-radius: 50%;
+        font-size: 28px;
+        font-weight: 800;
+      }
+      .popup-icon.confirm {
+        background: #fff4d6;
+        color: #8a6200;
+      }
+      .popup-icon.success {
+        background: #e7f7ed;
+        color: var(--sp-green);
+        box-shadow: 0 0 0 8px rgba(25, 135, 84, 0.1);
+      }
+      .popup-icon.error {
+        background: #fdeaea;
+        color: #dc3545;
+      }
+      .popup-box h2 {
+        margin: 0 0 8px;
+        color: var(--sp-ink);
+      }
+      .popup-box p {
+        margin: 0 0 18px;
+        line-height: 1.6;
+        color: #5a4d4d;
+        white-space: pre-line;
+      }
+      .popup-summary {
+        max-height: 250px;
+        margin-bottom: 18px;
+        padding: 14px 18px;
+        overflow-y: auto;
+        text-align: left;
+        background: #faf6f6;
+        border: 1px solid var(--sp-line);
+        border-radius: 14px;
+      }
+      .popup-summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 9px 0;
+        border-bottom: 1px solid #eadede;
+        font-size: 14px;
+      }
+      .popup-summary-row span {
+        text-align: right;
+      }
+      .popup-summary-row:last-child {
+        border-bottom: 0;
+      }
+      .popup-summary hr {
+        margin: 6px 0;
+        border: 0;
+        border-top: 2px solid #eadede;
+      }
+      .popup-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      .popup-button {
+        min-width: 130px;
+        min-height: 48px;
+        padding: 11px 20px;
+        border: 0;
+        border-radius: 12px;
+        font: inherit;
+        font-size: 15px;
+        font-weight: 800;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.15s;
+      }
+      .popup-button:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
+      .popup-button.cancel {
+        background: #efe8e8;
+        color: #3a3030;
+      }
+      .popup-button.confirm {
+        background: linear-gradient(135deg, var(--sp-red), var(--sp-red-dark));
+        color: #fff;
+      }
+      .popup-button.success-button {
+        background: var(--sp-green);
+        color: #fff;
+      }
+      .popup-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .confirm-loading {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .loading-spinner {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        border: 3px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+      }
+      .confirmation-waiting {
+        display: none;
+        margin: 14px 0 0 !important;
+        font-size: 13px;
+        color: var(--sp-muted);
+      }
+      .confirmation-waiting.show {
+        display: block;
+      }
 
-<header class="navbar">
-  <div class="nav-inner">
-    <a class="brand" href="home.html" aria-label="Caraga Youth Fellowship home">
-      <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
-      <span class="brand-copy">
-        <span class="brand-text">Caraga Youth Fellowship</span>
-        <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
-      </span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="home.html">Home</a>
-      <a href="home.html#about">About</a>
-      <a href="home.html#contact">Contact</a>
-      <a href="store.html">Store</a>
-      <a href="sponsor.html" class="active" aria-current="page">Sponsor</a>
-      <a href="register.html">Register</a>
-    </nav>
-    <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg>
-    </a>
-    <button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">&#9776;</button>
-  </div>
-</header>
+      /* ===== Animations ===== */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes pulse {
+        50% {
+          transform: scale(1.08);
+        }
+      }
+      @keyframes popupIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
 
+      /* ===== Responsive ===== */
+      @media (max-width: 900px) {
+        .tier-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 700px) {
+        .sp-hero {
+          padding: 46px 0 96px;
+        }
+        .sp-wrap {
+          padding: 0 12px 56px;
+        }
+        .form-card,
+        .sp-card {
+          margin-top: -56px;
+          padding: 28px 18px 28px;
+          border-radius: 20px;
+        }
+        .form-card::before,
+        .sp-card::before {
+          left: 18px;
+          right: 18px;
+        }
+        .sp-grid,
+        .items-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-group input,
+        .form-group select,
+        .item-quantity-input {
+          font-size: 16px;
+        }
+        .popup-box {
+          padding: 24px 18px;
+        }
+        .popup-buttons {
+          flex-direction: column-reverse;
+        }
+        .popup-button {
+          width: 100%;
+        }
+      }
+      @media (max-width: 420px) {
+        .tier-grid {
+          grid-template-columns: 1fr;
+        }
+        .tier-card {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          column-gap: 14px;
+          align-items: center;
+        }
+        .tier-badge {
+          grid-row: 1 / 3;
+          margin: 0;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/assets/mobile.css?v=8" />
+  </head>
 
+  <body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="nav-inner">
+        <a
+          class="brand"
+          href="home.html"
+          aria-label="Caraga Youth Fellowship home"
+        >
+          <img
+            class="brand-logo"
+            src="/assets/cyf-logo.png"
+            alt="CYF logo"
+            width="56"
+            height="56"
+          />
+          <span class="brand-copy">
+            <span class="brand-text">Caraga Youth Fellowship</span>
+            <span class="brand-tag"
+              >Transform &middot; Equip &middot; Entrust</span
+            >
+          </span>
+        </a>
+        <nav class="nav-links" id="navLinks">
+          <a href="home.html">Home</a>
+          <a href="home.html#about">About</a>
+          <a href="home.html#contact">Contact</a>
+          <a href="store.html">Store</a>
+          <a href="sponsor.html" class="active" aria-current="page">Sponsor</a>
+          <a href="register.html">Register</a>
+        </nav>
+        <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="9" cy="20" r="1.4" />
+            <circle cx="18" cy="20" r="1.4" />
+            <path
+              d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"
+            />
+          </svg>
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          &#9776;
+        </button>
+      </div>
+    </header>
 
-<!-- ======================================================
-     HERO
-     ====================================================== -->
-
-<section class="page-hero">
-
-    <div class="container">
-
-        <h1>
-            Item Donation Sponsorship
-        </h1>
-
+    <!-- HERO -->
+    <section class="sp-hero">
+      <div class="container">
+        <span class="sp-eyebrow">Sponsor</span>
+        <h1>Item Donation Sponsorship</h1>
         <p>
-            Help CYF by donating items needed for upcoming
-            youth ministry activities and events.
+          Help CYF by donating items needed for upcoming youth ministry
+          activities and events.
+        </p>
+        <ul class="sp-points">
+          <li>🎁 Choose what to give</li>
+          <li>📦 Live remaining quantities</li>
+          <li>✅ Quick &amp; simple</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="sp-wrap">
+      <div class="sp-card">
+        <h2>Item Donation</h2>
+        <p>
+          Select one or more available items and choose the quantity for each
+          item.
         </p>
 
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     FORM
-     ====================================================== -->
-
-<section class="sponsor-page">
-
-    <div class="sponsor-container">
-
-        <div class="sponsor-form-card">
-
-            <h2>
-                Item Donation
-            </h2>
-
-            <p>
-                Select one or more available items and
-                choose the quantity for each item.
-            </p>
-
-
-            <form
-                id="itemSponsorForm"
-                novalidate
-            >
-
-
-                <!-- ==========================================
-                     FULL NAME
-                     ========================================== -->
-
-                <div class="form-group">
-
-                    <label for="fullname">
-
-                        Full Name
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-                    <input
-                        type="text"
-                        id="fullname"
-                        name="fullname"
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                    >
-
-                </div>
-
-
-
-                <!-- ==========================================
-                     LOCAL CHURCH
-                     ========================================== -->
-
-                <div class="form-group">
-
-                    <label for="local_church">
-
-                        Local Church
-
-                        <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-                    <select
-                        id="local_church"
-                        name="local_church"
-                    >
-
-                        <option value="">
-                            -- Select Local Church --
-                        </option>
-
-
-                        <optgroup label="Sector 1">
-
-                            <option
-                                value="Butuan Lighthouse Baptist Church"
-                                data-sector="Sector 1"
-                            >
-                                Butuan Lighthouse Baptist Church
-                            </option>
-
-                            <option
-                                value="Butuan Lighthouse Baptist Mission, Amparo"
-                                data-sector="Sector 1"
-                            >
-                                Butuan Lighthouse Baptist Mission, Amparo
-                            </option>
-
-                            <option
-                                value="Ampayon Fundamental Baptist Church"
-                                data-sector="Sector 1"
-                            >
-                                Ampayon Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Grace Fundamental Baptist Church, CBR."
-                                data-sector="Sector 1"
-                            >
-                                Grace Fundamental Baptist Church, CBR.
-                            </option>
-
-                            <option
-                                value="Binuangan Fundamental Baptist Mission"
-                                data-sector="Sector 1"
-                            >
-                                Binuangan Fundamental Baptist Baptist Mission
-                            </option>
-
-                            <option
-                                value="Santiago Fundamental Baptist Church"
-                                data-sector="Sector 1"
-                            >
-                                Santiago Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Grace Fundamental Baptist Church, Magdagooc"
-                                data-sector="Sector 1"
-                            >
-                                Grace Fundamental Baptist Church, Magdagooc
-                            </option>
-
-                            <option
-                                value="Surigao Fundamental Baptist Church"
-                                data-sector="Sector 1"
-                            >
-                                Surigao Fundamental Baptist Church
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="Sector 2">
-
-                            <option
-                                value="Bayugan Fundamental Baptist Church"
-                                data-sector="Sector 2"
-                            >
-                                Bayugan Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Calaitan Fundamental Baptist Church"
-                                data-sector="Sector 2"
-                            >
-                                Calaitan Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Remedios Fundamental Baptist Church"
-                                data-sector="Sector 2"
-                            >
-                                Remedios Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Sibagat Fundamental Baptist Church"
-                                data-sector="Sector 2"
-                            >
-                                Sibagat Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Afga Fundamental Baptist Mission"
-                                data-sector="Sector 2"
-                            >
-                                Afga Fundamental Baptist Mission
-                            </option>
-
-                            <option
-                                value="Taguyango Fundamental Baptist Mission"
-                                data-sector="Sector 2"
-                            >
-                                Taguyango Fundamental Baptist Mission
-                            </option>
-
-                            <option
-                                value="Villangit Fundamental Baptist Mission"
-                                data-sector="Sector 2"
-                            >
-                                Villangit Fundamental Baptist Mission
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="Sector 3">
-
-                            <option
-                                value="Butuan Grace Fundamental Baptist Church"
-                                data-sector="Sector 3"
-                            >
-                                Butuan Grace Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Blessed Hope Baptist Church"
-                                data-sector="Sector 3"
-                            >
-                                Blessed Hope Baptist Church
-                            </option>
-
-                            <option
-                                value="Jesus Saves Mission"
-                                data-sector="Sector 3"
-                            >
-                                Jesus Saves Mission
-                            </option>
-
-                            <option
-                                value="Grace Fundamental Baptist Mission, Magallanes"
-                                data-sector="Sector 3"
-                            >
-                                Grace Fundamental Baptist Mission, Magallanes
-                            </option>
-
-                            <option
-                                value="Grace Fundamental Baptist Mission, San Vicente"
-                                data-sector="Sector 3"
-                            >
-                                Grace Fundamental Baptist Mission, San Vicente
-                            </option>
-
-                            <option
-                                value="Manapa Fundamental Baptist Church"
-                                data-sector="Sector 3"
-                            >
-                                Manapa Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Grace Fundamental Baptist Church, Buenavista"
-                                data-sector="Sector 3"
-                            >
-                                Grace Fundamental Baptist Church, Buenavista
-                            </option>
-
-                            <option
-                                value="Nasipit Fundamental Baptist Church"
-                                data-sector="Sector 3"
-                            >
-                                Nasipit Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Carmen Fundamental Baptist Church"
-                                data-sector="Sector 3"
-                            >
-                                Carmen Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Cabantian Fundamental Baptist Church"
-                                data-sector="Sector 3"
-                            >
-                                Cabantian Fundamental Baptist Church
-                            </option>
-
-                            <option
-                                value="Tibon-Tibon Fundamental Baptist Mission"
-                                data-sector="Sector 3"
-                            >
-                                Tibon-Tibon Fundamental Baptist Mission
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="Others">
-
-                            <option
-                                value="Visiting Church"
-                                data-sector="N/A"
-                            >
-                                Visiting Church
-                            </option>
-
-                        </optgroup>
-
-                    </select>
-
-
-                    <!-- ======================================
-                         VISITING CHURCH
-                         ====================================== -->
-
-                    <div
-                        id="visitingChurchWrapper"
-                        class="visiting-church-wrapper"
-                    >
-
-                        <label for="visiting_church">
-
-                            Church Name
-
-                            <span class="required">
-                                *
-                            </span>
-
-                        </label>
-
-                        <input
-                            type="text"
-                            id="visiting_church"
-                            name="visiting_church"
-                            placeholder="Enter the name of your church"
-                        >
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ==========================================
-                     SECTOR
-                     ========================================== -->
-
-                <div class="form-group">
-
-                    <label for="sector">
-                        Sector
-                    </label>
-
-                    <input
-                        type="text"
-                        id="sector"
-                        name="sector"
-                        readonly
-                        placeholder="Automatically selected"
-                    >
-
-                </div>
-
-
-
-                <!-- ==========================================
-                     CONTACT
-                     ========================================== -->
-
+        <form id="itemSponsorForm" novalidate>
+          <h3 class="sp-sec first">
+            <span class="step">1</span> Your Information
+          </h3>
+
+          <div class="sp-grid">
+            <div class="form-group full">
+              <label for="fullname"
+                >Full Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                placeholder="Enter your full name"
+                autocomplete="name"
+              />
+            </div>
+
+            <div class="form-group full">
+              <label for="local_church"
+                >Local Church <span class="required">*</span></label
+              >
+              <select id="local_church" name="local_church">
+                <option value="">-- Select Local Church --</option>
+              </select>
+
+              <div id="visitingChurchWrapper" class="visiting-church-wrapper">
+                <label for="visiting_church"
+                  >Church Name <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="visiting_church"
+                  name="visiting_church"
+                  placeholder="Enter the name of your church"
+                />
+              </div>
+            </div>
 
             <div class="form-group">
-
-            <label for="contact">
-            Contact Number
-            <span class="required">*</span>
-            </label>
-
-            <input
-            type="tel"
-            id="contact"
-            name="contact"
-            placeholder="09XXXXXXXXX"
-            autocomplete="tel"
-            inputmode="numeric"
-            pattern="09[0-9]{9}"
-            maxlength="11"
-            minlength="11"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
-            required
-        >
-
+              <label for="sector">Sector</label>
+              <input
+                type="text"
+                id="sector"
+                name="sector"
+                readonly
+                placeholder="Automatically selected"
+              />
             </div>
 
+            <div class="form-group">
+              <label for="contact"
+                >Contact Number <span class="required">*</span></label
+              >
+              <input
+                type="tel"
+                id="contact"
+                name="contact"
+                placeholder="09XXXXXXXXX"
+                autocomplete="tel"
+                inputmode="numeric"
+                pattern="09[0-9]{9}"
+                maxlength="11"
+                minlength="11"
+                oninput="
+                  this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)
+                "
+                required
+              />
+            </div>
 
+            <div class="form-group full">
+              <label for="email"
+                >Email Address <span class="required">*</span></label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+              />
+            </div>
+          </div>
 
+          <h3 class="sp-sec">
+            <span class="step">2</span> Select Items
+            <span class="required">*</span>
+          </h3>
 
+          <div id="itemsContainer" class="items-grid">
+            <div class="loading">Loading available items...</div>
+          </div>
 
-                <!-- ==========================================
-                     EMAIL
-                     ========================================== -->
+          <div id="summaryCard" class="summary-card">
+            <h3>Donation Summary</h3>
+            <ul id="summaryList" class="summary-list"></ul>
+          </div>
 
-                <div class="form-group">
+          <button type="submit" id="submitButton" class="submit-button">
+            Confirm Item Donation
+          </button>
+        </form>
+      </div>
+    </section>
 
-                    <label for="email">
-
-                        Email Address
-
-                    <span class="required">
-                            *
-                        </span>
-
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="you@example.com"
-                        autocomplete="email"
-                    >
-
-                </div>
-
-
-
-                <!-- ==========================================
-                     ITEMS
-                     ========================================== -->
-
-                <div class="form-group">
-
-                    <label>
-                        Select Items
-                        <span class="required">*</span>
-                    </label>
-
-                    <div
-                        id="itemsContainer"
-                        class="items-grid"
-                    >
-
-                        <div class="loading">
-                            Loading available items...
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ==========================================
-                     SUMMARY
-                     ========================================== -->
-
-                <div
-                    id="summaryCard"
-                    class="summary-card"
-                >
-
-                    <h3>
-                        Donation Summary
-                    </h3>
-
-                    <ul
-                        id="summaryList"
-                        class="summary-list"
-                    ></ul>
-
-                </div>
-
-
-
-                <!-- ==========================================
-                     SUBMIT
-                     ========================================== -->
-
-                <button
-                    type="submit"
-                    id="submitButton"
-                    class="submit-button"
-                >
-                    Confirm Item Donation
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     CONFIRMATION POPUP
-     ====================================================== -->
-
-<div
-    id="confirmationOverlay"
-    class="popup-overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="confirmationTitle"
->
-
-    <div class="popup-box">
-
-        <div class="popup-icon confirm">
-            ?
-        </div>
-
-        <h2 id="confirmationTitle">
-            Please confirm this donation
-        </h2>
-
+    <!-- CONFIRMATION POPUP -->
+    <div
+      id="confirmationOverlay"
+      class="popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmationTitle"
+    >
+      <div class="popup-box">
+        <div class="popup-icon confirm">?</div>
+        <h2 id="confirmationTitle">Please confirm this donation</h2>
         <p>
-            Please review the selected items and quantities
-            before recording your donation.
+          Please review the selected items and quantities before recording your
+          donation.
         </p>
-
-
-        <div
-            id="confirmationSummary"
-            class="popup-summary"
-        ></div>
-
-
-        <p
-            id="confirmationWaiting"
-            class="confirmation-waiting"
-        >
-            Please wait while your donation is being recorded...
+        <div id="confirmationSummary" class="popup-summary"></div>
+        <p id="confirmationWaiting" class="confirmation-waiting">
+          Please wait while your donation is being recorded...
         </p>
-
-
         <div class="popup-buttons">
-
-            <button
-                type="button"
-                id="cancelConfirmationButton"
-                class="popup-button cancel"
-            >
-                Cancel
-            </button>
-
-            <button
-                type="button"
-                id="confirmDonationButton"
-                class="popup-button confirm"
-            >
-                Confirm Donation
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- ======================================================
-     SUCCESS POPUP
-     ====================================================== -->
-
-<div
-    id="successOverlay"
-    class="popup-overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="successTitle"
->
-
-    <div class="popup-box">
-
-        <div class="popup-icon success">
-            ✓
-        </div>
-
-        <h2 id="successTitle">
-            Donation successfully recorded
-        </h2>
-
-        <p id="successMessage">
-            Your item donation has been successfully recorded.
-        </p>
-
-        <div class="popup-buttons">
-
-            <button
-                type="button"
-                id="successCloseButton"
-                class="popup-button success-button"
-            >
-                Done
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- ======================================================
-     ERROR POPUP
-     ====================================================== -->
-
-<div
-    id="errorOverlay"
-    class="popup-overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="errorTitle"
->
-
-    <div class="popup-box">
-
-        <div class="popup-icon error">
-            !
-        </div>
-
-        <h2 id="errorTitle">
-            Unable to record donation
-        </h2>
-
-        <p id="errorMessage">
-            Something went wrong.
-        </p>
-
-        <div class="popup-buttons">
-
-            <button
-                type="button"
-                id="errorCloseButton"
-                class="popup-button cancel"
-            >
-                Close
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- ======================================================
-     FOOTER
-     ====================================================== -->
-
-<footer class="footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="footer-brand">
-        <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
-        <div>
-          <strong>Caraga Youth Fellowship</strong>
-          <span>Transform &middot; Equip &middot; Engage</span>
+          <button
+            type="button"
+            id="cancelConfirmationButton"
+            class="popup-button cancel"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            id="confirmDonationButton"
+            class="popup-button confirm"
+          >
+            Confirm Donation
+          </button>
         </div>
       </div>
-      <p>Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.</p>
     </div>
-    <div>
-      <h3>Get Involved</h3>
-      <p>
-        <a href="register.html">Register</a><br>
-        <a href="sponsor.html">Become a Sponsor</a><br>
-        <a href="store.html">CYF Store</a>
-      </p>
-    </div>
-    <div>
-      <h3>Fellowship</h3>
-      <p>
-        <a href="home.html#about">About CYF</a><br>
-        <a href="home.html#contact">Contact Us</a><br>
-        <a href="login.html">Staff Login</a>
-      </p>
-    </div>
-    <div>
-      <h3>Legal</h3>
-      <p>
-        <a href="/privacy">Privacy Policy</a><br>
-        <a href="/terms">Terms of Use</a>
-      </p>
-    </div>
-  </div>
-  <div class="container copyright">&copy; 2026 Caraga Youth Fellowship. All rights reserved.</div>
-</footer>
 
-
-
-<script src="app.js"></script>
-
-
-<script>
-
-/* ======================================================
-   FASTAPI CONFIGURATION
-   ====================================================== */
-
-const API_BASE_URL =
-    "";
-
-
-/* ======================================================
-   DOM ELEMENTS
-   ====================================================== */
-
-const form =
-    document.getElementById(
-        "itemSponsorForm"
-    );
-
-const fullnameInput =
-    document.getElementById(
-        "fullname"
-    );
-
-const localChurchInput =
-    document.getElementById(
-        "local_church"
-    );
-
-const visitingChurchWrapper =
-    document.getElementById(
-        "visitingChurchWrapper"
-    );
-
-const visitingChurchInput =
-    document.getElementById(
-        "visiting_church"
-    );
-
-const sectorInput =
-    document.getElementById(
-        "sector"
-    );
-
-const contactInput =
-    document.getElementById(
-        "contact"
-    );
-
-const emailInput =
-    document.getElementById(
-        "email"
-    );
-
-const itemsContainer =
-    document.getElementById(
-        "itemsContainer"
-    );
-
-const summaryCard =
-    document.getElementById(
-        "summaryCard"
-    );
-
-const summaryList =
-    document.getElementById(
-        "summaryList"
-    );
-
-const submitButton =
-    document.getElementById(
-        "submitButton"
-    );
-
-
-/* ======================================================
-   POPUPS
-   ====================================================== */
-
-const confirmationOverlay =
-    document.getElementById(
-        "confirmationOverlay"
-    );
-
-const confirmationSummary =
-    document.getElementById(
-        "confirmationSummary"
-    );
-
-const confirmationWaiting =
-    document.getElementById(
-        "confirmationWaiting"
-    );
-
-const cancelConfirmationButton =
-    document.getElementById(
-        "cancelConfirmationButton"
-    );
-
-const confirmDonationButton =
-    document.getElementById(
-        "confirmDonationButton"
-    );
-
-
-const successOverlay =
-    document.getElementById(
-        "successOverlay"
-    );
-
-const successMessage =
-    document.getElementById(
-        "successMessage"
-    );
-
-const successCloseButton =
-    document.getElementById(
-        "successCloseButton"
-    );
-
-
-const errorOverlay =
-    document.getElementById(
-        "errorOverlay"
-    );
-
-const errorMessage =
-    document.getElementById(
-        "errorMessage"
-    );
-
-const errorCloseButton =
-    document.getElementById(
-        "errorCloseButton"
-    );
-
-
-/* ======================================================
-   STATE
-   ====================================================== */
-
-let items = [];
-
-let selectedItems = new Map();
-
-let submitting = false;
-
-
-/* ======================================================
-   DEFAULT VALUES
-   ====================================================== */
-
-const DEFAULT_CONTACT =
-    "0910101010";
-
-const DEFAULT_EMAIL =
-    "optional@mail.com";
-
-
-/* ======================================================
-   LOAD ITEMS
-   ====================================================== */
-
-async function loadItems() {
-
-    itemsContainer.innerHTML = `
-        <div class="loading">
-            Loading available items...
+    <!-- SUCCESS POPUP -->
+    <div
+      id="successOverlay"
+      class="popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="successTitle"
+    >
+      <div class="popup-box">
+        <div class="popup-icon success">✓</div>
+        <h2 id="successTitle">Donation successfully recorded</h2>
+        <p id="successMessage">
+          Your item donation has been successfully recorded.
+        </p>
+        <div class="popup-buttons">
+          <button
+            type="button"
+            id="successCloseButton"
+            class="popup-button success-button"
+          >
+            Done
+          </button>
         </div>
-    `;
+      </div>
+    </div>
 
-    try {
+    <!-- ERROR POPUP -->
+    <div
+      id="errorOverlay"
+      class="popup-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="errorTitle"
+    >
+      <div class="popup-box">
+        <div class="popup-icon error">!</div>
+        <h2 id="errorTitle">Unable to record donation</h2>
+        <p id="errorMessage">Something went wrong.</p>
+        <div class="popup-buttons">
+          <button
+            type="button"
+            id="errorCloseButton"
+            class="popup-button cancel"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
 
-        console.log(
-            "Loading sponsorship items..."
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img src="/assets/cyf-logo.png" alt="" width="52" height="52" />
+            <div>
+              <strong>Caraga Youth Fellowship</strong>
+              <span>Transform &middot; Equip &middot; Entrust</span>
+            </div>
+          </div>
+          <p>
+            Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.
+          </p>
+        </div>
+        <div>
+          <h3>Get Involved</h3>
+          <p>
+            <a href="register.html">Register</a><br />
+            <a href="sponsor.html">Become a Sponsor</a><br />
+            <a href="store.html">CYF Store</a>
+          </p>
+        </div>
+        <div>
+          <h3>Fellowship</h3>
+          <p>
+            <a href="home.html#about">About CYF</a><br />
+            <a href="home.html#officers">Officers</a><br />
+            <a href="home.html#contact">Contact Us</a><br />
+            <a href="login.html">Staff Login</a>
+          </p>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <p>
+            <a href="/privacy">Privacy Policy</a><br />
+            <a href="/terms">Terms of Use</a>
+          </p>
+        </div>
+      </div>
+      <div class="container copyright">
+        &copy; 2026 Caraga Youth Fellowship. All rights reserved.
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+
+    <!-- Local church list -->
+    <script>
+      (function () {
+        var D = {
+          "Sector 1": [
+            "Butuan Lighthouse Baptist Church",
+            "Butuan Lighthouse Baptist Mission, Amparo",
+            "Ampayon Fundamental Baptist Church",
+            "Grace Fundamental Baptist Church, CBR.",
+            "Binuangan Fundamental Baptist Mission",
+            "Santiago Fundamental Baptist Church",
+            "Grace Fundamental Baptist Church, Magdagooc",
+            "Surigao Fundamental Baptist Church",
+          ],
+          "Sector 2": [
+            "Bayugan Fundamental Baptist Church",
+            "Calaitan Fundamental Baptist Church",
+            "Remedios Fundamental Baptist Church",
+            "Sibagat Fundamental Baptist Church",
+            "Afga Fundamental Baptist Mission",
+            "Taguyango Fundamental Baptist Mission",
+            "Villangit Fundamental Baptist Mission",
+          ],
+          "Sector 3": [
+            "Butuan Grace Fundamental Baptist Church",
+            "Blessed Hope Baptist Church",
+            "Jesus Saves Mission",
+            "Grace Fundamental Baptist Mission, Magallanes",
+            "Grace Fundamental Baptist Mission, San Vicente",
+            "Manapa Fundamental Baptist Church",
+            "Grace Fundamental Baptist Church, Buenavista",
+            "Nasipit Fundamental Baptist Church",
+            "Carmen Fundamental Baptist Church",
+            "Cabantian Fundamental Baptist Church",
+            "Tibon-Tibon Fundamental Baptist Mission",
+          ],
+          Others: ["Visiting Church"],
+        };
+        var select = document.getElementById("local_church");
+        Object.keys(D).forEach(function (group) {
+          var og = document.createElement("optgroup");
+          og.label = group;
+          D[group].forEach(function (name) {
+            var o = document.createElement("option");
+            o.value = o.textContent = name;
+            o.dataset.sector = group === "Others" ? "N/A" : group;
+            og.appendChild(o);
+          });
+          select.appendChild(og);
+        });
+      })();
+    </script>
+
+    <script>
+      /* ===== CONFIG ===== */
+      const API_BASE_URL = "";
+      const DEFAULT_CONTACT = "0910101010";
+      const DEFAULT_EMAIL = "optional@mail.com";
+
+      /* ===== ELEMENTS ===== */
+      const $ = (id) => document.getElementById(id);
+      const form = $("itemSponsorForm");
+      const fullnameInput = $("fullname");
+      const localChurchInput = $("local_church");
+      const visitingChurchWrapper = $("visitingChurchWrapper");
+      const visitingChurchInput = $("visiting_church");
+      const sectorInput = $("sector");
+      const contactInput = $("contact");
+      const emailInput = $("email");
+      const itemsContainer = $("itemsContainer");
+      const summaryCard = $("summaryCard");
+      const summaryList = $("summaryList");
+      const submitButton = $("submitButton");
+      const confirmationOverlay = $("confirmationOverlay");
+      const confirmationSummary = $("confirmationSummary");
+      const confirmationWaiting = $("confirmationWaiting");
+      const cancelConfirmationButton = $("cancelConfirmationButton");
+      const confirmDonationButton = $("confirmDonationButton");
+      const successOverlay = $("successOverlay");
+      const successMessage = $("successMessage");
+      const successCloseButton = $("successCloseButton");
+      const errorOverlay = $("errorOverlay");
+      const errorMessage = $("errorMessage");
+      const errorCloseButton = $("errorCloseButton");
+
+      /* ===== STATE ===== */
+      let items = [];
+      let selectedItems = new Map();
+      let submitting = false;
+
+      /* ===== HELPERS ===== */
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+      function getRemaining(item) {
+        return Number(
+          item.remaining_quantity ??
+            item.quantity_remaining ??
+            item.quantity ??
+            0,
         );
+      }
+      function getItemName(item) {
+        return item.item_name || item.name || "Unnamed Item";
+      }
+      function getItemUnit(item) {
+        return item.unit || "item";
+      }
 
-        const response =
-            await fetch(
-                `${API_BASE_URL}/sponsorship/items`,
-                {
-                    method: "GET"
-                }
-            );
-
-
-        let data = null;
-
-
+      /* ===== LOAD ITEMS ===== */
+      async function loadItems() {
+        itemsContainer.innerHTML =
+          '<div class="loading">Loading available items...</div>';
         try {
-
-            data =
-                await response.json();
-
-        }
-        catch {
-
+          const response = await fetch(`${API_BASE_URL}/sponsorship/items`, {
+            method: "GET",
+          });
+          let data = null;
+          try {
+            data = await response.json();
+          } catch {
             data = null;
-
-        }
-
-
-        if (!response.ok) {
-
+          }
+          if (!response.ok)
             throw new Error(
-                data?.detail ||
-                "Unable to load sponsorship items."
+              data?.detail || "Unable to load sponsorship items.",
             );
-
+          items = Array.isArray(data)
+            ? data
+            : Array.isArray(data?.items)
+              ? data.items
+              : [];
+          renderItems();
+        } catch (error) {
+          console.error("LOAD ITEMS ERROR:", error);
+          itemsContainer.innerHTML =
+            '<div class="empty-state">Unable to load available items.<br><br>Please make sure the server is running.</div>';
+          showError(error.message || "Unable to load sponsorship items.");
         }
-
-
-        items =
-            Array.isArray(data)
-                ? data
-                : (
-                    Array.isArray(data?.items)
-                        ? data.items
-                        : []
-                );
-
-
-        console.log(
-            "Sponsorship items loaded:",
-            items
-        );
-
-
-        renderItems();
-
-    }
-    catch (error) {
-
-        console.error(
-            "LOAD ITEMS ERROR:",
-            error
-        );
-
-
-        itemsContainer.innerHTML = `
-            <div class="empty-state">
-
-                Unable to load available items.
-
-                <br><br>
-
-                Please make sure FastAPI is running.
-
-            </div>
-        `;
-
-
-        showError(
-            error.message ||
-            "Unable to load sponsorship items."
-        );
-
-    }
-
-}
-
-
-/* ======================================================
-   GET REMAINING QUANTITY
-   ====================================================== */
-
-function getRemaining(item) {
-
-    return Number(
-        item.remaining_quantity ??
-        item.quantity_remaining ??
-        item.quantity ??
-        0
-    );
-
-}
-
-
-/* ======================================================
-   GET ITEM NAME
-   ====================================================== */
-
-function getItemName(item) {
-
-    return (
-        item.item_name ||
-        item.name ||
-        "Unnamed Item"
-    );
-
-}
-
-
-/* ======================================================
-   GET ITEM UNIT
-   ====================================================== */
-
-function getItemUnit(item) {
-
-    return (
-        item.unit ||
-        "item"
-    );
-
-}
-
-
-/* ======================================================
-   RENDER ITEMS
-   ====================================================== */
-
-function renderItems() {
-
-    if (!items.length) {
-
-        itemsContainer.innerHTML = `
-            <div class="empty-state">
-
-                There are currently no item donations
-                available.
-
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    itemsContainer.innerHTML = "";
-
-
-    items.forEach(
-        item => {
-
-            const remaining =
-                getRemaining(item);
-
-            const name =
-                getItemName(item);
-
-            const description =
-                item.description || "";
-
-            const unit =
-                getItemUnit(item);
-
-            const available =
-                remaining > 0 &&
-                item.available !== false;
-
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "item-card";
-
-
-            if (!available) {
-
-                card.classList.add(
-                    "disabled"
-                );
-
-            }
-
-
-            const isSelected =
-                selectedItems.has(
-                    Number(item.id)
-                );
-
-
-            if (isSelected) {
-
-                card.classList.add(
-                    "selected"
-                );
-
-            }
-
-
-            card.innerHTML = `
-
-                <div class="item-marker">
-
-                    ${
-                        isSelected
-                            ? "✓"
-                            : ""
-                    }
-
-                </div>
-
-
-                <div class="item-name">
-
-                    ${escapeHtml(name)}
-
-                </div>
-
-
-                <div class="item-description">
-
-                    ${escapeHtml(description)}
-
-                </div>
-
-
-                <div class="item-remaining">
-
-                    ${
-                        remaining > 0
-
-                            ? `
-                                Remaining:
-                                ${remaining}
-                                ${escapeHtml(unit)}
-                              `
-
-                            : `
-                                Fully Donated
-                              `
-                    }
-
-                </div>
-
-
-                <div class="item-quantity-wrapper">
-
-                    <label class="item-quantity-label">
-
-                        Quantity
-
-                    </label>
-
-
-                    <input
-                        type="number"
-                        class="item-quantity-input"
-                        min="1"
-                        max="${remaining}"
-                        value="${
-                            selectedItems.get(
-                                Number(item.id)
-                            )?.quantity || 1
-                        }"
-                    >
-
-
-                    <small class="item-quantity-help">
-
-                        Maximum:
-                        ${remaining}
-                        ${escapeHtml(unit)}
-
-                    </small>
-
-                </div>
-
-            `;
-
-
-            if (available) {
-
-                card.addEventListener(
-                    "click",
-                    function(event) {
-
-                        if (
-                            event.target.classList.contains(
-                                "item-quantity-input"
-                            )
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        toggleItem(
-                            item
-                        );
-
-                    }
-                );
-
-
-                const quantityInput =
-                    card.querySelector(
-                        ".item-quantity-input"
-                    );
-
-
-                quantityInput.addEventListener(
-                    "click",
-                    function(event) {
-
-                        event.stopPropagation();
-
-                    }
-                );
-
-
-                quantityInput.addEventListener(
-                    "input",
-                    function(event) {
-
-                        event.stopPropagation();
-
-                        updateItemQuantity(
-                            item,
-                            quantityInput
-                        );
-
-                    }
-                );
-
-
-                quantityInput.addEventListener(
-                    "change",
-                    function(event) {
-
-                        event.stopPropagation();
-
-                        updateItemQuantity(
-                            item,
-                            quantityInput
-                        );
-
-                    }
-                );
-
-            }
-
-
-            itemsContainer.appendChild(
-                card
-            );
-
+      }
+
+      /* ===== RENDER ITEMS ===== */
+      function renderItems() {
+        if (!items.length) {
+          itemsContainer.innerHTML =
+            '<div class="empty-state">There are currently no item donations available.</div>';
+          return;
         }
-    );
-
-
-    updateSummary();
-
-}
-
-
-/* ======================================================
-   TOGGLE ITEM
-   ====================================================== */
-
-function toggleItem(item) {
-
-    const itemId =
-        Number(item.id);
-
-
-    if (
-        selectedItems.has(
-            itemId
-        )
-    ) {
-
-        selectedItems.delete(
-            itemId
-        );
-
-    }
-    else {
-
-        selectedItems.set(
-            itemId,
-            {
-                item_id: itemId,
-                item_name: getItemName(item),
-                quantity: 1
-            }
-        );
-
-    }
-
-
-    renderItems();
-
-}
-
-
-/* ======================================================
-   UPDATE ITEM QUANTITY
-   ====================================================== */
-
-function updateItemQuantity(
-    item,
-    input
-) {
-
-    const itemId =
-        Number(item.id);
-
-
-    if (
-        !selectedItems.has(
-            itemId
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    const remaining =
-        getRemaining(item);
-
-
-    let quantity =
-        parseInt(
-            input.value,
-            10
-        );
-
-
-    if (
-        Number.isNaN(quantity) ||
-        quantity < 1
-    ) {
-
-        quantity = 1;
-
-    }
-
-
-    if (
-        quantity > remaining
-    ) {
-
-        quantity =
-            remaining;
-
-    }
-
-
-    input.value =
-        quantity;
-
-
-    const selected =
-        selectedItems.get(
-            itemId
-        );
-
-
-    selected.quantity =
-        quantity;
-
-
-    selectedItems.set(
-        itemId,
-        selected
-    );
-
-
-    updateSummary();
-
-}
-
-
-/* ======================================================
-   BUILD SELECTED ITEMS
-   ====================================================== */
-
-function getSelectedItems() {
-
-    return Array.from(
-        selectedItems.values()
-    )
-
-        .map(
-            item => ({
-
-                item_id:
-                    Number(item.item_id),
-
-                item_name:
-                    item.item_name,
-
-                quantity:
-                    Number(item.quantity)
-
-            })
-        )
-
-        .filter(
-            item =>
-                Number.isInteger(
-                    item.item_id
-                )
-                &&
-                item.item_id > 0
-                &&
-                Number.isInteger(
-                    item.quantity
-                )
-                &&
-                item.quantity > 0
-        );
-
-}
-
-
-/* ======================================================
-   UPDATE SUMMARY
-   ====================================================== */
-
-function updateSummary() {
-
-    const selected =
-        getSelectedItems();
-
-
-    if (!selected.length) {
-
-        summaryCard.classList.remove(
-            "show"
-        );
-
-        summaryList.innerHTML =
-            "";
-
-        return;
-
-    }
-
-
-    summaryCard.classList.add(
-        "show"
-    );
-
-
-    summaryList.innerHTML =
-        "";
-
-
-    selected.forEach(
-        item => {
-
-            const li =
-                document.createElement(
-                    "li"
-                );
-
-
-            li.innerHTML = `
-
-                <span class="summary-item-name">
-
-                    ${escapeHtml(
-                        item.item_name
-                    )}
-
-                </span>
-
-
-                <span class="summary-item-quantity">
-
-                    × ${item.quantity}
-
-                </span>
-
-            `;
-
-
-            summaryList.appendChild(
-                li
-            );
-
-        }
-    );
-
-}
-
-
-/* ======================================================
-   LOCAL CHURCH CHANGE
-   ====================================================== */
-
-localChurchInput.addEventListener(
-    "change",
-    function() {
-
-        const selectedOption =
-            localChurchInput.options[
-                localChurchInput.selectedIndex
-            ];
-
-
-        if (!selectedOption) {
-
-            sectorInput.value =
-                "";
-
-            visitingChurchWrapper.classList.remove(
-                "show"
-            );
-
-            visitingChurchInput.value =
-                "";
-
-            visitingChurchInput.removeAttribute(
-                "required"
-            );
-
-            return;
-
-        }
-
-
-        const selectedChurch =
-            localChurchInput.value;
-
-
-        const selectedSector =
-            selectedOption.dataset.sector ||
-            "";
-
-
-        if (
-            selectedChurch ===
-            "Visiting Church"
-        ) {
-
-            visitingChurchWrapper.classList.add(
-                "show"
-            );
-
-
-            visitingChurchInput.setAttribute(
-                "required",
-                "required"
-            );
-
-
-            sectorInput.value =
-                "N/A";
-
-        }
-        else {
-
-            visitingChurchWrapper.classList.remove(
-                "show"
-            );
-
-
-            visitingChurchInput.removeAttribute(
-                "required"
-            );
-
-
-            visitingChurchInput.value =
-                "";
-
-
-            sectorInput.value =
-                selectedSector;
-
-        }
-
-    }
-);
-
-
-/* ======================================================
-   VALIDATE FORM
-   ====================================================== */
-
-function validateForm() {
-
-    const fullname =
-        fullnameInput.value.trim();
-
-
-    const localChurch =
-        localChurchInput.value.trim();
-
-
-    const sector =
-        sectorInput.value.trim();
-
-
-    const selected =
-        getSelectedItems();
-
-
-    if (!fullname) {
-
-        showError(
-            "Please enter your full name."
-        );
-
-        fullnameInput.focus();
-
-        return false;
-
-    }
-
-
-    if (!localChurch) {
-
-        showError(
-            "Please select your local church."
-        );
-
-        localChurchInput.focus();
-
-        return false;
-
-    }
-
-
-    if (
-        localChurch ===
-        "Visiting Church"
-    ) {
-
-        if (
-            !visitingChurchInput.value.trim()
-        ) {
-
-            showError(
-                "Please enter your church name."
-            );
-
-            visitingChurchInput.focus();
-
-            return false;
-
-        }
-
-    }
-
-
-    if (!sector) {
-
-        showError(
-            "Please select a local church first."
-        );
-
-        localChurchInput.focus();
-
-        return false;
-
-    }
-
-
-    if (!selected.length) {
-
-        showError(
-            "Please select at least one item to donate."
-        );
-
-        itemsContainer.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
+        itemsContainer.innerHTML = "";
+
+        items.forEach((item) => {
+          const remaining = getRemaining(item);
+          const name = getItemName(item);
+          const unit = getItemUnit(item);
+          const available = remaining > 0 && item.available !== false;
+          const isSelected = selectedItems.has(Number(item.id));
+
+          const card = document.createElement("div");
+          card.className = "item-card";
+          if (!available) card.classList.add("disabled");
+          if (isSelected) card.classList.add("selected");
+
+          card.innerHTML = `
+            <div class="item-marker">${isSelected ? "✓" : ""}</div>
+            <div class="item-icon" aria-hidden="true">🎁</div>
+            <div class="item-name">${escapeHtml(name)}</div>
+            <div class="item-description">${escapeHtml(item.description || "")}</div>
+            <div class="item-remaining">${remaining > 0 ? `Remaining: ${remaining} ${escapeHtml(unit)}` : "Fully Donated"}</div>
+            <div class="item-quantity-wrapper">
+              <label class="item-quantity-label">Quantity</label>
+              <input type="number" class="item-quantity-input" min="1" max="${remaining}"
+                value="${selectedItems.get(Number(item.id))?.quantity || 1}">
+              <small class="item-quantity-help">Maximum: ${remaining} ${escapeHtml(unit)}</small>
+            </div>`;
+
+          if (available) {
+            card.addEventListener("click", function (event) {
+              if (event.target.classList.contains("item-quantity-input"))
+                return;
+              toggleItem(item);
+            });
+            const quantityInput = card.querySelector(".item-quantity-input");
+            quantityInput.addEventListener("click", (e) => e.stopPropagation());
+            quantityInput.addEventListener("input", (e) => {
+              e.stopPropagation();
+              updateItemQuantity(item, quantityInput);
+            });
+            quantityInput.addEventListener("change", (e) => {
+              e.stopPropagation();
+              updateItemQuantity(item, quantityInput);
+            });
+          }
+          itemsContainer.appendChild(card);
         });
 
-        return false;
+        updateSummary();
+      }
 
-    }
-
-
-    for (
-        const selectedItem of selected
-    ) {
-
-        const inventoryItem =
-            items.find(
-                item =>
-                    Number(item.id) ===
-                    Number(
-                        selectedItem.item_id
-                    )
-            );
-
-
-        if (!inventoryItem) {
-
-            showError(
-                "One of the selected items is no longer available."
-            );
-
-            return false;
-
+      function toggleItem(item) {
+        const itemId = Number(item.id);
+        if (selectedItems.has(itemId)) {
+          selectedItems.delete(itemId);
+        } else {
+          selectedItems.set(itemId, {
+            item_id: itemId,
+            item_name: getItemName(item),
+            quantity: 1,
+          });
         }
+        renderItems();
+      }
 
+      function updateItemQuantity(item, input) {
+        const itemId = Number(item.id);
+        if (!selectedItems.has(itemId)) return;
+        const remaining = getRemaining(item);
+        let quantity = parseInt(input.value, 10);
+        if (Number.isNaN(quantity) || quantity < 1) quantity = 1;
+        if (quantity > remaining) quantity = remaining;
+        input.value = quantity;
+        const selected = selectedItems.get(itemId);
+        selected.quantity = quantity;
+        selectedItems.set(itemId, selected);
+        updateSummary();
+      }
 
-        const remaining =
-            getRemaining(
-                inventoryItem
-            );
+      function getSelectedItems() {
+        return Array.from(selectedItems.values())
+          .map((item) => ({
+            item_id: Number(item.item_id),
+            item_name: item.item_name,
+            quantity: Number(item.quantity),
+          }))
+          .filter(
+            (item) =>
+              Number.isInteger(item.item_id) &&
+              item.item_id > 0 &&
+              Number.isInteger(item.quantity) &&
+              item.quantity > 0,
+          );
+      }
 
+      function updateSummary() {
+        const selected = getSelectedItems();
+        if (!selected.length) {
+          summaryCard.classList.remove("show");
+          summaryList.innerHTML = "";
+          return;
+        }
+        summaryCard.classList.add("show");
+        summaryList.innerHTML = "";
+        selected.forEach((item) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<span class="summary-item-name">${escapeHtml(item.item_name)}</span>
+            <span class="summary-item-quantity">× ${item.quantity}</span>`;
+          summaryList.appendChild(li);
+        });
+      }
 
+      /* ===== LOCAL CHURCH ===== */
+      localChurchInput.addEventListener("change", function () {
+        const option = localChurchInput.options[localChurchInput.selectedIndex];
+        if (!option) {
+          sectorInput.value = "";
+          visitingChurchWrapper.classList.remove("show");
+          visitingChurchInput.value = "";
+          visitingChurchInput.removeAttribute("required");
+          return;
+        }
+        if (localChurchInput.value === "Visiting Church") {
+          visitingChurchWrapper.classList.add("show");
+          visitingChurchInput.setAttribute("required", "required");
+          sectorInput.value = "N/A";
+        } else {
+          visitingChurchWrapper.classList.remove("show");
+          visitingChurchInput.removeAttribute("required");
+          visitingChurchInput.value = "";
+          sectorInput.value = option.dataset.sector || "";
+        }
+      });
+
+      /* ===== VALIDATION ===== */
+      function validateForm() {
+        const localChurch = localChurchInput.value.trim();
+        const selected = getSelectedItems();
+
+        if (!fullnameInput.value.trim()) {
+          showError("Please enter your full name.");
+          fullnameInput.focus();
+          return false;
+        }
+        if (!localChurch) {
+          showError("Please select your local church.");
+          localChurchInput.focus();
+          return false;
+        }
         if (
-            selectedItem.quantity >
-            remaining
+          localChurch === "Visiting Church" &&
+          !visitingChurchInput.value.trim()
         ) {
-
-            showError(
-                `${selectedItem.item_name} only has ${remaining} available.`
-            );
-
+          showError("Please enter your church name.");
+          visitingChurchInput.focus();
+          return false;
+        }
+        if (!sectorInput.value.trim()) {
+          showError("Please select a local church first.");
+          localChurchInput.focus();
+          return false;
+        }
+        if (!selected.length) {
+          showError("Please select at least one item to donate.");
+          itemsContainer.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          return false;
+        }
+        for (const selectedItem of selected) {
+          const inventoryItem = items.find(
+            (i) => Number(i.id) === Number(selectedItem.item_id),
+          );
+          if (!inventoryItem) {
+            showError("One of the selected items is no longer available.");
             return false;
-
-        }
-
-    }
-
-
-    return true;
-
-}
-
-
-/* ======================================================
-   BUILD PAYLOAD
-   ====================================================== */
-
-function buildPayload() {
-
-    const localChurch =
-        localChurchInput.value.trim();
-
-
-    const visitingChurch =
-        localChurch === "Visiting Church"
-
-            ? visitingChurchInput.value.trim()
-
-            : null;
-
-
-    const payload = {
-
-        sponsor_name:
-            fullnameInput.value.trim(),
-
-        local_church:
-            localChurch,
-
-        visiting_church:
-            visitingChurch,
-
-        contact:
-            contactInput.value.trim() ||
-            DEFAULT_CONTACT,
-
-        sector:
-            sectorInput.value.trim(),
-
-        email:
-            emailInput.value.trim() ||
-            DEFAULT_EMAIL,
-
-        items:
-            getSelectedItems()
-
-    };
-
-
-    return payload;
-
-}
-
-
-/* ======================================================
-   OPEN CONFIRMATION POPUP
-   ====================================================== */
-
-function openConfirmationPopup() {
-
-    const payload =
-        buildPayload();
-
-
-    confirmationSummary.innerHTML = `
-
-        <div class="popup-summary-row">
-
-            <strong>
-                Sponsor
-            </strong>
-
-            <span>
-                ${escapeHtml(
-                    payload.sponsor_name
-                )}
-            </span>
-
-        </div>
-
-
-        <div class="popup-summary-row">
-
-            <strong>
-                Local Church
-            </strong>
-
-            <span>
-                ${escapeHtml(
-                    payload.local_church
-                )}
-            </span>
-
-        </div>
-
-
-        ${
-            payload.visiting_church
-
-                ? `
-                    <div class="popup-summary-row">
-
-                        <strong>
-                            Church Name
-                        </strong>
-
-                        <span>
-                            ${escapeHtml(
-                                payload.visiting_church
-                            )}
-                        </span>
-
-                    </div>
-                  `
-
-                : ""
-        }
-
-
-        <div class="popup-summary-row">
-
-            <strong>
-                Sector
-            </strong>
-
-            <span>
-                ${escapeHtml(
-                    payload.sector
-                )}
-            </span>
-
-        </div>
-
-
-        <div class="popup-summary-row">
-
-            <strong>
-                Contact
-            </strong>
-
-            <span>
-                ${escapeHtml(
-                    payload.contact
-                )}
-            </span>
-
-        </div>
-
-
-        <div class="popup-summary-row">
-
-            <strong>
-                Email
-            </strong>
-
-            <span>
-                ${escapeHtml(
-                    payload.email
-                )}
-            </span>
-
-        </div>
-
-
-        <hr>
-
-
-        ${payload.items.map(
-            item => `
-
-                <div class="popup-summary-row">
-
-                    <span>
-                        ${escapeHtml(
-                            item.item_name
-                        )}
-                    </span>
-
-                    <strong>
-                        ${item.quantity}
-                    </strong>
-
-                </div>
-
-            `
-        ).join("")}
-
-    `;
-
-
-    /* ------------------------------------------
-       RESET CONFIRMATION BUTTON STATE
-       ------------------------------------------ */
-
-    setConfirmationLoading(
-        false
-    );
-
-
-    confirmationOverlay.classList.add(
-        "show"
-    );
-
-
-    cancelConfirmationButton.focus();
-
-}
-
-
-/* ======================================================
-   CLOSE CONFIRMATION POPUP
-   ====================================================== */
-
-function closeConfirmationPopup() {
-
-    /*
-     * Do not allow the confirmation popup
-     * to be closed while the donation is
-     * being submitted.
-     */
-
-    if (submitting) {
-
-        return;
-
-    }
-
-
-    confirmationOverlay.classList.remove(
-        "show"
-    );
-
-
-    setConfirmationLoading(
-        false
-    );
-
-}
-
-
-/* ======================================================
-   SET CONFIRMATION LOADING STATE
-   ====================================================== */
-
-function setConfirmationLoading(
-    loading
-) {
-
-    if (loading) {
-
-        /*
-         * Disable both popup buttons so the user
-         * cannot cancel or submit twice.
-         */
-
-        confirmDonationButton.disabled =
-            true;
-
-        cancelConfirmationButton.disabled =
-            true;
-
-
-        /*
-         * Show spinner and waiting text.
-         */
-
-        confirmDonationButton.innerHTML = `
-
-            <span class="confirm-loading">
-
-                <span
-                    class="loading-spinner"
-                    aria-hidden="true"
-                ></span>
-
-                <span>
-                    Recording Donation...
-                </span>
-
-            </span>
-
-        `;
-
-
-        confirmationWaiting.classList.add(
-            "show"
-        );
-
-        confirmationWaiting.textContent =
-            "Please wait while your donation is being recorded...";
-
-
-    }
-    else {
-
-        confirmDonationButton.disabled =
-            false;
-
-        cancelConfirmationButton.disabled =
-            false;
-
-
-        confirmDonationButton.innerHTML =
-            "Confirm Donation";
-
-
-        confirmationWaiting.classList.remove(
-            "show"
-        );
-
-    }
-
-}
-
-
-/* ======================================================
-   SHOW SUCCESS
-   ====================================================== */
-
-function showSuccess(
-    message
-) {
-
-    successMessage.textContent =
-        message ||
-        "Your item donation has been successfully recorded.";
-
-
-    successOverlay.classList.add(
-        "show"
-    );
-
-
-    successCloseButton.focus();
-
-}
-
-
-/* ======================================================
-   SHOW ERROR
-   ====================================================== */
-
-function showError(
-    message
-) {
-
-    errorMessage.textContent =
-        message ||
-        "Unable to record item donation.";
-
-
-    errorOverlay.classList.add(
-        "show"
-    );
-
-
-    errorCloseButton.focus();
-
-}
-
-
-/* ======================================================
-   CLOSE ERROR
-   ====================================================== */
-
-function closeError() {
-
-    errorOverlay.classList.remove(
-        "show"
-    );
-
-}
-
-
-/* ======================================================
-   RESET FORM
-   ====================================================== */
-
-function resetDonationForm() {
-
-    form.reset();
-
-
-    selectedItems.clear();
-
-
-    sectorInput.value =
-        "";
-
-
-    visitingChurchWrapper.classList.remove(
-        "show"
-    );
-
-
-    visitingChurchInput.removeAttribute(
-        "required"
-    );
-
-
-    visitingChurchInput.value =
-        "";
-
-
-    summaryCard.classList.remove(
-        "show"
-    );
-
-
-    summaryList.innerHTML =
-        "";
-
-
-    submitButton.disabled =
-        false;
-
-
-    submitButton.textContent =
-        "Confirm Item Donation";
-
-
-    submitting =
-        false;
-
-
-    setConfirmationLoading(
-        false
-    );
-
-}
-
-
-/* ======================================================
-   ACTUALLY SUBMIT DONATION
-   ====================================================== */
-
-async function submitDonation() {
-
-    if (submitting) {
-
-        console.warn(
-            "Submission already in progress."
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * IMPORTANT:
-     *
-     * Set this BEFORE the fetch request.
-     */
-
-    submitting =
-        true;
-
-
-    /*
-     * Disable the main form submit button.
-     */
-
-    submitButton.disabled =
-        true;
-
-
-    submitButton.textContent =
-        "Recording Donation...";
-
-
-    /*
-     * NEW:
-     *
-     * Keep the confirmation popup visible
-     * and show the spinner/waiting indicator.
-     */
-
-    setConfirmationLoading(
-        true
-    );
-
-
-    const payload =
-        buildPayload();
-
-
-    console.log(
-        "=================================================="
-    );
-
-    console.log(
-        "ITEM DONATION SUBMISSION"
-    );
-
-    console.log(
-        "Payload:",
-        payload
-    );
-
-    console.log(
-        "=================================================="
-    );
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${API_BASE_URL}/sponsorship/create_item`,
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Accept":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            payload
-                        )
-
-                }
+          }
+          const remaining = getRemaining(inventoryItem);
+          if (selectedItem.quantity > remaining) {
+            showError(
+              `${selectedItem.item_name} only has ${remaining} available.`,
             );
+            return false;
+          }
+        }
+        return true;
+      }
 
+      function buildPayload() {
+        const localChurch = localChurchInput.value.trim();
+        return {
+          sponsor_name: fullnameInput.value.trim(),
+          local_church: localChurch,
+          visiting_church:
+            localChurch === "Visiting Church"
+              ? visitingChurchInput.value.trim()
+              : null,
+          contact: contactInput.value.trim() || DEFAULT_CONTACT,
+          sector: sectorInput.value.trim(),
+          email: emailInput.value.trim() || DEFAULT_EMAIL,
+          items: getSelectedItems(),
+        };
+      }
 
-        console.log(
-            "HTTP status:",
-            response.status
-        );
+      /* ===== POPUPS ===== */
+      function openConfirmationPopup() {
+        const p = buildPayload();
+        const row = (label, value) =>
+          `<div class="popup-summary-row"><strong>${label}</strong><span>${escapeHtml(value)}</span></div>`;
 
+        confirmationSummary.innerHTML =
+          row("Sponsor", p.sponsor_name) +
+          row("Local Church", p.local_church) +
+          (p.visiting_church ? row("Church Name", p.visiting_church) : "") +
+          row("Sector", p.sector) +
+          row("Contact", p.contact) +
+          row("Email", p.email) +
+          "<hr>" +
+          p.items
+            .map(
+              (item) =>
+                `<div class="popup-summary-row"><span>${escapeHtml(item.item_name)}</span><strong>× ${item.quantity}</strong></div>`,
+            )
+            .join("");
 
-        let data =
-            null;
+        setConfirmationLoading(false);
+        confirmationOverlay.classList.add("show");
+        cancelConfirmationButton.focus();
+      }
 
+      function closeConfirmationPopup() {
+        if (submitting) return;
+        confirmationOverlay.classList.remove("show");
+        setConfirmationLoading(false);
+      }
+
+      function setConfirmationLoading(loading) {
+        if (loading) {
+          confirmDonationButton.disabled = true;
+          cancelConfirmationButton.disabled = true;
+          confirmDonationButton.innerHTML =
+            '<span class="confirm-loading"><span class="loading-spinner" aria-hidden="true"></span><span>Recording Donation...</span></span>';
+          confirmationWaiting.classList.add("show");
+          confirmationWaiting.textContent =
+            "Please wait while your donation is being recorded...";
+        } else {
+          confirmDonationButton.disabled = false;
+          cancelConfirmationButton.disabled = false;
+          confirmDonationButton.innerHTML = "Confirm Donation";
+          confirmationWaiting.classList.remove("show");
+        }
+      }
+
+      function showSuccess(message) {
+        successMessage.textContent =
+          message || "Your item donation has been successfully recorded.";
+        successOverlay.classList.add("show");
+        successCloseButton.focus();
+      }
+      function showError(message) {
+        errorMessage.textContent = message || "Unable to record item donation.";
+        errorOverlay.classList.add("show");
+        errorCloseButton.focus();
+      }
+      function closeError() {
+        errorOverlay.classList.remove("show");
+      }
+
+      function resetDonationForm() {
+        form.reset();
+        selectedItems.clear();
+        sectorInput.value = "";
+        visitingChurchWrapper.classList.remove("show");
+        visitingChurchInput.removeAttribute("required");
+        visitingChurchInput.value = "";
+        summaryCard.classList.remove("show");
+        summaryList.innerHTML = "";
+        submitButton.disabled = false;
+        submitButton.textContent = "Confirm Item Donation";
+        submitting = false;
+        setConfirmationLoading(false);
+      }
+
+      /* ===== SUBMIT ===== */
+      async function submitDonation() {
+        if (submitting) return;
+        submitting = true;
+        submitButton.disabled = true;
+        submitButton.textContent = "Recording Donation...";
+        setConfirmationLoading(true);
+
+        const payload = buildPayload();
 
         try {
+          const response = await fetch(
+            `${API_BASE_URL}/sponsorship/create_item`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(payload),
+            },
+          );
 
-            data =
-                await response.json();
+          let data = null;
+          try {
+            data = await response.json();
+          } catch (jsonError) {
+            console.warn("Response was not JSON:", jsonError);
+          }
 
-        }
-        catch (
-            jsonError
-        ) {
-
-            console.warn(
-                "Response was not JSON:",
-                jsonError
-            );
-
-        }
-
-
-        console.log(
-            "Server response:",
-            data
-        );
-
-
-        /* ------------------------------------------
-           HANDLE SERVER ERROR
-           ------------------------------------------ */
-
-        if (!response.ok) {
-
-            let message =
-                "Unable to record item donation.";
-
-
-            if (
-                data &&
-                data.detail
-            ) {
-
-                if (
-                    typeof data.detail ===
-                    "string"
-                ) {
-
-                    message =
-                        data.detail;
-
-                }
-                else if (
-                    Array.isArray(
-                        data.detail
-                    )
-                ) {
-
-                    message =
-                        data.detail
-                            .map(
-                                error => {
-
-                                    const location =
-                                        Array.isArray(
-                                            error.loc
-                                        )
-                                            ? error.loc.join(
-                                                "."
-                                            )
-                                            : "";
-
-                                    return (
-                                        `${location}: ` +
-                                        `${error.msg}`
-                                    );
-
-                                }
-                            )
-                            .join(
-                                "\n"
-                            );
-
-                }
-                else {
-
-                    message =
-                        JSON.stringify(
-                            data.detail
-                        );
-
-                }
-
+          if (!response.ok) {
+            let message = "Unable to record item donation.";
+            if (data && data.detail) {
+              if (typeof data.detail === "string") {
+                message = data.detail;
+              } else if (Array.isArray(data.detail)) {
+                message = data.detail
+                  .map(
+                    (e) =>
+                      `${Array.isArray(e.loc) ? e.loc.join(".") : ""}: ${e.msg}`,
+                  )
+                  .join("\n");
+              } else {
+                message = JSON.stringify(data.detail);
+              }
             }
+            throw new Error(message);
+          }
 
-
-            throw new Error(
-                message
-            );
-
-        }
-
-
-        /* ------------------------------------------
-           SUCCESS
-           ------------------------------------------ */
-
-        console.log(
-            "ITEM DONATION SUCCESS"
-        );
-
-
-        const serverMessage =
+          const serverMessage =
             data?.thank_you_message ||
             data?.message ||
             "Your item donation has been successfully recorded.";
 
-
-        /*
-         * Only close the confirmation popup AFTER
-         * FastAPI has successfully responded.
-         */
-
-        confirmationOverlay.classList.remove(
-            "show"
-        );
-
-
-        /*
-         * Reset the form only after the server
-         * has confirmed success.
-         */
-
-        resetDonationForm();
-
-
-        /*
-         * Refresh inventory.
-         */
-
-        await loadItems();
-
-
-        /*
-         * Show centered success popup.
-         */
-
-        showSuccess(
-            serverMessage
-        );
-
-
-    }
-    catch (error) {
-
-        console.error(
-            "=================================================="
-        );
-
-        console.error(
-            "ITEM DONATION ERROR:",
-            error
-        );
-
-        console.error(
-            "=================================================="
-        );
-
-
-        /*
-         * Stop the loading indicator before
-         * displaying the error.
-         */
-
-        setConfirmationLoading(
-            false
-        );
-
-
-        /*
-         * Allow the confirmation popup to close
-         * because submission has failed.
-         */
-
-        confirmationOverlay.classList.remove(
-            "show"
-        );
-
-
-        if (
-            error instanceof TypeError
-        ) {
-
+          confirmationOverlay.classList.remove("show");
+          resetDonationForm();
+          await loadItems();
+          showSuccess(serverMessage);
+        } catch (error) {
+          console.error("ITEM DONATION ERROR:", error);
+          setConfirmationLoading(false);
+          confirmationOverlay.classList.remove("show");
+          if (error instanceof TypeError) {
             showError(
-                "Cannot connect to FastAPI. Please make sure the backend is running on ."
+              "Cannot connect to the server. Please make sure the backend is running.",
             );
-
+          } else {
+            showError(error.message || "Unable to record item donation.");
+          }
+        } finally {
+          submitting = false;
+          submitButton.disabled = false;
+          submitButton.textContent = "Confirm Item Donation";
+          setConfirmationLoading(false);
         }
-        else {
+      }
 
-            showError(
-                error.message ||
-                "Unable to record item donation."
-            );
-
-        }
-
-
-    }
-    finally {
-
-        submitting =
-            false;
-
-
-        submitButton.disabled =
-            false;
-
-
-        submitButton.textContent =
-            "Confirm Item Donation";
-
-
-        /*
-         * Make sure the confirmation button
-         * is restored after completion.
-         *
-         * If success happened, the popup is already
-         * closed. If an error happened, the popup is
-         * also closed.
-         */
-
-        setConfirmationLoading(
-            false
-        );
-
-    }
-
-}
-
-
-/* ======================================================
-   FORM SUBMIT
-   ====================================================== */
-
-form.addEventListener(
-    "submit",
-    function(event) {
-
+      /* ===== EVENTS ===== */
+      form.addEventListener("submit", function (event) {
         event.preventDefault();
-
         event.stopPropagation();
-
-
-        console.log(
-            "FORM SUBMIT EVENT FIRED"
-        );
-
-
-        if (submitting) {
-
-            return;
-
-        }
-
-
-        if (
-            !validateForm()
-        ) {
-
-            return;
-
-        }
-
-
+        if (submitting) return;
+        if (!validateForm()) return;
         openConfirmationPopup();
+      });
 
-    }
-);
-
-
-/* ======================================================
-   CONFIRM DONATION BUTTON
-   ====================================================== */
-
-confirmDonationButton.addEventListener(
-    "click",
-    function(event) {
-
+      confirmDonationButton.addEventListener("click", function (event) {
         event.preventDefault();
         event.stopPropagation();
-
-
-        console.log(
-            "CONFIRM DONATION BUTTON CLICKED"
-        );
-
-
-        if (submitting) {
-
-            return;
-
+        if (submitting) return;
+        if (!validateForm()) {
+          closeConfirmationPopup();
+          return;
         }
-
-
-        /*
-         * Validate again immediately before
-         * sending to backend.
-         */
-
-        if (
-            !validateForm()
-        ) {
-
-            closeConfirmationPopup();
-
-            return;
-
-        }
-
-
-        /*
-         * Start API submission.
-         *
-         * submitDonation() immediately changes
-         * the button to:
-         *
-         * [spinner] Recording Donation...
-         */
-
         submitDonation();
+      });
 
-    }
-);
-
-
-/* ======================================================
-   CANCEL CONFIRMATION
-   ====================================================== */
-
-cancelConfirmationButton.addEventListener(
-    "click",
-    function(event) {
-
+      cancelConfirmationButton.addEventListener("click", function (event) {
         event.preventDefault();
-
-
-        if (submitting) {
-
-            return;
-
-        }
-
-
+        if (submitting) return;
         closeConfirmationPopup();
+      });
 
-    }
-);
-
-
-/* ======================================================
-   SUCCESS CLOSE
-   ====================================================== */
-
-successCloseButton.addEventListener(
-    "click",
-    function(event) {
-
+      successCloseButton.addEventListener("click", function (event) {
         event.preventDefault();
+        successOverlay.classList.remove("show");
+      });
 
-        successOverlay.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
-/* ======================================================
-   ERROR CLOSE
-   ====================================================== */
-
-errorCloseButton.addEventListener(
-    "click",
-    function(event) {
-
+      errorCloseButton.addEventListener("click", function (event) {
         event.preventDefault();
-
         closeError();
+      });
 
-    }
-);
+      confirmationOverlay.addEventListener("click", function (event) {
+        if (submitting) return;
+        if (event.target === confirmationOverlay) closeConfirmationPopup();
+      });
 
+      errorOverlay.addEventListener("click", function (event) {
+        if (event.target === errorOverlay) closeError();
+      });
 
-/* ======================================================
-   CLOSE POPUPS WHEN CLICKING BACKDROP
-   ====================================================== */
+      document.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape" || submitting) return;
+        if (confirmationOverlay.classList.contains("show"))
+          closeConfirmationPopup();
+        if (errorOverlay.classList.contains("show")) closeError();
+      });
 
-confirmationOverlay.addEventListener(
-    "click",
-    function(event) {
-
-        /*
-         * Do not close confirmation popup
-         * while donation is being submitted.
-         */
-
-        if (submitting) {
-
-            return;
-
-        }
-
-
-        if (
-            event.target ===
-            confirmationOverlay
-        ) {
-
-            closeConfirmationPopup();
-
-        }
-
-    }
-);
-
-
-errorOverlay.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target ===
-            errorOverlay
-        ) {
-
-            closeError();
-
-        }
-
-    }
-);
-
-
-/* ======================================================
-   ESCAPE KEY
-   ====================================================== */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key !==
-            "Escape"
-        ) {
-
-            return;
-
-        }
-
-
-        /*
-         * Never allow Escape to cancel a donation
-         * while the request is being processed.
-         */
-
-        if (submitting) {
-
-            return;
-
-        }
-
-
-        if (
-            confirmationOverlay.classList.contains(
-                "show"
-            )
-        ) {
-
-            closeConfirmationPopup();
-
-        }
-
-
-        if (
-            errorOverlay.classList.contains(
-                "show"
-            )
-        ) {
-
-            closeError();
-
-        }
-
-    }
-);
-
-
-/* ======================================================
-   ESCAPE HTML
-   ====================================================== */
-
-function escapeHtml(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* ======================================================
-   INITIALIZE
-   ====================================================== */
-
-console.log(
-    "ITEM DONATION PAGE INITIALIZED"
-);
-
-
-console.log(
-    "API:",
-    `${API_BASE_URL}/sponsorship/create_item`
-);
-
-
-loadItems();
-
-</script>
-
-
-</body>
-
+      loadItems();
+    </script>
+  </body>
 </html>

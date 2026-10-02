@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/styles.css">
-<script src="/assets/site.js?v=5" defer></script>
+<script src="/assets/site.js?v=6" defer></script>
+<script src="/assets/cart-badge.js?v=1" defer></script>
 <!-- /CYF:HEAD -->
 <title>
       Caraga Youth Fellowship | Christian Youth Organization in Caraga
@@ -929,11 +930,702 @@
           flex-direction: column;
         }
       }
+
+      /* ===== From web1: About, org chart, motion ===== */
+      /* ===== ANCHORS / ABOUT ===== */
+      #top,
+      #about,
+      #contact {
+        scroll-margin-top: 80px;
+      }
+      .about-section {
+        background: var(--cream);
+      }
+      .purpose-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+        margin-bottom: 48px;
+      }
+      .purpose-card {
+        padding: 30px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+      }
+      .purpose-card h3 {
+        margin: 0 0 12px;
+        color: var(--crimson);
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .purpose-card p {
+        margin: 0;
+      }
+      .values-heading {
+        max-width: 720px;
+        margin-bottom: 24px;
+      }
+      .values-heading h3 {
+        margin: 10px 0 6px;
+        font-size: clamp(26px, 3vw, 34px);
+      }
+      .values-heading p {
+        margin: 0;
+      }
+      .values-marquee {
+        overflow: hidden;
+        padding: 8px 0 18px;
+      }
+      .values-track {
+        display: flex;
+        width: max-content;
+        animation: values-marquee 48s linear infinite;
+      }
+      .values-marquee:hover .values-track,
+      .values-marquee:focus-within .values-track {
+        animation-play-state: paused;
+      }
+      .values-group {
+        display: flex;
+        flex-shrink: 0;
+        gap: 18px;
+        padding-right: 18px;
+      }
+      .value-card {
+        width: 290px;
+        min-height: 230px;
+        padding: 24px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+      }
+      .value-card-letter {
+        display: inline-grid;
+        width: 42px;
+        height: 42px;
+        margin-bottom: 16px;
+        place-items: center;
+        border-radius: 12px;
+        background: var(--crimson-soft);
+        color: var(--crimson);
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .value-card h4 {
+        margin: 0 0 10px;
+        color: var(--ink);
+        font-size: 16px;
+        letter-spacing: 0.04em;
+      }
+      .value-card p {
+        margin: 0 0 14px;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .value-card cite {
+        color: var(--crimson);
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 700;
+      }
+      @keyframes values-marquee {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .who-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 48px;
+        align-items: start;
+        margin-bottom: 48px;
+      }
+      .who-copy p {
+        margin: 0 0 14px;
+      }
+      .not-church {
+        padding: 22px 24px;
+        background: #fff;
+        border-left: 4px solid var(--gold);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        box-shadow: var(--shadow-sm);
+      }
+      .not-church strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--crimson);
+      }
+      .not-church p {
+        margin: 0;
+      }
+      .tee-head,
+      .areas-head {
+        max-width: 720px;
+        margin-bottom: 28px;
+      }
+      .tee-head h3,
+      .areas-head h3,
+      .belong h3 {
+        margin: 10px 0 8px;
+        font-size: clamp(26px, 3vw, 34px);
+      }
+      .tee-steps {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        margin-bottom: 14px;
+      }
+      .tee-line {
+        position: absolute;
+        top: 34px;
+        left: 8%;
+        right: 8%;
+        height: 3px;
+        z-index: 0;
+        background: linear-gradient(90deg, var(--crimson), var(--gold));
+        border-radius: 3px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 1.4s 0.2s cubic-bezier(0.6, 0.1, 0.2, 1);
+      }
+      .tee-steps.is-in .tee-line {
+        transform: scaleX(1);
+      }
+      .tee-step,
+      .area-card {
+        position: relative;
+        z-index: 1;
+        padding: 24px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+      }
+      .tee-num {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        margin-bottom: 14px;
+        border-radius: 50%;
+        background: var(--crimson);
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 20px;
+        font-weight: 700;
+        transform: scale(0);
+        transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--d, 0s);
+      }
+      .tee-steps.is-in .tee-num {
+        transform: scale(1);
+      }
+      .tee-step h4,
+      .area-card h4 {
+        margin: 0 0 6px;
+        letter-spacing: 0.05em;
+        color: var(--ink);
+        font-size: 15px;
+      }
+      .tee-tag,
+      .area-q {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--crimson);
+      }
+      .tee-tag {
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .area-q {
+        font-family: var(--font-display);
+        font-size: 19px;
+        font-style: italic;
+        line-height: 1.3;
+        margin-bottom: 10px;
+      }
+      .tee-step p,
+      .area-card p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .tee-note {
+        margin: 0 0 52px;
+        font-style: italic;
+        max-width: 760px;
+      }
+      .areas-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+        margin-bottom: 26px;
+      }
+      .interchurch {
+        margin-bottom: 52px;
+        padding: 30px;
+        border-radius: var(--radius);
+        background: linear-gradient(135deg, var(--crimson-soft), #fff8e6);
+        border: 1px solid var(--line);
+      }
+      .interchurch h4 {
+        margin: 0 0 10px;
+        color: var(--crimson);
+        letter-spacing: 0.04em;
+      }
+      .interchurch p {
+        margin: 0 0 10px;
+      }
+      .interchurch p:last-child {
+        margin: 0;
+        font-weight: 700;
+      }
+      .belong {
+        max-width: 820px;
+        margin-bottom: 40px;
+      }
+      .belong p {
+        margin: 0 0 12px;
+      }
+      .story-card {
+        padding: 26px 28px;
+        background: #fff;
+        border: 2px dashed var(--line);
+        border-radius: var(--radius);
+      }
+      .story-card h4 {
+        margin: 0 0 8px;
+        color: var(--crimson);
+      }
+      .story-card p {
+        margin: 0;
+      }
+
+      /* ===== ORGANIZATIONAL CHART ===== */
+      #officers {
+        scroll-margin-top: 80px;
+      }
+      .oc-group {
+        margin-bottom: 64px;
+      }
+      .oc-group:last-child {
+        margin-bottom: 0;
+      }
+      .oc-title {
+        margin: 0 0 6px;
+        font-size: clamp(22px, 2.6vw, 30px);
+      }
+      .oc-sub {
+        margin: 0 0 30px;
+        color: var(--muted);
+      }
+      .oc-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0 0 34px;
+      }
+      .oc-tab {
+        padding: 11px 20px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--ink);
+        font: inherit;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .oc-tab:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+      }
+      .oc-tab:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+      .oc-tab[aria-pressed="true"] {
+        background: var(--crimson);
+        border-color: var(--crimson);
+        color: #fff;
+      }
+      .oc-sectors {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+      .oc-panel {
+        animation: cyf-rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .oc-panel[hidden] {
+        display: none;
+      }
+      .oc-panel-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 6px;
+        font-size: 20px;
+        color: var(--crimson);
+      }
+      .oc-panel-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+      .oc-tree {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .oc-level {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        padding-top: 44px;
+      }
+      .oc-level:first-child {
+        padding-top: 0;
+      }
+      .oc-level:not(:first-child)::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 22px;
+        margin-left: -1px;
+        background: var(--crimson);
+      }
+      .oc-node {
+        position: relative;
+        flex: 1 1 0;
+        max-width: 210px;
+        min-width: 0;
+      }
+      .oc-level:not(:first-child) .oc-node::before {
+        content: "";
+        position: absolute;
+        top: -22px;
+        left: 50%;
+        width: 2px;
+        height: 22px;
+        margin-left: -1px;
+        background: var(--crimson);
+      }
+      .oc-level:not(:first-child) .oc-node::after {
+        content: "";
+        position: absolute;
+        top: -22px;
+        left: -10px;
+        right: -10px;
+        height: 2px;
+        background: var(--crimson);
+      }
+      .oc-level .oc-node:first-child::after {
+        left: 50%;
+      }
+      .oc-level .oc-node:last-child::after {
+        right: 50%;
+      }
+      .oc-level .oc-node:only-child::after {
+        display: none;
+      }
+      .oc-card {
+        height: 100%;
+        box-sizing: border-box;
+        padding: 18px 10px;
+        text-align: center;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .oc-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+      }
+      .oc-head .oc-card {
+        border-top: 4px solid var(--gold);
+      }
+      .oc-photo {
+        position: relative;
+        width: 76px;
+        height: 76px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          var(--crimson),
+          var(--crimson-dark, var(--crimson))
+        );
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 2px var(--crimson-soft);
+      }
+      .oc-photo span {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .oc-photo img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .oc-role {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--crimson);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .oc-name {
+        display: block;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.35;
+        color: var(--ink);
+        word-break: break-word;
+      }
+      @media (max-width: 1100px) {
+        .oc-level {
+          flex-wrap: wrap;
+        }
+        .oc-node {
+          flex: 0 1 calc(33.333% - 14px);
+        }
+        .oc-level:not(:first-child) .oc-node::before,
+        .oc-level:not(:first-child) .oc-node::after {
+          display: none;
+        }
+        .oc-level:not(:first-child) {
+          padding-top: 32px;
+        }
+        .oc-level:not(:first-child)::before {
+          height: 32px;
+        }
+      }
+      @media (max-width: 700px) {
+        .oc-node {
+          flex: 0 1 calc(50% - 10px);
+        }
+      }
+      @media (max-width: 480px) {
+        .oc-node {
+          flex: 1 1 100%;
+          max-width: 300px;
+        }
+        .oc-tab {
+          flex: 1 1 calc(50% - 10px);
+          text-align: center;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .oc-panel {
+          animation: none !important;
+        }
+        .oc-card,
+        .oc-tab {
+          transform: none;
+          transition: none;
+        }
+      }
+
+      /* ===== SCROLL PROGRESS ===== */
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        z-index: 99999;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .scroll-progress span {
+        display: block;
+        height: 100%;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: left;
+        background: linear-gradient(90deg, var(--crimson), var(--gold));
+        border-radius: 0 3px 3px 0;
+        box-shadow: 0 0 8px rgba(181, 18, 27, 0.35);
+        will-change: transform;
+      }
+
+      /* ===== ANIMATIONS ===== */
+      @keyframes cyf-rise {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes cyf-glow {
+        0%,
+        100% {
+          text-shadow: 0 0 0 rgba(212, 160, 23, 0);
+        }
+        50% {
+          text-shadow: 0 0 28px rgba(212, 160, 23, 0.55);
+        }
+      }
+      @keyframes cyf-tick {
+        40% {
+          transform: scale(1.12);
+        }
+      }
+      .hero .eyebrow {
+        animation: cyf-rise 0.7s 0.05s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .hero h1 {
+        animation: cyf-rise 0.9s 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .hero-inner > div > p {
+        animation: cyf-rise 0.8s 0.38s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .hero .actions {
+        animation: cyf-rise 0.8s 0.52s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .countdown-card {
+        animation: cyf-rise 0.9s 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .hero .accent-gold {
+        animation: cyf-glow 3.2s 1.2s ease-in-out 2;
+      }
+      .cd-num.tick {
+        animation: cyf-tick 0.35s ease-out;
+      }
+      .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s),
+          transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s);
+      }
+      .js [data-reveal="left"] {
+        transform: translateX(-32px);
+      }
+      .js [data-reveal="right"] {
+        transform: translateX(32px);
+      }
+      .js [data-reveal].is-in {
+        opacity: 1;
+        transform: none;
+      }
+      .btn,
+      .info-card,
+      .purpose-card,
+      .area-card,
+      .participant-result-card {
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          background 0.25s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .info-card:hover,
+      .area-card:hover,
+      .purpose-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.1);
+      }
+      .info-icon {
+        transition: transform 0.35s ease;
+      }
+      .info-card:hover .info-icon {
+        transform: rotate(-8deg) scale(1.1);
+      }
+
+      @media (max-width: 900px) {
+        .who-grid,
+        .tee-steps,
+        .purpose-grid {
+          grid-template-columns: 1fr;
+          gap: 26px;
+        }
+        .areas-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .tee-line {
+          display: none;
+        }
+      }
+      @media (max-width: 600px) {
+        .areas-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero *,
+        .countdown-card,
+        .cd-num {
+          animation: none !important;
+        }
+        .js [data-reveal] {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+        .tee-line,
+        .tee-num {
+          transform: none;
+          transition: none;
+        }
+        .values-marquee {
+          overflow-x: auto;
+        }
+        .values-track {
+          animation: none;
+        }
+        .values-group[aria-hidden="true"] {
+          display: none;
+        }
+      }
     </style>
-  <link rel="stylesheet" href="/assets/mobile.css?v=7">
+  <link rel="stylesheet" href="/assets/mobile.css?v=8">
 </head>
 
   <body>
+    <div class="scroll-progress" aria-hidden="true">
+      <span id="scroll-progress-bar"></span>
+    </div>
     <!-- ======================================================
      NAVIGATION
 ====================================================== -->
@@ -944,7 +1636,7 @@
       <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
       <span class="brand-copy">
         <span class="brand-text">Caraga Youth Fellowship</span>
-        <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
+        <span class="brand-tag">Transform &middot; Equip &middot; Entrust</span>
       </span>
     </a>
     <nav class="nav-links" id="navLinks">
@@ -1045,68 +1737,325 @@
 
       <section class="section about-section" id="about">
         <div class="container">
-          <div class="about-intro">
-            <div class="section-head">
-              <div class="kicker">About CYF</div>
-
-              <h2>A fellowship for the young people of Caraga.</h2>
+          <div class="who-grid">
+            <div data-reveal="left">
+              <div class="section-head">
+                <div class="kicker">About CYF · Who We Are</div>
+                <h2>Caraga Youth Fellowship</h2>
+              </div>
+              <div class="who-copy">
+                <p>
+                  Caraga Youth Fellowship (CYF) is the youth ministry arm of the
+                  Caraga Fundamental Baptist Fellowship of Churches (CFFBC),
+                  serving young people across its fellowship of churches.
+                </p>
+                <p>
+                  CYF brings together young people from CFFBC churches for
+                  fellowship, discipleship, training, service, and shared
+                  ministry experiences. We seek to strengthen what God is
+                  already doing through the local church by creating
+                  opportunities for young people to grow together, serve
+                  together, and take part in ministry together.
+                </p>
+                <p>
+                  CYF shares the doctrinal identity of CFFBC and its member
+                  churches. We therefore understand our ministry within the
+                  biblical and ministry convictions of the churches we serve.
+                </p>
+              </div>
             </div>
-
-            <div class="about-copy">
+            <div class="not-church" data-reveal="right" style="--d: 0.15s">
+              <strong>CYF is not a separate church.</strong>
               <p>
-                Caraga Youth Fellowship (CYF) is the youth ministry of the
-                Caraga Fellowship of Fundamental Baptist Churches (CFFBC). We
-                bring young people from local churches across the region
-                together through fellowship, conferences, youth camps
-                and ministry.
-              </p>
-
-              <p>
-                Everything we do follows three words: transform, equip and
-                engage.
+                We exist to serve young people within the fellowship and to work
+                alongside local churches as they disciple and care for the next
+                generation.
               </p>
             </div>
           </div>
 
-          <div class="cards cards-swipe">
-            <article class="info-card">
-              <div class="info-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5l2.6-1.5M17.2 9l2.6-1.5"/><circle cx="12" cy="12" r="3.5"/></svg>
-              </div>
-
-              <h3>Transform</h3>
-
+          <div class="purpose-grid">
+            <article class="purpose-card" data-reveal>
+              <h3>Our Mission</h3>
               <p>
-                Hearts changed by the Gospel, as young people grow in their
-                faith and walk with God.
+                <strong
+                  >We exist to confront the modern challenges of youth through
+                  sound preaching of the Gospel, discipleship, character
+                  development, and holistic personal growth.</strong
+                >
+              </p>
+              <p style="margin-top: 10px">
+                CYF seeks to meet young people where they are while remaining
+                anchored in biblical truth. Through Gospel-centered ministry,
+                intentional discipleship, character formation, and practical
+                care for the whole person, we help young people respond to the
+                realities they face with faith, wisdom, and Christlike
+                character.
               </p>
             </article>
-
-            <article class="info-card">
-              <div class="info-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5.5c3.5-1 6.5-.5 9.5 1.5 3-2 6-2.5 9.5-1.5v13c-3.5-1-6.5-.5-9.5 1.5-3-2-6-2.5-9.5-1.5z"/><path d="M12 7v13"/></svg>
-              </div>
-
-              <h3>Equip</h3>
-
+            <article class="purpose-card" data-reveal style="--d: 0.12s">
+              <h3>Our Vision</h3>
               <p>
-                Training young leaders through the Word, so they can serve
-                their churches with conviction and skill.
+                <strong
+                  >We envision cultivating spiritual maturity and Christlikeness
+                  in youth, equipping them to become effective servant-leaders
+                  and disciple-makers.</strong
+                >
+              </p>
+              <p style="margin-top: 10px">
+                Our vision is for young people to grow beyond participation into
+                faithful, capable service. As they mature in Christ, we want
+                them to develop the character, understanding, and practical
+                ability to serve others, lead with humility, and help make
+                disciples.
               </p>
             </article>
+          </div>
 
-            <article class="info-card">
-              <div class="info-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg>
-              </div>
-
-              <h3>Engage</h3>
-
+          <div class="tee-head" data-reveal>
+            <div class="kicker">How We Develop</div>
+            <h3>Transform · Equip · Entrust</h3>
+            <p>
+              CYF understands the development of young people as a work that
+              ultimately belongs to God. He is the One who transforms, equips,
+              and entrusts; CYF serves as a ministry instrument in His work.
+            </p>
+          </div>
+          <div class="tee-steps" data-tee>
+            <div class="tee-line" aria-hidden="true"></div>
+            <article class="tee-step" data-reveal>
+              <span class="tee-num" style="--d: 0.3s">1</span>
+              <h4>TRANSFORM</h4>
+              <span class="tee-tag">God changes lives.</span>
               <p>
-                Reaching out together, serving local churches and communities
-                in every province of Caraga.
+                CYF points young people to Christ and His Word, trusting God to
+                transform their lives, character, convictions, and
+                relationships.
               </p>
             </article>
+            <article class="tee-step" data-reveal style="--d: 0.15s">
+              <span class="tee-num" style="--d: 0.8s">2</span>
+              <h4>EQUIP</h4>
+              <span class="tee-tag">Growth requires preparation.</span>
+              <p>
+                CYF helps young people develop the biblical understanding,
+                character, practical skills, and confidence they need to serve
+                faithfully.
+              </p>
+            </article>
+            <article class="tee-step" data-reveal style="--d: 0.3s">
+              <span class="tee-num" style="--d: 1.3s">3</span>
+              <h4>ENTRUST</h4>
+              <span class="tee-tag"
+                >What is developed is given responsibility.</span
+              >
+              <p>
+                CYF creates opportunities for young people to serve, lead,
+                contribute, and make disciples as they grow in maturity and
+                capability.
+              </p>
+            </article>
+          </div>
+          <p class="tee-note" data-reveal>
+            Transform · Equip · Entrust is not a formula for producing mature
+            Christians. It is a framework for how CYF participates in God's work
+            in and through young people.
+          </p>
+
+          <div class="values-heading" data-reveal>
+            <div class="kicker">What Shapes Us · S.E.R.V.A.N.T.</div>
+            <h3>
+              Called to follow, equipped to lead, born to be Christ&rsquo;s
+              SERVANT.
+            </h3>
+            <p>Our core values shape how we grow, lead, serve, and disciple.</p>
+          </div>
+          <div
+            class="values-marquee"
+            role="region"
+            aria-label="Core values marquee. Pause with hover or keyboard focus."
+            tabindex="0"
+          >
+            <div class="values-track" id="values-track"></div>
+          </div>
+
+          <div class="areas-head" data-reveal style="margin-top: 56px">
+            <div class="kicker">What We Do</div>
+            <h3>Six enduring areas of ministry.</h3>
+            <p>
+              These areas remain constant even as particular ministries,
+              programs, and methods change to meet the needs of each generation.
+            </p>
+          </div>
+          <div class="areas-grid">
+            <article class="area-card" data-reveal>
+              <h4>1. CHRIST-CENTERED FORMATION</h4>
+              <span class="area-q">Who are they becoming in Christ?</span>
+              <p>
+                CYF cultivates spiritual maturity and Christlikeness by helping
+                young people develop lives increasingly shaped by Christ,
+                Scripture, biblical convictions, faithful Christian living, and
+                a biblical understanding of the world.
+              </p>
+            </article>
+            <article class="area-card" data-reveal style="--d: 0.1s">
+              <h4>2. WHOLE-PERSON CARE</h4>
+              <span class="area-q">How are we taking care of them?</span>
+              <p>
+                CYF intentionally cares for young people as whole persons by
+                cultivating safe, trustworthy, supportive environments and
+                providing appropriate guidance, counseling, protection,
+                referral, and follow-up.
+              </p>
+            </article>
+            <article class="area-card" data-reveal style="--d: 0.2s">
+              <h4>3. CAPABILITY DEVELOPMENT</h4>
+              <span class="area-q">What can they become capable of doing?</span>
+              <p>
+                CYF develops usable competence rather than merely encouraging
+                willingness. Young people are trained, given opportunities to
+                practice, corrected, coached, and equipped to demonstrate
+                capability in real ministry and life situations.
+              </p>
+            </article>
+            <article class="area-card" data-reveal>
+              <h4>4. RESPONSIBILITY &amp; SERVANT LEADERSHIP</h4>
+              <span class="area-q">What can they faithfully carry?</span>
+              <p>
+                CYF progressively moves young people from participation toward
+                meaningful responsibility and servant leadership according to
+                their maturity, capability, readiness, and faithfulness.
+              </p>
+            </article>
+            <article class="area-card" data-reveal style="--d: 0.1s">
+              <h4>5. LOCAL-CHURCH STRENGTHENING</h4>
+              <span class="area-q">How does CYF strengthen the churches?</span>
+              <p>
+                CYF serves as the youth ministry arm of CFFBC and seeks to
+                strengthen its member churches in caring for, developing,
+                equipping, and preparing their young people.
+              </p>
+            </article>
+            <article class="area-card" data-reveal style="--d: 0.2s">
+              <h4>6. GENERATIONAL MULTIPLICATION</h4>
+              <span class="area-q">What happens after us?</span>
+              <p>
+                CYF intentionally develops people, leaders, capabilities,
+                systems, and ministry capacity that can be transferred and
+                reproduced across generations.
+              </p>
+            </article>
+          </div>
+          <div class="interchurch" data-reveal>
+            <h4>INTERCHURCH CONNECTION &amp; COLLABORATION</h4>
+            <p>
+              Interchurch connection remains an important and distinctive
+              expression of CYF's identity as a fellowship of CFFBC churches.
+              CYF creates opportunities for churches and young people to
+              fellowship across local-church boundaries, learn from one another,
+              share experience and resources, collaborate in ministry, develop
+              relationships, participate in shared training and events, and
+              experience a broader CFFBC youth community.
+            </p>
+            <p>
+              Connection is an expression; strengthening the churches is the
+              enduring function.
+            </p>
+          </div>
+
+          <div class="belong" data-reveal>
+            <div class="kicker">Where We Belong</div>
+            <h3>Serving the church, strengthening the next generation.</h3>
+            <p>
+              CYF is the youth ministry arm of the Caraga Fundamental Baptist
+              Fellowship of Churches (CFFBC). We serve young people across the
+              fellowship while working alongside local churches to help them
+              care for, develop, equip, and prepare their young people for
+              faithful service.
+            </p>
+            <p>
+              CYF provides a shared space where churches can learn from one
+              another, share resources and experience, develop ministry
+              capacity, and give young people opportunities to grow and serve
+              together. Through shared training, fellowship, ministry
+              experiences, and collaboration, we seek to strengthen what God is
+              already doing through the local church.
+            </p>
+            <p>
+              CYF does not replace the local church. We seek to strengthen and
+              support the churches we belong to, helping them become more
+              capable of caring for and developing the young people entrusted to
+              them.
+            </p>
+            <p>
+              <strong
+                >We believe that CYF is strongest when it strengthens the
+                churches it serves.</strong
+              >
+            </p>
+          </div>
+          <div class="story-card" data-reveal>
+            <h4>Our Story</h4>
+            <p>
+              The story of CYF will be developed from documented historical
+              research so that our history reflects what actually happened,
+              rather than what we merely remember.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ORGANIZATIONAL CHART -->
+      <section class="section" id="officers">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div class="kicker">Our Leaders</div>
+            <h2>Organizational Chart</h2>
+            <p>
+              Meet the officers serving young people across the Caraga
+              fellowship and in each sector.
+            </p>
+          </div>
+          <div class="oc-group" data-reveal>
+            <h3 class="oc-title">Caraga Youth Officers</h3>
+            <p class="oc-sub">Leading CYF across the whole region.</p>
+            <div class="oc-tree" id="oc-caraga"></div>
+          </div>
+          <div class="oc-group" data-reveal>
+            <h3 class="oc-title">Sectoral Officers</h3>
+            <p class="oc-sub">Choose a sector to see its officers.</p>
+            <div
+              class="oc-tabs"
+              id="oc-tabs"
+              role="group"
+              aria-label="Filter sectoral officers"
+            >
+              <button
+                type="button"
+                class="oc-tab"
+                data-sector="1"
+                aria-pressed="true"
+              >
+                Sector 1
+              </button>
+              <button
+                type="button"
+                class="oc-tab"
+                data-sector="2"
+                aria-pressed="false"
+              >
+                Sector 2
+              </button>
+              <button
+                type="button"
+                class="oc-tab"
+                data-sector="3"
+                aria-pressed="false"
+              >
+                Sector 3
+              </button>
+            </div>
+            <div class="oc-sectors" id="oc-sectors"></div>
           </div>
         </div>
       </section>
@@ -1436,7 +2385,7 @@
         <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
         <div>
           <strong>Caraga Youth Fellowship</strong>
-          <span>Transform &middot; Equip &middot; Engage</span>
+          <span>Transform &middot; Equip &middot; Entrust</span>
         </div>
       </div>
       <p>Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.</p>
@@ -1453,6 +2402,7 @@
       <h3>Fellowship</h3>
       <p>
         <a href="home.html#about">About CYF</a><br>
+        <a href="home.html#officers">Officers</a><br>
         <a href="home.html#contact">Contact Us</a><br>
         <a href="login.html">Staff Login</a>
       </p>
@@ -1467,6 +2417,390 @@
   </div>
   <div class="container copyright">&copy; 2026 Caraga Youth Fellowship. All rights reserved.</div>
 </footer>
+    <script>
+      document.documentElement.classList.add("js");
+
+      /* ===== CORE VALUES (marquee) ===== */
+      (function () {
+        var v = [
+          [
+            "S",
+            "SPIRITUAL MATURITY",
+            "Growing daily to think, love, and live like Jesus Christ.",
+            "Ephesians 4:13",
+          ],
+          [
+            "E",
+            "EFFECTIVE LEADERSHIP",
+            "Leading others through humble service, putting their needs first.",
+            "Matthew 20:26\u201328",
+          ],
+          [
+            "R",
+            "RESILIENCE",
+            "Standing firm in biblical truth against modern cultural pressures.",
+            "Romans 12:2",
+          ],
+          [
+            "V",
+            "VALUE-DRIVEN CHARACTER",
+            "Living with honest integrity and high moral excellence always.",
+            "1 Timothy 4:12",
+          ],
+          [
+            "A",
+            "AUTHENTIC DISCIPLESHIP",
+            "Building accountable relationships that turn followers into disciple-makers.",
+            "2 Timothy 2:2",
+          ],
+          [
+            "N",
+            "NURTURING GROWTH",
+            "Developing the total person \u2014 mentally, emotionally, socially, and spiritually.",
+            "Luke 2:52",
+          ],
+          [
+            "T",
+            "TRUTH-CENTERED",
+            "Rooting all beliefs, choices, and teaching in the Gospel.",
+            "2 Timothy 4:2",
+          ],
+        ];
+        var cards = v
+          .map(function (c) {
+            return (
+              '<article class="value-card"><span class="value-card-letter" aria-hidden="true">' +
+              c[0] +
+              "</span><h4>" +
+              c[1] +
+              "</h4><p>" +
+              c[2] +
+              "</p><cite>" +
+              c[3] +
+              "</cite></article>"
+            );
+          })
+          .join("");
+        document.getElementById("values-track").innerHTML =
+          '<div class="values-group">' +
+          cards +
+          '</div><div class="values-group" aria-hidden="true">' +
+          cards +
+          "</div>";
+      })();
+
+      /* ===== ORGANIZATIONAL CHART ===== */
+      (function () {
+        /* PROFILE PICTURES
+     Photos live in:  web/assets/officers/images/<folder>/   (served by your server as /assets/officers/images/...)
+     Folders: "Caraga Officers", "Sector 1", "Sector 2", "Sector 3".
+     Each officer's photo is found AUTOMATICALLY from their name, e.g.
+       "Levi Jan Anino"  ->  levi-jan-anino.jpg   (.jpeg / .png / .webp also work)
+       "Jerribe S. Siga" ->  jerribe-siga.jpg     (single-letter middle initials are skipped)
+     Sector officers are looked up in their own "Sector N" folder first, then in "Caraga Officers".
+     If a file is named differently, add it below as "Folder/file-name" (extension optional).
+     No photo found = the officer's initials are shown. */
+        var BASE = "/assets/officers/images/";
+        var EXTS = [".jpg", ".jpeg", ".png", ".webp", ".jfif"];
+        /* Use this list ONLY when a file name can't be guessed from the officer's name.
+     Format: "Officer Name": "Folder/file-name"  (extension optional). */
+        var PHOTOS = {
+          "Ptr. Edward Deligero": "Caraga Officers/ptr-edward-deligero",
+          "Cielena Abcede": "Sector 2/cielenah-abcede",
+          "Lea Pantonal": "Sector 3/lea-pantoñal",
+          "Ptr. Daryl Canete": "Sector 3/ptr-daryl-cañete",
+          "Ptr. Warnet Balan Jr.": "Sector 2/ptr-warnet-balan-jr.",
+          "Jonathan Tanyog Jr.": "Sector 2/jonathan-tanyog-jr.",
+        };
+
+        /* Each tree = list of levels; each level = list of [role, name]. */
+        var CARAGA = [
+          [["Youth Director", "Ptr. Edward Deligero"]],
+          [["President", "Levi Jan Anino"]],
+          [
+            ["Vice-President", "John Wilmar Dagaas"],
+            ["Secretary", "Leihra Lane Cornelio"],
+            ["Treasurer", "Hyacinth Estioco"],
+            ["Auditor", "Keisha Mae Bolonia"],
+          ],
+          [
+            ["PIO", "Jerribe S. Siga"],
+            ["PIO", "John Wilmar Dagaas"],
+            ["PIO", "Christian Cortez"],
+          ],
+        ];
+        var SECTORS = {
+          1: [
+            [["Adviser", "Ptr. Carlito Bacor"]],
+            [["President", "Levi Jan Anino"]],
+            [
+              ["Vice-President", "Jerribe S. Siga"],
+              ["Secretary", "Hyacinth Estioco"],
+              ["Treasurer", "Leihra Lane Cornelio"],
+              ["Auditor", "Charise Joy Gabi"],
+            ],
+            [["PIO", "Mechael Angelou Mitchao"]],
+          ],
+          2: [
+            [["Adviser", "Ptr. Warnet Balan Jr."]],
+            [["President", "Jonathan Tanyog Jr."]],
+            [
+              ["Vice-President", "Edison Valdez"],
+              ["Secretary", "Rica Mae Rodriguez"],
+              ["Treasurer", "Cielena Abcede"],
+              ["Auditor", "Keisha Mae Bolonia"],
+            ],
+            [
+              ["PIO", "Joshua Sualibios"],
+              ["PIO", "Shamie Nakila"],
+              ["PIO", "James Lee Abohan"],
+            ],
+          ],
+          3: [
+            [["Adviser", "Ptr. Daryl Canete"]],
+            [["President", "Jan Cartagenas"]],
+            [
+              ["Vice-President", "Marjane Duncano"],
+              ["Secretary", "Kezzie Racasa"],
+              ["Treasurer", "Lea Pantonal"],
+              ["Auditor", "John Wilmar Dagaas"],
+            ],
+            [["PIO", "Christian Cortez"]],
+          ],
+        };
+
+        function esc(v) {
+          return String(v == null ? "" : v)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+        function initials(n) {
+          var p = n
+            .replace(/^Ptr\.\s*/i, "")
+            .trim()
+            .split(/\s+/);
+          return (
+            (p[0][0] || "") + (p.length > 1 ? p[p.length - 1][0] : "")
+          ).toUpperCase();
+        }
+        function slugs(n) {
+          var base = n.toLowerCase().replace(/[.,]/g, "").trim().split(/\s+/),
+            out = [];
+          function noMid(w) {
+            return w.filter(function (x, i) {
+              return !(x.length === 1 && i > 0 && i < w.length - 1);
+            });
+          }
+          var noJr = base.filter(function (x, i) {
+            return !(i > 0 && /^(jr|sr|ii|iii)$/.test(x));
+          });
+          function push(w) {
+            var t = w.join("-");
+            [t, t.normalize("NFD").replace(/[\u0300-\u036f]/g, "")].forEach(
+              function (x) {
+                if (x && out.indexOf(x) < 0) out.push(x);
+              },
+            );
+          }
+          push(base);
+          push(noMid(base));
+          push(noJr);
+          push(noMid(noJr));
+          return out;
+        }
+        function candidates(name, folders) {
+          var list = [],
+            o = PHOTOS[name];
+          var inCaraga = CARAGA.some(function (l) {
+            return l.some(function (x) {
+              return x[1] === name;
+            });
+          });
+          function add(path) {
+            if (/\.\w{3,4}$/.test(path)) list.push(BASE + encodeURI(path));
+            else
+              EXTS.forEach(function (e) {
+                list.push(BASE + encodeURI(path) + e);
+              });
+          }
+          if (o) add(o);
+          folders.forEach(function (f, i) {
+            if (i > 0 && f === "Caraga Officers" && !inCaraga)
+              return; /* only look there for people who are also Caraga officers */
+            slugs(name).forEach(function (sl) {
+              add(f + "/" + sl);
+            });
+          });
+          return list.filter(function (u, i) {
+            return list.indexOf(u) === i;
+          });
+        }
+        /* Tries the next possible file name; removes the <img> (initials show) when none exist. */
+        window.ocImgErr = function (img) {
+          var rest = (img.getAttribute("data-alt") || "")
+            .split("|")
+            .filter(Boolean);
+          if (rest.length) {
+            img.setAttribute("data-alt", rest.slice(1).join("|"));
+            img.src = rest[0];
+          } else img.remove();
+        };
+        function card(role, name, isHead, folders) {
+          var c = candidates(name, folders);
+          /* The <img src> below is the profile picture. */
+          var img = c.length
+            ? '<img src="' +
+              esc(c[0]) +
+              '" data-alt="' +
+              esc(c.slice(1).join("|")) +
+              '" alt="Photo of ' +
+              esc(name) +
+              '" loading="lazy" onerror="ocImgErr(this)">'
+            : "";
+          return (
+            '<div class="oc-node' +
+            (isHead ? " oc-head" : "") +
+            '"><article class="oc-card">' +
+            '<div class="oc-photo"><span aria-hidden="true">' +
+            esc(initials(name)) +
+            "</span>" +
+            img +
+            "</div>" +
+            '<span class="oc-role">' +
+            esc(role) +
+            '</span><span class="oc-name">' +
+            esc(name) +
+            "</span></article></div>"
+          );
+        }
+        function tree(levels, folders) {
+          levels = [levels[0], levels[1], [].concat.apply([], levels.slice(2))];
+          return levels
+            .map(function (lvl, i) {
+              return (
+                '<div class="oc-level">' +
+                lvl
+                  .map(function (o) {
+                    return card(o[0], o[1], i === 0, folders);
+                  })
+                  .join("") +
+                "</div>"
+              );
+            })
+            .join("");
+        }
+
+        document.getElementById("oc-caraga").innerHTML = tree(CARAGA, [
+          "Caraga Officers",
+        ]);
+        var wrap = document.getElementById("oc-sectors");
+        wrap.innerHTML = Object.keys(SECTORS)
+          .map(function (k) {
+            return (
+              '<section class="oc-panel" data-sector="' +
+              k +
+              '" aria-label="Sector ' +
+              k +
+              ' officers"><h4 class="oc-panel-title">Sector ' +
+              k +
+              '</h4><div class="oc-tree">' +
+              tree(SECTORS[k], ["Sector " + k, "Caraga Officers"]) +
+              "</div></section>"
+            );
+          })
+          .join("");
+
+        wrap.querySelectorAll(".oc-panel").forEach(function (p) {
+          p.hidden = p.getAttribute("data-sector") !== "1";
+        });
+        var tabs = document.querySelectorAll("#oc-tabs .oc-tab");
+        tabs.forEach(function (t) {
+          t.addEventListener("click", function () {
+            var s = t.getAttribute("data-sector");
+            tabs.forEach(function (b) {
+              b.setAttribute("aria-pressed", String(b === t));
+            });
+            wrap.querySelectorAll(".oc-panel").forEach(function (p) {
+              p.hidden = p.getAttribute("data-sector") !== s;
+            });
+          });
+        });
+      })();
+
+      /* ===== SCROLL PROGRESS ===== */
+      (function () {
+        var bar = document.getElementById("scroll-progress-bar"),
+          ticking = false;
+        if (!bar) return;
+        function update() {
+          var h = document.documentElement,
+            max = h.scrollHeight - h.clientHeight;
+          bar.style.transform =
+            "scaleX(" +
+            (max > 0
+              ? Math.min(
+                  1,
+                  Math.max(0, (window.pageYOffset || h.scrollTop) / max),
+                )
+              : 0) +
+            ")";
+          ticking = false;
+        }
+        function onScroll() {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+          }
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        update();
+      })();
+
+      /* ===== SCROLL REVEAL + COUNTDOWN TICK ===== */
+      (function () {
+        var reduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        var targets = document.querySelectorAll("[data-reveal], [data-tee]");
+        if (reduce || !("IntersectionObserver" in window)) {
+          targets.forEach(function (el) {
+            el.classList.add("is-in");
+          });
+        } else {
+          var io = new IntersectionObserver(
+            function (es) {
+              es.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add("is-in");
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.15, rootMargin: "0px 0px -6% 0px" },
+          );
+          targets.forEach(function (el) {
+            io.observe(el);
+          });
+        }
+        var secs = document.getElementById("cd-secs");
+        if (secs && !reduce && "MutationObserver" in window) {
+          new MutationObserver(function () {
+            secs.classList.remove("tick");
+            void secs.offsetWidth;
+            secs.classList.add("tick");
+          }).observe(secs, {
+            childList: true,
+            characterData: true,
+            subtree: true,
+          });
+        }
+      })();
+
+    </script>
 
     <script>
       /* ======================================================

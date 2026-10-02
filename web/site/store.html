@@ -16,7 +16,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/styles.css">
-<script src="/assets/site.js?v=5" defer></script>
+<script src="/assets/site.js?v=6" defer></script>
+<script src="/assets/cart-badge.js?v=1" defer></script>
 <!-- /CYF:HEAD -->
 <title>CYF Store</title>
 
@@ -1453,9 +1454,107 @@
 
         }
 
+
+        /* =========================================================
+           STORE HERO + FLOATING CART BUTTON
+        ========================================================= */
+
+        .store-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 28px;
+            padding: 60px 46px;
+            margin-bottom: 34px;
+            color: #fff;
+            background:
+                linear-gradient(100deg, rgba(80, 6, 6, .94), rgba(155, 27, 42, .78) 55%, rgba(155, 27, 42, .3)),
+                url("/assets/hero-bg.jpg") center / cover;
+            box-shadow: 0 24px 60px rgba(80, 10, 10, .28);
+        }
+
+        .store-hero .tag {
+            display: inline-block;
+            padding: 6px 13px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .16);
+            border: 1px solid rgba(255, 255, 255, .3);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            backdrop-filter: blur(6px);
+        }
+
+        .store-hero h1 {
+            font-size: clamp(38px, 6vw, 64px);
+            line-height: 1;
+            margin: 16px 0 14px;
+            color: #fff;
+        }
+
+        .store-hero p {
+            max-width: 600px;
+            color: rgba(255, 255, 255, .88);
+            line-height: 1.7;
+        }
+
+        .fab {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 400;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 20px;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(160deg, var(--crimson), var(--crimson-dark));
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 14px 34px rgba(110, 11, 11, .4);
+        }
+
+        .fab.show {
+            display: flex;
+            animation: fab-pop .25s ease;
+        }
+
+        .fab b {
+            background: var(--gold);
+            color: #3d2b00;
+            border-radius: 999px;
+            min-width: 24px;
+            height: 24px;
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            padding: 0 6px;
+        }
+
+        @keyframes fab-pop {
+            from { transform: scale(.8); opacity: 0; }
+        }
+
+        @media (max-width: 700px) {
+            .store-hero {
+                padding: 38px 24px;
+                border-radius: 22px;
+            }
+        }
+
+        /* Phones and tablets: sit above the bottom tab bar */
+        @media (max-width: 1020px) {
+            .fab {
+                right: 16px;
+                bottom: calc(92px + env(safe-area-inset-bottom));
+            }
+        }
+
     </style>
 
-<link rel="stylesheet" href="/assets/mobile.css?v=7">
+<link rel="stylesheet" href="/assets/mobile.css?v=8">
 </head>
 
 
@@ -1472,7 +1571,7 @@
       <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
       <span class="brand-copy">
         <span class="brand-text">Caraga Youth Fellowship</span>
-        <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
+        <span class="brand-tag">Transform &middot; Equip &middot; Entrust</span>
       </span>
     </a>
     <nav class="nav-links" id="navLinks">
@@ -1498,19 +1597,15 @@
 
 <main class="page">
 
-    <h1 class="page-title">
-        CYF Store
-    </h1>
-
-    <p class="page-description">
-
-        Purchase available CYF merchandise
-        and event items. Add multiple items
-        to your cart, adjust quantities and
-        clothing sizes, then checkout securely
-        through PayMongo.
-
-    </p>
+    <section class="store-hero">
+        <span class="tag">Official Merchandise</span>
+        <h1>CYF Store</h1>
+        <p>
+            Get CYF merchandise and event items. Add as many as you like to your
+            cart &mdash; it stays with you on every page &mdash; then check out securely
+            through PayMongo.
+        </p>
+    </section>
 
 
     <div
@@ -1565,6 +1660,11 @@
 
 </main>
 
+<button id="fab" class="fab" type="button" onclick="openCart()">
+    &#128722; View cart <b id="fabCount">0</b><span id="fabTotal"></span>
+</button>
+
+
 <footer class="footer">
   <div class="container footer-grid">
     <div>
@@ -1572,7 +1672,7 @@
         <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
         <div>
           <strong>Caraga Youth Fellowship</strong>
-          <span>Transform &middot; Equip &middot; Engage</span>
+          <span>Transform &middot; Equip &middot; Entrust</span>
         </div>
       </div>
       <p>Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.</p>
@@ -1589,6 +1689,7 @@
       <h3>Fellowship</h3>
       <p>
         <a href="home.html#about">About CYF</a><br>
+        <a href="home.html#officers">Officers</a><br>
         <a href="home.html#contact">Contact Us</a><br>
         <a href="login.html">Staff Login</a>
       </p>
@@ -2080,6 +2181,9 @@ document.addEventListener(
 
         loadStore();
 
+        // Cart icon on other pages links here with ?cart=1
+        if (new URLSearchParams(location.search).get("cart") === "1") openCart();
+
     }
 );
 
@@ -2136,6 +2240,8 @@ function saveCart() {
             "cyf_store_cart",
             JSON.stringify(cart)
         );
+
+        window.dispatchEvent(new Event("cyf-cart-updated"));
 
     }
     catch (error) {
@@ -3162,6 +3268,29 @@ function updateCartUI() {
 
     renderCart();
 
+    updateFab();
+
+}
+
+
+function updateFab() {
+
+    const fab = document.getElementById("fab");
+
+    if (!fab) return;
+
+    const n = getCartItemCount();
+
+    document.getElementById("fabCount").textContent = n;
+
+    document.getElementById("fabTotal").textContent =
+        n ? " \u00b7 " + formatPHP(getCartTotal()) : "";
+
+    fab.classList.toggle(
+        "show",
+        n > 0 && !document.getElementById("cartDrawer").classList.contains("show")
+    );
+
 }
 
 
@@ -3583,6 +3712,9 @@ function openCart() {
         "cart-open"
     );
 
+
+    updateFab();
+
 }
 
 
@@ -3613,6 +3745,9 @@ function closeCart() {
     document.body.classList.remove(
         "cart-open"
     );
+
+
+    updateFab();
 
 }
 

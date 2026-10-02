@@ -14,7 +14,8 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="/styles.css">
-    <script src="/assets/site.js?v=5" defer></script>
+    <script src="/assets/site.js?v=6" defer></script>
+<script src="/assets/cart-badge.js?v=1" defer></script>
     <!-- /CYF:HEAD -->
     <title>
         Register | CYF Registration System
@@ -1165,9 +1166,63 @@
         }
 
         }
+
+        /* Address picker (Caraga Region) */
+        .addr-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 12px;
+            margin-top: 6px;
+        }
+
+        .addr-grid .form-group label {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        @media (max-width: 600px) {
+            .addr-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* Data Privacy Notice (RA 10173) */
+        .law-box {
+            margin-top: 16px;
+            border: 1px solid #e8b8b8;
+            background: #fff4f4;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .law-box h3 {
+            color: var(--red);
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .law-box p,
+        .law-box li {
+            font-size: 13.5px;
+            color: #4d4343;
+            line-height: 1.6;
+        }
+
+        .law-box ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+
     </style>
 
-<link rel="stylesheet" href="/assets/mobile.css?v=7">
+<link rel="stylesheet" href="/assets/mobile.css?v=8">
 </head>
 
 
@@ -1184,7 +1239,7 @@
                 <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
                 <span class="brand-copy">
                     <span class="brand-text">Caraga Youth Fellowship</span>
-                    <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
+                    <span class="brand-tag">Transform &middot; Equip &middot; Entrust</span>
                 </span>
             </a>
             <nav class="nav-links" id="navLinks">
@@ -1590,14 +1645,36 @@
 
 
 
-                        <!-- ADDRESS -->
+                        <!-- ADDRESS (Caraga Region) -->
                         <div class="form-group full">
 
-                            <label for="address">
-                                Address *
-                            </label>
+                            <label>&#128205; Address (Caraga Region) *</label>
 
-                            <input id="address" name="address" type="text" autocomplete="street-address" required>
+                            <div class="addr-grid">
+                                <div class="form-group">
+                                    <label for="province">Province *</label>
+                                    <select id="province">
+                                        <option value="">Select province</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City / Municipality *</label>
+                                    <select id="city" disabled>
+                                        <option value="">Select province first</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full">
+                                    <label for="barangay">Barangay / Purok / Street *</label>
+                                    <input id="barangay" type="text" placeholder="e.g. Brgy. Libertad, Purok 3" autocomplete="address-line1">
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="address" name="address">
+
+                            <p class="hint">
+                                Only the barangay or street needs to be typed. Province and
+                                city are picked from the list.
+                            </p>
 
                         </div>
 
@@ -2184,7 +2261,7 @@
                     <div class="form-title">
 
                         <h2>
-                            Rules & Data Confidentiality
+                            Rules & Data Privacy
                         </h2>
 
                         <p>
@@ -2208,53 +2285,53 @@
                         <ul>
 
                             <li>
-                                Be Present and On Time: Attend all scheduled activities, sessions,
+                                <strong>Be Present and On Time:</strong> Attend all scheduled activities, sessions,
                                 and meals promptly to make the most of spiritual instruction and program content.
                             </li>
 
                             <li>
-                                Limit Distractions: Keep electronic gadget use to a minimum
+                                <strong>Limit Distractions:</strong> Keep electronic gadget use to a minimum
                                 and maintain silence during spiritual sessions or quiet times.
                             </li>
 
                             <li>
-                                Respect Everyone: Treat all staff, leaders,
+                                <strong>Respect Everyone:</strong> Treat all staff, leaders,
                                 and fellow participants with respect, sportsmanship, and kindness.
                             </li>
 
                             <li>
-                                Behavior and Accountability: Always maintain proper conduct;
+                                <strong>Behavior and Accountability:</strong> Always maintain proper conduct;
                                 misbehavior will be dealt with firmly, and you carry personal
                                 responsibility for any damage caused to people, property, or the host venue.
                             </li>
 
                             <li>
-                                Respect Sleeping Areas: Stay out of quarters designated
+                                <strong>Respect Sleeping Areas:</strong> Stay out of quarters designated
                                 for the opposite gender to maintain proper boundaries.
                             </li>
 
                             <li>
-                                Wear Your ID: Always keep your event name tag
+                                <strong>Wear Your ID:</strong> Always keep your event name tag
                                 or ID visible so staff and peers can identify you easily.
                             </li>
 
                             <li>
-                                Stay On-Site: Do not leave the event venue without express
+                                <strong>Stay On-Site:</strong> Do not leave the event venue without express
                                 permission from staff.
                             </li>
 
                             <li>
-                                No Substances: Smoking, drinking alcohol, and taking illegal
+                                <strong>No Substances:</strong> Smoking, drinking alcohol, and taking illegal
                                 drugs are strictly forbidden.
                             </li>
 
                             <li>
-                                Dress Appropriately: Wear suitable clothing for each occasion;
+                                <strong>Dress Appropriately:</strong> Wear suitable clothing for each occasion;
                                 keep casual or athletic wear for sports and free time.
                             </li>
 
                             <li>
-                                Take Care of Belongings and Property: Keep your items safe,
+                                <strong>Take Care of Belongings and Property:</strong> Keep your items safe,
                                 do not touch unauthorized equipment or musical instruments,
                                 keep the grounds clean, and follow all host venue and staff rules.
                             </li>
@@ -2279,6 +2356,35 @@
 
 
 
+                    <div class="law-box">
+
+                        <h3>&#128274; Data Privacy Notice</h3>
+
+                        <p>
+                            Under the <strong>Data Privacy Act of 2012 (Republic Act No. 10173)</strong>,
+                            its Implementing Rules and Regulations, and the issuances of the
+                            <strong>National Privacy Commission (NPC)</strong>, CYF collects and
+                            processes your personal information only for:
+                        </p>
+
+                        <ul>
+                            <li>event registration and participant management;</li>
+                            <li>communication, payment processing, and event administration;</li>
+                            <li>safety, emergency response, and related CYF purposes.</li>
+                        </ul>
+
+                        <p>
+                            Access is limited to authorized personnel and service providers
+                            necessary to run this system. As a data subject you have the right
+                            to be informed, to access, correct, object to, and request erasure or
+                            blocking of your data, and to file a complaint with the NPC
+                            (privacy.gov.ph). If you are a minor, a parent or guardian should
+                            review this notice with you.
+                        </p>
+
+                    </div>
+
+
                     <div class="agreement confidentiality">
 
                         <input type="checkbox" id="confidentiality_agreed">
@@ -2286,15 +2392,12 @@
                         <label for="confidentiality_agreed">
 
                             <strong>
-                                Data Confidentiality:
+                                Consent under RA 10173:
                             </strong>
 
-                            I understand that the information I provide will be collected
-                            and used for event registration, participant management,
-                            communication, payment processing, event administration,
-                            and related CYF purposes. I understand that access to my
-                            information should be limited to authorized personnel and
-                            service providers necessary to operate the registration system.
+                            I have read the Data Privacy Notice and freely consent to the
+                            collection and processing of my personal information for the
+                            purposes stated, in accordance with the Data Privacy Act of 2012.
 
                         </label>
 
@@ -2847,7 +2950,7 @@
                     <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
                     <div>
                         <strong>Caraga Youth Fellowship</strong>
-                        <span>Transform &middot; Equip &middot; Engage</span>
+                        <span>Transform &middot; Equip &middot; Entrust</span>
                     </div>
                 </div>
                 <p>Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry
@@ -2865,6 +2968,7 @@
                 <h3>Fellowship</h3>
                 <p>
                     <a href="home.html#about">About CYF</a><br>
+                    <a href="home.html#officers">Officers</a><br>
                     <a href="home.html#contact">Contact Us</a><br>
                     <a href="login.html">Staff Login</a>
                 </p>
@@ -3500,7 +3604,8 @@
                 const element = document.getElementById(id);
                 if (!element || !String(element.value || "").trim()) {
                     if (showMessage) {
-                        if (element) element.focus();
+                        const target = id === "address" ? document.getElementById("barangay") : element;
+                        if (target) target.focus();
                         showAlert("Please complete all required fields before continuing.");
                     }
                     return false;
@@ -3610,6 +3715,56 @@
         /* ======================================================
            PARTICIPANT CONTINUE BUTTON
         ====================================================== */
+        /* ======================================================
+           ADDRESS PICKER (Caraga Region)
+           Province + city are chosen from the list; the typed
+           barangay/street is combined into the hidden #address.
+        ====================================================== */
+
+        const CARAGA = {
+            "Agusan del Norte": ["Butuan City", "Cabadbaran City", "Buenavista", "Carmen", "Jabonga", "Kitcharao", "Las Nieves", "Magallanes", "Nasipit", "Remedios T. Romualdez", "Santiago", "Tubay"],
+            "Agusan del Sur": ["Bayugan City", "Bunawan", "Esperanza", "La Paz", "Loreto", "Prosperidad", "Rosario", "San Francisco", "San Luis", "Santa Josefa", "Sibagat", "Talacogon", "Trento", "Veruela"],
+            "Surigao del Norte": ["Surigao City", "Alegria", "Bacuag", "Burgos", "Claver", "Dapa", "Del Carmen", "General Luna", "Gigaquit", "Mainit", "Malimono", "Pilar", "Placer", "San Benito", "San Francisco", "San Isidro", "Santa Monica", "Sison", "Socorro", "Tagana-an", "Tubod"],
+            "Surigao del Sur": ["Tandag City", "Bislig City", "Barobo", "Bayabas", "Cagwait", "Cantilan", "Carmen", "Carrascal", "Cortes", "Hinatuan", "Lanuza", "Lianga", "Lingig", "Madrid", "Marihatag", "San Agustin", "San Miguel", "Tagbina", "Tago"],
+            "Dinagat Islands": ["Basilisa", "Cagdianao", "Dinagat", "Libjo", "Loreto", "San Jose", "Tubajon"]
+        };
+
+        function fillCities() {
+            const province = document.getElementById("province");
+            const city = document.getElementById("city");
+            const list = CARAGA[province.value] || [];
+            city.innerHTML =
+                '<option value="">' + (list.length ? "Select city / municipality" : "Select province first") + "</option>" +
+                list.map(c => "<option>" + c + "</option>").join("");
+            city.disabled = !list.length;
+        }
+
+        function updateAddress() {
+            const b = document.getElementById("barangay").value.trim();
+            const c = document.getElementById("city").value;
+            const p = document.getElementById("province").value;
+            document.getElementById("address").value = b && c && p ? `${b}, ${c}, ${p}, Caraga` : "";
+            updateParticipantContinueButton();
+        }
+
+        function initializeAddressPicker() {
+            const province = document.getElementById("province");
+            if (!province) return;
+            province.innerHTML = '<option value="">Select province</option>' +
+                Object.keys(CARAGA).map(p => "<option>" + p + "</option>").join("");
+            province.addEventListener("change", () => { fillCities(); updateAddress(); });
+            document.getElementById("city").addEventListener("change", updateAddress);
+            document.getElementById("barangay").addEventListener("input", updateAddress);
+        }
+
+        function resetAddressPicker() {
+            ["province", "barangay", "address"].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+            fillCities();
+        }
+
         function updateParticipantContinueButton() {
             const button = document.querySelector('#participant-step-1 .btn-red');
             if (!button) return;
@@ -3958,7 +4113,7 @@
             }
 
             if (!confidentiality?.checked) {
-                showAlert("You must accept the Data Confidentiality clause.");
+                showAlert("You must give your consent under the Data Privacy Act (RA 10173).");
                 return;
             }
 
@@ -4091,6 +4246,7 @@
                 const el = document.getElementById(id);
                 if (el) el.value = "";
             });
+            resetAddressPicker();
 
             if (clearEvent) {
                 document.getElementById("event_id").value = "";
@@ -4845,6 +5001,7 @@
                 loadEvents();
                 initializeParticipantValidation();
                 initializeChurchSelectors();
+                initializeAddressPicker();
                 updateChurchSector();
                 updateParticipantContinueButton();
                 updateMultipleRegistrationUI();

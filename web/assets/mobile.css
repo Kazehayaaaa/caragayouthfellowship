@@ -201,6 +201,21 @@ section[id]{scroll-margin-top:84px}
   .copyright{margin-top:30px;font-size:12.5px}
 }
 
+/* Home org chart on phones: two officers per row, leaders centred */
+@media (max-width:600px){
+  .oc-level{gap:12px}
+  .oc-node{flex:0 1 calc(50% - 6px) !important;max-width:none !important}
+  .oc-node:only-child{flex-basis:62% !important}
+  .oc-card{padding:14px 8px;border-radius:18px}
+  .oc-photo{width:60px;height:60px;margin-bottom:10px}
+  .oc-photo span{font-size:19px}
+  .oc-role{font-size:10.5px;letter-spacing:.06em}
+  .oc-name{font-size:13.5px}
+  .oc-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .oc-tabs::-webkit-scrollbar{display:none}
+  .oc-tab{flex:1 0 auto !important}
+  .purpose-card,.area-card{padding:22px}
+}
 @media (prefers-reduced-motion:reduce){
   .m-reveal{opacity:1;transform:none;transition:none}
   .m-tabbar{transition:none}

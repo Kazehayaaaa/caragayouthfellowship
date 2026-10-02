@@ -1,727 +1,1001 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- CYF:HEAD -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=4" />
+    <link rel="apple-touch-icon" href="/favicon.png?v=4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/assets/site.js?v=6" defer></script>
+    <script src="/assets/cart-badge.js?v=1" defer></script>
+    <!-- /CYF:HEAD -->
+    <title>Terms of Service | CYF Registration System</title>
+    <meta
+      name="description"
+      content="Terms of Service for the CYF Registration System"
+    />
+    <style>
+      :root {
+        --tos-red: var(--crimson, var(--red, #b5121b));
+        --tos-gold: var(--gold, #d4a017);
+      }
 
-<head>
+      /* ===== Reading progress ===== */
+      .tos-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        z-index: 99999;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .tos-progress span {
+        display: block;
+        height: 100%;
+        transform: scaleX(0);
+        transform-origin: left;
+        background: linear-gradient(90deg, var(--tos-red), var(--tos-gold));
+        border-radius: 0 3px 3px 0;
+      }
 
-<meta charset="UTF-8">
+      /* ===== Hero ===== */
+      .tos-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 0 64px;
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 85% 20%,
+            rgba(212, 160, 23, 0.35),
+            transparent 45%
+          ),
+          linear-gradient(135deg, #7a0a10 0%, var(--tos-red) 55%, #d24a2a 100%);
+      }
+      .tos-hero::after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        bottom: -120px;
+        width: 340px;
+        height: 340px;
+        border-radius: 50%;
+        border: 60px solid rgba(255, 255, 255, 0.07);
+      }
+      .tos-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+      .tos-eyebrow {
+        display: inline-block;
+        margin-bottom: 14px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .tos-hero h1 {
+        margin: 0 0 12px;
+        color: #fff;
+        font-size: clamp(34px, 5.5vw, 56px);
+        line-height: 1.08;
+      }
+      .tos-hero p {
+        margin: 0;
+        max-width: 560px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 17px;
+      }
+      .tos-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 22px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.18);
+        font-size: 13px;
+      }
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-<!-- CYF:HEAD -->
-<link rel="icon" type="image/png" href="/favicon.png?v=4">
-<link rel="apple-touch-icon" href="/favicon.png?v=4">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/styles.css">
-<script src="/assets/site.js?v=5" defer></script>
-<!-- /CYF:HEAD -->
-<title>
-    Terms of Service | CYF Registration System
-</title>
+      /* ===== Layout ===== */
+      .tos-wrap {
+        padding: 56px 0 80px;
+        background: var(--cream, #fffaf5);
+      }
+      .tos-layout {
+        display: grid;
+        grid-template-columns: 270px minmax(0, 1fr);
+        gap: 48px;
+        align-items: start;
+      }
 
-<meta
-    name="description"
-    content="Terms of Service for the CYF Registration System"
->
+      /* ===== Table of contents ===== */
+      .toc {
+        position: sticky;
+        top: 100px;
+        padding: 22px 20px;
+        background: #fff;
+        border: 1px solid var(--line, #eadede);
+        border-radius: 18px;
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05);
+        max-height: calc(100vh - 130px);
+        overflow-y: auto;
+      }
+      .toc h2 {
+        margin: 0 0 12px;
+        font-family: inherit;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--tos-red);
+      }
+      .toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 2px;
+      }
+      .toc a {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        padding: 8px 10px;
+        border-radius: 10px;
+        color: #4a4040;
+        font-size: 14px;
+        line-height: 1.35;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .toc a b {
+        min-width: 20px;
+        color: var(--tos-red);
+        font-size: 12px;
+      }
+      .toc a:hover {
+        background: #fff4f4;
+      }
+      .toc a.on {
+        background: #fff1f1;
+        color: var(--tos-red);
+        font-weight: 700;
+        border-left-color: var(--tos-gold);
+      }
 
-<link rel="stylesheet" href="/assets/mobile.css?v=7">
-</head>
+      /* ===== Content ===== */
+      .tos-intro {
+        margin-bottom: 28px;
+        padding: 26px 28px;
+        background: #fff;
+        border: 1px solid var(--line, #eadede);
+        border-left: 5px solid var(--tos-gold);
+        border-radius: 0 18px 18px 0;
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05);
+      }
+      .tos-intro h2 {
+        margin: 0 0 8px;
+        font-size: clamp(22px, 3vw, 28px);
+      }
+      .tos-intro p {
+        margin: 0 0 14px;
+        color: #4a4040;
+      }
+      .tos-glance {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .tos-glance li {
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #fff6f6;
+        border: 1px solid #f3dede;
+        font-size: 13px;
+        line-height: 1.45;
+        color: #4a4040;
+      }
+      .tos-glance strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--tos-red);
+      }
 
+      .tos-list {
+        display: grid;
+        gap: 16px;
+      }
+      .tos-section {
+        position: relative;
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: 18px;
+        padding: 26px 28px;
+        background: #fff;
+        border: 1px solid var(--line, #eadede);
+        border-radius: 18px;
+        scroll-margin-top: 100px;
+        transition:
+          box-shadow 0.25s,
+          transform 0.25s,
+          border-color 0.25s;
+      }
+      .tos-section:hover {
+        transform: translateY(-2px);
+        border-color: #efd28a;
+        box-shadow: 0 14px 34px rgba(88, 10, 10, 0.09);
+      }
+      .tos-num {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--tos-red), #8a0c12);
+        color: #fff;
+        font-family: var(--font-display, inherit);
+        font-size: 19px;
+        font-weight: 700;
+        box-shadow: 0 6px 14px rgba(157, 11, 11, 0.25);
+      }
+      .tos-section h3 {
+        margin: 2px 0 10px;
+        font-size: 20px;
+        line-height: 1.25;
+      }
+      .tos-section p {
+        margin: 0 0 10px;
+        color: #4a4040;
+        line-height: 1.75;
+      }
+      .tos-section p:last-child {
+        margin-bottom: 0;
+      }
+      .tos-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--tos-red);
+        font-weight: 800;
+        text-decoration: none;
+        border-bottom: 2px solid var(--tos-gold);
+      }
+      .tos-link:hover {
+        color: #7a0a10;
+      }
 
-<body>
+      .tos-updated {
+        margin-top: 26px;
+        padding: 18px 22px;
+        background: #fff;
+        border: 1px dashed #e3caca;
+        border-radius: 14px;
+        color: var(--muted, #6b5f5f);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .tos-updated strong {
+        color: var(--tos-red);
+      }
 
+      .to-top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 50;
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--tos-red);
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(157, 11, 11, 0.35);
+        opacity: 0;
+        transform: translateY(12px);
+        pointer-events: none;
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      .to-top.show {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
 
-<!-- ======================================================
-     NAVIGATION
-====================================================== -->
+      /* ===== Reveal ===== */
+      .js .tos-section,
+      .js .tos-intro {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+          transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+          box-shadow 0.25s,
+          border-color 0.25s;
+      }
+      .js .tos-section.in,
+      .js .tos-intro.in {
+        opacity: 1;
+        transform: none;
+      }
 
-<header class="navbar">
-  <div class="nav-inner">
-    <a class="brand" href="home.html" aria-label="Caraga Youth Fellowship home">
-      <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
-      <span class="brand-copy">
-        <span class="brand-text">Caraga Youth Fellowship</span>
-        <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
-      </span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="home.html">Home</a>
-      <a href="home.html#about">About</a>
-      <a href="home.html#contact">Contact</a>
-      <a href="store.html">Store</a>
-      <a href="sponsor.html">Sponsor</a>
-      <a href="register.html">Register</a>
-    </nav>
-    <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg>
-    </a>
-    <button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">&#9776;</button>
-  </div>
-</header>
+      /* ===== Responsive ===== */
+      @media (max-width: 1000px) {
+        .tos-layout {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        .toc {
+          position: static;
+          max-height: none;
+          padding: 16px;
+        }
+        .toc ol {
+          display: flex;
+          gap: 8px;
+          overflow-x: auto;
+          padding-bottom: 6px;
+          scroll-snap-type: x proximity;
+        }
+        .toc a {
+          white-space: nowrap;
+          border: 1px solid #eadede;
+          border-radius: 999px;
+          padding: 8px 14px;
+          scroll-snap-align: start;
+        }
+        .toc a.on {
+          border-color: var(--tos-gold);
+        }
+      }
+      @media (max-width: 640px) {
+        .tos-hero {
+          padding: 48px 0 44px;
+        }
+        .tos-wrap {
+          padding: 32px 0 60px;
+        }
+        .tos-glance {
+          grid-template-columns: 1fr;
+        }
+        .tos-section {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding: 20px 18px;
+        }
+        .tos-num {
+          width: 40px;
+          height: 40px;
+          font-size: 17px;
+        }
+        .tos-intro {
+          padding: 20px 18px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .js .tos-section,
+        .js .tos-intro {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .tos-section,
+        .to-top {
+          transition: none;
+        }
+      }
+      @media print {
+        .navbar,
+        .toc,
+        .to-top,
+        .tos-progress,
+        .footer {
+          display: none;
+        }
+        .tos-layout {
+          display: block;
+        }
+        .tos-section {
+          break-inside: avoid;
+          box-shadow: none;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/assets/mobile.css?v=8" />
+  </head>
 
+  <body>
+    <div class="tos-progress" aria-hidden="true"><span id="tosBar"></span></div>
 
+    <!-- NAVIGATION -->
+    <header class="navbar">
+      <div class="nav-inner">
+        <a
+          class="brand"
+          href="home.html"
+          aria-label="Caraga Youth Fellowship home"
+        >
+          <img
+            class="brand-logo"
+            src="/assets/cyf-logo.png"
+            alt="CYF logo"
+            width="56"
+            height="56"
+          />
+          <span class="brand-copy">
+            <span class="brand-text">Caraga Youth Fellowship</span>
+            <span class="brand-tag"
+              >Transform &middot; Equip &middot; Entrust</span
+            >
+          </span>
+        </a>
+        <nav class="nav-links" id="navLinks">
+          <a href="home.html">Home</a>
+          <a href="home.html#about">About</a>
+          <a href="home.html#contact">Contact</a>
+          <a href="store.html">Store</a>
+          <a href="sponsor.html">Sponsor</a>
+          <a href="register.html">Register</a>
+        </nav>
+        <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="9" cy="20" r="1.4" />
+            <circle cx="18" cy="20" r="1.4" />
+            <path
+              d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"
+            />
+          </svg>
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          &#9776;
+        </button>
+      </div>
+    </header>
 
-<!-- ======================================================
-     PAGE HERO
-====================================================== -->
+    <main>
+      <!-- HERO -->
+      <section class="tos-hero">
+        <div class="container">
+          <span class="tos-eyebrow">Legal</span>
+          <h1>Terms of Service</h1>
+          <p>Terms and conditions for using the CYF Registration System.</p>
+          <div class="tos-meta">Last updated: September 1, 2026</div>
+        </div>
+      </section>
 
-<section class="page-hero">
+      <!-- CONTENT -->
+      <section class="tos-wrap">
+        <div class="container tos-layout">
+          <!-- Table of contents -->
+          <aside class="toc" aria-label="Table of contents">
+            <h2>On this page</h2>
+            <ol id="tocList">
+              <li>
+                <a href="#s1"><b>1</b> Acceptance of Terms</a>
+              </li>
+              <li>
+                <a href="#s2"><b>2</b> Use of the Website</a>
+              </li>
+              <li>
+                <a href="#s3"><b>3</b> Accurate Information</a>
+              </li>
+              <li>
+                <a href="#s4"><b>4</b> Event Registration</a>
+              </li>
+              <li>
+                <a href="#s5"><b>5</b> Payments</a>
+              </li>
+              <li>
+                <a href="#s6"><b>6</b> Sponsorship</a>
+              </li>
+              <li>
+                <a href="#s7"><b>7</b> Email and Communications</a>
+              </li>
+              <li>
+                <a href="#s8"><b>8</b> User Accounts</a>
+              </li>
+              <li>
+                <a href="#s9"><b>9</b> Prohibited Activities</a>
+              </li>
+              <li>
+                <a href="#s10"><b>10</b> Third-Party Services</a>
+              </li>
+              <li>
+                <a href="#s11"><b>11</b> Service Availability</a>
+              </li>
+              <li>
+                <a href="#s12"><b>12</b> Website Content</a>
+              </li>
+              <li>
+                <a href="#s13"><b>13</b> Privacy</a>
+              </li>
+              <li>
+                <a href="#s14"><b>14</b> Limitation of Liability</a>
+              </li>
+              <li>
+                <a href="#s15"><b>15</b> Changes to These Terms</a>
+              </li>
+              <li>
+                <a href="#s16"><b>16</b> Contact</a>
+              </li>
+            </ol>
+          </aside>
 
-    <div class="container">
-
-        <h1>
-            Terms of Service
-        </h1>
-
-        <p>
-            Terms and conditions for using the
-            CYF Registration System.
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     TERMS OF SERVICE
-====================================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-
-        <div class="section-head">
-
-            <div class="kicker">
-                Terms & Conditions
+          <div>
+            <div class="tos-intro">
+              <h2>Terms &amp; Conditions</h2>
+              <p>
+                By accessing or using the CYF Registration System, you agree to
+                follow these Terms of Service.
+              </p>
+              <ul class="tos-glance">
+                <li>
+                  <strong>Be accurate</strong>Give complete and current
+                  information when you register.
+                </li>
+                <li>
+                  <strong>Use it lawfully</strong>Don&rsquo;t misuse or
+                  interfere with the system.
+                </li>
+                <li>
+                  <strong>Confirmation applies</strong>Registration is confirmed
+                  by the CYF team.
+                </li>
+              </ul>
             </div>
 
-            <h2>
-                Terms of Service
-            </h2>
-
-            <p>
-                By accessing or using the CYF Registration
-                System, you agree to follow these Terms of
-                Service.
-            </p>
-
-        </div>
-
-
-        <div class="cards">
-
-
-            <!-- ==================================================
-                 ACCEPTANCE
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    ✓
+            <div class="tos-list">
+              <article class="tos-section" id="s1">
+                <div class="tos-num">1</div>
+                <div>
+                  <h3>Acceptance of Terms</h3>
+                  <p>
+                    By accessing or using the CYF Registration System, you
+                    acknowledge that you have read, understood, and agree to
+                    these Terms of Service.
+                  </p>
+                  <p>
+                    If you do not agree with these terms, please do not use the
+                    website or its services.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    1. Acceptance of Terms
-                </h3>
-
-                <p>
-                    By accessing or using the CYF Registration
-                    System, you acknowledge that you have read,
-                    understood, and agree to these Terms of
-                    Service.
-                </p>
-
-                <p>
-                    If you do not agree with these terms, please
-                    do not use the website or its services.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 USE OF SERVICE
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🌐
-                </div>
-
-                <h3>
-                    2. Use of the Website
-                </h3>
-
-                <p>
-                    The CYF Registration System provides online
-                    services for event registration, participant
-                    information, sponsorship requests, payments,
-                    event-related communication, and related
+              <article class="tos-section" id="s2">
+                <div class="tos-num">2</div>
+                <div>
+                  <h3>Use of the Website</h3>
+                  <p>
+                    The CYF Registration System provides online services for
+                    event registration, participant information, sponsorship
+                    requests, payments, event-related communication, and related
                     activities.
-                </p>
-
-                <p>
-                    You agree to use the website only for lawful
-                    purposes and in a manner that does not
-                    interfere with the operation of the service.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 ACCURATE INFORMATION
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    📝
+                  </p>
+                  <p>
+                    You agree to use the website only for lawful purposes and in
+                    a manner that does not interfere with the operation of the
+                    service.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    3. Accurate Information
-                </h3>
-
-                <p>
-                    When submitting registration, sponsorship,
-                    contact, or other information, you agree to
-                    provide information that is accurate,
-                    complete, and current to the best of your
+              <article class="tos-section" id="s3">
+                <div class="tos-num">3</div>
+                <div>
+                  <h3>Accurate Information</h3>
+                  <p>
+                    When submitting registration, sponsorship, contact, or other
+                    information, you agree to provide information that is
+                    accurate, complete, and current to the best of your
                     knowledge.
-                </p>
-
-                <p>
-                    Providing false, misleading, or incomplete
-                    information may affect registration,
-                    sponsorship, payment, or participation.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 EVENT REGISTRATION
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    📅
+                  </p>
+                  <p>
+                    Providing false, misleading, or incomplete information may
+                    affect registration, sponsorship, payment, or participation.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    4. Event Registration
-                </h3>
-
-                <p>
-                    Registration through the website does not
-                    automatically guarantee participation in
-                    every event.
-                </p>
-
-                <p>
-                    Participation may depend on available
-                    capacity, registration requirements,
-                    payment status, event policies, and
+              <article class="tos-section" id="s4">
+                <div class="tos-num">4</div>
+                <div>
+                  <h3>Event Registration</h3>
+                  <p>
+                    Registration through the website does not automatically
+                    guarantee participation in every event.
+                  </p>
+                  <p>
+                    Participation may depend on available capacity, registration
+                    requirements, payment status, event policies, and
                     confirmation by the CYF team.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 PAYMENTS
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    💳
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    5. Payments
-                </h3>
-
-                <p>
-                    Some CYF events, merchandise, or services
-                    may require payment.
-                </p>
-
-                <p>
-                    Payments may be processed through
-                    third-party payment providers. Additional
-                    terms or conditions from the applicable
-                    payment provider may also apply.
-                </p>
-
-                <p>
-                    Payment status displayed by the system may
-                    depend on information received from the
-                    applicable payment service.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 SPONSORSHIP
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🤝
+              <article class="tos-section" id="s5">
+                <div class="tos-num">5</div>
+                <div>
+                  <h3>Payments</h3>
+                  <p>
+                    Some CYF events, merchandise, or services may require
+                    payment.
+                  </p>
+                  <p>
+                    Payments may be processed through third-party payment
+                    providers. Additional terms or conditions from the
+                    applicable payment provider may also apply.
+                  </p>
+                  <p>
+                    Payment status displayed by the system may depend on
+                    information received from the applicable payment service.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    6. Sponsorship
-                </h3>
-
-                <p>
-                    Sponsorship requests submitted through the
-                    website may require review and confirmation
-                    by the CYF team.
-                </p>
-
-                <p>
-                    Submitting a sponsorship request does not
-                    automatically guarantee approval or
-                    sponsorship.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 EMAIL
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    ✉️
+              <article class="tos-section" id="s6">
+                <div class="tos-num">6</div>
+                <div>
+                  <h3>Sponsorship</h3>
+                  <p>
+                    Sponsorship requests submitted through the website may
+                    require review and confirmation by the CYF team.
+                  </p>
+                  <p>
+                    Submitting a sponsorship request does not automatically
+                    guarantee approval or sponsorship.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    7. Email and Communications
-                </h3>
-
-                <p>
-                    The system may send registration
-                    confirmations, payment-related messages,
-                    event updates, and other administrative
-                    communications.
-                </p>
-
-                <p>
-                    You agree that communications relating to
-                    your registration or requests may be sent
-                    to the contact information you provide.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 ACCOUNTS
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🔐
+              <article class="tos-section" id="s7">
+                <div class="tos-num">7</div>
+                <div>
+                  <h3>Email and Communications</h3>
+                  <p>
+                    The system may send registration confirmations,
+                    payment-related messages, event updates, and other
+                    administrative communications.
+                  </p>
+                  <p>
+                    You agree that communications relating to your registration
+                    or requests may be sent to the contact information you
+                    provide.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    8. User Accounts
-                </h3>
-
-                <p>
-                    Certain features may require an authorized
-                    account or login.
-                </p>
-
-                <p>
-                    Users are responsible for keeping their
-                    account credentials confidential and for
-                    activities performed through their
+              <article class="tos-section" id="s8">
+                <div class="tos-num">8</div>
+                <div>
+                  <h3>User Accounts</h3>
+                  <p>
+                    Certain features may require an authorized account or login.
+                  </p>
+                  <p>
+                    Users are responsible for keeping their account credentials
+                    confidential and for activities performed through their
                     authorized account.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 PROHIBITED USE
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🚫
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    9. Prohibited Activities
-                </h3>
-
-                <p>
-                    You may not use the website to conduct
-                    unlawful activities, attempt unauthorized
-                    access, interfere with the system, submit
-                    malicious content, impersonate another
-                    person, or intentionally provide fraudulent
-                    information.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 THIRD PARTY SERVICES
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🔗
+              <article class="tos-section" id="s9">
+                <div class="tos-num">9</div>
+                <div>
+                  <h3>Prohibited Activities</h3>
+                  <p>
+                    You may not use the website to conduct unlawful activities,
+                    attempt unauthorized access, interfere with the system,
+                    submit malicious content, impersonate another person, or
+                    intentionally provide fraudulent information.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    10. Third-Party Services
-                </h3>
-
-                <p>
-                    The CYF Registration System may use
-                    third-party services for hosting, payments,
-                    email delivery, authentication, or other
+              <article class="tos-section" id="s10">
+                <div class="tos-num">10</div>
+                <div>
+                  <h3>Third-Party Services</h3>
+                  <p>
+                    The CYF Registration System may use third-party services for
+                    hosting, payments, email delivery, authentication, or other
                     technical functions.
-                </p>
-
-                <p>
-                    Third-party services may have their own
-                    terms, policies, and requirements.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 AVAILABILITY
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    ⚡
-                </div>
-
-                <h3>
-                    11. Service Availability
-                </h3>
-
-                <p>
-                    We aim to keep the registration system
-                    available and functional, but we cannot
-                    guarantee uninterrupted or error-free
-                    operation at all times.
-                </p>
-
-                <p>
-                    Maintenance, technical problems, network
-                    issues, or third-party service outages may
-                    temporarily affect availability.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 CONTENT
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    ©
-                </div>
-
-                <h3>
-                    12. Website Content
-                </h3>
-
-                <p>
-                    Website content, including text, graphics,
-                    designs, and other materials, may be
-                    protected by applicable intellectual property
-                    rights.
-                </p>
-
-                <p>
-                    You may not reproduce, modify, distribute,
-                    or misuse website content without
-                    appropriate authorization.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 PRIVACY
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🛡️
-                </div>
-
-                <h3>
-                    13. Privacy
-                </h3>
-
-                <p>
-                    Information submitted through the system is
-                    handled according to the CYF Registration
-                    System Privacy Policy.
-                </p>
-
-                <p>
-                    <a
-                        href="privacy.html"
-                        style="
-                            color:var(--red);
-                            font-weight:800;
-                        "
-                    >
-                        View Privacy Policy →
-                    </a>
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 LIMITATION
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    ℹ️
-                </div>
-
-                <h3>
-                    14. Limitation of Liability
-                </h3>
-
-                <p>
-                    To the extent permitted by applicable law,
-                    the CYF Registration System and its
-                    administrators will not be responsible for
-                    losses resulting from circumstances beyond
-                    reasonable control, including technical
-                    failures, network interruptions, or
-                    third-party service outages.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 CHANGES
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🔄
-                </div>
-
-                <h3>
-                    15. Changes to These Terms
-                </h3>
-
-                <p>
-                    These Terms of Service may be updated from
-                    time to time to reflect changes to the
-                    website, services, or applicable
+                  </p>
+                  <p>
+                    Third-party services may have their own terms, policies, and
                     requirements.
-                </p>
-
-                <p>
-                    Updated terms will be published on this
-                    page.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 CONTACT
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    📩
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    16. Contact
-                </h3>
+              <article class="tos-section" id="s11">
+                <div class="tos-num">11</div>
+                <div>
+                  <h3>Service Availability</h3>
+                  <p>
+                    We aim to keep the registration system available and
+                    functional, but we cannot guarantee uninterrupted or
+                    error-free operation at all times.
+                  </p>
+                  <p>
+                    Maintenance, technical problems, network issues, or
+                    third-party service outages may temporarily affect
+                    availability.
+                  </p>
+                </div>
+              </article>
 
-                <p>
-                    If you have questions about these Terms of
-                    Service, please contact the CYF team through
-                    the Contact page.
-                </p>
+              <article class="tos-section" id="s12">
+                <div class="tos-num">12</div>
+                <div>
+                  <h3>Website Content</h3>
+                  <p>
+                    Website content, including text, graphics, designs, and
+                    other materials, may be protected by applicable intellectual
+                    property rights.
+                  </p>
+                  <p>
+                    You may not reproduce, modify, distribute, or misuse website
+                    content without appropriate authorization.
+                  </p>
+                </div>
+              </article>
 
-                <p>
-                    <a
-                        href="home.html#contact"
-                        style="
-                            color:var(--red);
-                            font-weight:800;
-                        "
+              <article class="tos-section" id="s13">
+                <div class="tos-num">13</div>
+                <div>
+                  <h3>Privacy</h3>
+                  <p>
+                    Information submitted through the system is handled
+                    according to the CYF Registration System Privacy Policy.
+                  </p>
+                  <p>
+                    <a class="tos-link" href="privacy.html"
+                      >View Privacy Policy →</a
                     >
-                        Contact CYF →
-                    </a>
-                </p>
+                  </p>
+                </div>
+              </article>
 
-            </article>
+              <article class="tos-section" id="s14">
+                <div class="tos-num">14</div>
+                <div>
+                  <h3>Limitation of Liability</h3>
+                  <p>
+                    To the extent permitted by applicable law, the CYF
+                    Registration System and its administrators will not be
+                    responsible for losses resulting from circumstances beyond
+                    reasonable control, including technical failures, network
+                    interruptions, or third-party service outages.
+                  </p>
+                </div>
+              </article>
 
+              <article class="tos-section" id="s15">
+                <div class="tos-num">15</div>
+                <div>
+                  <h3>Changes to These Terms</h3>
+                  <p>
+                    These Terms of Service may be updated from time to time to
+                    reflect changes to the website, services, or applicable
+                    requirements.
+                  </p>
+                  <p>Updated terms will be published on this page.</p>
+                </div>
+              </article>
 
+              <article class="tos-section" id="s16">
+                <div class="tos-num">16</div>
+                <div>
+                  <h3>Contact</h3>
+                  <p>
+                    If you have questions about these Terms of Service, please
+                    contact the CYF team through the Contact page.
+                  </p>
+                  <p>
+                    <a class="tos-link" href="home.html#contact"
+                      >Contact CYF →</a
+                    >
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <div class="tos-updated">
+              <strong>Last Updated:</strong> September 1, 2026
+            </div>
+          </div>
         </div>
+      </section>
+    </main>
 
+    <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+      ↑
+    </button>
 
-        <!-- ==================================================
-             LAST UPDATED
-        ================================================== -->
-
-        <div
-            style="
-                margin-top:35px;
-                padding:20px;
-                background:#fff8f8;
-                border:1px solid var(--border);
-                border-radius:16px;
-                color:var(--muted);
-                line-height:1.7;
-                font-size:13px;
-            "
-        >
-
-            <strong
-                style="color:var(--red-dark);"
-            >
-                Last Updated:
-            </strong>
-
-            September 1, 2026
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     FOOTER
-====================================================== -->
-
-<footer class="footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="footer-brand">
-        <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-grid">
         <div>
-          <strong>Caraga Youth Fellowship</strong>
-          <span>Transform &middot; Equip &middot; Engage</span>
+          <div class="footer-brand">
+            <img src="/assets/cyf-logo.png" alt="" width="52" height="52" />
+            <div>
+              <strong>Caraga Youth Fellowship</strong>
+              <span>Transform &middot; Equip &middot; Entrust</span>
+            </div>
+          </div>
+          <p>
+            Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.
+          </p>
+        </div>
+        <div>
+          <h3>Get Involved</h3>
+          <p>
+            <a href="register.html">Register</a><br />
+            <a href="sponsor.html">Become a Sponsor</a><br />
+            <a href="store.html">CYF Store</a>
+          </p>
+        </div>
+        <div>
+          <h3>Fellowship</h3>
+          <p>
+            <a href="home.html#about">About CYF</a><br />
+            <a href="home.html#officers">Officers</a><br />
+            <a href="home.html#contact">Contact Us</a><br />
+            <a href="login.html">Staff Login</a>
+          </p>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <p>
+            <a href="/privacy">Privacy Policy</a><br />
+            <a href="/terms">Terms of Use</a>
+          </p>
         </div>
       </div>
-      <p>Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.</p>
-    </div>
-    <div>
-      <h3>Get Involved</h3>
-      <p>
-        <a href="register.html">Register</a><br>
-        <a href="sponsor.html">Become a Sponsor</a><br>
-        <a href="store.html">CYF Store</a>
-      </p>
-    </div>
-    <div>
-      <h3>Fellowship</h3>
-      <p>
-        <a href="home.html#about">About CYF</a><br>
-        <a href="home.html#contact">Contact Us</a><br>
-        <a href="login.html">Staff Login</a>
-      </p>
-    </div>
-    <div>
-      <h3>Legal</h3>
-      <p>
-        <a href="/privacy">Privacy Policy</a><br>
-        <a href="/terms">Terms of Use</a>
-      </p>
-    </div>
-  </div>
-  <div class="container copyright">&copy; 2026 Caraga Youth Fellowship. All rights reserved.</div>
-</footer>
+      <div class="container copyright">
+        &copy; 2026 Caraga Youth Fellowship. All rights reserved.
+      </div>
+    </footer>
 
+    <script>
+      document.documentElement.classList.add("js");
 
+      function toggleMenu() {
+        const menu = document.querySelector(".nav-links");
+        if (menu) menu.classList.toggle("open");
+      }
 
-<script>
+      (function () {
+        const reduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        const bar = document.getElementById("tosBar");
+        const toTop = document.getElementById("toTop");
+        let ticking = false;
 
-function toggleMenu() {
-
-    const menu =
-        document.querySelector(
-            ".nav-links"
+        /* Reading progress + back-to-top */
+        function update() {
+          const h = document.documentElement;
+          const max = h.scrollHeight - h.clientHeight;
+          const y = window.pageYOffset || h.scrollTop;
+          bar.style.transform =
+            "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+          toTop.classList.toggle("show", y > 600);
+          ticking = false;
+        }
+        window.addEventListener(
+          "scroll",
+          function () {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          },
+          { passive: true },
         );
+        window.addEventListener("resize", update);
+        update();
 
-    if (menu) {
+        toTop.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+        });
 
-        menu.classList.toggle(
-            "open"
-        );
+        /* Scroll reveal */
+        const items = document.querySelectorAll(".tos-section, .tos-intro");
+        if (reduce || !("IntersectionObserver" in window)) {
+          items.forEach(function (el) {
+            el.classList.add("in");
+          });
+        } else {
+          const io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add("in");
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -5% 0px" },
+          );
+          items.forEach(function (el) {
+            io.observe(el);
+          });
+        }
 
-    }
-
-}
-
-</script>
-
-
-</body>
-
+        /* Highlight the current section in the table of contents */
+        const links = Array.from(document.querySelectorAll("#tocList a"));
+        const map = {};
+        links.forEach(function (a) {
+          map[a.getAttribute("href").slice(1)] = a;
+        });
+        if ("IntersectionObserver" in window) {
+          const spy = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  links.forEach(function (a) {
+                    a.classList.remove("on");
+                  });
+                  const a = map[e.target.id];
+                  if (a) {
+                    a.classList.add("on");
+                    if (window.innerWidth <= 1000)
+                      a.scrollIntoView({
+                        inline: "center",
+                        block: "nearest",
+                        behavior: reduce ? "auto" : "smooth",
+                      });
+                  }
+                }
+              });
+            },
+            { rootMargin: "-30% 0px -60% 0px" },
+          );
+          document.querySelectorAll(".tos-section").forEach(function (s) {
+            spy.observe(s);
+          });
+        }
+      })();
+    </script>
+  </body>
 </html>

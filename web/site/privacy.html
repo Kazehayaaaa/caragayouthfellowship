@@ -1,596 +1,903 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- CYF:HEAD -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=4" />
+    <link rel="apple-touch-icon" href="/favicon.png?v=4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/assets/site.js?v=6" defer></script>
+    <script src="/assets/cart-badge.js?v=1" defer></script>
+    <!-- /CYF:HEAD -->
+    <title>Privacy Policy | CYF Registration System</title>
+    <meta
+      name="description"
+      content="Privacy Policy for the CYF Registration System"
+    />
+    <style>
+      :root {
+        --tos-red: var(--crimson, var(--red, #b5121b));
+        --tos-gold: var(--gold, #d4a017);
+      }
 
-<head>
+      /* ===== Reading progress ===== */
+      .tos-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        z-index: 99999;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .tos-progress span {
+        display: block;
+        height: 100%;
+        transform: scaleX(0);
+        transform-origin: left;
+        background: linear-gradient(90deg, var(--tos-red), var(--tos-gold));
+        border-radius: 0 3px 3px 0;
+      }
 
-<meta charset="UTF-8">
+      /* ===== Hero ===== */
+      .tos-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 0 64px;
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 85% 20%,
+            rgba(212, 160, 23, 0.35),
+            transparent 45%
+          ),
+          linear-gradient(135deg, #7a0a10 0%, var(--tos-red) 55%, #d24a2a 100%);
+      }
+      .tos-hero::after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        bottom: -120px;
+        width: 340px;
+        height: 340px;
+        border-radius: 50%;
+        border: 60px solid rgba(255, 255, 255, 0.07);
+      }
+      .tos-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+      .tos-eyebrow {
+        display: inline-block;
+        margin-bottom: 14px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .tos-hero h1 {
+        margin: 0 0 12px;
+        color: #fff;
+        font-size: clamp(34px, 5.5vw, 56px);
+        line-height: 1.08;
+      }
+      .tos-hero p {
+        margin: 0;
+        max-width: 580px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 17px;
+      }
+      .tos-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 22px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.18);
+        font-size: 13px;
+      }
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-<!-- CYF:HEAD -->
-<link rel="icon" type="image/png" href="/favicon.png?v=4">
-<link rel="apple-touch-icon" href="/favicon.png?v=4">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/styles.css">
-<script src="/assets/site.js?v=5" defer></script>
-<!-- /CYF:HEAD -->
-<title>
-    Privacy Policy | CYF Registration System
-</title>
+      /* ===== Layout ===== */
+      .tos-wrap {
+        padding: 56px 0 80px;
+        background: var(--cream, #fffaf5);
+      }
+      .tos-layout {
+        display: grid;
+        grid-template-columns: 270px minmax(0, 1fr);
+        gap: 48px;
+        align-items: start;
+      }
 
-<meta
-    name="description"
-    content="Privacy Policy for the CYF Registration System"
->
+      /* ===== Table of contents ===== */
+      .toc {
+        position: sticky;
+        top: 100px;
+        padding: 22px 20px;
+        background: #fff;
+        border: 1px solid var(--line, #eadede);
+        border-radius: 18px;
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05);
+        max-height: calc(100vh - 130px);
+        overflow-y: auto;
+      }
+      .toc h2 {
+        margin: 0 0 12px;
+        font-family: inherit;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--tos-red);
+      }
+      .toc ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 2px;
+      }
+      .toc a {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        padding: 8px 10px;
+        border-radius: 10px;
+        color: #4a4040;
+        font-size: 14px;
+        line-height: 1.35;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .toc a b {
+        min-width: 20px;
+        color: var(--tos-red);
+        font-size: 12px;
+      }
+      .toc a:hover {
+        background: #fff4f4;
+      }
+      .toc a.on {
+        background: #fff1f1;
+        color: var(--tos-red);
+        font-weight: 700;
+        border-left-color: var(--tos-gold);
+      }
 
-<link rel="stylesheet" href="/assets/mobile.css?v=7">
-</head>
+      /* ===== Content ===== */
+      .tos-intro {
+        margin-bottom: 28px;
+        padding: 26px 28px;
+        background: #fff;
+        border: 1px solid var(--line, #eadede);
+        border-left: 5px solid var(--tos-gold);
+        border-radius: 0 18px 18px 0;
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05);
+      }
+      .tos-intro h2 {
+        margin: 0 0 8px;
+        font-size: clamp(22px, 3vw, 28px);
+      }
+      .tos-intro p {
+        margin: 0 0 14px;
+        color: #4a4040;
+      }
+      .tos-glance {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .tos-glance li {
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #fff6f6;
+        border: 1px solid #f3dede;
+        font-size: 13px;
+        line-height: 1.45;
+        color: #4a4040;
+      }
+      .tos-glance strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--tos-red);
+      }
 
+      .tos-list {
+        display: grid;
+        gap: 16px;
+      }
+      .tos-section {
+        position: relative;
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: 18px;
+        padding: 26px 28px;
+        background: #fff;
+        border: 1px solid var(--line, #eadede);
+        border-radius: 18px;
+        scroll-margin-top: 100px;
+        transition:
+          box-shadow 0.25s,
+          transform 0.25s,
+          border-color 0.25s;
+      }
+      .tos-section:hover {
+        transform: translateY(-2px);
+        border-color: #efd28a;
+        box-shadow: 0 14px 34px rgba(88, 10, 10, 0.09);
+      }
+      .tos-num {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--tos-red), #8a0c12);
+        color: #fff;
+        font-family: var(--font-display, inherit);
+        font-size: 19px;
+        font-weight: 700;
+        box-shadow: 0 6px 14px rgba(157, 11, 11, 0.25);
+      }
+      .tos-section h3 {
+        margin: 2px 0 10px;
+        font-size: 20px;
+        line-height: 1.25;
+      }
+      .tos-section p {
+        margin: 0 0 10px;
+        color: #4a4040;
+        line-height: 1.75;
+      }
+      .tos-section p:last-child {
+        margin-bottom: 0;
+      }
+      .tos-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--tos-red);
+        font-weight: 800;
+        text-decoration: none;
+        border-bottom: 2px solid var(--tos-gold);
+      }
+      .tos-link:hover {
+        color: #7a0a10;
+      }
 
-<body>
+      .tos-updated {
+        margin-top: 26px;
+        padding: 18px 22px;
+        background: #fff;
+        border: 1px dashed #e3caca;
+        border-radius: 14px;
+        color: var(--muted, #6b5f5f);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .tos-updated strong {
+        color: var(--tos-red);
+      }
 
+      .to-top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 50;
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--tos-red);
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(157, 11, 11, 0.35);
+        opacity: 0;
+        transform: translateY(12px);
+        pointer-events: none;
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      .to-top.show {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
 
-<!-- ======================================================
-     NAVIGATION
-====================================================== -->
+      /* ===== Reveal ===== */
+      .js .tos-section,
+      .js .tos-intro {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+          transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+          box-shadow 0.25s,
+          border-color 0.25s;
+      }
+      .js .tos-section.in,
+      .js .tos-intro.in {
+        opacity: 1;
+        transform: none;
+      }
 
-<header class="navbar">
-  <div class="nav-inner">
-    <a class="brand" href="home.html" aria-label="Caraga Youth Fellowship home">
-      <img class="brand-logo" src="/assets/cyf-logo.png" alt="CYF logo" width="56" height="56">
-      <span class="brand-copy">
-        <span class="brand-text">Caraga Youth Fellowship</span>
-        <span class="brand-tag">Transform &middot; Equip &middot; Engage</span>
-      </span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="home.html">Home</a>
-      <a href="home.html#about">About</a>
-      <a href="home.html#contact">Contact</a>
-      <a href="store.html">Store</a>
-      <a href="sponsor.html">Sponsor</a>
-      <a href="register.html">Register</a>
-    </nav>
-    <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"/></svg>
-    </a>
-    <button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">&#9776;</button>
-  </div>
-</header>
+      /* ===== Responsive ===== */
+      @media (max-width: 1000px) {
+        .tos-layout {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        .toc {
+          position: static;
+          max-height: none;
+          padding: 16px;
+        }
+        .toc ol {
+          display: flex;
+          gap: 8px;
+          overflow-x: auto;
+          padding-bottom: 6px;
+          scroll-snap-type: x proximity;
+        }
+        .toc a {
+          white-space: nowrap;
+          border: 1px solid #eadede;
+          border-radius: 999px;
+          padding: 8px 14px;
+          scroll-snap-align: start;
+        }
+        .toc a.on {
+          border-color: var(--tos-gold);
+        }
+      }
+      @media (max-width: 640px) {
+        .tos-hero {
+          padding: 48px 0 44px;
+        }
+        .tos-wrap {
+          padding: 32px 0 60px;
+        }
+        .tos-glance {
+          grid-template-columns: 1fr;
+        }
+        .tos-section {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding: 20px 18px;
+        }
+        .tos-num {
+          width: 40px;
+          height: 40px;
+          font-size: 17px;
+        }
+        .tos-intro {
+          padding: 20px 18px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .js .tos-section,
+        .js .tos-intro {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .tos-section,
+        .to-top {
+          transition: none;
+        }
+      }
+      @media print {
+        .navbar,
+        .toc,
+        .to-top,
+        .tos-progress,
+        .footer {
+          display: none;
+        }
+        .tos-layout {
+          display: block;
+        }
+        .tos-section {
+          break-inside: avoid;
+          box-shadow: none;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/assets/mobile.css?v=8" />
+  </head>
 
+  <body>
+    <div class="tos-progress" aria-hidden="true"><span id="tosBar"></span></div>
 
+    <!-- NAVIGATION -->
+    <header class="navbar">
+      <div class="nav-inner">
+        <a
+          class="brand"
+          href="home.html"
+          aria-label="Caraga Youth Fellowship home"
+        >
+          <img
+            class="brand-logo"
+            src="/assets/cyf-logo.png"
+            alt="CYF logo"
+            width="56"
+            height="56"
+          />
+          <span class="brand-copy">
+            <span class="brand-text">Caraga Youth Fellowship</span>
+            <span class="brand-tag"
+              >Transform &middot; Equip &middot; Entrust</span
+            >
+          </span>
+        </a>
+        <nav class="nav-links" id="navLinks">
+          <a href="home.html">Home</a>
+          <a href="home.html#about">About</a>
+          <a href="home.html#contact">Contact</a>
+          <a href="store.html">Store</a>
+          <a href="sponsor.html">Sponsor</a>
+          <a href="register.html">Register</a>
+        </nav>
+        <a class="nav-cart" href="store.html" aria-label="Visit the CYF store">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="9" cy="20" r="1.4" />
+            <circle cx="18" cy="20" r="1.4" />
+            <path
+              d="M2.5 3.5h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2L21 7.5H6.2"
+            />
+          </svg>
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          &#9776;
+        </button>
+      </div>
+    </header>
 
-<!-- ======================================================
-     PAGE HERO
-====================================================== -->
+    <main>
+      <!-- HERO -->
+      <section class="tos-hero">
+        <div class="container">
+          <span class="tos-eyebrow">Your Privacy</span>
+          <h1>Privacy Policy</h1>
+          <p>
+            How the CYF Registration System collects, uses, protects, and
+            manages information.
+          </p>
+          <div class="tos-meta">Last updated: September 1, 2026</div>
+        </div>
+      </section>
 
-<section class="page-hero">
+      <!-- CONTENT -->
+      <section class="tos-wrap">
+        <div class="container tos-layout">
+          <aside class="toc" aria-label="Table of contents">
+            <h2>On this page</h2>
+            <ol id="tocList">
+              <li><a href="#p1"><b>1</b> Information We Collect</a></li>
+              <li><a href="#p2"><b>2</b> How We Use Information</a></li>
+              <li><a href="#p3"><b>3</b> Email Communication</a></li>
+              <li><a href="#p4"><b>4</b> Payments</a></li>
+              <li><a href="#p5"><b>5</b> Information Sharing</a></li>
+              <li><a href="#p6"><b>6</b> Data Security</a></li>
+              <li><a href="#p7"><b>7</b> Data Retention</a></li>
+              <li><a href="#p8"><b>8</b> Third-Party Services</a></li>
+              <li><a href="#p9"><b>9</b> Your Choices</a></li>
+              <li><a href="#p10"><b>10</b> Minors and Participants</a></li>
+              <li><a href="#p11"><b>11</b> Policy Updates</a></li>
+              <li><a href="#p12"><b>12</b> Contact Us</a></li>
+            </ol>
+          </aside>
 
-    <div class="container">
-
-        <h1>
-            Privacy Policy
-        </h1>
-
-        <p>
-            How the CYF Registration System collects,
-            uses, protects, and manages information.
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     PRIVACY POLICY
-====================================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <div class="section-head">
-
-            <div class="kicker">
-                Your Privacy
+          <div>
+            <div class="tos-intro">
+              <h2>Privacy Policy</h2>
+              <p>
+                This Privacy Policy explains how the CYF Registration System
+                handles information submitted through this website.
+              </p>
+              <ul class="tos-glance">
+                <li>
+                  <strong>Not for sale</strong>We do not intend to sell personal
+                  information.
+                </li>
+                <li>
+                  <strong>Payments by providers</strong>Card details are handled
+                  by third-party payment providers.
+                </li>
+                <li>
+                  <strong>Ask us anytime</strong>Contact the CYF team to correct
+                  your information.
+                </li>
+              </ul>
             </div>
 
-            <h2>
-                Privacy Policy
-            </h2>
-
-            <p>
-                This Privacy Policy explains how the CYF
-                Registration System handles information
-                submitted through this website.
-            </p>
-
-        </div>
-
-
-        <div class="cards">
-
-
-            <!-- ==================================================
-                 INFORMATION WE COLLECT
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    📝
-                </div>
-
-                <h3>
-                    Information We Collect
-                </h3>
-
-                <p>
-                    When you register for a CYF event, become
-                    a sponsor, contact us, or use other
-                    features of the website, we may collect
+            <div class="tos-list">
+              <article class="tos-section" id="p1">
+                <div class="tos-num">1</div>
+                <div>
+                  <h3>Information We Collect</h3>
+                  <p>
+                    When you register for a CYF event, become a sponsor, contact
+                    us, or use other features of the website, we may collect
                     information that you voluntarily provide.
-                </p>
-
-                <p>
-                    This may include your name, contact
-                    information, registration information,
-                    participant details, event information,
-                    sponsorship information, and other
-                    information required to process your
-                    request.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 HOW INFORMATION IS USED
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    ⚙️
+                  </p>
+                  <p>
+                    This may include your name, contact information,
+                    registration information, participant details, event
+                    information, sponsorship information, and other information
+                    required to process your request.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    How We Use Information
-                </h3>
-
-                <p>
-                    Information submitted through the system
-                    may be used to process event registrations,
-                    manage participants, coordinate sponsorships,
-                    process related requests, and provide
+              <article class="tos-section" id="p2">
+                <div class="tos-num">2</div>
+                <div>
+                  <h3>How We Use Information</h3>
+                  <p>
+                    Information submitted through the system may be used to
+                    process event registrations, manage participants, coordinate
+                    sponsorships, process related requests, and provide
                     event-related communication.
-                </p>
-
-                <p>
-                    We may also use the information to maintain
-                    accurate registration records and improve
-                    the operation of the registration system.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 EMAIL COMMUNICATION
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    ✉️
+                  </p>
+                  <p>
+                    We may also use the information to maintain accurate
+                    registration records and improve the operation of the
+                    registration system.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Email Communication
-                </h3>
-
-                <p>
-                    The system may send registration
-                    confirmations, payment notifications,
-                    event-related updates, and other
+              <article class="tos-section" id="p3">
+                <div class="tos-num">3</div>
+                <div>
+                  <h3>Email Communication</h3>
+                  <p>
+                    The system may send registration confirmations, payment
+                    notifications, event-related updates, and other
                     administrative messages by email.
-                </p>
-
-                <p>
-                    Email services may be provided through
-                    authorized third-party services used by
-                    the CYF Registration System.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 PAYMENTS
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    💳
+                  </p>
+                  <p>
+                    Email services may be provided through authorized
+                    third-party services used by the CYF Registration System.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Payments
-                </h3>
-
-                <p>
-                    Payments made through the system may be
-                    processed by third-party payment providers.
-                    Payment information is handled according
-                    to the policies and security practices of
+              <article class="tos-section" id="p4">
+                <div class="tos-num">4</div>
+                <div>
+                  <h3>Payments</h3>
+                  <p>
+                    Payments made through the system may be processed by
+                    third-party payment providers. Payment information is
+                    handled according to the policies and security practices of
                     the applicable payment provider.
-                </p>
-
-                <p>
-                    The CYF Registration System does not intend
-                    to store complete payment card numbers,
-                    card security codes, or other sensitive
-                    payment credentials on its own servers.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 INFORMATION SHARING
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🔗
+                  </p>
+                  <p>
+                    The CYF Registration System does not intend to store
+                    complete payment card numbers, card security codes, or other
+                    sensitive payment credentials on its own servers.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Information Sharing
-                </h3>
-
-                <p>
-                    We do not intend to sell personal
-                    information to third parties.
-                </p>
-
-                <p>
-                    Information may be shared with authorized
-                    individuals, service providers, or systems
-                    when reasonably necessary to operate the
-                    registration system, process payments,
-                    send communications, or provide requested
-                    services.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 DATA SECURITY
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🔒
+              <article class="tos-section" id="p5">
+                <div class="tos-num">5</div>
+                <div>
+                  <h3>Information Sharing</h3>
+                  <p>
+                    We do not intend to sell personal information to third
+                    parties.
+                  </p>
+                  <p>
+                    Information may be shared with authorized individuals,
+                    service providers, or systems when reasonably necessary to
+                    operate the registration system, process payments, send
+                    communications, or provide requested services.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Data Security
-                </h3>
-
-                <p>
-                    Reasonable technical and organizational
-                    measures are used to help protect
-                    information submitted through the system.
-                </p>
-
-                <p>
-                    However, no internet transmission or
-                    electronic storage system can be guaranteed
-                    to be completely secure.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 DATA RETENTION
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🗃️
+              <article class="tos-section" id="p6">
+                <div class="tos-num">6</div>
+                <div>
+                  <h3>Data Security</h3>
+                  <p>
+                    Reasonable technical and organizational measures are used to
+                    help protect information submitted through the system.
+                  </p>
+                  <p>
+                    However, no internet transmission or electronic storage
+                    system can be guaranteed to be completely secure.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Data Retention
-                </h3>
-
-                <p>
-                    Registration and related information may
-                    be retained for as long as reasonably
-                    necessary to administer CYF events,
-                    maintain organizational records, resolve
-                    disputes, and comply with applicable
-                    obligations.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 THIRD-PARTY SERVICES
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🌐
+              <article class="tos-section" id="p7">
+                <div class="tos-num">7</div>
+                <div>
+                  <h3>Data Retention</h3>
+                  <p>
+                    Registration and related information may be retained for as
+                    long as reasonably necessary to administer CYF events,
+                    maintain organizational records, resolve disputes, and
+                    comply with applicable obligations.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Third-Party Services
-                </h3>
-
-                <p>
-                    The system may use third-party services
-                    for hosting, payment processing, email
-                    delivery, authentication, analytics, or
+              <article class="tos-section" id="p8">
+                <div class="tos-num">8</div>
+                <div>
+                  <h3>Third-Party Services</h3>
+                  <p>
+                    The system may use third-party services for hosting, payment
+                    processing, email delivery, authentication, analytics, or
                     other technical functions.
-                </p>
-
-                <p>
-                    These services may process information
-                    according to their own privacy policies
-                    and terms.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 YOUR CHOICES
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    👤
+                  </p>
+                  <p>
+                    These services may process information according to their
+                    own privacy policies and terms.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Your Choices
-                </h3>
-
-                <p>
-                    If you have questions about information
-                    submitted through the registration system,
-                    or believe information associated with
-                    your registration needs to be corrected,
-                    you may contact the CYF team.
-                </p>
-
-                <p>
-                    Requests may be reviewed and handled
-                    according to applicable requirements and
-                    operational needs.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 CHILDREN AND MINORS
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🛡️
+              <article class="tos-section" id="p9">
+                <div class="tos-num">9</div>
+                <div>
+                  <h3>Your Choices</h3>
+                  <p>
+                    If you have questions about information submitted through
+                    the registration system, or believe information associated
+                    with your registration needs to be corrected, you may
+                    contact the CYF team.
+                  </p>
+                  <p>
+                    Requests may be reviewed and handled according to applicable
+                    requirements and operational needs.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Minors and Participants
-                </h3>
-
-                <p>
-                    Some CYF activities may involve youth
-                    participants. Where required, registration
-                    and participation information should be
-                    provided or authorized by a parent, guardian,
-                    or other appropriate responsible person.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 POLICY UPDATES
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    🔄
+              <article class="tos-section" id="p10">
+                <div class="tos-num">10</div>
+                <div>
+                  <h3>Minors and Participants</h3>
+                  <p>
+                    Some CYF activities may involve youth participants. Where
+                    required, registration and participation information should
+                    be provided or authorized by a parent, guardian, or other
+                    appropriate responsible person.
+                  </p>
                 </div>
+              </article>
 
-                <h3>
-                    Policy Updates
-                </h3>
-
-                <p>
-                    This Privacy Policy may be updated from
-                    time to time to reflect changes to the
-                    registration system, services, or
+              <article class="tos-section" id="p11">
+                <div class="tos-num">11</div>
+                <div>
+                  <h3>Policy Updates</h3>
+                  <p>
+                    This Privacy Policy may be updated from time to time to
+                    reflect changes to the registration system, services, or
                     applicable requirements.
-                </p>
-
-                <p>
-                    Updated versions will be published on
-                    this page.
-                </p>
-
-            </article>
-
-
-
-            <!-- ==================================================
-                 CONTACT
-            ================================================== -->
-
-            <article class="info-card">
-
-                <div class="info-icon">
-                    📩
+                  </p>
+                  <p>Updated versions will be published on this page.</p>
                 </div>
+              </article>
 
-                <h3>
-                    Contact Us
-                </h3>
-
-                <p>
-                    If you have questions or concerns about
-                    this Privacy Policy or information handled
-                    by the CYF Registration System, please
-                    contact the CYF team through the
-                    Contact page.
-                </p>
-
-                <p>
-                    <a
-                        href="home.html#contact"
-                        style="
-                            color:var(--red);
-                            font-weight:800;
-                        "
+              <article class="tos-section" id="p12">
+                <div class="tos-num">12</div>
+                <div>
+                  <h3>Contact Us</h3>
+                  <p>
+                    If you have questions or concerns about this Privacy Policy
+                    or information handled by the CYF Registration System,
+                    please contact the CYF team through the Contact page.
+                  </p>
+                  <p>
+                    <a class="tos-link" href="home.html#contact"
+                      >Contact CYF →</a
                     >
-                        Contact CYF →
-                    </a>
-                </p>
+                  </p>
+                </div>
+              </article>
+            </div>
 
-            </article>
-
-
+            <div class="tos-updated">
+              <strong>Last Updated:</strong> September 1, 2026
+            </div>
+          </div>
         </div>
+      </section>
+    </main>
 
+    <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+      ↑
+    </button>
 
-        <div
-            style="
-                margin-top:35px;
-                padding:20px;
-                background:#fff8f8;
-                border:1px solid var(--border);
-                border-radius:16px;
-                color:var(--muted);
-                line-height:1.7;
-                font-size:13px;
-            "
-        >
-
-            <strong
-                style="color:var(--red-dark);"
-            >
-                Last Updated:
-            </strong>
-
-            September 1, 2026
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ======================================================
-     FOOTER
-====================================================== -->
-
-<footer class="footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="footer-brand">
-        <img src="/assets/cyf-logo.png" alt="" width="52" height="52">
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-grid">
         <div>
-          <strong>Caraga Youth Fellowship</strong>
-          <span>Transform &middot; Equip &middot; Engage</span>
+          <div class="footer-brand">
+            <img src="/assets/cyf-logo.png" alt="" width="52" height="52" />
+            <div>
+              <strong>Caraga Youth Fellowship</strong>
+              <span>Transform &middot; Equip &middot; Entrust</span>
+            </div>
+          </div>
+          <p>
+            Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.
+          </p>
+        </div>
+        <div>
+          <h3>Get Involved</h3>
+          <p>
+            <a href="register.html">Register</a><br />
+            <a href="sponsor.html">Become a Sponsor</a><br />
+            <a href="store.html">CYF Store</a>
+          </p>
+        </div>
+        <div>
+          <h3>Fellowship</h3>
+          <p>
+            <a href="home.html#about">About CYF</a><br />
+            <a href="home.html#officers">Officers</a><br />
+            <a href="home.html#contact">Contact Us</a><br />
+            <a href="login.html">Staff Login</a>
+          </p>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <p>
+            <a href="/privacy">Privacy Policy</a><br />
+            <a href="/terms">Terms of Use</a>
+          </p>
         </div>
       </div>
-      <p>Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.</p>
-    </div>
-    <div>
-      <h3>Get Involved</h3>
-      <p>
-        <a href="register.html">Register</a><br>
-        <a href="sponsor.html">Become a Sponsor</a><br>
-        <a href="store.html">CYF Store</a>
-      </p>
-    </div>
-    <div>
-      <h3>Fellowship</h3>
-      <p>
-        <a href="home.html#about">About CYF</a><br>
-        <a href="home.html#contact">Contact Us</a><br>
-        <a href="login.html">Staff Login</a>
-      </p>
-    </div>
-    <div>
-      <h3>Legal</h3>
-      <p>
-        <a href="/privacy">Privacy Policy</a><br>
-        <a href="/terms">Terms of Use</a>
-      </p>
-    </div>
-  </div>
-  <div class="container copyright">&copy; 2026 Caraga Youth Fellowship. All rights reserved.</div>
-</footer>
+      <div class="container copyright">
+        &copy; 2026 Caraga Youth Fellowship. All rights reserved.
+      </div>
+    </footer>
 
+    <script>
+      document.documentElement.classList.add("js");
 
+      function toggleMenu() {
+        const menu = document.querySelector(".nav-links");
+        if (menu) menu.classList.toggle("open");
+      }
 
-<script>
+      (function () {
+        const reduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        const bar = document.getElementById("tosBar");
+        const toTop = document.getElementById("toTop");
+        let ticking = false;
 
-function toggleMenu() {
-
-    const menu =
-        document.querySelector(
-            ".nav-links"
+        /* Reading progress + back-to-top */
+        function update() {
+          const h = document.documentElement;
+          const max = h.scrollHeight - h.clientHeight;
+          const y = window.pageYOffset || h.scrollTop;
+          bar.style.transform =
+            "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+          toTop.classList.toggle("show", y > 600);
+          ticking = false;
+        }
+        window.addEventListener(
+          "scroll",
+          function () {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          },
+          { passive: true },
         );
+        window.addEventListener("resize", update);
+        update();
 
-    if (menu) {
+        toTop.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+        });
 
-        menu.classList.toggle(
-            "open"
-        );
+        /* Scroll reveal */
+        const items = document.querySelectorAll(".tos-section, .tos-intro");
+        if (reduce || !("IntersectionObserver" in window)) {
+          items.forEach(function (el) {
+            el.classList.add("in");
+          });
+        } else {
+          const io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add("in");
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -5% 0px" },
+          );
+          items.forEach(function (el) {
+            io.observe(el);
+          });
+        }
 
-    }
-
-}
-
-</script>
-
-
-</body>
-
+        /* Highlight the current section in the table of contents */
+        const links = Array.from(document.querySelectorAll("#tocList a"));
+        const map = {};
+        links.forEach(function (a) {
+          map[a.getAttribute("href").slice(1)] = a;
+        });
+        if ("IntersectionObserver" in window) {
+          const spy = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  links.forEach(function (a) {
+                    a.classList.remove("on");
+                  });
+                  const a = map[e.target.id];
+                  if (a) {
+                    a.classList.add("on");
+                    if (window.innerWidth <= 1000)
+                      a.scrollIntoView({
+                        inline: "center",
+                        block: "nearest",
+                        behavior: reduce ? "auto" : "smooth",
+                      });
+                  }
+                }
+              });
+            },
+            { rootMargin: "-30% 0px -60% 0px" },
+          );
+          document.querySelectorAll(".tos-section").forEach(function (s) {
+            spy.observe(s);
+          });
+        }
+      })();
+    </script>
+  </body>
 </html>

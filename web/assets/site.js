@@ -136,6 +136,8 @@
     items.forEach(function (el) {
       // Anything already on screen stays visible; only content below the fold animates in.
       if (el.getBoundingClientRect().top < window.innerHeight) return;
+      // Pages with their own [data-reveal] animation handle these already.
+      if (el.closest("[data-reveal]")) return;
       el.classList.add("m-reveal");
       observer.observe(el);
     });

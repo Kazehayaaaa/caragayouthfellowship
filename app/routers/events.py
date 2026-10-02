@@ -49,7 +49,7 @@ def event_create_event(
 
         "Summer Youth Camp",
 
-        "Youth Bible Conference"
+        "December Conference"
 
     ]
 
@@ -595,7 +595,7 @@ def event_update_event(
 
         "Summer Youth Camp",
 
-        "Youth Bible Conference"
+        "December Conference"
 
     ]
 

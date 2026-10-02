@@ -559,7 +559,7 @@ def event_participant_count(
 
         Event.is_archived == 0
 
-    ).all()
+    ).order_by(Event.id).all()
 
     result = []
 

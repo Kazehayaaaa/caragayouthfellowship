@@ -19,12 +19,12 @@
 
     <meta
       name="description"
-      content="Caraga Youth Fellowship (CYF) is a Christian youth organization under the Caraga Fellowship of Fundamental Baptist Churches (CFFBC), serving Christian youth through fellowship, Bible conferences, youth camps, events, and ministry activities."
+      content="Caraga Youth Fellowship (CYF) is a Christian youth organization under the Caraga Fellowship of Fundamental Baptist Churches (CFFBC), serving Christian youth through fellowship, conferences, youth camps, events, and ministry activities."
     />
 
     <meta
       name="keywords"
-      content="Caraga Youth Fellowship, CYF, Christian youth organization, CFFBC, Caraga Fellowship of Fundamental Baptist Churches, Christian youth, youth fellowship, Bible conference, youth camp, Caraga"
+      content="Caraga Youth Fellowship, CYF, Christian youth organization, CFFBC, Caraga Fellowship of Fundamental Baptist Churches, Christian youth, youth fellowship, December Conference, youth camp, Caraga"
     />
 
     <meta name="author" content="Caraga Youth Fellowship" />
@@ -41,7 +41,7 @@
 
     <meta
       property="og:description"
-      content="Caraga Youth Fellowship (CYF) is a Christian youth organization under the Caraga Fellowship of Fundamental Baptist Churches (CFFBC), serving Christian youth through fellowship, Bible conferences, youth camps, events, and ministry activities."
+      content="Caraga Youth Fellowship (CYF) is a Christian youth organization under the Caraga Fellowship of Fundamental Baptist Churches (CFFBC), serving Christian youth through fellowship, conferences, youth camps, events, and ministry activities."
     />
 
     <meta property="og:type" content="website" />
@@ -59,7 +59,7 @@
         "alternateName": "CYF",
         "url": "https://caragayouthfellowship.online/",
         "logo": "https://caragayouthfellowship.online/favicon.png",
-        "description": "Caraga Youth Fellowship (CYF) is a Christian youth organization under the Caraga Fellowship of Fundamental Baptist Churches (CFFBC), serving Christian youth through fellowship, Bible conferences, youth camps, events, and ministry activities.",
+        "description": "Caraga Youth Fellowship (CYF) is a Christian youth organization under the Caraga Fellowship of Fundamental Baptist Churches (CFFBC), serving Christian youth through fellowship, conferences, youth camps, events, and ministry activities.",
         "parentOrganization": {
           "@type": "Organization",
           "name": "Caraga Fellowship of Fundamental Baptist Churches",
@@ -1057,7 +1057,7 @@
                 Caraga Youth Fellowship (CYF) is the youth ministry of the
                 Caraga Fellowship of Fundamental Baptist Churches (CFFBC). We
                 bring young people from local churches across the region
-                together through fellowship, Bible conferences, youth camps
+                together through fellowship, conferences, youth camps
                 and ministry.
               </p>
 
@@ -1137,7 +1137,7 @@
               <h3>Register for Events</h3>
 
               <p>
-                Sign up for youth camps and Bible conferences through a simple,
+                Sign up for youth camps and conferences through a simple,
                 mobile-friendly form.
               </p>
             </article>
@@ -1219,7 +1219,7 @@
 
               <strong> YBC-2026-0008 </strong>,
 
-              <strong> Youth Bible Conference </strong>, or
+              <strong> December Conference </strong>, or
 
               <strong> Paid </strong>.
             </div>
@@ -1439,7 +1439,7 @@
           <span>Transform &middot; Equip &middot; Engage</span>
         </div>
       </div>
-      <p>Discipling the young people of Caraga through fellowship, Bible conferences, youth camps and ministry across every province.</p>
+      <p>Discipling the young people of Caraga through fellowship, conferences, youth camps and ministry across every province.</p>
     </div>
     <div>
       <h3>Get Involved</h3>
@@ -1485,7 +1485,8 @@
         const registerButton2 = document.getElementById("register-event-btn-2");
 
         try {
-          const response = await fetch("/event_participant_count", {
+          // Same event the countdown uses: the one open for registration now.
+          const response = await fetch("/event_view_current_active_event", {
             method: "GET",
 
             headers: {
@@ -1495,13 +1496,13 @@
             cache: "no-store",
           });
 
-          if (!response.ok) {
+          if (!response.ok && response.status !== 404) {
             throw new Error("FastAPI returned HTTP " + response.status);
           }
 
-          const data = await response.json();
+          const event = response.ok ? await response.json() : null;
 
-          if (!data.events || data.events.length === 0) {
+          if (!event) {
             eventName.textContent = "Stay tuned for our next event";
 
             document.getElementById("cd-suffix").hidden = true;
@@ -1517,12 +1518,10 @@
             return;
           }
 
-          const event = data.events[0];
-
           eventName.textContent = event.event_name;
 
           participantCount.textContent = Number(
-            event.participant_count || 0,
+            (event.participants && event.participants.total) || 0,
           ).toLocaleString();
 
           eventStatus.textContent = "Registration is currently available.";

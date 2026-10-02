@@ -13,7 +13,7 @@ from app.config import WEB_DIR
 
 router = APIRouter()
 
-PUBLIC = os.path.join(WEB_DIR, "public")
+PUBLIC = os.path.join(WEB_DIR, "site")
 ADMIN = os.path.join(WEB_DIR, "admin")
 TEAM = os.path.join(WEB_DIR, "team")
 ASSETS = os.path.join(WEB_DIR, "assets")

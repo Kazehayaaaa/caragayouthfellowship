@@ -27,7 +27,7 @@ Registration_System_CYF/
 │   ├── services/            Business logic shared by several routers
 │   └── routers/             API endpoints and page URLs, one file per area
 ├── web/                     Frontend (served as-is)
-│   ├── public/              Public website
+│   ├── site/                Public website
 │   ├── admin/               Admin pages
 │   ├── team/                Registration-team pages (*_rt)
 │   ├── assets/              CSS, JavaScript, images, favicon
@@ -62,7 +62,7 @@ main.py ──► app/main.py (FastAPI app)
 ```
 
 - **Pages:** `/home.html` is served by `routers/pages.py` from
-  `web/public/home.html`. The browser then calls API endpoints such as
+  `web/site/home.html`. The browser then calls API endpoints such as
   `/event_participant_count` with `fetch()`.
 - **API endpoints** read and write the database through the models, and use
   `services/` for shared logic such as sending emails or assigning tiers.
@@ -156,7 +156,7 @@ Everything the browser loads. Files are served unchanged, with no build step.
 
 | Folder | Contents | Who can open it |
 |---|---|---|
-| `public/` | `home`, `store`, `register`, `sponsor`, `cash-sponsor`, `item-sponsor`, `payment`, `login`, `privacy`, `terms` | Everyone |
+| `site/` | `home`, `store`, `register`, `sponsor`, `cash-sponsor`, `item-sponsor`, `payment`, `login`, `privacy`, `terms` | Everyone |
 | `admin/` | `admin_dashboard` plus 13 admin pages: events, participants, staff, chaperones, store items, sponsors, payments, reports, … | Admin role |
 | `team/` | `registration_dashboard` plus the `*_rt` versions of the admin pages | Registration Team role |
 | `assets/` | Shared CSS, JS and images (table below) | Everyone |
@@ -186,7 +186,7 @@ update that tag** so browsers fetch the new version instead of a cached copy.
 ## Common tasks
 
 **Add a public page**
-1. Create `web/public/newpage.html`. Copy the `<head>`, header and footer from an existing public page.
+1. Create `web/site/newpage.html`. Copy the `<head>`, header and footer from an existing public page.
 2. In `app/routers/pages.py`, add `"/newpage.html": (PUBLIC, "newpage.html", None)` to `PAGES`, and add the URL to `_ORDER`.
 
 **Add an admin page**

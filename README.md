@@ -68,7 +68,7 @@ app/
     staff.py  chaperones.py  payments.py  webhooks.py  sponsorships.py
     store.py  registration_items.py  dashboards.py  manual_sponsor.py  contact.py
 web/
-  public/               Public site: home, store, register, sponsor, payment, login, legal pages
+  site/                 Public site: home, store, register, sponsor, payment, login, legal pages
   admin/                Admin pages (login required, Admin role)
   team/                 Registration-team pages, the *_rt versions (Registration Team role)
   assets/               CSS, JavaScript, images and favicon (served at /assets/...)
@@ -80,7 +80,7 @@ registration_system.db  Copy of the database
 
 ### Where to change things
 
-- **A page's content or look:** the HTML file in `web/public`, `web/admin` or `web/team`.
+- **A page's content or look:** the HTML file in `web/site`, `web/admin` or `web/team`.
   Shared styles are in `web/assets/`: `styles.css` for the public site,
   `admin-theme.css` for admin pages, `dashboard.css` for the dashboards.
 - **Add a new page:** put the file in `web/...` and add its URL to `PAGES` in `app/routers/pages.py`.

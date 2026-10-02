@@ -44,5 +44,6 @@ def _save_to_blob(pathname: str, data: bytes, content_type: str) -> str:
         content=data,
         timeout=30,
     )
-    response.raise_for_status()
+    if response.is_error:
+        raise RuntimeError(f"Vercel Blob upload failed ({response.status_code}): {response.text}")
     return response.json()["url"]

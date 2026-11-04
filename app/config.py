@@ -7,30 +7,47 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB_DIR = os.path.join(BASE_DIR, "web")
 
-load_dotenv()
+# Load <root>/.env explicitly so it works no matter which folder
+# the server is started from.
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+
+def _clean_env(name, default=""):
+    """Read an env var and strip whitespace, \\r and wrapping quotes."""
+
+    value = os.getenv(name)
+
+    if value is None:
+        return default
+
+    return value.strip().strip('"').strip("'").strip()
 
 
 # ======================================================
 # PAYMONGO CONFIGURATION
 # ======================================================
 
-PAYMONGO_SECRET_KEY = os.getenv(
-    "PAYMONGO_SECRET_KEY"
-)
+# Must be the SECRET key: sk_test_... (testing) or sk_live_... (live)
+PAYMONGO_SECRET_KEY = _clean_env("PAYMONGO_SECRET_KEY")
 
-PAYMONGO_API_URL = os.getenv(
-    "PAYMONGO_API_URL",
-    "https://api.paymongo.com"
-)
+PAYMONGO_API_URL = (
+    _clean_env("PAYMONGO_API_URL", "https://api.paymongo.com")
+    or "https://api.paymongo.com"
+).rstrip("/")
+
+if not PAYMONGO_SECRET_KEY.startswith(("sk_test_", "sk_live_")):
+    print(
+        "WARNING: PAYMONGO_SECRET_KEY is missing or is not a secret key "
+        "(expected it to start with sk_test_ or sk_live_). "
+        "PayMongo requests will fail with 401."
+    )
 
 
 # ======================================================
 # PAYMONGO WEBHOOK CONFIGURATION
 # ======================================================
 
-PAYMONGO_WEBHOOK_SECRET = os.getenv(
-    "PAYMONGO_WEBHOOK_SECRET"
-)
+PAYMONGO_WEBHOOK_SECRET = _clean_env("PAYMONGO_WEBHOOK_SECRET")
 
 
 # ======================================================
@@ -72,10 +89,6 @@ GMAIL_SCOPES = [
 ]
 
 
-
-
-
-
 # ==========================================================
 # EMAIL CONFIGURATION
 # ==========================================================
@@ -83,11 +96,6 @@ GMAIL_SCOPES = [
 CONTACT_RECEIVER = (
     "caragayouthfellowship.official@gmail.com"
 )
-
-
-
-
-
 
 
 # ==========================================================

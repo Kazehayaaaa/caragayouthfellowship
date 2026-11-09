@@ -9,6 +9,9 @@ WEB_DIR = os.path.join(BASE_DIR, "web")
 
 # Load <root>/.env explicitly so it works no matter which folder
 # the server is started from.
+# NOTE: load_dotenv does NOT override variables already set in the
+# shell/OS. If an old PAYMONGO_SECRET_KEY is exported there, it wins.
+# Use load_dotenv(..., override=True) if you want .env to always win.
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
@@ -42,12 +45,45 @@ if not PAYMONGO_SECRET_KEY.startswith(("sk_test_", "sk_live_")):
         "PayMongo requests will fail with 401."
     )
 
+# Single source of truth for "which mode is this server in?".
+# Used by payments.py (stale link detection) and webhooks.py
+# (signature selection + livemode filtering).
+PAYMONGO_LIVE = PAYMONGO_SECRET_KEY.startswith("sk_live_")
+
+print("PAYMONGO MODE:", "LIVE" if PAYMONGO_LIVE else "TEST")
+
 
 # ======================================================
 # PAYMONGO WEBHOOK CONFIGURATION
 # ======================================================
 
+# Webhook secrets are per mode. In live mode this MUST be the secret of
+# a webhook created in PayMongo's LIVE dashboard (not the test one).
 PAYMONGO_WEBHOOK_SECRET = _clean_env("PAYMONGO_WEBHOOK_SECRET")
+
+if not PAYMONGO_WEBHOOK_SECRET:
+    print(
+        "WARNING: PAYMONGO_WEBHOOK_SECRET is not set. "
+        "All PayMongo webhooks will be rejected."
+    )
+
+
+# ======================================================
+# ADMIN ACCESS FOR PAYMENT LISTS
+# ======================================================
+
+# Name of the session key that is set when an admin is logged in
+# (for example "admin_id" or "user"). When set, the /payments/store,
+# /payments/tshirt and /payments/lanyard endpoints require that key to
+# be present in the session. When empty, they stay open (and a warning
+# is printed) so existing behaviour does not break.
+ADMIN_SESSION_KEY = _clean_env("ADMIN_SESSION_KEY")
+
+if not ADMIN_SESSION_KEY:
+    print(
+        "WARNING: ADMIN_SESSION_KEY is not set. The /payments/* list "
+        "endpoints are publicly readable."
+    )
 
 
 # ======================================================
@@ -126,6 +162,12 @@ if not SESSION_SECRET_KEY:
 SESSION_HTTPS_ONLY = (
     os.getenv("SESSION_HTTPS_ONLY", "false").lower() == "true"
 )
+
+if PAYMONGO_LIVE and not SESSION_HTTPS_ONLY:
+    print(
+        "WARNING: Live PayMongo key in use but SESSION_HTTPS_ONLY is not "
+        "true. Set SESSION_HTTPS_ONLY=True when serving over HTTPS."
+    )
 
 # ======================================================
 # STORAGE

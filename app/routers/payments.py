@@ -172,10 +172,190 @@ def _discard_payment_rows(db: Session) -> None:
         print("ROLLBACK FAILED:", repr(e))
 
 
+def _paymongo_key_ok() -> bool:
+    """True when the configured key looks like a usable PayMongo secret key."""
+
+    key = PAYMONGO_SECRET_KEY or ""
+
+    return (
+        key.startswith(("sk_test_", "sk_live_"))
+        and key.isascii()
+        and not any(c.isspace() for c in key)
+    )
+
+
+def _paymongo_headers() -> dict:
+    return {"Accept": "application/json"}
+
+
+def _fetch_link_status(link_id):
+    """
+    Ask PayMongo what really happened to a payment link.
+
+    Returns 'paid', 'unpaid', 'archived', ... or None when it could not
+    be checked (no key, network problem, link from the other mode).
+    """
+
+    if not link_id or not _paymongo_key_ok():
+        return None
+
+    try:
+
+        response = requests.get(
+            f"{str(PAYMONGO_API_URL or '').rstrip('/')}/v1/links/{link_id}",
+            auth=(PAYMONGO_SECRET_KEY, ""),
+            headers=_paymongo_headers(),
+            timeout=10
+        )
+
+    except requests.RequestException as e:
+        print("LINK STATUS CHECK FAILED:", repr(e))
+        return None
+
+    if not response.ok:
+        print("LINK STATUS CHECK HTTP", response.status_code, "for", link_id)
+        return None
+
+    try:
+        attributes = (response.json().get("data") or {}).get("attributes") or {}
+    except Exception:
+        return None
+
+    return _norm(attributes.get("status")) or None
+
+
+def _mark_link_paid(db: Session, link_id) -> int:
+    """
+    Mark every participant row on a PayMongo link as Paid and sync the
+    participants' item statuses. Mirrors what the webhook does, so a
+    missed or delayed webhook can be repaired. Idempotent.
+    """
+
+    try:
+
+        rows = (
+            db.query(Payment)
+            .filter(
+                Payment.paymongo_link_id == link_id,
+                Payment.payment_type.ilike("Participant")
+            )
+            .order_by(Payment.id.asc())
+            .with_for_update()
+            .all()
+        )
+
+        now = datetime.datetime.now()
+        changed = 0
+
+        for row in rows:
+
+            if _norm(row.status) != "paid":
+                row.status = "Paid"
+                changed += 1
+
+            if hasattr(row, "paid_at") and not row.paid_at:
+                row.paid_at = now
+
+            participant = (
+                db.query(Participant)
+                .filter(Participant.id == row.participant_id)
+                .with_for_update()
+                .first()
+            )
+
+            if not participant:
+                continue
+
+            if bool(getattr(row, "tshirt_selected", False)):
+
+                if hasattr(participant, "tshirt_status"):
+                    participant.tshirt_status = "Paid"
+
+                if row.tshirt_size and hasattr(participant, "tshirt_size"):
+                    participant.tshirt_size = row.tshirt_size
+
+            if bool(getattr(row, "lanyard_selected", False)):
+
+                if hasattr(participant, "lanyard_status"):
+                    participant.lanyard_status = "Paid"
+
+            if (
+                hasattr(participant, "registration_status")
+                and _norm(getattr(participant, "lanyard_status", "")) == "paid"
+            ):
+                participant.registration_status = "Confirmed"
+
+            if hasattr(participant, "updated_at"):
+                participant.updated_at = now
+
+        db.commit()
+
+        print("LINK", link_id, "repaired -> Paid | rows changed:", changed)
+
+        return changed
+
+    except Exception as e:
+
+        db.rollback()
+
+        print("MARK LINK PAID FAILED:", repr(e))
+
+        return 0
+
+
+def _reconcile_pending_payments(db: Session, participant_id: int) -> None:
+    """
+    Safety net for a missed/delayed webhook: for this participant's
+    Pending payment links, ask PayMongo for the real status.
+
+      paid     -> mark Paid + sync participant (same as the webhook)
+      archived -> mark Failed so a fresh link can be created
+
+    Only links that belong to the server's current mode are checked.
+    """
+
+    pending = (
+        db.query(Payment)
+        .filter(
+            Payment.participant_id == participant_id,
+            Payment.status == "Pending",
+            Payment.paymongo_link_id.isnot(None)
+        )
+        .all()
+    )
+
+    link_ids = list(dict.fromkeys(
+        p.paymongo_link_id
+        for p in pending
+        if p.checkout_url and _link_matches_mode(p.checkout_url)
+    ))
+
+    for link_id in link_ids:
+
+        status = _fetch_link_status(link_id)
+
+        if status == "paid":
+
+            _mark_link_paid(db, link_id)
+
+        elif status == "archived":
+
+            for p in pending:
+                if p.paymongo_link_id == link_id:
+                    p.status = "Failed"
+
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+
+
 # ======================================================
 # VIEW PARTICIPANT PAYMENT STATUS
 #
-# READ-ONLY. Statuses are written by the PayMongo webhook.
+# Read-only, with ONE exception: if PayMongo confirms that a Pending
+# link was actually paid (webhook missed/delayed), the status is
+# repaired. The webhook remains the primary writer.
 # ======================================================
 
 @router.get("/payment_status/{participant_id}")
@@ -198,6 +378,13 @@ def payment_status(
             status_code=404,
             detail="Participant not found."
         )
+
+    # Repair statuses if PayMongo says a pending link was already paid
+    try:
+        _reconcile_pending_payments(db, participant.id)
+    except Exception as e:
+        db.rollback()
+        print("RECONCILE FAILED:", repr(e))
 
     fullname = " ".join(
         part
@@ -398,6 +585,18 @@ def create_payment(
     print("=" * 70)
     print("CREATE PAYMENT REQUEST (mode:", "LIVE" if PAYMONGO_LIVE else "TEST", ")")
     print("=" * 70)
+
+    if not _paymongo_key_ok():
+
+        print(
+            "PAYMONGO_SECRET_KEY is missing or malformed "
+            "(check the Vercel environment variable)."
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail="Payment gateway is not configured. Please contact the organizers."
+        )
 
     normalize_bool = _normalize_bool
     allowed_sizes = ALLOWED_TSHIRT_SIZES
@@ -808,60 +1007,104 @@ def create_payment(
 
         if existing_payment and existing_payment.checkout_url:
 
-            if not _link_matches_mode(existing_payment.checkout_url):
+            existing_id = existing_payment.id
+            existing_url = existing_payment.checkout_url
+            existing_link_id = existing_payment.paymongo_link_id
+
+            if not _link_matches_mode(existing_url):
 
                 print(
                     "Retiring stale pending payment from the other mode:",
-                    existing_payment.id
+                    existing_id
                 )
 
                 existing_payment.status = "Failed"
 
-            elif not is_bulk_payment:
-
-                # Build the response BEFORE rollback (rollback expires
-                # the ORM objects).
-                reused = {
-                    "message": "Existing pending payment reused.",
-                    "reused": True,
-                    "payment_type": "single",
-                    "participant_count": 1,
-                    "participant_ids": [participant.id],
-                    "participant_id": participant.id,
-                    "payment_id": existing_payment.id,
-                    "payment_ids": [existing_payment.id],
-                    "amount": existing_payment.amount,
-                    "amount_display": f"₱{existing_payment.amount / 100:,.2f}",
-                    "tshirt_selected": bool(existing_payment.tshirt_selected),
-                    "lanyard_selected": bool(existing_payment.lanyard_selected),
-                    "tshirt_size": existing_payment.tshirt_size,
-                    "paymongo_link_id": existing_payment.paymongo_link_id,
-                    "paymongo_reference": existing_payment.paymongo_reference,
-                    "checkout_url": existing_payment.checkout_url,
-                }
-
-                db.rollback()
-
-                return reused
-
             else:
 
-                conflict = {
-                    "message": (
-                        "A pending payment already exists for "
-                        f"participant {participant.registration_number}."
-                    ),
-                    "participant_id": participant.id,
-                    "payment_id": existing_payment.id,
-                    "checkout_url": existing_payment.checkout_url
-                }
-
-                db.rollback()
-
-                raise HTTPException(
-                    status_code=409,
-                    detail=conflict
+                # Ask PayMongo what really happened to this link
+                link_status = (
+                    _fetch_link_status(existing_link_id)
+                    if existing_link_id
+                    else None
                 )
+
+                if link_status == "paid":
+
+                    # Paid on PayMongo while our DB still says Pending
+                    # (webhook missed/delayed): repair, then stop.
+                    reg_number = participant.registration_number
+                    participant_pk = participant.id
+
+                    db.rollback()
+
+                    _mark_link_paid(db, existing_link_id)
+
+                    raise HTTPException(
+                        status_code=409,
+                        detail={
+                            "message": (
+                                "This payment was already completed. "
+                                "Your payment status has been updated."
+                            ),
+                            "already_paid": True,
+                            "participant_id": participant_pk,
+                            "registration_number": reg_number,
+                            "payment_id": existing_id
+                        }
+                    )
+
+                elif link_status == "archived":
+
+                    print("Pending link was archived on PayMongo:", existing_id)
+
+                    existing_payment.status = "Failed"
+
+                elif not is_bulk_payment:
+
+                    # Build the response BEFORE rollback (rollback
+                    # expires the ORM objects).
+                    reused = {
+                        "message": "Existing pending payment reused.",
+                        "reused": True,
+                        "payment_type": "single",
+                        "participant_count": 1,
+                        "participant_ids": [participant.id],
+                        "participant_id": participant.id,
+                        "payment_id": existing_id,
+                        "payment_ids": [existing_id],
+                        "amount": existing_payment.amount,
+                        "amount_display": f"₱{existing_payment.amount / 100:,.2f}",
+                        "tshirt_selected": bool(existing_payment.tshirt_selected),
+                        "lanyard_selected": bool(existing_payment.lanyard_selected),
+                        "tshirt_size": existing_payment.tshirt_size,
+                        "paymongo_link_id": existing_link_id,
+                        "paymongo_reference": existing_payment.paymongo_reference,
+                        "checkout_url": existing_url,
+                    }
+
+                    db.rollback()
+
+                    return reused
+
+                else:
+
+                    conflict = {
+                        "message": (
+                            "A pending payment already exists for "
+                            f"participant {participant.registration_number}."
+                        ),
+                        "participant_id": participant.id,
+                        "payment_id": existing_id,
+                        "checkout_url": existing_url
+                    }
+
+                    db.rollback()
+
+                    raise HTTPException(
+                        status_code=409,
+                        detail=conflict
+                    )
 
         total_amount += participant_amount
 

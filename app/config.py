@@ -52,6 +52,16 @@ PAYMONGO_LIVE = PAYMONGO_SECRET_KEY.startswith("sk_live_")
 
 print("PAYMONGO MODE:", "LIVE" if PAYMONGO_LIVE else "TEST")
 
+# Safe diagnostics (never prints the key itself). A normal PayMongo
+# A normal PayMongo live secret key contains a generated credential value.
+print(
+    "PAYMONGO KEY CHECK:",
+    f"prefix={PAYMONGO_SECRET_KEY[:8]!r}",
+    f"length={len(PAYMONGO_SECRET_KEY)}",
+    f"has_inner_whitespace={any(c.isspace() for c in PAYMONGO_SECRET_KEY)}",
+    f"ascii_only={PAYMONGO_SECRET_KEY.isascii()}",
+)
+
 
 # ======================================================
 # PAYMONGO WEBHOOK CONFIGURATION
